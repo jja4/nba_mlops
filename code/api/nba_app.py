@@ -20,35 +20,43 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 # FastAPI app
 app = FastAPI()
 
+
 # User model
 class User(BaseModel):
     username: str
     password: str
 
+
 # Token data model
 class TokenData(BaseModel):
     username: Optional[str] = None
+
 
 # Fake database
 users_db = {
     "johndoe": {
         "username": "johndoe",
-        "hashed_password": "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
+        "hashed_password":
+        "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
         "disabled": False,
     }
 }
+
 
 # Helper functions
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
+
 def get_password_hash(password):
     return pwd_context.hash(password)
+
 
 def get_user(username: str):
     if username in users_db:
         user_data = users_db[username]
         return User(**user_data)
+
 
 def authenticate_user(username: str, password: str):
     user = get_user(username)
@@ -58,15 +66,17 @@ def authenticate_user(username: str, password: str):
         return False
     return user
 
+
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
     if expires_delta:
-        expire = datetime.utcnow() + expires_delta
+        expire = datetime.now() + expires_delta
     else:
-        expire = datetime.utcnow() + timedelta(minutes=15)
+        expire = datetime.now() + timedelta(minutes=15)
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
+
 
 async def get_current_user(token: str = Depends(oauth2_scheme)):
     credentials_exception = HTTPException(
@@ -128,7 +138,8 @@ async def predict(data: dict, current_user: User = Depends(get_current_user)):
     prediction = predict_with_model(data)
     return {"prediction": prediction}
 
+
 # Dummy prediction function
 def predict_with_model(data):
-    # Replace with your actual machine learning model
+    # Replace with actual machine learning model
     return "This is a dummy prediction"
