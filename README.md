@@ -1,6 +1,7 @@
 NBA MLOps
 ==============================
 ![NBA Shot by Steph Curry](https://github.com/jja4/nba_mlops/blob/main/reports/images/Curry_perfect_shot.jfif)
+
 This project demonstrates MLOps best practices using a machine learning model that predicts if an NBA player will make a specific shot or not.
 
 Project Organization
