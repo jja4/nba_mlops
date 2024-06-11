@@ -6,10 +6,28 @@ from datetime import datetime, timedelta
 from passlib.context import CryptContext
 import jwt
 import pandas as pd
-import joblib
+import os
+from joblib import load
+
+# Get the path to the project root directory
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                            '..', '..'))
+
+# Construct the path to the 'trained_models' directory
+trained_models_dir = os.path.join(project_root, 'trained_models')
+
+# Specify the filename of the trained model
+joblib_filename = 'model_best_lr.joblib'
+
+# Construct the full path to the joblib file
+joblib_file_path = os.path.join(trained_models_dir, joblib_filename)
+
+# Load the joblib file
+model = load(joblib_file_path)
+
 
 # Constants
-SECRET_KEY = "your_secret_key"
+SECRET_KEY = "secret_key"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
@@ -102,7 +120,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
 # Root endpoint
 @app.get("/")
 async def root():
-    return {"message": "Welcome to the API!"}
+    return {"message": "Welcome to the NBA prediction API!"}
 
 # Signup endpoint
 @app.post("/signup")
@@ -190,11 +208,7 @@ class ScoringItem(BaseModel):
     Day_of_Week: int
 
 
-# Load the model
-model = joblib.load('/Users/Vinc/Desktop/streamlit/models/model_best_lr.joblib')
-
-
-@app.post('/')
+@app.post('/free_predict')
 async def scoring_endpoint(item: ScoringItem):
     # Create a DataFrame with the data of the request object
     df = pd.DataFrame([item.dict()])
