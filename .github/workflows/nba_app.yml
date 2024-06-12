@@ -35,4 +35,4 @@ jobs:
           PYTHONPATH: ./code
         run: |
           source venv/bin/activate
-          pytest code/tests
+          pytest -v code/tests
