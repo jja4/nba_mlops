@@ -87,6 +87,7 @@ target/
 
 # Mypy cache
 .mypy_cache/
+code/tests/venv/*
 code/tests/venv/pyvenv.cfg
 code/tests/venv/bin/activate
 code/tests/venv/bin/activate.csh
