@@ -32,9 +32,11 @@ jobs:
           source venv/bin/activate
           pip install -r requirements.txt
           export PATH="$PATH:venv/bin"  # Add venv/bin to PATH
+          pip list  # Check installed packages
 
       - name: Run tests
         env:
           PYTHONPATH: ./code  # $ export PYTHONPATH=./code
         run: |
+          source venv/bin/activate  # Ensure virtual environment is activated
           pytest -v code/tests
