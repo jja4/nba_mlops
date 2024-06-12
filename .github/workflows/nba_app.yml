@@ -36,4 +36,5 @@ jobs:
         env:
           PYTHONPATH: ./code  # $ export PYTHONPATH=./code
         run: |
+          source venv/bin/activate  # Ensure virtual environment is activated
           pytest -v code/tests
