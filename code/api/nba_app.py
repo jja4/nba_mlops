@@ -1,13 +1,10 @@
-from fastapi import FastAPI, Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi import FastAPI, HTTPException, status
 from pydantic import BaseModel
 from typing import Optional
-from datetime import datetime, timedelta
-from passlib.context import CryptContext
-import jwt
+from joblib import load
 import pandas as pd
 import os
-from joblib import load
+import numpy as np
 
 # Get the path to the project root directory
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
@@ -83,7 +80,6 @@ class ScoringItem(BaseModel):
     Day: int
     Day_of_Week: int
 
-
 @app.post('/free_predict')
 async def scoring_endpoint(item: ScoringItem):
     """
@@ -96,7 +92,7 @@ async def scoring_endpoint(item: ScoringItem):
         dict: Prediction result, can be 1 or 0 indicating shot made or missed.
     """
     # Create a DataFrame with the data of the request object
-    df = pd.DataFrame([item.dict()])
+    df = pd.DataFrame([item.model_dump()])
     # Rename the columns to match the expected names
     df = df.rename(columns={
         "Minutes_Remaining": "Minutes Remaining",
@@ -142,5 +138,4 @@ async def scoring_endpoint(item: ScoringItem):
     # Make a prediction with the loaded model
     yhat = model.predict(df)
     # Return the prediction as an answer
-    return {"prediction": int(yhat)}
-
+    return {"prediction": int(yhat.item())}  # Use item() to extract a single element

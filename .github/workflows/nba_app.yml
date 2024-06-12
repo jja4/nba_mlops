@@ -14,7 +14,7 @@ on:
       - unit-tests
 
 jobs:
-  test:
+  unit-tests:
     runs-on: ubuntu-latest
 
     steps:
