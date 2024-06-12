@@ -31,6 +31,7 @@ jobs:
           python -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
+          export PATH="$PATH:venv/bin"  # Add venv/bin to PATH
 
       - name: Run tests
         env:
