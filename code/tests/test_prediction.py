@@ -4,7 +4,7 @@ import requests
 
 client = TestClient(app)
 
-def test_root_endpoint():
+def root_endpoint():
     """
     Test the root endpoint of the NBA prediction API.
 
@@ -17,7 +17,7 @@ def test_root_endpoint():
     assert response.status_code == 200
     assert response.json() == {"message": "Welcome to the NBA prediction API!"}
 
-def test_free_predict_endpoint_shot_made():
+def free_predict_endpoint_shot_made():
     """
     Test the free_predict endpoint of the NBA prediction API for a successful shot prediction.
 

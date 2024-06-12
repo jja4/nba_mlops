@@ -26,11 +26,14 @@ jobs:
         with:
           python-version: '3.9'  # Specify the Python version you need
 
-      - name: Install dependencies and run tests
+      - name: Install dependencies
         run: |
           python -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
-          pytest -v code/tests
+
+      - name: Run tests
         env:
           PYTHONPATH: ./code  # $ export PYTHONPATH=./code
+        run: |
+          pytest -v code/tests
