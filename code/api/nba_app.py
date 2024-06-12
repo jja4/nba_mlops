@@ -7,8 +7,13 @@ from passlib.context import CryptContext
 import jwt
 import pandas as pd
 import os
-import numpy as np
+import random
 from joblib import load
+from fastapi.middleware.cors import CORSMiddleware
+from typing import Dict
+
+
+
 
 # Get the path to the project root directory
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
@@ -25,8 +30,21 @@ joblib_file_path = os.path.join(trained_models_dir, joblib_filename)
 # Load the joblib file
 model = load(joblib_file_path)
 
+# Configure CORS so we can communicate with the React frontend app
+origins = [
+    "http://localhost:3000",  # origin for the React app
+]
+
 # FastAPI app
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Root endpoint
 @app.get("/")
@@ -143,6 +161,39 @@ async def scoring_endpoint(item: ScoringItem):
     yhat = model.predict(df)
     # Return the prediction as an answer
     return {"prediction": int(yhat.item())}  # Use item() to extract a single element
+
+
+class SimplePredictInput(BaseModel):
+    X_Location: float
+    Y_Location: float
+    Player_Index: int
+
+@app.post('/simple_predict', response_model=Dict[str, int])
+def simple_predict(input_data: SimplePredictInput):
+    """
+    Simple endpoint for prediction based on X_Location, Y_Location, and
+    Player_Index.
+
+    Args:
+        input_data (SimplePredictInput): Input data containing X_Location,
+        Y_Location, and Player_Index.
+
+    Returns:
+        dict: A dictionary containing a random prediction (0 or 1).
+    """
+    # Extract input data
+    X_Location = input_data.X_Location
+    Y_Location = input_data.Y_Location
+    Player_Index = input_data.Player_Index
+
+    # Dummy prediction function
+    def simple_predict_no_model(X_Location, Y_Location, Player_Index):
+        # Replace with actual machine learning model
+        return random.randint(0, 1)
+
+    # Generate a random prediction (0 or 1)
+    prediction = simple_predict_no_model(X_Location, Y_Location, Player_Index)
+    return {"prediction": prediction}
 
 
 
@@ -295,5 +346,4 @@ async def predict(data: dict, current_user: User = Depends(get_current_user)):
 def predict_with_model(data):
     # Replace with actual machine learning model
     return "This is a dummy prediction"
-
 
