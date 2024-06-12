@@ -63,11 +63,51 @@ Project Organization
 
 
 
-------------
-Additional information
+================================================================================
+ADDITIONAL INFORMATION
+
 How to Use the `@app.post('/free_predict')` Endpoint
 To reach the `/free_predict` endpoint and make a prediction, follow these steps:
 
+We have two options to do that:
+
+A. Running the API in Python virtual environment (RECOMMENDED)
+1. Start the API
+First, navigate to the main directory and start the API using the following command in your terminal:
+```bash
+uvicorn code.api.nba_app:app --reload
+```
+This command will start the FastAPI application and make it accessible at http://localhost:8000.
+
+2. Run unit tests in another console
+```bash
+python -m venv venv
+```
+This command creates a Python virtual environment named "venv" in the current directory. A virtual environment is a self-contained 
+directory tree that contains a Python installation for a particular version of Python, plus a number of additional packages.
+
+```bash
+source venv/bin/activate
+```
+This command activates the virtual environment. When you activate a virtual environment, it changes your shell's PATH environment variable to point to the Python interpreter and other scripts specific to the virtual environment. This ensures that when you run Python commands, you're using the version of Python and packages installed in the virtual environment, rather than the system-wide Python installation.
+
+```bash
+pip install -r requirements.txt
+```
+This command installs Python packages listed in the requirements.txt file into the activated virtual environment using pip, the Python package installer. The -r flag tells pip to install all the packages listed in the requirements file.
+
+```bash
+export PYTHONPATH=./code
+```
+This command sets the PYTHONPATH environment variable to include the ./code directory. PYTHONPATH is a list of directories where Python looks for modules when you import them. By adding ./code to PYTHONPATH, you're telling Python to also search for modules in the code directory when you run your tests.
+
+```bash
+pytest -v code/tests
+```
+This command runs your unit tests using pytest, a testing framework for Python. The -v flag makes pytest run in verbose mode, which provides more detailed output about the tests being run. code/tests specifies the directory containing your test files.
+
+
+B. Running the API locally
 1. Start the API
 First, navigate to the `/code/api` directory and start the API using the following command in your terminal:
 
