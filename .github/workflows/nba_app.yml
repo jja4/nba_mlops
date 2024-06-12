@@ -6,9 +6,11 @@ name: Python API Tests
 on:
   push:
     branches:
+      - main
       - unit-tests
   pull_request:
     branches:
+      - main
       - unit-tests
 
 jobs:
@@ -32,7 +34,7 @@ jobs:
 
       - name: Run tests
         env:
-          PYTHONPATH: ./code
+          PYTHONPATH: ./code  # $ export PYTHONPATH=./code
         run: |
           source venv/bin/activate
           pytest -v code/tests
