@@ -1,6 +1,6 @@
-from fastapi import FastAPI, Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from pydantic import BaseModel
+from fastapi import FastAPI, Depends, HTTPException, status, Body
+from fastapi.security import OAuth2PasswordBearer
+from pydantic import BaseModel, Field
 from typing import Optional
 from datetime import datetime, timedelta
 from passlib.context import CryptContext
@@ -11,9 +11,6 @@ import random
 from joblib import load
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Dict
-
-
-
 
 # Get the path to the project root directory
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
@@ -218,10 +215,11 @@ def simple_predict(input_data: SimplePredictInput):
 # We do not need the rest of this code yet!
 #==============================================================
 
+
 # Constants
 SECRET_KEY = "secret_key"
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = 15
 
 # Password hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -229,10 +227,11 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 # OAuth2 bearer
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
+
 # User model
-class User(BaseModel):
-    username: str
-    password: str
+class UserSchema(BaseModel):
+    username: str = Field(default="testuser")
+    password: str = Field(default="testpassword")
 
 
 # Token data model
@@ -240,12 +239,23 @@ class TokenData(BaseModel):
     username: Optional[str] = None
 
 
+# Hashed password
+hashed_password = pwd_context.hash("testpassword")
+hashed_admin_password = pwd_context.hash("testadminpassword")
+print(hashed_password)
+
 # Fake database
 users_db = {
-    "johndoe": {
-        "username": "johndoe",
+    "testuser": {
+        "username": "testuser",
         "hashed_password":
-        "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
+        hashed_password,
+        "disabled": False,
+    },
+    "testadmin": {
+        "username": "testadmin",
+        "hashed_password":
+        hashed_admin_password,
         "disabled": False,
     }
 }
@@ -256,14 +266,32 @@ def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
 
-def get_password_hash(password):
+def create_password_hash(password):
     return pwd_context.hash(password)
+
+
+# Signup endpoint
+@app.post("/signup")
+async def signup(user: UserSchema):
+    if user.username in users_db:
+        raise HTTPException(status_code=400, detail="Username already exists")
+    
+    # Hash the plain-text password
+    hashed_password = create_password_hash(user.password)
+    
+    users_db[user.username] = {
+        "username": user.username,
+        "hashed_password": hashed_password,
+        "disabled": False,
+    }
+    return {"message": "User {user.username} created successfully"}
 
 
 def get_user(username: str):
     if username in users_db:
         user_data = users_db[username]
-        return User(**user_data)
+        return UserSchema(username=user_data["username"],
+                          hashed_password=user_data["hashed_password"])
 
 
 def authenticate_user(username: str, password: str):
@@ -273,17 +301,6 @@ def authenticate_user(username: str, password: str):
     if not verify_password(password, user.hashed_password):
         return False
     return user
-
-
-def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
-    to_encode = data.copy()
-    if expires_delta:
-        expire = datetime.now() + expires_delta
-    else:
-        expire = datetime.now() + timedelta(minutes=15)
-    to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt
 
 
 async def get_current_user(token: str = Depends(oauth2_scheme)):
@@ -305,45 +322,48 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         raise credentials_exception
     return user
 
-# Signup endpoint
-@app.post("/signup")
-async def signup(user: User):
-    if user.username in users_db:
-        raise HTTPException(status_code=400, detail="Username already exists")
-    hashed_password = get_password_hash(user.password)
-    users_db[user.username] = {
-        "username": user.username,
-        "hashed_password": hashed_password,
-        "disabled": False,
-    }
-    return {"message": "User created successfully"}
+
+def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
+    to_encode = data.copy()
+    if expires_delta:
+        expire = datetime.now() + expires_delta
+    else:
+        expire = datetime.now() + timedelta(minutes=15)
+    to_encode.update({"exp": expire})
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return encoded_jwt
+
 
 # Login endpoint
-@app.post("/login", response_model=dict)
-async def login(form_data: OAuth2PasswordRequestForm = Depends()):
-    user = authenticate_user(form_data.username, form_data.password)
-    if not user:
+@app.post("/login")
+async def login(user: UserSchema):
+    # Get the user data from the database
+    user_data = users_db.get(user.username)
+
+    if not user_data:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
+
+    # Verify the plain-text password against the hashed password
+    if not verify_password(user.password, user_data["hashed_password"]):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
         data={"sub": user.username}, expires_delta=access_token_expires
     )
     return {"access_token": access_token, "token_type": "bearer"}
 
-# Prediction endpoint
-@app.post("/predict")
-async def predict(data: dict, current_user: User = Depends(get_current_user)):
+
+@app.post("/secure_predict")
+async def predict(data: dict, current_user: UserSchema = Depends(get_current_user)):
     # Perform prediction using the machine learning model
-    prediction = predict_with_model(data)
+    prediction = random.randint(0, 1)
     return {"prediction": prediction}
-
-
-# Dummy prediction function
-def predict_with_model(data):
-    # Replace with actual machine learning model
-    return "This is a dummy prediction"
-
