@@ -26,23 +26,6 @@ def train_model(file_path):
     # Load train and test datasets from joblib file
     X_train, X_test, y_train, y_test = load(file_path)
 
-    # Standardization
-    scaler = StandardScaler()
-
-    # Columns to be standardized
-    columns_to_scale = ['Period',
-                        'Minutes Remaining',
-                        'Seconds Remaining', 
-                        'Shot Distance', 
-                        'X Location', 
-                        'Y Location']
-
-    # Scale the features for train set and replace the original columns with the scaled features
-    X_train[columns_to_scale] = scaler.fit_transform(X_train[columns_to_scale])
-
-    # Scale the features for test set and replace the original columns with the scaled features
-    X_test[columns_to_scale] = scaler.transform(X_test[columns_to_scale])
-
     # Initialize logistic regression model with 'liblinear' solver
     model = linear_model.LogisticRegression(solver='liblinear', C=1, max_iter=1000)
 

@@ -68,6 +68,23 @@ def split_train_and_test_parts(data):
     # Split the data into training and testing sets with 20% for testing
     X_train, X_test, y_train, y_test = train_test_split(features, target, test_size=0.2, random_state=66)
     
+    # Standardization
+    scaler = StandardScaler()
+
+    # Columns to be standardized
+    columns_to_scale = ['Period',
+                        'Minutes Remaining',
+                        'Seconds Remaining', 
+                        'Shot Distance', 
+                        'X Location', 
+                        'Y Location']
+
+    # Scale the features for train set and replace the original columns with the scaled features
+    X_train[columns_to_scale] = scaler.fit_transform(X_train[columns_to_scale])
+
+    # Scale the features for test set and replace the original columns with the scaled features
+    X_test[columns_to_scale] = scaler.transform(X_test[columns_to_scale])
+    
     # Save the train and test sets in a joblib file
     output_file_path = '../../' + Config.OUTPUT_TRAIN_TEST_JOBLIB_FILE
     dump((X_train, X_test, y_train, y_test), output_file_path)
