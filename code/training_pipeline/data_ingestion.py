@@ -1,9 +1,16 @@
+import sys
+import os
 import pandas as pd
 import logging
-import os
+
+# Adjust sys.path to include the 'project' directory
+project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, project_dir)
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
+
+from config.config import Config  # Import Config class from config package
 
 def fetch_data_from_csv(file_path):
     """
@@ -35,8 +42,6 @@ def validate_data(data):
     DataFrame: The validated DataFrame.
     """
     logging.info("Validating data.")
-    # Add validation rules here if you want (e.g., check for missing values, data types, etc.).
-    # We do here just checking is the data exists or empty. Other checkings we will do in the processing steps.
     if data.empty:
         logging.warning("Data is empty.")
     else:
@@ -67,6 +72,9 @@ def save_data(data, file_path):
     data (DataFrame): The data to save.
     file_path (str): The path to the CSV file to save.
     """
+    # Create parent directory if it doesn't exist
+    os.makedirs(os.path.dirname(file_path), exist_ok=True)
+    
     logging.info(f"Saving data to CSV file: {file_path}")
     data.to_csv(file_path, index=False)
     logging.info("Data saved successfully.")
@@ -79,8 +87,8 @@ def main():
     - Appends the new data to existing data if it exists.
     - Saves the combined data to a CSV file.
     """
-    input_file_path = '../../data/new_data/data.csv'
-    output_file_path = '../../data/raw/NBA Shot Locations 1997 - 2020.csv'
+    input_file_path = '../../' + Config.NEW_DATA_FILE
+    output_file_path = '../../' + Config.OUTPUT_RAW_FILE
     
     # Fetch new data
     new_data = fetch_data_from_csv(input_file_path)
