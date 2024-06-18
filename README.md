@@ -57,73 +57,72 @@ Project Organization
     ├── requirements.txt   <- The required libraries to deploy this project.
 
 
---------
-
-<p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
-
-
-
-================================================================================
+***
 ADDITIONAL INFORMATION
+***
 
 How to Use the `@app.post('/free_predict')` Endpoint
 To reach the `/free_predict` endpoint and make a prediction, follow these steps:
 
 We have two options to do that:
 
-A. Running the API in Python virtual environment (RECOMMENDED)
-1. Start the API
-First, navigate to the main directory and start the API using the following command in your terminal:
+    A. Running the API in Python virtual environment (RECOMMENDED)
+        1. Start the API
+        First, navigate to the main directory and start the API using the following command in your terminal:
 ```bash
 uvicorn code.api.nba_app:app --reload
 ```
-This command will start the FastAPI application and make it accessible at http://localhost:8000.
-
-2. Run unit tests in another console
+        This command will start the FastAPI application and make it accessible at http://localhost:8000.
+        
+        2. Run unit tests in another console
 ```bash
 python -m venv venv
 ```
-This command creates a Python virtual environment named "venv" in the current directory. A virtual environment is a self-contained 
-directory tree that contains a Python installation for a particular version of Python, plus a number of additional packages.
-
+        This command creates a Python virtual environment named "venv" in the current directory. A virtual environment is a self-contained 
+        directory tree that contains a Python installation for a particular version of Python, plus a number of additional packages.
+        
 ```bash
 source venv/bin/activate
 ```
-This command activates the virtual environment. When you activate a virtual environment, it changes your shell's PATH environment variable to point to the Python interpreter and other scripts specific to the virtual environment. This ensures that when you run Python commands, you're using the version of Python and packages installed in the virtual environment, rather than the system-wide Python installation.
-
+        This command activates the virtual environment. When you activate a virtual environment, it changes your shell's PATH environment variable to point to the Python interpreter and other scripts specific to the virtual environment. This ensures that when you run Python commands, you're using the version of Python and packages installed in the virtual environment, rather than the system-wide Python installation.
+        
 ```bash
 pip install -r requirements.txt
 ```
-This command installs Python packages listed in the requirements.txt file into the activated virtual environment using pip, the Python package installer. The -r flag tells pip to install all the packages listed in the requirements file.
-
+        This command installs Python packages listed in the requirements.txt file into the activated virtual environment using pip, the Python package installer. The -r flag tells pip to install all the packages listed in the requirements file.
+        
 ```bash
 export PYTHONPATH=./code
 ```
-This command sets the PYTHONPATH environment variable to include the ./code directory. PYTHONPATH is a list of directories where Python looks for modules when you import them. By adding ./code to PYTHONPATH, you're telling Python to also search for modules in the code directory when you run your tests.
-
+        This command sets the PYTHONPATH environment variable to include the ./code directory. PYTHONPATH is a list of directories where Python looks for modules when you import them. By adding ./code to PYTHONPATH, you're telling Python to also search for modules in the code directory when you run your tests.
+        
 ```bash
 pytest -v code/tests
 ```
-This command runs your unit tests using pytest, a testing framework for Python. The -v flag makes pytest run in verbose mode, which provides more detailed output about the tests being run. code/tests specifies the directory containing your test files.
-
-
-B. Running the API locally
-1. Start the API
-First, navigate to the `/code/api` directory and start the API using the following command in your terminal:
-
+        This command runs your unit tests using pytest, a testing framework for Python. The -v flag makes pytest run in verbose mode, which provides more detailed output about the tests being run. code/tests specifies the directory containing your test files.
+    
+    
+    B. Running the API locally
+        1. Start the API
+        First, navigate to the `/code/api` directory and start the API using the following command in your terminal:
+        
 ```bash
 uvicorn nba_app:app
 ```
-This command will start the FastAPI application and make it accessible at http://localhost:8000.
+        This command will start the FastAPI application and make it accessible at http://localhost:8000.
 
-2. Make a POST Request
-You can use Postman to make a POST request to the /free_predict endpoint. Here’s how:
+**Make a POST Request**
+    You can use Postman to make a POST request to the /free_predict endpoint. Here’s how:
 
-2.1 Open Postman and create a new POST request.
-2.2 Set the request URL to http://localhost:8000/free_predict.
-2.3 In the Body tab, select raw and JSON.
-2.4 Provide the following JSON object with values for the features used to train the model:
-    {
+    1. Open Postman and create a new POST request.
+
+    2. Set the request URL to http://localhost:8000/free_predict.
+
+    3. In the Body tab, select raw and JSON.
+
+    4. Provide the following JSON object with values for the features used to train the model:
+```bash
+{
         "Period": 1,
         "Minutes_Remaining": 10,
         "Seconds_Remaining": 30,
@@ -164,5 +163,19 @@ You can use Postman to make a POST request to the /free_predict endpoint. Here�
         "Day": 11,
         "Day_of_Week": 5
     }
-2.5 Send the request
-2.6 Get the prediction (0 or 1)
+```
+    5. Send the request
+
+    6. Get the prediction (0 or 1)
+
+**Installing and Connecting to the PostgreSQL Database**
+```bash
+sudo apt install postgresql postgresql-contrib
+sudo -i -u postgres
+psql
+CREATE USER nba WITH PASSWORD 'mlops';
+CREATE DATABASE nba_db;
+GRANT ALL PRIVILEGES ON DATABASE nba_db TO nba;
+\q
+exit
+```
