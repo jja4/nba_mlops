@@ -1,16 +1,58 @@
-from fastapi import FastAPI, Depends, HTTPException, status, Body
-from fastapi.security import OAuth2PasswordBearer
-from pydantic import BaseModel, Field
-from typing import Optional
-from datetime import datetime, timedelta
-from passlib.context import CryptContext
+from datetime import datetime, timedelta, timezone
+from typing import Union, Optional, Dict
+
 import jwt
+from fastapi import Depends, FastAPI, HTTPException, status, Body
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from jwt.exceptions import InvalidTokenError
+from passlib.context import CryptContext
+from typing_extensions import Annotated
+from pydantic import BaseModel, Field
 import pandas as pd
 import os
 import random
 from joblib import load
 from fastapi.middleware.cors import CORSMiddleware
-from typing import Dict
+
+# to get a string like this run:
+# openssl rand -hex 32
+SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+
+fake_users_db = {
+    "johndoe": {
+        "username": "johndoe",
+        "hashed_password": "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
+        "disabled": False,
+    }
+}
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    username: Union[str, None] = None
+
+
+class User(BaseModel):
+    username: str = Field(default="testuser")
+    password: str = Field(default="testpassword")
+    disabled: Union[bool, None] = None
+
+
+class UserInDB(User):
+    hashed_password: str
+
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
+
 
 # Get the path to the project root directory
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
@@ -32,16 +74,70 @@ origins = [
     "http://localhost:3000",  # origin for the React app
 ]
 
-# FastAPI app
+
 app = FastAPI()
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+
+def verify_password(plain_password, hashed_password):
+    return pwd_context.verify(plain_password, hashed_password)
+
+
+def get_password_hash(password):
+    return pwd_context.hash(password)
+
+
+def get_user(db, username: str):
+    if username in db:
+        user_dict = db[username]
+        return UserInDB(**user_dict)
+
+
+def authenticate_user(fake_db, username: str, password: str):
+    user = get_user(fake_db, username)
+    if not user:
+        return False
+    if not verify_password(password, user.hashed_password):
+        return False
+    return user
+
+
+def create_access_token(data: dict, expires_delta: Union[timedelta, None] = None):
+    to_encode = data.copy()
+    if expires_delta:
+        expire = datetime.now(timezone.utc) + expires_delta
+    else:
+        expire = datetime.now(timezone.utc) + timedelta(minutes=15)
+    to_encode.update({"exp": expire})
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return encoded_jwt
+
+
+async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        username: str = payload.get("sub")
+        if username is None:
+            raise credentials_exception
+        token_data = TokenData(username=username)
+    except InvalidTokenError:
+        raise credentials_exception
+    user = get_user(fake_users_db, username=token_data.username)
+    if user is None:
+        raise credentials_exception
+    return user
+
+
+async def get_current_active_user(
+    current_user: Annotated[User, Depends(get_current_user)],
+):
+    if current_user.disabled:
+        raise HTTPException(status_code=400, detail="Inactive user")
+    return current_user
 
 # Root endpoint
 @app.get("/")
@@ -54,6 +150,66 @@ async def root():
     """
     return {"message": "Welcome to the NBA prediction API!"}
 
+@app.post("/login")
+async def login_for_access_token(
+    form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
+) -> Token:
+    user = authenticate_user(fake_users_db, form_data.username, form_data.password)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": user.username}, expires_delta=access_token_expires
+    )
+    return Token(access_token=access_token, token_type="bearer")
+
+
+
+# Signup endpoint
+@app.post("/signup")
+async def signup(user: User):
+    if user.username in fake_users_db:
+        raise HTTPException(status_code=400, detail="Username already exists")
+    
+    # Hash the plain-text password
+    hashed_password = get_password_hash(user.password)
+    
+    fake_users_db[user.username] = {
+        "username": user.username,
+        "hashed_password": hashed_password,
+        "disabled": False,
+    }
+    return {"message": f"User {user.username} created successfully"}
+
+@app.get("/user", response_model=User)
+async def read_current_user(
+    current_user: Annotated[User, Depends(get_current_active_user)],
+):
+    return current_user
+
+
+@app.post("/secure_predict")
+async def secure_predict(
+    current_user: Annotated[User, Depends(get_current_active_user)],
+):
+    # Perform prediction using the machine learning model
+    prediction = random.randint(0, 1)
+    return {"prediction": prediction}
+
+    
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 class ScoringItem(BaseModel):
     """
     Model representing scoring parameters for prediction.
@@ -64,7 +220,6 @@ class ScoringItem(BaseModel):
     Shot_Distance: int
     X_Location: int
     Y_Location: int
-    #Shot_Made_Flag: int
     Action_Type_Frequency: float
     Team_Name_Frequency: float
     Home_Team_Frequency: float
@@ -99,8 +254,8 @@ class ScoringItem(BaseModel):
     Day: int
     Day_of_Week: int
 
-@app.post('/free_predict')
-async def scoring_endpoint(item: ScoringItem):
+@app.post('/unsecure_predict')
+async def unsecure_predict(item: ScoringItem):
     """
     Endpoint for free_prediction based on scoring parameters.
 
@@ -190,178 +345,4 @@ def simple_predict(input_data: SimplePredictInput):
 
     # Generate a random prediction (0 or 1)
     prediction = simple_predict_no_model(X_Location, Y_Location, Player_Index)
-    return {"prediction": prediction}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# We do not need the rest of this code yet!
-#==============================================================
-
-
-# Constants
-SECRET_KEY = "secret_key"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 15
-
-# Password hashing
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-# OAuth2 bearer
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-
-
-# User model
-class UserSchema(BaseModel):
-    username: str = Field(default="testuser")
-    password: str = Field(default="testpassword")
-
-
-# Token data model
-class TokenData(BaseModel):
-    username: Optional[str] = None
-
-
-# Hashed password
-hashed_password = pwd_context.hash("testpassword")
-hashed_admin_password = pwd_context.hash("testadminpassword")
-print(hashed_password)
-
-# Fake database
-users_db = {
-    "testuser": {
-        "username": "testuser",
-        "hashed_password":
-        hashed_password
-    },
-    "testadmin": {
-        "username": "testadmin",
-        "hashed_password":
-        hashed_admin_password
-    }
-}
-
-
-# Helper functions
-def verify_password(plain_password, hashed_password):
-    return pwd_context.verify(plain_password, hashed_password)
-
-
-def create_password_hash(password):
-    return pwd_context.hash(password)
-
-
-# Signup endpoint
-@app.post("/signup")
-async def signup(user: UserSchema):
-    if user.username in users_db:
-        raise HTTPException(status_code=400, detail="Username already exists")
-    
-    # Hash the plain-text password
-    hashed_password = create_password_hash(user.password)
-    
-    users_db[user.username] = {
-        "username": user.username,
-        "hashed_password": hashed_password,
-        "disabled": False,
-    }
-    return {"message": "User {user.username} created successfully"}
-
-
-def get_user(username: str):
-    if username in users_db:
-        user_data = users_db[username]
-        return UserSchema(username=user_data["username"],
-                          hashed_password=user_data["hashed_password"])
-
-
-def authenticate_user(username: str, password: str):
-    user = get_user(username)
-    if not user:
-        return False
-    if not verify_password(password, user.hashed_password):
-        return False
-    return user
-
-
-async def get_current_user(token: str = Depends(oauth2_scheme)):
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
-        headers={"WWW-Authenticate": "Bearer"},
-    )
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
-        if username is None:
-            raise credentials_exception
-        token_data = TokenData(username=username)
-    except jwt.PyJWTError:
-        raise credentials_exception
-    user = get_user(username=token_data.username)
-    if user is None:
-        raise credentials_exception
-    return user
-
-
-def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
-    to_encode = data.copy()
-    if expires_delta:
-        expire = datetime.now() + expires_delta
-    else:
-        expire = datetime.now() + timedelta(minutes=15)
-    to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt
-
-
-# Login endpoint
-@app.post("/login")
-async def login(user: UserSchema):
-    # Get the user data from the database
-    user_data = users_db.get(user.username)
-
-    if not user_data:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
-
-    # Verify the plain-text password against the hashed password
-    if not verify_password(user.password, user_data["hashed_password"]):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
-
-    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    access_token = create_access_token(
-        data={"sub": user.username}, expires_delta=access_token_expires
-    )
-    return {"access_token": access_token, "token_type": "bearer"}
-
-
-@app.post("/secure_predict")
-async def predict(data: dict, current_user: UserSchema = Depends(get_current_user)):
-    # Perform prediction using the machine learning model
-    prediction = random.randint(0, 1)
     return {"prediction": prediction}
