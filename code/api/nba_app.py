@@ -249,14 +249,12 @@ users_db = {
     "testuser": {
         "username": "testuser",
         "hashed_password":
-        hashed_password,
-        "disabled": False,
+        hashed_password
     },
     "testadmin": {
         "username": "testadmin",
         "hashed_password":
-        hashed_admin_password,
-        "disabled": False,
+        hashed_admin_password
     }
 }
 
