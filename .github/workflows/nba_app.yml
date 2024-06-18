@@ -7,11 +7,11 @@ on:
   push:
     branches:
       - main
-      - unit-tests
+      - training-pipeline
   pull_request:
     branches:
       - main
-      - unit-tests
+      - training-pipeline
 
 jobs:
   unit-tests:
