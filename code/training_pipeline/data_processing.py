@@ -35,8 +35,12 @@ def transform_data(data):
     data = transform_attributes_with_high_cardinality(data)
     data = one_hot_encoding(data)
     data = transform_quantitative_attributes_with_unique_ids(data)
-    data.drop(['Player Name'], axis=1, inplace=True)  # Remove 'Player Name' column
-    data.drop(['Team ID'], axis=1, inplace=True)  # Remove 'Team ID' column
+    
+    if 'Player Name' in data.columns:
+        data.drop(['Player Name'], axis=1, inplace=True)  # Remove 'Player Name' column if exists
+    if 'Team ID' in data.columns:
+        data.drop(['Team ID'], axis=1, inplace=True)  # Remove 'Team ID' column if exists
+        
     return data
 
 def transform_quantitative_attributes_with_unique_ids(data):
