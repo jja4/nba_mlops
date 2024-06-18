@@ -1,4 +1,12 @@
+import sys
+import os
 import pandas as pd
+
+# Adjust sys.path to include the 'project' directory
+project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, project_dir)
+
+from config.config import Config  # Import Config class from config package
 
 def clean_data(data):
     """
@@ -60,10 +68,10 @@ def one_hot_encoding(data):
     shot_type_encoded = pd.get_dummies(data['Shot Type'], prefix='ShotType', dtype=int)
     shot_zone_basic_encoded = pd.get_dummies(data['Shot Zone Basic'], prefix='ShotZoneBasic', dtype=int)
     shot_zone_area_encoded = pd.get_dummies(data['Shot Zone Area'], prefix='ShotZoneArea', dtype=int)
-    season_zone_range_encoded = pd.get_dummies(data['Shot Zone Range'], prefix='ShotZoneRange', dtype=int)
+    shot_zone_range_encoded = pd.get_dummies(data['Shot Zone Range'], prefix='ShotZoneRange', dtype=int)
     season_type_encoded = pd.get_dummies(data['Season Type'], prefix='SeasonType', dtype=int)
     
-    data = pd.concat([data, shot_type_encoded, shot_zone_basic_encoded, shot_zone_area_encoded, season_zone_range_encoded, season_type_encoded], axis=1)
+    data = pd.concat([data, shot_type_encoded, shot_zone_basic_encoded, shot_zone_area_encoded, shot_zone_range_encoded, season_type_encoded], axis=1)
     data.drop(['Shot Type', 'Shot Zone Basic', 'Shot Zone Area', 'Shot Zone Range', 'Season Type'], axis=1, inplace=True)
     return data
 
@@ -103,10 +111,13 @@ def main():
     """
     Main function to load, clean, transform, and save the dataset.
     """
-    data = pd.read_csv('../../data/raw/NBA Shot Locations 1997 - 2020.csv')
+    input_file_path = '../../' + Config.OUTPUT_RAW_FILE
+    output_file_path = '../../' + Config.OUTPUT_PREPROCESSED_FILE
+
+    data = pd.read_csv(input_file_path)
     data = clean_data(data)
     data = transform_data(data)
-    data.to_csv('../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv', index=False)
+    data.to_csv(output_file_path, index=False)
 
 if __name__ == "__main__":
     main()

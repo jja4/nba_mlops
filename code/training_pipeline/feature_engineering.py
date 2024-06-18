@@ -1,8 +1,16 @@
+import sys
+import os
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from joblib import dump
 import logging
+
+# Adjust sys.path to include the 'project' directory
+project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, project_dir)
+
+from config.config import Config  # Import Config class from config package
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -61,7 +69,8 @@ def split_train_and_test_parts(data):
     X_train, X_test, y_train, y_test = train_test_split(features, target, test_size=0.2, random_state=66)
     
     # Save the train and test sets in a joblib file
-    dump((X_train, X_test, y_train, y_test), '../../data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib')
+    output_file_path = '../../' + Config.OUTPUT_TRAIN_TEST_JOBLIB_FILE
+    dump((X_train, X_test, y_train, y_test), output_file_path)
     logging.info("New joblib file generated successfully.")
 
 def main():
@@ -69,7 +78,8 @@ def main():
     Main function to load the data, create features, and save the processed train and test sets.
     """
     # Load the processed data from CSV file
-    data = pd.read_csv('../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv')
+    input_file_path = '../../' + Config.OUTPUT_PREPROCESSED_FILE
+    data = pd.read_csv(input_file_path)
     
     # Create features
     data = create_features(data)
