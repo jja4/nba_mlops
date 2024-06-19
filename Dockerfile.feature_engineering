@@ -11,4 +11,4 @@ COPY . /app
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # Run data_processing.py when the container launches
-CMD ["python", "data_ingestion.py"]
+CMD ["python", "feature_engineering.py"]
