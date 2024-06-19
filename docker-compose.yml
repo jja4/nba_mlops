@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  data_ingestion:
+    build:
+      context: .
+      dockerfile: Dockerfile.data_ingestion
+    volumes:
+      - .:/app
+    depends_on: []
+
+  data_processing:
+    build:
+      context: .
+      dockerfile: Dockerfile.data_processing
+    volumes:
+      - .:/app
+    depends_on:
+      - data_ingestion
+
+  feature_engineering:
+    build:
+      context: .
+      dockerfile: Dockerfile.feature_engineering
+    volumes:
+      - .:/app
+    depends_on:
+      - data_processing
+
+  model_training:
+    build:
+      context: .
+      dockerfile: Dockerfile.model_training
+    volumes:
+      - .:/app
+    depends_on:
+      - feature_engineering
+
+  inference:
+    build:
+      context: .
+      dockerfile: Dockerfile.inference
+    volumes:
+      - .:/app
+    depends_on:
+      - model_training
