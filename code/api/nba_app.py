@@ -21,7 +21,7 @@ ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 
-fake_users_db = {
+nba_db = {
     "johndoe": {
         "username": "johndoe",
         "hashed_password": "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
@@ -126,7 +126,7 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
         token_data = TokenData(username=username)
     except InvalidTokenError:
         raise credentials_exception
-    user = get_user(fake_users_db, username=token_data.username)
+    user = get_user(nba_db, username=token_data.username)
     if user is None:
         raise credentials_exception
     return user
@@ -154,7 +154,7 @@ async def root():
 async def login_for_access_token(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
 ) -> Token:
-    user = authenticate_user(fake_users_db, form_data.username, form_data.password)
+    user = authenticate_user(nba_db, form_data.username, form_data.password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -172,13 +172,13 @@ async def login_for_access_token(
 # Signup endpoint
 @app.post("/signup")
 async def signup(user: User):
-    if user.username in fake_users_db:
+    if user.username in nba_db:
         raise HTTPException(status_code=400, detail="Username already exists")
     
     # Hash the plain-text password
     hashed_password = get_password_hash(user.password)
     
-    fake_users_db[user.username] = {
+    nba_db[user.username] = {
         "username": user.username,
         "hashed_password": hashed_password,
         "disabled": False,
@@ -192,7 +192,7 @@ async def read_current_user(
     return current_user
 
 
-@app.post("/secure_predict")
+@app.post("/predict")
 async def secure_predict(
     current_user: Annotated[User, Depends(get_current_active_user)],
 ):
@@ -319,8 +319,8 @@ class SimplePredictInput(BaseModel):
     X_Location: float
     Y_Location: float
     Player_Index: int
-
-@app.post('/simple_predict', response_model=Dict[str, int])
+# endpoint with a description of Simple Predict for Frontend
+@app.post('/simple_predict', response_model=Dict[str, int], name="Simple prediction based on X_Location, Y_Location, and Player_Index.")
 def simple_predict(input_data: SimplePredictInput):
     """
     Simple endpoint for prediction based on X_Location, Y_Location, and
