@@ -1,0 +1,12 @@
+# Use the official PostgreSQL image from Docker Hub
+FROM postgres:12-alpine
+
+# Set environment variables for PostgreSQL
+ENV POSTGRES_USER=ubuntu
+ENV POSTGRES_PASSWORD=mlops
+ENV POSTGRES_DB=nba_db
+
+# Copy the SQL script to create the database and table
+COPY ./code/retrieve_data/setup_database.py /docker-entrypoint-initdb.d/
+# Expose the PostgreSQL port
+EXPOSE 5432
