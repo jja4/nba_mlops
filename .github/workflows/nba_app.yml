@@ -8,10 +8,12 @@ on:
     branches:
       - main
       - training-pipeline
+      - docker
   pull_request:
     branches:
       - main
       - training-pipeline
+      - docker
 
 jobs:
   unit-tests:
