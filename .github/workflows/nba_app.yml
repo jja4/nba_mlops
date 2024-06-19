@@ -19,6 +19,13 @@ jobs:
   unit-tests:
     runs-on: ubuntu-latest
 
+    env:
+      PYTHONPATH: ./code
+      DB_HOST: localhost
+      DB_NAME: nba_db
+      DB_USER: ubuntu
+      DB_PASSWORD: mlops
+
     services:
       postgres:
         image: postgres:12  # Use the desired PostgreSQL version
@@ -49,13 +56,12 @@ jobs:
           source venv/bin/activate
           pip install -r requirements.txt
 
+      - name: Set up database
+        run: |
+          source venv/bin/activate
+          python code/retrieve_data/setup_database.py
+      
       - name: Run tests
-        env:
-          PYTHONPATH: ./code
-          DB_HOST: localhost
-          DB_NAME: nba_db
-          DB_USER: ubuntu
-          DB_PASSWORD: mlops
         run: |
           source venv/bin/activate
           pytest -v code/tests
