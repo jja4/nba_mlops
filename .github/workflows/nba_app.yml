@@ -7,12 +7,14 @@ on:
   push:
     branches:
       - main
-      - unit-tests
+      - training-pipeline
+      - docker
       - database_integration
   pull_request:
     branches:
       - main
-      - unit-tests
+      - training-pipeline
+      - docker
       - database_integration
 
 jobs:
