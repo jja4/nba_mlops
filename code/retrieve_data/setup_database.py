@@ -49,7 +49,7 @@ cur.execute(
     """
 )
 table_exists = cur.fetchone()[0]
-print(table_exists)
+print("users table exists:", table_exists)
 
 # Create the 'users' table if it doesn't exist
 if not table_exists:
@@ -66,3 +66,7 @@ if not table_exists:
 
 # Commit the changes
 conn.commit()
+
+# Close the cursor and connection
+cur.close()
+conn.close()

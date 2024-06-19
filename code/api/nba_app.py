@@ -16,6 +16,8 @@ from fastapi.middleware.cors import CORSMiddleware
 import psycopg2
 from psycopg2.extras import RealDictCursor
 
+app = FastAPI()
+
 # to get a string like this run:
 # openssl rand -hex 32
 SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
@@ -25,8 +27,22 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 # Database connection details
 DB_HOST = "localhost"
 DB_NAME = "nba_db"
-DB_USER = "nba"
+DB_USER = "ubuntu"
 DB_PASSWORD = "mlops"
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
+
+
+def get_password_hash(password):
+    return pwd_context.hash(password)
+
+
+username = "johndoe"
+password = "secret"
+hashed_password = get_password_hash(password)
+disabled = False
 
 
 def get_db_connection():
@@ -39,14 +55,26 @@ def get_db_connection():
     )
     return conn
 
-# nba_db = {
-#     "johndoe": {
-#         "username": "johndoe",
-#         "hashed_password": "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
-#         "disabled": False,
-#     }
-# }
 
+with get_db_connection() as conn:
+    with conn.cursor() as cur:
+        # Check if the username already exists
+        check_query = "SELECT COUNT(*) FROM users WHERE username = %s"
+        cur.execute(check_query, (username,))
+        count = cur.fetchone()['count']
+
+        if count == 0:
+            # Username doesn't exist, insert the new user
+            insert_query = """
+            INSERT INTO users (username, hashed_password, disabled)
+            VALUES (%s, %s, %s)
+            """
+            cur.execute(insert_query, (username, hashed_password, disabled))
+            print(f"User '{username}' inserted successfully.")
+        else:
+            print(f"User '{username}' already exists.")
+
+    conn.commit()
 
 class Token(BaseModel):
     access_token: str
@@ -63,13 +91,13 @@ class User(BaseModel):
     disabled: Union[bool, None] = None
 
 
+class UserOut(BaseModel):
+    username: str
+    disabled: Union[bool, None] = None
+
+
 class UserInDB(User):
     hashed_password: str
-
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
 
 # Get the path to the project root directory
@@ -93,17 +121,6 @@ origins = [
 ]
 
 
-app = FastAPI()
-
-
-def verify_password(plain_password, hashed_password):
-    return pwd_context.verify(plain_password, hashed_password)
-
-
-def get_password_hash(password):
-    return pwd_context.hash(password)
-
-
 def get_user(username: str):
     conn = get_db_connection()
     cur = conn.cursor()
@@ -115,6 +132,10 @@ def get_user(username: str):
         return UserInDB(**user)
     else:
         return None
+
+
+def verify_password(plain_password, hashed_password):
+    return pwd_context.verify(plain_password, hashed_password)
 
 
 def authenticate_user(username: str, password: str):
@@ -151,13 +172,13 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
         token_data = TokenData(username=username)
     except InvalidTokenError:
         raise credentials_exception
-    user = get_user(nba_db, username=token_data.username)
+    user = get_user(username=token_data.username)
     if user is None:
         raise credentials_exception
     return user
 
 
-async def get_current_active_user(
+async def authorize_user(
     current_user: Annotated[User, Depends(get_current_user)],
 ):
     if current_user.disabled:
@@ -179,7 +200,7 @@ async def root():
 async def login_for_access_token(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
 ) -> Token:
-    user = authenticate_user(nba_db, form_data.username, form_data.password)
+    user = authenticate_user(form_data.username, form_data.password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -211,16 +232,16 @@ async def signup(user: User):
         cur.close()
         conn.close()
 
-@app.get("/user", response_model=User)
+@app.get("/user", response_model=UserOut)
 async def read_current_user(
-    current_user: Annotated[User, Depends(get_current_active_user)],
+    current_user: Annotated[User, Depends(authorize_user)],
 ):
-    return current_user
+    return UserOut(username=current_user.username, disabled=current_user.disabled)
 
 
 @app.post("/predict")
 async def secure_predict(
-    current_user: Annotated[User, Depends(get_current_active_user)],
+    current_user: Annotated[User, Depends(authorize_user)],
 ):
     # Perform prediction using the machine learning model
     prediction = random.randint(0, 1)
@@ -283,7 +304,7 @@ class ScoringItem(BaseModel):
 @app.post('/unsecure_predict')
 async def unsecure_predict(item: ScoringItem):
     """
-    Endpoint for free_prediction based on scoring parameters.
+    Endpoint for unsecure_prediction based on scoring parameters.
 
     Args:
         item (ScoringItem): Input parameters for prediction.

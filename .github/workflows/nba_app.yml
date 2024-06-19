@@ -8,10 +8,12 @@ on:
     branches:
       - main
       - unit-tests
+      - database_integration
   pull_request:
     branches:
       - main
       - unit-tests
+      - database_integration
 
 jobs:
   unit-tests:
