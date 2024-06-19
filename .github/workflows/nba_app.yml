@@ -36,7 +36,26 @@ jobs:
 
       - name: Run tests
         env:
-          PYTHONPATH: ./code  # $ export PYTHONPATH=./code
+          PYTHONPATH: ./code
+          DB_HOST: localhost
+          DB_NAME: nba_db
+          DB_USER: nba
+          DB_PASSWORD: mlops
         run: |
-          source venv/bin/activate  # Ensure virtual environment is activated
+          source venv/bin/activate
           pytest -v code/tests
+
+services:
+  postgres:
+    image: postgres:12  # Use the desired PostgreSQL version
+    env:
+      POSTGRES_USER: nba
+      POSTGRES_PASSWORD: mlops
+      POSTGRES_DB: nba_db
+    ports:
+      - 5432:5432
+    options: >-
+      --health-cmd pg_isready
+      --health-interval 10s
+      --health-timeout 5s
+      --health-retries 5
