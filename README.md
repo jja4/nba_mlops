@@ -176,11 +176,10 @@ You can use Postman to make a POST request to the /unsecure_predict endpoint. He
 ## Installing and Connecting to the PostgreSQL Database
 ```bash
 sudo apt install postgresql postgresql-contrib
-sudo -i -u postgres
-psql
-CREATE USER nba WITH PASSWORD 'mlops';
+sudo -i -u postgres psql
+CREATE USER ubuntu WITH PASSWORD 'mlops';
 CREATE DATABASE nba_db;
-GRANT ALL PRIVILEGES ON DATABASE nba_db TO nba;
+GRANT ALL PRIVILEGES ON DATABASE nba_db TO ubuntu;
 \q
 exit
 ```

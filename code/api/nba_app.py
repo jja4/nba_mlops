@@ -13,6 +13,8 @@ import os
 import random
 from joblib import load
 from fastapi.middleware.cors import CORSMiddleware
+import psycopg2
+from psycopg2.extras import RealDictCursor
 
 # to get a string like this run:
 # openssl rand -hex 32
@@ -20,14 +22,30 @@ SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
+# Database connection details
+DB_HOST = "localhost"
+DB_NAME = "nba_db"
+DB_USER = "nba"
+DB_PASSWORD = "mlops"
 
-nba_db = {
-    "johndoe": {
-        "username": "johndoe",
-        "hashed_password": "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
-        "disabled": False,
-    }
-}
+
+def get_db_connection():
+    conn = psycopg2.connect(
+        host=DB_HOST,
+        database=DB_NAME,
+        user=DB_USER,
+        password=DB_PASSWORD,
+        cursor_factory=RealDictCursor
+    )
+    return conn
+
+# nba_db = {
+#     "johndoe": {
+#         "username": "johndoe",
+#         "hashed_password": "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
+#         "disabled": False,
+#     }
+# }
 
 
 class Token(BaseModel):
@@ -86,14 +104,21 @@ def get_password_hash(password):
     return pwd_context.hash(password)
 
 
-def get_user(db, username: str):
-    if username in db:
-        user_dict = db[username]
-        return UserInDB(**user_dict)
+def get_user(username: str):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT username, hashed_password, disabled FROM users WHERE username = %s", (username,))
+    user = cur.fetchone()
+    cur.close()
+    conn.close()
+    if user:
+        return UserInDB(**user)
+    else:
+        return None
 
 
-def authenticate_user(fake_db, username: str, password: str):
-    user = get_user(fake_db, username)
+def authenticate_user(username: str, password: str):
+    user = get_user(username)
     if not user:
         return False
     if not verify_password(password, user.hashed_password):
@@ -172,18 +197,19 @@ async def login_for_access_token(
 # Signup endpoint
 @app.post("/signup")
 async def signup(user: User):
-    if user.username in nba_db:
+    conn = get_db_connection()
+    cur = conn.cursor()
+    try:
+        hashed_password = get_password_hash(user.password)
+        cur.execute("INSERT INTO users (username, hashed_password, disabled) VALUES (%s, %s, %s)",
+                    (user.username, hashed_password, user.disabled))
+        conn.commit()
+        return {"message": f"User {user.username} created successfully"}
+    except psycopg2.errors.UniqueViolation:
         raise HTTPException(status_code=400, detail="Username already exists")
-    
-    # Hash the plain-text password
-    hashed_password = get_password_hash(user.password)
-    
-    nba_db[user.username] = {
-        "username": user.username,
-        "hashed_password": hashed_password,
-        "disabled": False,
-    }
-    return {"message": f"User {user.username} created successfully"}
+    finally:
+        cur.close()
+        conn.close()
 
 @app.get("/user", response_model=User)
 async def read_current_user(
