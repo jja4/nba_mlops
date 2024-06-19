@@ -16,7 +16,7 @@ from training_pipeline.model_training import train_model
 def test_train_model():
 
     # Generate synthetic data
-    file_path = 'test.joblib'  # Update with actual path
+    file_path = './test.joblib'  # Update with actual path
     print(f"Loading data from: {file_path}")
 
     X_train, X_test, y_train, y_test = load(file_path)
