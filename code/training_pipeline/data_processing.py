@@ -1,12 +1,16 @@
 import sys
 import os
 import pandas as pd
+import logging
 
 # Adjust sys.path to include the 'project' directory
 project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_dir)
 
 from config.config import Config  # Import Config class from config package
+
+# Set up logging
+logging.basicConfig(level=logging.INFO)
 
 def clean_data(data):
     """
@@ -122,6 +126,8 @@ def main():
     data = clean_data(data)
     data = transform_data(data)
     data.to_csv(output_file_path, index=False)
+    logging.info("Processed data saved successfully.")
+    logging.info(output_file_path)
 
 if __name__ == "__main__":
     main()

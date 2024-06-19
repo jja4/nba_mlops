@@ -89,6 +89,7 @@ def split_train_and_test_parts(data):
     output_file_path = '../../' + Config.OUTPUT_TRAIN_TEST_JOBLIB_FILE
     dump((X_train, X_test, y_train, y_test), output_file_path)
     logging.info("New joblib file generated successfully.")
+    logging.info(output_file_path)
 
 def main():
     """

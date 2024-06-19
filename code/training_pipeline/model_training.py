@@ -6,10 +6,14 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 from joblib import load, dump
 from sklearn.preprocessing import StandardScaler
+import logging
 
 # Adjust sys.path to include the 'project' directory
 project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_dir)
+
+# Set up logging
+logging.basicConfig(level=logging.INFO)
 
 from config.config import Config  # Import Config class from config package
 
@@ -52,7 +56,11 @@ def main():
     model = train_model(file_path)
     
     # Save the trained model to a file
-    dump(model, '../../' + Config.OUTPUT_TRAINED_MODEL_FILE_LR)
+    output_file_path = '../../' + Config.OUTPUT_TRAINED_MODEL_FILE_LR
+    dump(model, output_file_path)
+
+    logging.info("Model file data saved successfully.")
+    logging.info(output_file_path)
 
 if __name__ == "__main__":
     main()

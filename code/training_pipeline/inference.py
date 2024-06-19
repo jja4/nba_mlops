@@ -3,11 +3,15 @@ import os
 import pandas as pd
 from joblib import load
 from sklearn.model_selection import train_test_split
+import logging
 
 # Adjust sys.path to include the 'project' directory
 # This allows the script to find and import the Config module
 project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_dir)
+
+# Set up logging
+logging.basicConfig(level=logging.INFO)
 
 from config.config import Config  # Import Config class from config package
 
@@ -61,7 +65,10 @@ def main():
     print(f"Predictions: {X_test.shape}")
     
     # Save predictions to a CSV file
-    pd.DataFrame(predictions, columns=['Prediction']).to_csv('../../' + Config.OUTPUT_PREDICTIONS_RESULTS_FILE, index=False)
+    output_file_path = '../../' + Config.OUTPUT_PREDICTIONS_RESULTS_FILE
+    pd.DataFrame(predictions, columns=['Prediction']).to_csv(output_file_path, index=False)
+    logging.info("Prediction file data saved successfully.")
+    logging.info(output_file_path)
 
 if __name__ == "__main__":
     main()
