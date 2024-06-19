@@ -275,7 +275,7 @@ async def unsecure_predict(item: ScoringItem):
         "X_Location": "X Location",
         "Y_Location": "Y Location",
         #"Shot_Made_Flag": "Shot Made Flag",
-        "Action_Type_Frequency": "Action Type_Frequency",
+        "Action_Type_Frequency": "Action Type Frequency",
         "Team_Name_Frequency": "Team Name_Frequency",
         "Home_Team_Frequency": "Home Team_Frequency",
         "Away_Team_Frequency": "Away Team_Frequency",
