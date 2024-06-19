@@ -4,7 +4,7 @@ from psycopg2 import OperationalError
 # Database connection details
 DB_HOST = "localhost"
 DB_NAME = "nba_db"
-DB_USER = "nba"
+DB_USER = "ubuntu"
 DB_PASSWORD = "mlops"
 
 # Connect to the PostgreSQL server
@@ -41,12 +41,15 @@ except OperationalError:
 cur.execute(
     """
     SELECT EXISTS (
-        SELECT FROM information_schema.tables
-        WHERE table_name = 'users'
+        SELECT 1
+        FROM information_schema.tables t
+        JOIN information_schema.schemata s ON t.table_schema = s.schema_name
+        WHERE t.table_name = 'users'
     )
     """
 )
 table_exists = cur.fetchone()[0]
+print("users table exists:", table_exists)
 
 # Create the 'users' table if it doesn't exist
 if not table_exists:
@@ -55,10 +58,15 @@ if not table_exists:
         CREATE TABLE users (
             id SERIAL PRIMARY KEY,
             username VARCHAR(255) UNIQUE NOT NULL,
-            hashed_password VARCHAR(255) NOT NULL
+            hashed_password VARCHAR(255) NOT NULL,
+            disabled BOOLEAN NOT NULL DEFAULT FALSE
         )
         """
     )
 
 # Commit the changes
 conn.commit()
+
+# Close the cursor and connection
+cur.close()
+conn.close()

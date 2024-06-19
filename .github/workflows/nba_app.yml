@@ -9,15 +9,39 @@ on:
       - main
       - training-pipeline
       - docker
+      - database_integration
   pull_request:
     branches:
       - main
       - training-pipeline
       - docker
+      - database_integration
 
 jobs:
   unit-tests:
     runs-on: ubuntu-latest
+
+    env:
+      PYTHONPATH: ./code
+      DB_HOST: localhost
+      DB_NAME: nba_db
+      DB_USER: ubuntu
+      DB_PASSWORD: mlops
+
+    services:
+      postgres:
+        image: postgres:12  # Use the desired PostgreSQL version
+        env:
+          POSTGRES_USER: ubuntu
+          POSTGRES_PASSWORD: mlops
+          POSTGRES_DB: nba_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - name: Checkout code
@@ -34,9 +58,13 @@ jobs:
           source venv/bin/activate
           pip install -r requirements.txt
 
-      - name: Run tests
-        env:
-          PYTHONPATH: ./code  # $ export PYTHONPATH=./code
+      - name: Set up database
         run: |
-          source venv/bin/activate  # Ensure virtual environment is activated
+          source venv/bin/activate
+          python code/retrieve_data/setup_database.py
+      
+      - name: Run tests
+        run: |
+          source venv/bin/activate
           pytest -v code/tests
+

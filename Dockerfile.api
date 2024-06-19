@@ -1,0 +1,17 @@
+# Use the official Python image from the Docker Hub
+FROM python:3.9-bullseye
+
+# Copy the current directory contents into the container at /app/nba_mlops
+COPY . /app
+
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
+
+# Expose the port that the FastAPI app will run on
+EXPOSE 8000
+
+# Set the working directory in the container
+WORKDIR /app/code/api
+
+# Run the FastAPI app using Uvicorn
+CMD ["uvicorn", "nba_app:app", "--host", "0.0.0.0", "--port", "8000"]
