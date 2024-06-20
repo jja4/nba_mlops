@@ -50,6 +50,13 @@ cur.execute(
 )
 table_exists = cur.fetchone()[0]
 print("users table exists:", table_exists)
+if table_exists:
+    # display the contents of the 'users' table
+    cur.execute("SELECT * FROM users")
+    rows = cur.fetchall()
+    print("users table contents:")
+    for row in rows:
+        print(row)
 
 # Create the 'users' table if it doesn't exist
 if not table_exists:

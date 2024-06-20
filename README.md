@@ -1,6 +1,7 @@
 NBA MLOps
 ==============================
-This project demonstrates MLOps best practices using a machine learning model that predicts if an NBA player will make a specific shot or not.
+This project demonstrates MLOps best practices using a machine learning model
+that predicts if an NBA player will make a specific shot or not.
 
 ![NBA Shot by Steph Curry](https://github.com/jja4/nba_mlops/blob/main/reports/images/Curry_perfect_shot.jfif)
 
@@ -13,14 +14,11 @@ Project Organization
     ├── code               <- Source code for use in this project.
     │   ├── __init__.py    <- Makes src a Python module
     │   │
-    │   ├── retrieve_data  <- Scripts to download or generate data
-    │   │   └── make_dataset.py
+    │   ├── database  <- Scripts to download or generate data
+    │   │   └── setup_database.py
     │   │
-    │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
-    │   │
-    │   ├── develop_models <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
+    │   ├── training_pipeline <- Scripts to run training pipeline
+    │   │   │                 
     │   │   ├── predict_model.py
     │   │   └── train_model.py
     │   │
@@ -57,10 +55,28 @@ Project Organization
     ├── requirements.txt   <- The required libraries to deploy this project.
 
 ***
-***
-## ADDITIONAL INFORMATION
+## Getting Started
 
+## Installing and Connecting to the PostgreSQL Database
+```bash
+sudo apt install postgresql postgresql-contrib
+sudo -i -u postgres psql
+CREATE USER ubuntu WITH PASSWORD 'mlops';
+CREATE DATABASE nba_db;
+GRANT ALL PRIVILEGES ON DATABASE nba_db TO ubuntu;
+\q
+exit
+# from within the nba_mlops directory
+python3 code/retrieve_data/setup_database.py
+```
+```bash
+# to check if the users table exists, run the following code
+psql -h localhost -U ubuntu -d nba_db
+# enter the password 'mlops'
+SELECT * FROM users;
+```
 
+## Running the app
 How to Use the `@app.post('/unsecure_predict')` Endpoint
 To reach the `/unsecure_predict` endpoint and make a prediction, follow these steps:
 
@@ -173,13 +189,4 @@ You can use Postman to make a POST request to the /unsecure_predict endpoint. He
 
 6. Get the prediction (0 or 1)
 
-## Installing and Connecting to the PostgreSQL Database
-```bash
-sudo apt install postgresql postgresql-contrib
-sudo -i -u postgres psql
-CREATE USER ubuntu WITH PASSWORD 'mlops';
-CREATE DATABASE nba_db;
-GRANT ALL PRIVILEGES ON DATABASE nba_db TO ubuntu;
-\q
-exit
-```
+
