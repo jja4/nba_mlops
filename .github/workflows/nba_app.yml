@@ -77,6 +77,12 @@ jobs:
         run: |
           wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v2.6.0/hadolint-Linux-x86_64
           chmod +x /bin/hadolint
+      
+      - name: Install Hadolint
+        run: |
+          wget -O /tmp/hadolint https://github.com/hadolint/hadolint/releases/download/v2.6.0/hadolint-Linux-x86_64
+          chmod +x /tmp/hadolint
+          sudo mv /tmp/hadolint /usr/local/bin/hadolint
 
       - name: Lint Dockerfiles
         run: |
