@@ -73,15 +73,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Install Hadolint
+        run: |
+          wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v2.6.0/hadolint-Linux-x86_64
+          chmod +x /bin/hadolint
+
       - name: Lint Dockerfiles
-        uses: hadolint/hadolint-action@v1
-        with:
-          files: |
-            Dockerfile.data_ingestion
-            Dockerfile.data_processing
-            Dockerfile.feature_engineering
-            Dockerfile.model_training
-            Dockerfile.inference
+        run: |
+          hadolint Dockerfile.data_ingestion
+          hadolint Dockerfile.data_processing
+          hadolint Dockerfile.feature_engineering
+          hadolint Dockerfile.model_training
+          hadolint Dockerfile.inference
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
