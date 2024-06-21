@@ -25,10 +25,10 @@ fi
 "$@"
 
 # After the main command finishes, remove the previous step's signal file
-if [ "$WAIT_FOR_PREV_FILE" ]; then
-  echo "Removing previous step's signal file $WAIT_FOR_PREV_FILE..."
-  rm -f $WAIT_FOR_PREV_FILE
-fi
+#if [ "$WAIT_FOR_PREV_FILE" ]; then
+  #echo "Removing previous step's signal file $WAIT_FOR_PREV_FILE..."
+  #rm -f $WAIT_FOR_PREV_FILE
+#fi
 
 # Create the signal file for the next step
 if [ "$WAIT_FOR_FILE" ]; then
