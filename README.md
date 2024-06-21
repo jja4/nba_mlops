@@ -189,4 +189,23 @@ You can use Postman to make a POST request to the /unsecure_predict endpoint. He
 
 6. Get the prediction (0 or 1)
 
+## Installing and Connecting to the PostgreSQL Database
+```bash
+sudo apt install postgresql postgresql-contrib
+sudo -i -u postgres
+psql
+CREATE USER nba WITH PASSWORD 'mlops';
+CREATE DATABASE nba_db;
+GRANT ALL PRIVILEGES ON DATABASE nba_db TO nba;
+\q
+exit
+```
 
+
+## How to Use the `docker compose up`
+Move to `nba_mlops` project main folder and run:
+```bash
+docker compose up
+```
+
+This will initiate the execution of the `docker-compose.yml` file, which in turn launches all Docker containers for the respective scripts.
