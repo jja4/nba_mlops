@@ -51,15 +51,12 @@ def main():
 
     # Load the train and test datasets
     X_train, X_test, y_train, y_test = load(file_path)
-    
-    # Use the test dataset as new data for making predictions
-    new_data = X_test
 
     # Load the trained model
     model = load_model('../../' + Config.OUTPUT_TRAINED_MODEL_FILE_LR)
     
     # Make predictions using the model
-    predictions = make_predictions(model, new_data)
+    predictions = make_predictions(model, X_test)
     print(f"Predictions: {predictions}")
 
     print(f"Predictions: {X_test.shape}")
