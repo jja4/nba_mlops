@@ -101,7 +101,7 @@ jobs:
 
       - name: Functional checks for data_ingestion
         run: |
-          docker-compose exec data_ingestion bash -c "[ -f /app/signal_data_ingestion_done ] && echo 'Data Ingestion Completed' || (echo 'Data Ingestion Failed' && exit 1)"
+          docker-compose exec data_ingestion bash -c 'ls -l /app && [ -f /app/signal_data_ingestion_done ] && echo "Data Ingestion Completed" || (echo "Data Ingestion Failed" && exit 1)'
 
       - name: Functional checks for data_processing
         run: |
