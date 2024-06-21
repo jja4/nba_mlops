@@ -107,6 +107,7 @@ jobs:
             retries=$((retries + 1))
             if [ $retries -gt $max_retries ]; then
               echo "Data Ingestion failed after $max_retries retries"
+              docker-compose exec data_ingestion bash -c 'ls -l /app'
               exit 1
             fi
             sleep 10
