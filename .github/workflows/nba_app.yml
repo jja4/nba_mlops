@@ -103,16 +103,17 @@ jobs:
         run: |
           retries=0
           max_retries=5
-          until docker-compose exec data_ingestion bash -c 'ls -l /app && [ -f /app/signal_data_ingestion_done ]'; do
+          until docker-compose exec data_ingestion bash -c '[ -f /app/signal_data_ingestion_done ]'; do
             retries=$((retries + 1))
             if [ $retries -gt $max_retries ]; then
               echo "Data Ingestion failed after $max_retries retries"
-              docker-compose exec data_ingestion bash -c 'ls -l /app'
+              docker-compose logs data_ingestion  # Print logs for debugging
               exit 1
             fi
-            sleep 10
+            sleep 15  # Increased sleep time to allow more time for initialization
           done
           echo "Data Ingestion Completed"
+    
 
       - name: Functional checks for data_processing
         run: |
