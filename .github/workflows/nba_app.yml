@@ -80,9 +80,10 @@ jobs:
       
       - name: Install Hadolint
         run: |
-          wget -O /tmp/hadolint https://github.com/hadolint/hadolint/releases/download/v2.6.0/hadolint-Linux-x86_64
-          chmod +x /tmp/hadolint
-          sudo mv /tmp/hadolint /usr/local/bin/hadolint
+          mkdir -p $HOME/bin
+          wget -O $HOME/bin/hadolint https://github.com/hadolint/hadolint/releases/download/v2.6.0/hadolint-Linux-x86_64
+          chmod +x $HOME/bin/hadolint
+          export PATH=$HOME/bin:$PATH
 
       - name: Lint Dockerfiles
         run: |
