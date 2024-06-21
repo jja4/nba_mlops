@@ -97,7 +97,7 @@ jobs:
 
       - name: Run Docker Compose
         run: |
-          docker-compose up -d
+          docker-compose up
 
       - name: Functional checks for data_ingestion
         run: |
