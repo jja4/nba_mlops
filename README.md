@@ -184,3 +184,12 @@ GRANT ALL PRIVILEGES ON DATABASE nba_db TO nba;
 \q
 exit
 ```
+
+
+How to Use the `docker compose up`
+1. move to `nba_mlops` project main folder and run:
+```bash
+docker compose up
+```
+
+This will initiate the execution of the `docker-compose.yml` file, which in turn launches all Docker containers for the respective scripts.
