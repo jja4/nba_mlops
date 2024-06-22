@@ -4,12 +4,12 @@ on:
   push:
     branches:
       - main
-      - ci-pipeline
+      - push-docker-hub
       - database_integration
   pull_request:
     branches:
       - main
-      - ci-pipeline
+      - push-docker-hub
       - database_integration
 
 jobs:
