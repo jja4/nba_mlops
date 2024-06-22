@@ -14,6 +14,7 @@ on:
 
 jobs:
   unit-tests:
+    name: Run Unit Tests
     runs-on: ubuntu-latest
 
     env:
@@ -70,6 +71,7 @@ jobs:
           pytest -v code/tests
 
   docker-compose:
+    name: Building of Docker Compose
     runs-on: ubuntu-latest
 
     steps:
