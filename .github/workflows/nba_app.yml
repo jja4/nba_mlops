@@ -82,13 +82,6 @@ jobs:
         env:
           COMPOSE_PROJECT_NAME: nba_app  # Optional: specify a project name
 
-      - name: Wait for services to be healthy
-        run: |
-          while ! docker-compose -f docker-compose.yml ps | grep "healthy"; do
-            echo "Waiting for services to be healthy..."
-            sleep 5
-          done
-    
       - name: Run Docker Compose tests
         run: |
           docker-compose -f docker-compose.yml exec data_ingestion pytest -v /app/code/tests
