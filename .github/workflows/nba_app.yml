@@ -73,7 +73,7 @@ jobs:
   docker-compose:
     name: Build Docker Compose
     runs-on: ubuntu-latest
-    needs: unit-tests
+#    needs: unit-tests  # Later we will uncomment this. For now we do this to run docker part faster
 
     steps:
       - name: Checkout code
