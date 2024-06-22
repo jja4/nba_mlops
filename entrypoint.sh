@@ -37,3 +37,6 @@ if [ "$WAIT_FOR_FILE" ]; then
 fi
 
 echo "Entrypoint script finished."
+
+# Keep the container running
+tail -f /dev/null
