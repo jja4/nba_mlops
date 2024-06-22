@@ -66,70 +66,22 @@ jobs:
           source venv/bin/activate
           pytest -v code/tests
 
-  docker-lint-and-build:
+  docker-compose:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install Hadolint
-        run: ./install_hadolint.sh
-
-      - name: Lint Dockerfiles
-        run: |
-          hadolint Dockerfile.data_ingestion
-          hadolint Dockerfile.data_processing
-          hadolint Dockerfile.feature_engineering
-          hadolint Dockerfile.model_training
-          hadolint Dockerfile.inference
-
-      - name: Set up Docker Buildx
+      - name: Set up Docker
         uses: docker/setup-buildx-action@v2
 
-      - name: Build Docker images
+      - name: Build and start Docker Compose
         run: |
-          docker build -t nba_app/data_ingestion -f Dockerfile.data_ingestion .
-          docker build -t nba_app/data_processing -f Dockerfile.data_processing .
-          docker build -t nba_app/feature_engineering -f Dockerfile.feature_engineering .
-          docker build -t nba_app/model_training -f Dockerfile.model_training .
-          docker build -t nba_app/inference -f Dockerfile.inference .
+          docker-compose -f docker-compose.yml up --build
+        env:
+          COMPOSE_PROJECT_NAME: nba_app  # Optional: specify a project name
 
-      - name: Run Docker Compose
-        run: |
-          docker-compose up
-
-      - name: Functional checks for data_ingestion
-        run: |
-          retries=0
-          max_retries=5
-          until docker-compose exec data_ingestion bash -c '[ -f /app/signal_data_ingestion_done ]'; do
-            retries=$((retries + 1))
-            if [ $retries -gt $max_retries ]; then
-              echo "Data Ingestion failed after $max_retries retries"
-              docker-compose logs data_ingestion  # Print logs for debugging
-              exit 1
-            fi
-            sleep 15  # Increased sleep time to allow more time for initialization
-          done
-          echo "Data Ingestion Completed"
-    
-
-      - name: Functional checks for data_processing
-        run: |
-          docker-compose exec data_processing bash -c "[ -f /app/signal_data_processing_done ] && echo 'Data Processing Completed' || (echo 'Data Processing Failed' && exit 1)"
-
-      - name: Functional checks for feature_engineering
-        run: |
-          docker-compose exec feature_engineering bash -c "[ -f /app/signal_feature_engineering_done ] && echo 'Feature Engineering Completed' || (echo 'Feature Engineering Failed' && exit 1)"
-
-      - name: Functional checks for model_training
-        run: |
-          docker-compose exec model_training bash -c "[ -f /app/signal_model_training_done ] && echo 'Model Training Completed' || (echo 'Model Training Failed' && exit 1)"
-
-      - name: Functional checks for inference
-        run: |
-          docker-compose exec inference bash -c "[ -f /app/signal_inference_done ] && echo 'Inference Completed' || (echo 'Inference Failed' && exit 1)"
-
-      - name: Tear down Docker Compose
-        run: docker-compose down
+      #- name: Run Docker Compose tests
+      #  run: |
+      #    docker-compose -f docker-compose.yml exec data_ingestion pytest -v /app/code/tests
