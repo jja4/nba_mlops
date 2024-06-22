@@ -71,7 +71,7 @@ jobs:
           pytest -v code/tests
 
   docker-compose:
-    name: Building of Docker Compose
+    name: Build Docker Compose
     runs-on: ubuntu-latest
 
     steps:
