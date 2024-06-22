@@ -15,6 +15,12 @@ from joblib import load
 from fastapi.middleware.cors import CORSMiddleware
 import psycopg2
 from psycopg2.extras import RealDictCursor
+import time
+from psycopg2 import OperationalError
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
@@ -25,10 +31,10 @@ ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 # Database connection details
-DB_HOST = "localhost"
-DB_NAME = "nba_db"
-DB_USER = "ubuntu"
-DB_PASSWORD = "mlops"
+DB_HOST = os.getenv("DB_HOST", "localhost")  # Default to 'db' for Docker Compose
+DB_NAME = os.getenv("DB_NAME", "nba_db")
+DB_USER = os.getenv("DB_USER", "ubuntu")
+DB_PASSWORD = os.getenv("DB_PASSWORD", "mlops")
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -56,25 +62,32 @@ def get_db_connection():
     return conn
 
 
-with get_db_connection() as conn:
-    with conn.cursor() as cur:
-        # Check if the username already exists
-        check_query = "SELECT COUNT(*) FROM users WHERE username = %s"
-        cur.execute(check_query, (username,))
-        count = cur.fetchone()['count']
+@app.on_event("startup")
+async def startup_event():
+    try:
+        with get_db_connection() as conn:
+            with conn.cursor() as cur:
+                # Check if the username already exists
+                check_query = "SELECT COUNT(*) FROM users WHERE username = %s"
+                cur.execute(check_query, (username,))
+                count = cur.fetchone()['count']
 
-        if count == 0:
-            # Username doesn't exist, insert the new user
-            insert_query = """
-            INSERT INTO users (username, hashed_password, disabled)
-            VALUES (%s, %s, %s)
-            """
-            cur.execute(insert_query, (username, hashed_password, disabled))
-            print(f"User '{username}' inserted successfully.")
-        else:
-            print(f"User '{username}' already exists.")
+                if count == 0:
+                    # Username doesn't exist, insert the new user
+                    insert_query = """
+                    INSERT INTO users (username, hashed_password, disabled)
+                    VALUES (%s, %s, %s)
+                    """
+                    cur.execute(insert_query, (username, hashed_password, disabled))
+                    print(f"User '{username}' inserted successfully.")
+                else:
+                    print(f"User '{username}' already exists.")
 
-    conn.commit()
+            conn.commit()
+    except Exception as e:
+        print(f"Error during application startup: {e}")
+        raise
+
 
 class Token(BaseModel):
     access_token: str

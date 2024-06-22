@@ -1,6 +1,3 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
-
 name: Python API Tests
 
 on:
@@ -27,8 +24,8 @@ jobs:
       DB_PASSWORD: mlops
 
     services:
-      postgres:
-        image: postgres:12  # Use the desired PostgreSQL version
+      db:
+        image: postgres:12-alpine
         env:
           POSTGRES_USER: ubuntu
           POSTGRES_PASSWORD: mlops
@@ -56,10 +53,16 @@ jobs:
           source venv/bin/activate
           pip install -r requirements.txt
 
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          until pg_isready -h localhost -p 5432 -U ubuntu; do
+            echo "Waiting for PostgreSQL to be ready..."
+            sleep 2
+          done
+
       - name: Set up database
         run: |
-          source venv/bin/activate
-          python code/database/setup_database.py
+          PGPASSWORD=mlops psql -h localhost -U ubuntu -d nba_db -f code/database/init.sql
 
       - name: Run tests
         run: |
