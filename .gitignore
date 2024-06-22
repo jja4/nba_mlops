@@ -124,3 +124,8 @@ venv/bin/python3.12
 venv/bin/typer
 venv/bin/uvicorn
 venv/bin/watchfiles
+signal_data_ingestion_done
+signal_data_processing_done
+signal_feature_engineering_done
+signal_inference_done
+signal_model_training_done
