@@ -82,6 +82,6 @@ jobs:
         env:
           COMPOSE_PROJECT_NAME: nba_app  # Optional: specify a project name
 
-      #- name: Run Docker Compose tests
-      #  run: |
-      #    docker-compose -f docker-compose.yml exec data_ingestion pytest -v /app/code/tests
+      - name: Run Docker Compose tests
+        run: |
+          docker-compose -f docker-compose.yml exec data_ingestion pytest -v /app/code/tests
