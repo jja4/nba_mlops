@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.data_ingestion
+      image: nba_mlops/data_ingestion:latest
     volumes:
       - .:/app
     depends_on: []
@@ -16,6 +17,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.data_processing
+      image: nba_mlops/data_processing:latest
     volumes:
       - .:/app
     depends_on:
@@ -28,6 +30,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.feature_engineering
+      image: nba_mlops/feature_engineering:latest
     volumes:
       - .:/app
     depends_on:
@@ -40,6 +43,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.model_training
+      image: nba_mlops/model_training:latest
     volumes:
       - .:/app
     depends_on:
@@ -52,7 +56,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.inference
-    volumes:
+      image: nba_mlops/inference:latest
+    volumes:    
       - .:/app
     depends_on:
       - model_training
