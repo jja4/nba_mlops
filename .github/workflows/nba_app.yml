@@ -114,7 +114,6 @@ jobs:
       - name: Tag and push Docker images
         run: |
           IMAGE_TAG=${{ steps.date.outputs.date }}-${{ steps.vars.outputs.short_sha }}
-          DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
 
           # Define services and images
           declare -A services_images
@@ -126,9 +125,10 @@ jobs:
             ["inference"]="mihrando/inference"
           )
 
-          # Tag and push each service image
+          # Build, tag, and push each service image
           for service in "${!services_images[@]}"; do
             IMAGE_NAME=${services_images[$service]}
+            docker-compose build ${service}
             docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${IMAGE_TAG}
             docker push ${IMAGE_NAME}:${IMAGE_TAG}
             docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${IMAGE_NAME}:latest
