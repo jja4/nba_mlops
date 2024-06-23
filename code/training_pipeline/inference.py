@@ -11,7 +11,17 @@ project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_dir)
 
 # Set up logging
-logging.basicConfig(level=logging.INFO)
+log_file = os.path.join(project_dir, 'log.txt')
+
+# Set up logging to file with timestamp and append mode
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler(log_file, mode='a'),  # Add a FileHandler for log.txt in append mode
+        logging.StreamHandler()  # Add a StreamHandler for the console output
+    ]
+)
 
 from config.config import Config  # Import Config class from config package
 
@@ -46,6 +56,8 @@ def main():
     """
     Main function to load datasets, load the model, make predictions, and save the predictions.
     """
+    logging.info("(5) Starting the model prediction process.")
+
     # Path to the joblib file containing train and test datasets
     file_path = '../../' + Config.OUTPUT_TRAIN_TEST_JOBLIB_FILE
 
@@ -66,6 +78,7 @@ def main():
     pd.DataFrame(predictions, columns=['Prediction']).to_csv(output_file_path, index=False)
     logging.info("Prediction file data saved successfully.")
     logging.info(output_file_path)
+    logging.info("-----------------------------------")
 
 if __name__ == "__main__":
     main()

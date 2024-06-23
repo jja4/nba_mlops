@@ -1,0 +1,98 @@
+
+2024-06-23 09:22:44,737 - INFO - (1) Starting the data ingestion process.
+2024-06-23 09:22:44,738 - INFO - Reading data from CSV file: ../../data/new_data/data.csv
+2024-06-23 09:22:44,743 - INFO - Data read successfully from CSV file.
+2024-06-23 09:22:44,743 - INFO - Validating data.
+2024-06-23 09:22:44,743 - INFO - Data validation passed.
+2024-06-23 09:22:44,743 - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-06-23 09:22:44,753 - INFO - Data read successfully from CSV file.
+2024-06-23 09:22:44,754 - INFO - Appending new data to existing data.
+2024-06-23 09:22:44,754 - INFO - Data appended successfully.
+2024-06-23 09:22:44,755 - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-06-23 09:22:44,769 - INFO - Data saved successfully.
+2024-06-23 09:22:44,769 - INFO - Data ingestion process completed.
+2024-06-23 09:22:44,769 - INFO - ---------------------------------
+2024-06-23 09:23:09,260 - INFO - (2) Starting the data processing process.
+2024-06-23 09:23:09,261 - INFO - Data loaded from ../../data/raw/NBA Shot Locations 1997 - 2020.csv.
+2024-06-23 09:23:09,320 - INFO - Processed data saved successfully.
+2024-06-23 09:23:09,320 - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv
+2024-06-23 09:23:09,320 - INFO - Data processing pipeline completed.
+2024-06-23 09:23:09,320 - INFO - -----------------------------------
+2024-06-23 09:23:24,832 - INFO - (3) Starting the feature engineering process.
+2024-06-23 09:23:24,832 - INFO - Loading data from ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv.
+2024-06-23 09:23:24,884 - INFO - New joblib file generated successfully.
+2024-06-23 09:23:24,884 - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib
+2024-06-23 09:23:24,885 - INFO - Data processing completed.
+2024-06-23 09:23:24,885 - INFO - -----------------------------------
+2024-06-23 09:24:15,050 - INFO - (4) Starting the model training process.
+2024-06-23 09:24:15,071 - INFO - Model file data saved successfully.
+2024-06-23 09:24:15,071 - INFO - ../../trained_models/model_best_lr.joblib
+2024-06-23 09:24:15,071 - INFO - -----------------------------------
+2024-06-23 09:24:30,962 - INFO - (5) Starting the model prediction process.
+2024-06-23 09:24:31,036 - INFO - Prediction file data saved successfully.
+2024-06-23 09:24:31,036 - INFO - ../../data/predictions/predictions.csv
+2024-06-23 09:24:31,036 - INFO - -----------------------------------
+2024-06-23 01:36:27,940 - INFO - (1) Starting the data ingestion process.
+2024-06-23 01:36:27,942 - INFO - Reading data from CSV file: ../../data/new_data/data.csv
+2024-06-23 01:36:27,956 - INFO - Data read successfully from CSV file.
+2024-06-23 01:36:27,959 - INFO - Validating data.
+2024-06-23 01:36:27,962 - INFO - Data validation passed.
+2024-06-23 01:36:27,967 - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-06-23 01:36:27,996 - INFO - Data read successfully from CSV file.
+2024-06-23 01:36:27,998 - INFO - Appending new data to existing data.
+2024-06-23 01:36:28,001 - INFO - Data appended successfully.
+2024-06-23 01:36:28,004 - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-06-23 01:36:28,128 - INFO - Data saved successfully.
+2024-06-23 01:36:28,129 - INFO - Data ingestion process completed.
+2024-06-23 01:36:28,130 - INFO - ---------------------------------
+2024-06-23 01:36:30,468 - INFO - (2) Starting the data processing process.
+2024-06-23 01:36:30,471 - INFO - Data loaded from ../../data/raw/NBA Shot Locations 1997 - 2020.csv.
+2024-06-23 01:36:30,598 - INFO - Processed data saved successfully.
+2024-06-23 01:36:30,599 - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv
+2024-06-23 01:36:30,601 - INFO - Data processing pipeline completed.
+2024-06-23 01:36:30,603 - INFO - -----------------------------------
+2024-06-23 01:36:36,616 - INFO - (3) Starting the feature engineering process.
+2024-06-23 01:36:36,619 - INFO - Loading data from ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv.
+2024-06-23 01:36:36,815 - INFO - New joblib file generated successfully.
+2024-06-23 01:36:36,817 - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib
+2024-06-23 01:36:36,819 - INFO - Data processing completed.
+2024-06-23 01:36:36,821 - INFO - -----------------------------------
+2024-06-23 01:36:45,022 - INFO - (4) Starting the model training process.
+2024-06-23 01:36:45,141 - INFO - Model file data saved successfully.
+2024-06-23 01:36:45,143 - INFO - ../../trained_models/model_best_lr.joblib
+2024-06-23 01:36:45,146 - INFO - -----------------------------------
+2024-06-23 01:36:56,146 - INFO - (5) Starting the model prediction process.
+2024-06-23 01:36:56,824 - INFO - Prediction file data saved successfully.
+2024-06-23 01:36:56,842 - INFO - ../../data/predictions/predictions.csv
+2024-06-23 01:36:56,848 - INFO - -----------------------------------
+2024-06-23 01:44:30,470 - INFO - (1) Starting the data ingestion process.
+2024-06-23 01:44:30,471 - INFO - Reading data from CSV file: ../../data/new_data/data.csv
+2024-06-23 01:44:30,479 - INFO - Data read successfully from CSV file.
+2024-06-23 01:44:30,481 - INFO - Validating data.
+2024-06-23 01:44:30,482 - INFO - Data validation passed.
+2024-06-23 01:44:30,485 - INFO - Appending new data to existing data.
+2024-06-23 01:44:30,486 - INFO - Data appended successfully.
+2024-06-23 01:44:30,489 - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-06-23 01:44:30,498 - INFO - Data saved successfully.
+2024-06-23 01:44:30,499 - INFO - Data ingestion process completed.
+2024-06-23 01:44:30,500 - INFO - ---------------------------------
+2024-06-23 01:44:32,650 - INFO - (2) Starting the data processing process.
+2024-06-23 01:44:32,650 - INFO - Data loaded from ../../data/raw/NBA Shot Locations 1997 - 2020.csv.
+2024-06-23 01:44:32,707 - INFO - Processed data saved successfully.
+2024-06-23 01:44:32,707 - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv
+2024-06-23 01:44:32,708 - INFO - Data processing pipeline completed.
+2024-06-23 01:44:32,709 - INFO - -----------------------------------
+2024-06-23 01:44:36,464 - INFO - (3) Starting the feature engineering process.
+2024-06-23 01:44:36,466 - INFO - Loading data from ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv.
+2024-06-23 01:44:36,558 - INFO - New joblib file generated successfully.
+2024-06-23 01:44:36,559 - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib
+2024-06-23 01:44:36,561 - INFO - Data processing completed.
+2024-06-23 01:44:36,564 - INFO - -----------------------------------
+2024-06-23 01:44:40,488 - INFO - (4) Starting the model training process.
+2024-06-23 01:44:40,511 - INFO - Model file data saved successfully.
+2024-06-23 01:44:40,511 - INFO - ../../trained_models/model_best_lr.joblib
+2024-06-23 01:44:40,512 - INFO - -----------------------------------
+2024-06-23 01:44:43,552 - INFO - (5) Starting the model prediction process.
+2024-06-23 01:44:43,656 - INFO - Prediction file data saved successfully.
+2024-06-23 01:44:43,657 - INFO - ../../data/predictions/predictions.csv
+2024-06-23 01:44:43,658 - INFO - -----------------------------------
