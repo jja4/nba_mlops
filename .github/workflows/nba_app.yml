@@ -114,15 +114,16 @@ jobs:
       - name: Tag and push Docker images
         run: |
           IMAGE_TAG=${{ steps.date.outputs.date }}-${{ steps.vars.outputs.short_sha }}
+          DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
 
           # Define services and images
           declare -A services_images
           services_images=(
-            ["data_ingestion"]="mihrando/data_ingestion"
-            ["data_processing"]="mihrando/data_processing"
-            ["feature_engineering"]="mihrando/feature_engineering"
-            ["model_training"]="mihrando/model_training"
-            ["inference"]="mihrando/inference"
+            ["data_ingestion"]=$DOCKERHUB_USERNAME/data_ingestion
+            ["data_processing"]=$DOCKERHUB_USERNAME/data_processing
+            ["feature_engineering"]=$DOCKERHUB_USERNAME/feature_engineering
+            ["model_training"]=$DOCKERHUB_USERNAME/model_training
+            ["inference"]=$DOCKERHUB_USERNAME/inference
           )
 
           # Build, tag, and push each service image
