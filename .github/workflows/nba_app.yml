@@ -103,7 +103,19 @@ jobs:
       - name: Log in to Docker Hub
         run: echo ${{ secrets.DOCKERHUB_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
+      - name: Get the short SHA for tagging
+        id: vars
+        run: echo "::set-output name=short_sha::$(git rev-parse --short HEAD)"
+
+      - name: Get the current date for tagging
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y%m%d')"
+
       - name: Tag and push Docker images
         run: |
+          IMAGE_TAG=${{ steps.date.outputs.date }}-${{ steps.vars.outputs.short_sha }}
           docker-compose -f docker-compose.yml build
-          docker-compose -f docker-compose.yml push
+          docker tag nba_app:latest nba_app:${IMAGE_TAG}
+          docker push nba_app:${IMAGE_TAG}
+          docker tag nba_app:${IMAGE_TAG} nba_app:latest
+          docker push nba_app:latest
