@@ -114,9 +114,13 @@ jobs:
       - name: Tag and push Docker images
         run: |
           IMAGE_TAG=${{ steps.date.outputs.date }}-${{ steps.vars.outputs.short_sha }}
-          DOCKER_IMAGE_NAME=docker.io/${{ secrets.DOCKERHUB_USERNAME }}/nba_app
-          docker-compose -f docker-compose.yml build
-          docker tag ${DOCKER_IMAGE_NAME}:latest ${DOCKER_IMAGE_NAME}:${IMAGE_TAG}
-          docker push ${DOCKER_IMAGE_NAME}:${IMAGE_TAG}
-          docker tag ${DOCKER_IMAGE_NAME}:${IMAGE_TAG} ${DOCKER_IMAGE_NAME}:latest
-          docker push ${DOCKER_IMAGE_NAME}:latest
+          DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
+
+          # Tag and push each service image
+          for service in data_ingestion data_processing feature_engineering model_training inference; do
+            IMAGE_NAME=mihrando/${service}
+            docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${IMAGE_TAG}
+            docker push ${IMAGE_NAME}:${IMAGE_TAG}
+            docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${IMAGE_NAME}:latest
+            docker push ${IMAGE_NAME}:latest
+          done
