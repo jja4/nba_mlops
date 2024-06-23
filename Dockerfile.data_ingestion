@@ -16,6 +16,9 @@ RUN chmod +x /entrypoint.sh
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
+# Create a volume to persist log data
+VOLUME /app/logs
+
 # Set the entrypoint to the script
 ENTRYPOINT ["/entrypoint.sh"]
 

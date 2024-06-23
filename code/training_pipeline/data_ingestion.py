@@ -7,8 +7,16 @@ import logging
 project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_dir)
 
-# Set up logging
-logging.basicConfig(level=logging.INFO)
+# Set up logging to file with timestamp and append mode
+log_file = os.path.join(project_dir, 'log.txt')
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler(log_file, mode='a'),
+        logging.StreamHandler()  # Also log to console
+    ]
+)
 
 from config.config import Config  # Import Config class from config package
 
@@ -87,6 +95,8 @@ def main():
     - Appends the new data to existing data if it exists.
     - Saves the combined data to a CSV file.
     """
+    logging.info("(1) Starting the data ingestion process.")
+
     input_file_path = '../../' + Config.NEW_DATA_FILE
     output_file_path = '../../' + Config.OUTPUT_RAW_FILE
     
@@ -107,6 +117,9 @@ def main():
     
     # Save combined data
     save_data(combined_data, output_file_path)
+
+    logging.info("Data ingestion process completed.")
+    logging.info("---------------------------------")
 
 if __name__ == "__main__":
     main()
