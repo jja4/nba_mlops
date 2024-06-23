@@ -116,9 +116,19 @@ jobs:
           IMAGE_TAG=${{ steps.date.outputs.date }}-${{ steps.vars.outputs.short_sha }}
           DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
 
+          # Define services and images
+          declare -A services_images
+          services_images=(
+            ["data_ingestion"]="mihrando/data_ingestion"
+            ["data_processing"]="mihrando/data_processing"
+            ["feature_engineering"]="mihrando/feature_engineering"
+            ["model_training"]="mihrando/model_training"
+            ["inference"]="mihrando/inference"
+          )
+
           # Tag and push each service image
-          for service in data_ingestion data_processing feature_engineering model_training inference; do
-            IMAGE_NAME=mihrando/${service}
+          for service in "${!services_images[@]}"; do
+            IMAGE_NAME=${services_images[$service]}
             docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${IMAGE_TAG}
             docker push ${IMAGE_NAME}:${IMAGE_TAG}
             docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${IMAGE_NAME}:latest
