@@ -103,7 +103,35 @@ jobs:
       - name: Log in to Docker Hub
         run: echo ${{ secrets.DOCKERHUB_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
+      - name: Get the short SHA for tagging
+        id: vars
+        run: echo "::set-output name=short_sha::$(git rev-parse --short HEAD)"
+
+      - name: Get the current date for tagging
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y%m%d')"
+
       - name: Tag and push Docker images
         run: |
-          docker-compose -f docker-compose.yml build
-          docker-compose -f docker-compose.yml push
+          IMAGE_TAG=${{ steps.date.outputs.date }}-${{ steps.vars.outputs.short_sha }}
+          DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
+
+          # Define services and images
+          declare -A services_images
+          services_images=(
+            ["data_ingestion"]=$DOCKERHUB_USERNAME/data_ingestion
+            ["data_processing"]=$DOCKERHUB_USERNAME/data_processing
+            ["feature_engineering"]=$DOCKERHUB_USERNAME/feature_engineering
+            ["model_training"]=$DOCKERHUB_USERNAME/model_training
+            ["inference"]=$DOCKERHUB_USERNAME/inference
+          )
+
+          # Build, tag, and push each service image
+          for service in "${!services_images[@]}"; do
+            IMAGE_NAME=${services_images[$service]}
+            docker-compose build ${service}
+            docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${IMAGE_TAG}
+            docker push ${IMAGE_NAME}:${IMAGE_TAG}
+            docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${IMAGE_NAME}:latest
+            docker push ${IMAGE_NAME}:latest
+          done

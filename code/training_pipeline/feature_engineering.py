@@ -13,7 +13,17 @@ sys.path.insert(0, project_dir)
 from config.config import Config  # Import Config class from config package
 
 # Set up logging
-logging.basicConfig(level=logging.INFO)
+log_file = os.path.join(project_dir, 'log.txt')
+
+# Set up logging to file with timestamp and append mode
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler(log_file, mode='a'),  # Add a FileHandler for log.txt in append mode
+        logging.StreamHandler()  # Add a StreamHandler for the console output
+    ]
+)
 
 def create_features(data):
     """
@@ -95,8 +105,11 @@ def main():
     """
     Main function to load the data, create features, and save the processed train and test sets.
     """
+    logging.info("(3) Starting the feature engineering process.")
+
     # Load the processed data from CSV file
     input_file_path = '../../' + Config.OUTPUT_PREPROCESSED_FILE
+    logging.info(f"Loading data from {input_file_path}.")
     data = pd.read_csv(input_file_path)
     
     # Create features
@@ -104,6 +117,9 @@ def main():
     
     # Split and save the train and test sets
     split_train_and_test_parts(data)
+
+    logging.info("Data processing completed.")
+    logging.info("-----------------------------------")
 
 if __name__ == "__main__":
     main()
