@@ -1,21 +1,15 @@
 name: Retrain and push to Docker Hub
 
 on:
+  schedule:
+    #- cron: '0 9 * * 1' # Every Monday at 09:00
+    - cron: '4 8 * * 2'
   push:
-    branches:
-      - main
-      - push-docker-hub
-      - database_integration
-      - retrain-the-model
-  pull_request:
-    branches:
-      - main
-      - push-docker-hub
-      - database_integration
-      - retrain-the-model
+    paths:
+      - 'data/new_data/new_data.csv'
 
 jobs:
-  docker-compose:
+  retrain-with-docker-compose:
     name: Build Docker Compose
     runs-on: ubuntu-latest
 #    needs: unit-tests  # Later we will uncomment this. For now we do this to run docker part faster
@@ -36,7 +30,7 @@ jobs:
   push-to-dockerhub:
     name: Push Docker Compose to Docker Hub
     runs-on: ubuntu-latest
-    needs: docker-compose
+    needs: retrain-with-docker-compose
 
     steps:
       - name: Checkout code
