@@ -3,7 +3,7 @@ name: Retrain and push to Docker Hub
 on:
   schedule:
     #- cron: '0 9 * * 1' # Every Monday at 09:00
-    - cron: '4 8 * * 2'
+    - cron: '10 8 * * 2'
   push:
     paths:
       - 'data/new_data/new_data.csv'
