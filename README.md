@@ -209,3 +209,36 @@ docker compose up
 ```
 
 This will initiate the execution of the `docker-compose.yml` file, which in turn launches all Docker containers for the respective scripts.
+
+## Why and how we use logging
+In our project, we have implemented logging across various stages of our data pipeline. Each stage logs important events and statuses to ensure we have a clear and detailed record of the process. Here's a breakdown of how logging is implemented in our project:
+1. Data Ingestion:
+    - The process starts with logging the initiation of the data ingestion process.
+    - It logs the source of the data and confirms successful reading of the data.
+    - Validation of the data is logged, along with the outcome of the validation.
+    - The ingestion of new data and its appending to the existing dataset is logged.
+    - Finally, the successful saving of the data and the completion of the ingestion process are logged.
+2. Data Processing:
+    - The start of the data processing stage is logged.
+    - The source of the data being processed is logged.
+    - Successful saving of the processed data is logged.
+    - Completion of the data processing pipeline is logged.
+3. Feature Engineering:
+    - The initiation of the feature engineering process is logged.
+    - Loading of data for feature engineering is logged.
+    - Generation of the joblib file containing the training and test datasets is logged.
+    - Completion of the feature engineering process is logged.
+4. Model Training:
+    - Logging starts with the model training process.
+    - Successful saving of the trained model is logged.
+    - The completion of the model training process is logged.
+5. Model Prediction:
+    - The start of the model prediction process is logged.
+    - Successful saving of the prediction results is logged.
+    - Completion of the model prediction process is logged.
+
+Logging is a critical part of our data pipeline for several reasons:
+- Monitoring and Debugging: Logging helps us keep track of what our application is doing, making it easier to identify where things might be going wrong.
+- Accountability and Traceability: Logs provide a historical record of events that have taken place in our application.
+- Performance Analysis: By logging timestamps, we can measure the duration of different processes and identify bottlenecks in our data pipeline.
+- Communication: Logs serve as a means of communication among team members. They provide insights into the execution flow and status of different components, which is essential for collaborative development and troubleshooting. 
