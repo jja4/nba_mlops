@@ -20,6 +20,7 @@ import time
 from psycopg2 import OperationalError
 import logging
 import httpx
+import json
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -91,6 +92,20 @@ async def lifespan(app: FastAPI):
                     print(f"User '{username}' inserted successfully.")
                 else:
                     print(f"User '{username}' already exists.")
+
+                # Check if the predictions table exists
+                cur.execute("""
+                SELECT EXISTS (
+                    SELECT FROM information_schema.tables
+                    WHERE table_schema = 'public'
+                    AND table_name = 'predictions'
+                );
+                """)
+                table_exists = cur.fetchone()['exists']
+                if not table_exists:
+                    print("Table 'predictions' does not exist yet.")
+                else:
+                    print("Table 'predictions' already exists.")
 
             conn.commit()
     except Exception as e:
@@ -313,11 +328,30 @@ class ScoringItem(BaseModel):
 
 
 
-@app.post('/unsecure_predict')
+@app.post('/unsecure_predict', name="Unsecure prediction based on scoring parameters.")
 async def unsecure_predict(item: ScoringItem):
     url = f"http://{PREDICTION_SERVICE_HOST}:{PREDICTION_SERVICE_PORT}/unsecure_predict"
     async with httpx.AsyncClient() as client:
         response = await client.post(url, json=item.dict())
+        result = response.json()
+
+    # Save prediction and input parameters to database
+    conn = get_db_connection()
+    cur = conn.cursor()
+    try:
+        insert_query = """
+        INSERT INTO predictions (prediction, input_parameters)
+        VALUES (%s, %s)
+        """
+        cur.execute(insert_query, (result["prediction"], json.dumps(item.dict())))
+        conn.commit()
+    except Exception as e:
+        print(f"Error saving prediction: {e}")
+        raise HTTPException(status_code=500, detail="Error saving prediction")
+    finally:
+        cur.close()
+        conn.close()
+        
         return response.json()
 
 
@@ -334,3 +368,75 @@ async def simple_predict(input_data: SimplePredictInput):
         response = await client.post(url, json=input_data.dict())
     return response.json()
 
+
+class VerificationInput(BaseModel):
+    prediction_id: int
+    true_value: int  # 0 or 1
+@app.get("/verify_random_prediction")
+async def get_random_prediction():
+    conn = get_db_connection()
+    cur = conn.cursor(cursor_factory=RealDictCursor)
+    try:
+        # Get a random prediction that hasn't been verified yet
+        cur.execute("""
+            SELECT id, prediction, input_parameters 
+            FROM predictions 
+            WHERE user_verification IS NULL 
+            ORDER BY RANDOM() 
+            LIMIT 1
+            FOR UPDATE SKIP LOCKED
+        """)
+        prediction = cur.fetchone()
+        
+        if not prediction:
+            return {"message": "No unverified predictions available"}
+        
+        # Handle input_parameters whether it's a JSON string or a dictionary
+        input_parameters = prediction['input_parameters']
+        if isinstance(input_parameters, str):
+            try:
+                input_parameters = json.loads(input_parameters)
+            except json.JSONDecodeError:
+                # If it's not valid JSON, leave it as is
+                pass
+        
+        # Prepare the response
+        response = {
+            "prediction_id": prediction['id'],
+            "model_prediction": prediction['prediction'],
+            "input_parameters": input_parameters
+        }
+        
+        return response
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        cur.close()
+        conn.close()
+
+@app.post("/verify_random_prediction")
+async def verify_prediction(verification: VerificationInput):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    try:
+        # First, check if the prediction exists
+        cur.execute("SELECT * FROM predictions WHERE id = %s", (verification.prediction_id,))
+        prediction = cur.fetchone()
+        
+        if not prediction:
+            raise HTTPException(status_code=404, detail="Prediction not found")
+        
+        # Update the prediction with user verification
+        cur.execute(
+            "UPDATE predictions SET user_verification = %s WHERE id = %s",
+            (verification.true_value, verification.prediction_id)
+        )
+        conn.commit()
+        
+        return {"message": "Prediction verified successfully"}
+    except Exception as e:
+        conn.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        cur.close()
+        conn.close()

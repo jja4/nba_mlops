@@ -89,7 +89,7 @@ class ScoringItem(BaseModel):
     Day_of_Week: int
 
 @app.post('/unsecure_predict')
-async def unsecure_predict(item: ScoringItem):
+async def unsecure_predict(input_data: ScoringItem):
     """
     Endpoint for unsecure_prediction based on scoring parameters.
 
@@ -100,7 +100,7 @@ async def unsecure_predict(item: ScoringItem):
         dict: Prediction result, can be 1 or 0 indicating shot made or missed.
     """
     # Create a DataFrame with the data of the request object
-    df = pd.DataFrame([item.model_dump()])
+    df = pd.DataFrame([input_data.model_dump()])
     # Rename the columns to match the expected names
     df = df.rename(columns={
         "Minutes_Remaining": "Minutes Remaining",
@@ -146,7 +146,8 @@ async def unsecure_predict(item: ScoringItem):
     # Make a prediction with the loaded model
     yhat = model.predict(df)
     # Return the prediction as an answer
-    return {"prediction": int(yhat.item())}  # Use item() to extract a single element
+    return {"prediction": int(yhat.item()),
+            "input_parameters": input_data}
 
 
 class SimplePredictInput(BaseModel):
@@ -154,7 +155,7 @@ class SimplePredictInput(BaseModel):
     Y_Location: float
     Player_Index: int
 # endpoint with a description of Simple Predict for Frontend
-@app.post('/simple_predict', response_model=Dict[str, int], name="Simple prediction based on X_Location, Y_Location, and Player_Index.")
+@app.post('/simple_predict', name="Simple prediction based on X_Location, Y_Location, and Player_Index.")
 def simple_predict(input_data: SimplePredictInput):
     """
     Simple endpoint for prediction based on X_Location, Y_Location, and
@@ -179,4 +180,5 @@ def simple_predict(input_data: SimplePredictInput):
 
     # Generate a random prediction (0 or 1)
     prediction = simple_predict_no_model(X_Location, Y_Location, Player_Index)
-    return {"prediction": prediction}
+    return {"prediction": prediction,
+            "input_parameters": input_data}
