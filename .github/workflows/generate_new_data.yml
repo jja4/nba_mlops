@@ -34,6 +34,8 @@ jobs:
 
     - name: Commit and push new_data.csv
       run: |
+        git config --global user.name "Mihran Dovlatya"
+        git config --global user.email mihrandovlatyan@gmail.com
         git add data/new_data/new_data.csv
         git commit -m 'Add simulated new_data.csv for retraining'
         git push
