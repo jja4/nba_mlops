@@ -1,9 +1,15 @@
 name: Generate New Data
 
 on:
-  schedule:
-    #- cron: '0 9 * * 0' # Every Sunday at 09:00 UTC
-    - cron: '50 7 * * 2'
+  push:
+    branches:
+      - main
+      - push-docker-hub
+      - database_integration
+      - retrain-the-model
+  #schedule:
+  #  #- cron: '0 9 * * 0' # Every Sunday at 09:00 UTC
+  #  - cron: '50 7 * * 2'
 
 jobs:
   generate_data:
@@ -33,4 +39,4 @@ jobs:
         git commit -m 'Add simulated new_data.csv for retraining'
         git push
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GIT_REPO_TOKEN }}
