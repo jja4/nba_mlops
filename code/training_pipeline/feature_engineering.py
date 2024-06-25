@@ -118,6 +118,9 @@ def main():
     # Split and save the train and test sets
     split_train_and_test_parts(data)
 
+    # Each service script creates its signal file at the end
+    open('signal_feature_engineering_done', 'w').close()
+
     logging.info("Data processing completed.")
     logging.info("-----------------------------------")
 

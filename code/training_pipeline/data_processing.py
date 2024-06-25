@@ -139,8 +139,11 @@ def main():
     data = clean_data(data)
     data = transform_data(data)
     data.to_csv(output_file_path, index=False)
-    logging.info("Processed data saved successfully.")
     logging.info(output_file_path)
+
+    # Each service script creates its signal file at the end
+    open('signal_data_processing_done', 'w').close()
+
     logging.info("Data processing pipeline completed.")
     logging.info("-----------------------------------")
 
