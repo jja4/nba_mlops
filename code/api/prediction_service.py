@@ -38,11 +38,6 @@ model = load(joblib_file_path)
 
 app = FastAPI()
 
-@app.post("/predict")
-async def predict():
-    prediction = random.randint(0, 1)
-    return {"prediction": prediction}
-
 
 class ScoringItem(BaseModel):
     """
@@ -88,10 +83,10 @@ class ScoringItem(BaseModel):
     Day: int
     Day_of_Week: int
 
-@app.post('/unsecure_predict')
-async def unsecure_predict(input_data: ScoringItem):
+@app.post('/predict')
+async def predict(input_data: ScoringItem):
     """
-    Endpoint for unsecure_prediction based on scoring parameters.
+    Endpoint for secure prediction based on scoring parameters.
 
     Args:
         item (ScoringItem): Input parameters for prediction.
@@ -149,36 +144,3 @@ async def unsecure_predict(input_data: ScoringItem):
     return {"prediction": int(yhat.item()),
             "input_parameters": input_data}
 
-
-class SimplePredictInput(BaseModel):
-    X_Location: float
-    Y_Location: float
-    Player_Index: int
-# endpoint with a description of Simple Predict for Frontend
-@app.post('/simple_predict', name="Simple prediction based on X_Location, Y_Location, and Player_Index.")
-def simple_predict(input_data: SimplePredictInput):
-    """
-    Simple endpoint for prediction based on X_Location, Y_Location, and
-    Player_Index.
-
-    Args:
-        input_data (SimplePredictInput): Input data containing X_Location,
-        Y_Location, and Player_Index.
-
-    Returns:
-        dict: A dictionary containing a random prediction (0 or 1).
-    """
-    # Extract input data
-    X_Location = input_data.X_Location
-    Y_Location = input_data.Y_Location
-    Player_Index = input_data.Player_Index
-
-    # Dummy prediction function
-    def simple_predict_no_model(X_Location, Y_Location, Player_Index):
-        # Replace with actual machine learning model
-        return random.randint(0, 1)
-
-    # Generate a random prediction (0 or 1)
-    prediction = simple_predict_no_model(X_Location, Y_Location, Player_Index)
-    return {"prediction": prediction,
-            "input_parameters": input_data}

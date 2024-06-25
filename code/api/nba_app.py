@@ -39,11 +39,6 @@ DB_PASSWORD = os.getenv("DB_PASSWORD", "mlops")
 PREDICTION_SERVICE_HOST = os.getenv('PREDICTION_SERVICE_HOST', 'localhost')
 PREDICTION_SERVICE_PORT = os.getenv('PREDICTION_SERVICE_PORT', '8001')
 
-# Configure CORS so we can communicate with the React frontend app
-origins = [
-    "http://localhost:3000",  # origin for the React app
-]
-
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -119,6 +114,11 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
+# Configure CORS so we can communicate with the React frontend app
+origins = [
+    "http://localhost:3000",  # origin for the React app
+]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -141,11 +141,6 @@ class User(BaseModel):
     username: str = Field(default="testuser")
     password: str = Field(default="testpassword")
     disabled: Union[bool, None] = False
-
-
-class UserOut(BaseModel):
-    username: str
-    disabled: Union[bool, None] = None
 
 
 class UserInDB(User):
@@ -245,12 +240,6 @@ async def login_for_access_token(
     return Token(access_token=access_token, token_type="bearer")
 
 
-@app.get("/user", response_model=UserOut)
-async def read_current_user(
-    current_user: Annotated[User, Depends(authorize_user)],
-):
-    return UserOut(username=current_user.username, disabled=current_user.disabled)
-
 # Signup endpoint
 @app.post("/signup")
 async def signup(user: User):
@@ -267,18 +256,6 @@ async def signup(user: User):
     finally:
         cur.close()
         conn.close()
-
-
-
-# Gateway to Prediction Service
-@app.post("/predict")
-async def secure_predict(
-    current_user: Annotated[User, Depends(authorize_user)],
-):
-    url = f"http://{PREDICTION_SERVICE_HOST}:{PREDICTION_SERVICE_PORT}/predict"
-    async with httpx.AsyncClient() as client:
-        response = await client.post(url)
-    return response.json()
 
 
 class ScoringItem(BaseModel):
@@ -328,9 +305,12 @@ class ScoringItem(BaseModel):
 
 
 
-@app.post('/unsecure_predict', name="Unsecure prediction based on scoring parameters.")
-async def unsecure_predict(item: ScoringItem):
-    url = f"http://{PREDICTION_SERVICE_HOST}:{PREDICTION_SERVICE_PORT}/unsecure_predict"
+@app.post('/predict', name="Secure prediction based on scoring parameters.")
+async def predict(
+    current_user: Annotated[User, Depends(authorize_user)],
+    item: ScoringItem
+):
+    url = f"http://{PREDICTION_SERVICE_HOST}:{PREDICTION_SERVICE_PORT}/predict"
     async with httpx.AsyncClient() as client:
         response = await client.post(url, json=item.dict())
         result = response.json()
@@ -355,34 +335,22 @@ async def unsecure_predict(item: ScoringItem):
         return response.json()
 
 
-class SimplePredictInput(BaseModel):
-    X_Location: float
-    Y_Location: float
-    Player_Index: int
-
-
-@app.post('/simple_predict', name="Simple prediction based on X_Location, Y_Location, and Player_Index.")
-async def simple_predict(input_data: SimplePredictInput):
-    url = f"http://{PREDICTION_SERVICE_HOST}:{PREDICTION_SERVICE_PORT}/simple_predict"
-    async with httpx.AsyncClient() as client:
-        response = await client.post(url, json=input_data.dict())
-    return response.json()
-
-
 class VerificationInput(BaseModel):
-    prediction_id: int
-    true_value: int  # 0 or 1
+    prediction_id: Optional[int] = None
+    true_value: int
+
 @app.get("/verify_random_prediction")
-async def get_random_prediction():
+async def get_random_prediction(
+    current_user: Annotated[User, Depends(authorize_user)],
+):
     conn = get_db_connection()
     cur = conn.cursor(cursor_factory=RealDictCursor)
     try:
-        # Get a random prediction that hasn't been verified yet
         cur.execute("""
-            SELECT id, prediction, input_parameters 
+            SELECT id, prediction, input_parameters, timestamp
             FROM predictions 
-            WHERE user_verification IS NULL 
-            ORDER BY RANDOM() 
+            WHERE user_verification IS NULL
+            ORDER BY RANDOM()
             LIMIT 1
             FOR UPDATE SKIP LOCKED
         """)
@@ -390,21 +358,13 @@ async def get_random_prediction():
         
         if not prediction:
             return {"message": "No unverified predictions available"}
-        
-        # Handle input_parameters whether it's a JSON string or a dictionary
-        input_parameters = prediction['input_parameters']
-        if isinstance(input_parameters, str):
-            try:
-                input_parameters = json.loads(input_parameters)
-            except json.JSONDecodeError:
-                # If it's not valid JSON, leave it as is
-                pass
-        
-        # Prepare the response
+            
         response = {
             "prediction_id": prediction['id'],
             "model_prediction": prediction['prediction'],
-            "input_parameters": input_parameters
+            "date_time": prediction['timestamp'].strftime("%Y-%m-%d %H:%M:%S"),
+            "input_parameters": json.loads(prediction['input_parameters'])
+            if isinstance(prediction['input_parameters'], str) else prediction['input_parameters']
         }
         
         return response
@@ -415,25 +375,26 @@ async def get_random_prediction():
         conn.close()
 
 @app.post("/verify_random_prediction")
-async def verify_prediction(verification: VerificationInput):
+async def verify_prediction(
+    current_user: Annotated[User, Depends(authorize_user)],
+    verification: VerificationInput
+):
     conn = get_db_connection()
     cur = conn.cursor()
     try:
-        # First, check if the prediction exists
         cur.execute("SELECT * FROM predictions WHERE id = %s", (verification.prediction_id,))
         prediction = cur.fetchone()
         
         if not prediction:
             raise HTTPException(status_code=404, detail="Prediction not found")
         
-        # Update the prediction with user verification
         cur.execute(
             "UPDATE predictions SET user_verification = %s WHERE id = %s",
             (verification.true_value, verification.prediction_id)
         )
         conn.commit()
         
-        return {"message": "Prediction verified successfully"}
+        return {"message": f"Prediction_id:{verification.prediction_id} verified successfully"}
     except Exception as e:
         conn.rollback()
         raise HTTPException(status_code=500, detail=str(e))
