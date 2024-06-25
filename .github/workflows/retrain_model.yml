@@ -5,7 +5,7 @@ on:
     #- cron: '0 9 * * 1' # Every Monday at 09:00 UTC
     #- cron: '28 6 * * 2'
     #- cron: '28 7 * * 2'
-    - cron: '*/5 * * * *'   # run every 5 minutes
+    - cron: '55 7 * * 2'
   #push:
   #  paths:
   #    - 'data/new_data/new_data.csv'
@@ -14,7 +14,6 @@ jobs:
   retrain-with-docker-compose:
     name: Build Docker Compose
     runs-on: ubuntu-latest
-#    needs: unit-tests  # Later we will uncomment this. For now we do this to run docker part faster
 
     steps:
       - name: Checkout code

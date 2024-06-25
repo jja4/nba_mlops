@@ -1,0 +1,36 @@
+name: Generate New Data
+
+on:
+  schedule:
+    #- cron: '0 9 * * 0' # Every Sunday at 09:00 UTC
+    - cron: '50 7 * * 2'
+
+jobs:
+  generate_data:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas scikit-learn joblib
+
+    - name: Generate new_data.csv
+      run: python generate_new_data.py
+
+    - name: Commit and push new_data.csv
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git add data/new_data/new_data.csv
+        git commit -m 'Add simulated new_data.csv for retraining'
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
