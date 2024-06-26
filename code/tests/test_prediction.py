@@ -1,10 +1,32 @@
 from fastapi.testclient import TestClient
-from api.nba_app import app
+from api.nba_app import app, lifespan
+import pytest
+import asyncio
 
 client = TestClient(app)
 
 
-def get_token() -> str:
+# Create a new event loop for running async functions
+@pytest.fixture(scope="module")
+def event_loop():
+    loop = asyncio.get_event_loop_policy().new_event_loop()
+    yield loop
+    loop.close()
+
+# Run the lifespan event before tests
+@pytest.fixture(scope="module", autouse=True)
+async def run_lifespan():
+    async with lifespan(app):
+        yield
+
+# Create a test client
+@pytest.fixture(scope="module")
+def client():
+    with TestClient(app) as c:
+        yield c
+
+
+def get_token(client: TestClient) -> str:
     login_data = {
         "grant_type": "",
         "username": "johndoe",
@@ -22,7 +44,7 @@ def get_token() -> str:
     return response.json()["access_token"]
 
 
-def test_root_endpoint():
+def test_root_endpoint(client: TestClient):
     """
     Test the root endpoint of the NBA prediction API.
 
@@ -36,7 +58,7 @@ def test_root_endpoint():
     assert response.json() == {"message": "Welcome to the NBA prediction API!"}
 
 
-def test_predict_endpoint_shot_made():
+def test_predict_endpoint_shot_made(client: TestClient):
     """
     Test the unsecure_predict endpoint of the NBA prediction API for a made shot prediction.
 
@@ -89,7 +111,7 @@ def test_predict_endpoint_shot_made():
         "Day_of_Week": 5
     }
 
-    token = get_token()
+    token = get_token(client)
     headers = {
         "Authorization": f"Bearer {token}",
         "Content-Type": "application/json"
@@ -109,7 +131,7 @@ def test_predict_endpoint_shot_made():
     assert prediction == 1
 
 
-def test_predict_endpoint_shot_missed():
+def test_predict_endpoint_shot_missed(client: TestClient):
     """
     Test the unsecure_predict endpoint of the NBA prediction API for a missed shot prediction.
 
@@ -162,7 +184,7 @@ def test_predict_endpoint_shot_missed():
         "Day_of_Week": 5
     }
 
-    token = get_token()
+    token = get_token(client)
     headers = {
         "Authorization": f"Bearer {token}",
         "Content-Type": "application/json"
@@ -181,7 +203,7 @@ def test_predict_endpoint_shot_missed():
     prediction = response.json()['prediction']
     assert prediction == 0
 
-def test_predict_endpoint_unauthorized():
+def test_predict_endpoint_unauthorized(client: TestClient):
     """
     Test the predict endpoint with no authentication.
     """
