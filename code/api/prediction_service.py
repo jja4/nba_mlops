@@ -1,24 +1,8 @@
-from datetime import datetime, timedelta, timezone
-from typing import Union, Optional, Dict
-
-import jwt
-from fastapi import Depends, FastAPI, HTTPException, status, Body
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from contextlib import asynccontextmanager
-from jwt.exceptions import InvalidTokenError
-from passlib.context import CryptContext
-from typing_extensions import Annotated
-from pydantic import BaseModel, Field
+from fastapi import FastAPI
+from pydantic import BaseModel
 import pandas as pd
 import os
-import random
 from joblib import load
-from fastapi.middleware.cors import CORSMiddleware
-import psycopg2
-from psycopg2.extras import RealDictCursor
-import time
-from psycopg2 import OperationalError
-import logging
 
 
 # Get the path to the project root directory
@@ -141,6 +125,5 @@ async def predict(input_data: ScoringItem):
     # Make a prediction with the loaded model
     yhat = model.predict(df)
     # Return the prediction as an answer
-    return {"prediction": int(yhat.item()),
-            "input_parameters": input_data}
+    return {"prediction": int(yhat.item())}
 

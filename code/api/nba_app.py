@@ -1,23 +1,18 @@
 from datetime import datetime, timedelta, timezone
-from typing import Union, Optional, Dict
+from typing import Union, Optional
 
 import jwt
-from fastapi import Depends, FastAPI, HTTPException, status, Body
+from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from contextlib import asynccontextmanager
 from jwt.exceptions import InvalidTokenError
 from passlib.context import CryptContext
 from typing_extensions import Annotated
 from pydantic import BaseModel, Field
-import pandas as pd
 import os
-import random
-from joblib import load
 from fastapi.middleware.cors import CORSMiddleware
 import psycopg2
 from psycopg2.extras import RealDictCursor
-import time
-from psycopg2 import OperationalError
 import logging
 import httpx
 import json
