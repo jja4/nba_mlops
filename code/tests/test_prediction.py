@@ -3,7 +3,7 @@ from api.nba_app import app, lifespan
 import pytest
 import asyncio
 
-client = TestClient(app)
+test_client = TestClient(app)
 
 
 # Create a new event loop for running async functions
