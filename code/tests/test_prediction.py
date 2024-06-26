@@ -6,10 +6,18 @@ client = TestClient(app)
 
 def get_token() -> str:
     login_data = {
+        "grant_type": "",
         "username": "johndoe",
-        "password": "secret"
+        "password": "secret",
+        "scope": "",
+        "client_id": "",
+        "client_secret": ""
     }
-    response = client.post("/login", data=login_data)
+    headers = {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "accept": "application/json"
+    }
+    response = client.post("/login", data=login_data, headers=headers)
     assert response.status_code == 200, f"Login failed: {response.text}"
     return response.json()["access_token"]
 
@@ -28,7 +36,7 @@ def test_root_endpoint():
     assert response.json() == {"message": "Welcome to the NBA prediction API!"}
 
 
-def test_unsecure_predict_endpoint_shot_made():
+def test_predict_endpoint_shot_made():
     """
     Test the unsecure_predict endpoint of the NBA prediction API for a made shot prediction.
 
@@ -82,7 +90,11 @@ def test_unsecure_predict_endpoint_shot_made():
     }
 
     token = get_token()
-    headers = {"Authorization": f"Bearer {token}"}
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json"
+    }
+
     # Send POST request to the endpoint using the test client
     response = client.post("/predict", json=data, headers=headers)
 
@@ -97,7 +109,7 @@ def test_unsecure_predict_endpoint_shot_made():
     assert prediction == 1
 
 
-def test_unsecure_predict_endpoint_shot_missed():
+def test_predict_endpoint_shot_missed():
     """
     Test the unsecure_predict endpoint of the NBA prediction API for a missed shot prediction.
 
@@ -151,7 +163,10 @@ def test_unsecure_predict_endpoint_shot_missed():
     }
 
     token = get_token()
-    headers = {"Authorization": f"Bearer {token}"}
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json"
+    }
 
     # Send POST request to the endpoint using the test client
     response = client.post("/predict", json=data, headers=headers)
