@@ -49,3 +49,9 @@ jobs:
           exit 1
         fi
       id: check_changes
+
+    - name: Trigger second workflow
+      uses: peter-evans/workflow-dispatch@v1
+      with:
+        workflow: 'Retrain and Push to Docker Hub'  # Name of the second workflow
+        token: ${{ secrets.GITHUB_TOKEN }}

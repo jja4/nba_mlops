@@ -1,11 +1,7 @@
 name: Retrain and Push to Docker Hub
 
 on:
-  push:
-    branches:
-      - retrain-the-model
-    paths:
-      - 'data/new_data/new_data.csv'
+  workflow_dispatch:
 
 jobs:
   retrain-and-push:
@@ -13,4 +9,6 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
+      
+      # Add other steps as needed
