@@ -40,7 +40,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GIT_REPO_TOKEN }}
 
     - name: Trigger second workflow
-      uses: peter-evans/repository-dispatch@v1
+      uses: peter-evans/repository-dispatch@v3
       with:
         workflow: 'Retrain and Push to Docker Hub'  # Name of the second workflow
         token: ${{ secrets.GITHUB_TOKEN }}
