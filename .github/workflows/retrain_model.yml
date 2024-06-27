@@ -9,8 +9,8 @@ on:
     # - cron: '*/5 * * * *' # run every two hours in June
     
   push:
-    paths:
-      - 'data/new_data/new_data.csv'
+    #paths:
+      #- 'data/new_data/new_data.csv'
 
 jobs:
   retrain-with-docker-compose:
