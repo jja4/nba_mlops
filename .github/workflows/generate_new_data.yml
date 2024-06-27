@@ -1,7 +1,7 @@
 name: Generate New Data
 
 on:
-  pull_request:
+  push:
     branches:
       - retrain-the-model
       - main
