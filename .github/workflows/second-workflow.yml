@@ -1,0 +1,16 @@
+name: Retrain and Push to Docker Hub
+
+on:
+  push:
+    branches:
+      - retrain-the-model
+    paths:
+      - 'data/new_data/new_data.csv'
+
+jobs:
+  retrain-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
