@@ -14,8 +14,9 @@ name: Retrain and push to Docker Hub
       
 on:
   push:
-    #branches:
-    #  - retrain-the-model
+    branches:
+      #- retrain-the-model
+      - main
     paths:
       - 'data/new_data/new_data.csv'
       - 'data/**'
