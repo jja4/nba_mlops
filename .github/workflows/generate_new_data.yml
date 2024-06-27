@@ -3,7 +3,7 @@ name: Generate New Data
 on:
   push:
     branches:
-      #- retrain-the-model
+      - retrain-the-model
       - main
   # Uncomment if you want to schedule the workflow to run at specific times
   #schedule:
