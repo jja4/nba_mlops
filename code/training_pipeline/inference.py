@@ -78,10 +78,12 @@ def main():
     pd.DataFrame(predictions, columns=['Prediction']).to_csv(output_file_path, index=False)
     logging.info("Prediction file data saved successfully.")
     logging.info(output_file_path)
-    logging.info("-----------------------------------")
 
     # Each service script creates its signal file at the end
     open('signal_inference_done', 'w').close()
+
+    logging.info("Model inference completed.")
+    logging.info("-----------------------------------")
 
 if __name__ == "__main__":
     main()

@@ -118,6 +118,9 @@ def main():
     # Save combined data
     save_data(combined_data, output_file_path)
 
+    # Each service script creates its signal file at the end
+    open('signal_data_ingestion_done', 'w').close()
+
     logging.info("Data ingestion process completed.")
     logging.info("---------------------------------")
 
