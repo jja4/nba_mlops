@@ -39,17 +39,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GIT_REPO_TOKEN }}
 
-    - name: Check for changes
-      run: |
-        if git diff --quiet HEAD^..HEAD -- data/new_data/new_data.csv data/; then
-          echo "No changes detected in specified paths."
-          exit 0
-        else
-          echo "Changes detected in specified paths."
-          exit 1
-        fi
-      id: check_changes
-
     - name: Trigger second workflow
       uses: peter-evans/repository-dispatch@v1
       with:
