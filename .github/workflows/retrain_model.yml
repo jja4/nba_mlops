@@ -19,6 +19,8 @@ on:
     paths:
       - 'data/new_data/new_data.csv'
       - 'data/**'
+      - './**'
+      - '**'
 
 permissions:
   contents: write  # Grant write permission to contents
