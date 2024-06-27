@@ -374,6 +374,7 @@ async def verify_prediction(
     current_user: Annotated[User, Depends(authorize_user)],
     verification: VerificationInput
 ):
+    # add check to make sure prediction id is available
     conn = get_db_connection()
     cur = conn.cursor()
     try:

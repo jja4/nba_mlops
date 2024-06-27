@@ -205,7 +205,7 @@ This command will start the FastAPI application and make it accessible at http:/
 ```
 11. Click "Execute" and view the prediction (0 or 1) in the Response body
 
-# Verifying previous predictions
+## Verifying previous predictions
 
 1. Once logged in as an authenticated user, navigate to "GET /verify_random_prediction"
 
