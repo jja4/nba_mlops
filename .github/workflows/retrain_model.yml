@@ -14,8 +14,8 @@ name: Retrain and push to Docker Hub
       
 on:
   push:
-    branches:
-      - retrain-the-model
+    #branches:
+    #  - retrain-the-model
     paths:
       - 'data/new_data/new_data.csv'
       - 'data/**'
@@ -53,6 +53,7 @@ jobs:
           git add "data/raw/NBA Shot Locations 1997 - 2020.csv"
           git add "trained_models/model_best_lr.joblib"
 
+          git pull
           git commit -m 'Add logs, preprocessed and trained model files'
           git push
         env:
