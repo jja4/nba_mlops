@@ -13,6 +13,8 @@ name: Retrain and push to Docker Hub
       #- 'data/new_data/new_data.csv'
       
 on:
+  schedule:
+    - cron: '0 9 * * 1' # Every Monday at 09:00 UTC
   push:
     branches:
       - retrain-the-model
