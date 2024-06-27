@@ -58,16 +58,24 @@ Project Organization
 ## Getting Started
 
 ## Building and Connecting to the App, including the PostgreSQL database
+
+1. Make sure you have docker installed on your machine
+
+2. Navigate to the nba_mlops directory (cd path/to/nba_mlops) and execute:
+
 ```bash
 docker-compose -f docker-compose.api.yml up
 ```
+
+3. To check if the users table exists, run the following code
 ```bash
-# to check if the users table exists, run the following code
 docker exec -it nba_mlops_db_1 psql -U ubuntu -d nba_db
 # enter the password 'mlops' if requested
 SELECT * FROM users;
+```
+4. To see the previous predictions and their user verification
 
-# to see the previous predictions and their user verification
+```bash
 SELECT id, prediction, user_verification FROM predictions;
 ```
 
