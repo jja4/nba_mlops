@@ -35,12 +35,12 @@ jobs:
           git config --global user.name "Github Action"
           git config --global user.email mihrandovlatyan@gmail.com
           
-          git add code/log.txt
-          git add data/predictions/predictions.csv
-          git add data/processed/NBA Shot Locations 1997 - 2020-processed.csv
-          git add data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib
-          git add data/raw/NBA Shot Locations 1997 - 2020.csv
-          git add trained_models/model_best_lr.joblib
+          git add "code/log.txt"
+          git add "data/predictions/predictions.csv"
+          git add "data/processed/NBA Shot Locations 1997 - 2020-processed.csv"
+          git add "data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib"
+          git add "data/raw/NBA Shot Locations 1997 - 2020.csv"
+          git add "trained_models/model_best_lr.joblib"
 
           git commit -m 'Add logs, preprocessed and trained model files'
           git push
