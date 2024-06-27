@@ -16,8 +16,8 @@ on:
   push:
     branches:
       - retrain-the-model
-    paths:
-      - 'data/**'
+    #paths:
+    #  - 'data/**'
 
 permissions:
   contents: write  # Grant write permission to contents
