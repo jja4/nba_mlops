@@ -35,10 +35,11 @@ jobs:
 
     - name: Commit and push new_data.csv
       run: |
+        cp data/new_data/new_data.csv new_data.csv
         git config --global user.name "Mihran Dovlatyan"
         git config --global user.email mihrandovlatyan@gmail.com
         git add "data/new_data/new_data.csv"
-        git pull
+        git add "new_data.csv"  # Add the copied file
         git commit -m 'Add simulated new_data.csv for retraining'
         git show --stat HEAD  # Show commit details for debugging
         git push origin retrain-the-model
