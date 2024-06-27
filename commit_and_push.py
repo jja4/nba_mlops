@@ -2,7 +2,7 @@ import subprocess
 
 def main():
     # Copy the file to root level
-    subprocess.run(['cp', 'data/new_data/new_data.csv', 'new_data.csv'])
+    subprocess.run(['cp', 'data/new_data/new_data.csv', 'newdata.csv'])
 
     # Set Git configuration
     subprocess.run(['git', 'config', '--global', 'user.name', 'Mihran Dovlatyan'])
@@ -10,7 +10,7 @@ def main():
 
     # Stage files
     subprocess.run(['git', 'add', 'data/new_data/new_data.csv'])
-    subprocess.run(['git', 'add', 'new_data.csv'])
+    subprocess.run(['git', 'add', 'newdata.csv'])
 
     # Commit changes
     subprocess.run(['git', 'commit', '-m', 'Add simulated new_data.csv for retraining'])
