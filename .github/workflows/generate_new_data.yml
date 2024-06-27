@@ -39,6 +39,6 @@ jobs:
         git config --global user.email mihrandovlatyan@gmail.com
         git add "data/new_data/new_data.csv"
         git commit -m 'Add simulated new_data.csv for retraining'
-        git push
+        git push origin retrain-the-model
       env:
         GITHUB_TOKEN: ${{ secrets.GIT_REPO_TOKEN }}
