@@ -3,9 +3,6 @@ name: Generate New Data
 on:
   push:
     branches:
-      - main
-      - push-docker-hub
-      - database_integration
       - retrain-the-model
   # Uncomment if you want to schedule the workflow to run at specific times
   #schedule:
@@ -40,7 +37,7 @@ jobs:
       run: |
         git config --global user.name "Github Action"
         git config --global user.email mihrandovlatyan@gmail.com
-        git add data/new_data/new_data.csv
+        git add "data/new_data/new_data.csv"
         git commit -m 'Add simulated new_data.csv for retraining'
         git push
       env:
