@@ -80,5 +80,8 @@ def main():
     logging.info(output_file_path)
     logging.info("-----------------------------------")
 
+    # Each service script creates its signal file at the end
+    open('signal_inference_done', 'w').close()
+
 if __name__ == "__main__":
     main()
