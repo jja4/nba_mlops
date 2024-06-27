@@ -14,7 +14,7 @@ name: Retrain and push to Docker Hub
 on:
   push:
     paths:
-      - 'data/**'
+      - './data/**'
   
 permissions:
   contents: write  # Grant write permission to contents
