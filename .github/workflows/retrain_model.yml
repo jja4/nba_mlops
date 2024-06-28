@@ -1,28 +1,11 @@
 name: Retrain and push to Docker Hub
 
-#on:
-  #schedule:
-    #- cron: '0 9 * * 1' # Every Monday at 09:00 UTC
-    #- cron: '28 6 * * 2'
-    #- cron: '28 7 * * 2'
-    #- cron: '55 7 * * 2'
-    # - cron: '*/5 * * * *' # run every two hours in June
-    
-  #push:
-    #paths:
-      #- 'data/new_data/new_data.csv'
-      
 on:
-  schedule:
-    - cron: '0 20 * * *' # Every day at 9 am at UTC
   push:
-    branches:
-      - retrain-the-model
-      #- main
-    #paths:
-    #  - 'data/new_data/new_data.csv'
-    #  - 'data/**' 
-    #  - './**'
+    paths:
+      - 'data/new_data/new_data1.csv'
+  schedule:
+    - cron: "*/10 * * * *"
 
 permissions:
   contents: write  # Grant write permission to contents

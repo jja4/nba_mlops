@@ -1,14 +1,19 @@
 name: Generate New Data
 
-on:
-  push:
-    branches:
-      - retrain-the-model
-      - main
+#on:
+#  push:
+#    branches:
+#      - retrain-the-model
+#      - main
   # Uncomment if you want to schedule the workflow to run at specific times
   #schedule:
   #  - cron: '0 9 * * 0' # Every Sunday at 09:00 UTC
   #  - cron: '50 7 * * 2'
+
+on:
+  schedule:
+    #- cron: '0 20 * * *' # Every day at 9 am at UTC
+    - cron: "*/5 * * * *"
 
 permissions:
   contents: write  # Grant write permission to contents
