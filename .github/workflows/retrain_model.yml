@@ -40,7 +40,7 @@ jobs:
           git add "data/processed/NBA Shot Locations 1997 - 2020-processed.csv"
           git add "data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib"
           git add "data/raw/NBA Shot Locations 1997 - 2020.csv"
-          git add "trained_models/model_best_lr.joblib"
+          git add "trained_models/*.joblib"  # Add all versioned model files
 
           git pull
           git commit -m 'Add logs, preprocessed and trained model files'
