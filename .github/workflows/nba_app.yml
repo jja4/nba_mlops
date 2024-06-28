@@ -2,7 +2,7 @@ name: Python API Tests
 
 on:
   schedule:
-    - cron: '*/5 * * * *' # Every 5 minutes
+    - cron: '0 20 * * *' # Every day at 9 am at UTC
   push:
     branches:
       - main
