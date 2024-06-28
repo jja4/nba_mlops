@@ -7,6 +7,7 @@ from sklearn.metrics import accuracy_score
 from joblib import load, dump
 from sklearn.preprocessing import StandardScaler
 import logging
+import datetime
 
 # Adjust sys.path to include the 'project' directory
 project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -55,6 +56,14 @@ def train_model(file_path):
     
     return model
 
+def generate_versioned_filename(base_filename, version):
+    """
+    Generate a versioned filename based on base_filename, version number, and current date.
+    Example: If base_filename='model', version=1, it will generate 'model-v1-20240628.joblib'
+    """
+    current_date = datetime.datetime.now().strftime('%Y%m%d')
+    return f"{base_filename}-v{version}-{current_date}.joblib"
+
 def main():
     """
     Main function to train the model and save it.
@@ -67,12 +76,26 @@ def main():
     # Train the logistic regression model
     model = train_model(file_path)
     
+    # Determine the output file path with versioning
+    base_output_file_path = '../../' + Config.OUTPUT_TRAINED_MODEL_FILE_LR
+    version = 1
+    while True:
+        output_file_path = generate_versioned_filename(base_output_file_path, version)
+        if not os.path.exists(output_file_path):
+            break
+        version += 1
+
     # Save the trained model to a file
     output_file_path = '../../' + Config.OUTPUT_TRAINED_MODEL_FILE_LR
     dump(model, output_file_path)
 
     logging.info("Model file data saved successfully.")
     logging.info(output_file_path)
+
+    # Each service script creates its signal file at the end
+    open('signal_model_training_done', 'w').close()
+
+    logging.info("Model training completed.")
     logging.info("-----------------------------------")
 
 if __name__ == "__main__":
