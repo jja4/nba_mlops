@@ -822,3 +822,32 @@
 2024-06-28 20:05:32,897 - INFO - ../../data/predictions/predictions.csv
 2024-06-28 20:05:32,897 - INFO - Model inference completed.
 2024-06-28 20:05:32,897 - INFO - -----------------------------------
+2024-06-28 20:10:39,455 - INFO - (1) Starting the data ingestion process.
+2024-06-28 20:10:39,456 - INFO - Reading data from CSV file: ../../data/new_data/new_data.csv
+2024-06-28 20:10:39,458 - INFO - Data read successfully from CSV file.
+2024-06-28 20:10:39,459 - INFO - Validating data.
+2024-06-28 20:10:39,459 - INFO - Data validation passed.
+2024-06-28 20:10:39,459 - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-06-28 20:10:39,464 - INFO - Data read successfully from CSV file.
+2024-06-28 20:10:39,465 - INFO - Appending new data to existing data.
+2024-06-28 20:10:39,465 - INFO - Data appended successfully.
+2024-06-28 20:10:39,465 - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-06-28 20:10:39,477 - INFO - Data saved successfully.
+2024-06-28 20:10:39,477 - INFO - Data ingestion process completed.
+2024-06-28 20:10:39,477 - INFO - ---------------------------------
+2024-06-28 20:10:41,697 - INFO - (2) Starting the data processing process.
+2024-06-28 20:10:41,697 - INFO - Data loaded from ../../data/raw/NBA Shot Locations 1997 - 2020.csv.
+2024-06-28 20:10:41,731 - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv
+2024-06-28 20:10:41,732 - INFO - Data processing pipeline completed.
+2024-06-28 20:10:41,732 - INFO - -----------------------------------
+2024-06-28 20:10:44,508 - INFO - (3) Starting the feature engineering process.
+2024-06-28 20:10:44,508 - INFO - Loading data from ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv.
+2024-06-28 20:10:46,774 - INFO - (4) Starting the model training process.
+2024-06-28 20:10:46,788 - INFO - Model file data saved successfully.
+2024-06-28 20:10:46,788 - INFO - ../../trained_models/model_best_lr.joblib
+2024-06-28 20:10:46,788 - INFO - -----------------------------------
+2024-06-28 20:10:48,998 - INFO - (5) Starting the model prediction process.
+2024-06-28 20:10:49,030 - INFO - Prediction file data saved successfully.
+2024-06-28 20:10:49,030 - INFO - ../../data/predictions/predictions.csv
+2024-06-28 20:10:49,030 - INFO - Model inference completed.
+2024-06-28 20:10:49,031 - INFO - -----------------------------------
