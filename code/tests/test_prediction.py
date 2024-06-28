@@ -2,7 +2,6 @@ from fastapi.testclient import TestClient
 from api.nba_app import app, lifespan
 import pytest
 import asyncio
-import json
 
 test_client = TestClient(app)
 
@@ -46,17 +45,35 @@ def get_token(client: TestClient) -> str:
 
 
 def test_root_endpoint(client: TestClient):
+    """
+    Test the root endpoint of the NBA prediction API.
+
+    This test checks if the root endpoint returns the expected message.
+
+    Returns:
+        None
+    """
     response = client.get("/")
     assert response.status_code == 200
     assert response.json() == {"message": "Welcome to the NBA prediction API!"}
 
 
 def test_predict_endpoint_shot_made(client: TestClient):
+    """
+    Test the unsecure_predict endpoint of the NBA prediction API for a made shot prediction.
+
+    This test sends a POST request to the free predict endpoint with parameters indicating a shot made, 
+    and checks if the response contains the expected prediction value.
+
+    Returns:
+        None
+    """
+    # JSON data to send in the request
     data = {
         "Period": 1,
         "Minutes_Remaining": 10,
         "Seconds_Remaining": 30,
-        "Shot_Distance": 1,
+        "Shot_Distance": 1,        # change this to '15' to have negative result
         "X_Location": 5,
         "Y_Location": 10,
         "Action_Type_Frequency": 0.2,
@@ -100,30 +117,36 @@ def test_predict_endpoint_shot_made(client: TestClient):
         "Content-Type": "application/json"
     }
 
+    # Send POST request to the endpoint using the test client
     response = client.post("/predict", json=data, headers=headers)
-
-    # Log the response details
-    print(f"Response status code: {response.status_code}")
-    print(f"Response content: {response.content.decode('utf-8')}")
 
     # Check if the response status code is 200
     assert response.status_code == 200
 
     # Check if the response contains the 'prediction' key
-    response_json = response.json()
-    assert 'prediction' in response_json
+    assert 'prediction' in response.json()
 
     # Check if the prediction value is either 0 or 1
-    prediction = response_json['prediction']
+    prediction = response.json()['prediction']
     assert prediction == 1
 
 
 def test_predict_endpoint_shot_missed(client: TestClient):
+    """
+    Test the unsecure_predict endpoint of the NBA prediction API for a missed shot prediction.
+
+    This test sends a POST request to the free predict endpoint with parameters indicating a shot missed, 
+    and checks if the response contains the expected prediction value.
+
+    Returns:
+        None
+    """
+    # JSON data to send in the request
     data = {
         "Period": 1,
         "Minutes_Remaining": 10,
         "Seconds_Remaining": 30,
-        "Shot_Distance": 15,
+        "Shot_Distance": 15,        # change this to '1' to have positive result
         "X_Location": 5,
         "Y_Location": 10,
         "Action_Type_Frequency": 0.2,
@@ -167,30 +190,28 @@ def test_predict_endpoint_shot_missed(client: TestClient):
         "Content-Type": "application/json"
     }
 
+    # Send POST request to the endpoint using the test client
     response = client.post("/predict", json=data, headers=headers)
-
-    # Log the response details
-    print(f"Response status code: {response.status_code}")
-    print(f"Response content: {response.content.decode('utf-8')}")
 
     # Check if the response status code is 200
     assert response.status_code == 200
 
     # Check if the response contains the 'prediction' key
-    response_json = response.json()
-    assert 'prediction' in response_json
+    assert 'prediction' in response.json()
 
     # Check if the prediction value is either 0 or 1
-    prediction = response_json['prediction']
+    prediction = response.json()['prediction']
     assert prediction == 0
 
-
 def test_predict_endpoint_unauthorized(client: TestClient):
+    """
+    Test the predict endpoint with no authentication.
+    """
     data = {
         "Period": 1,
         "Minutes_Remaining": 10,
         "Seconds_Remaining": 30,
-        "Shot_Distance": 15,
+        "Shot_Distance": 15,        # change this to '1' to have positive result
         "X_Location": 5,
         "Y_Location": 10,
         "Action_Type_Frequency": 0.2,
@@ -228,9 +249,4 @@ def test_predict_endpoint_unauthorized(client: TestClient):
         "Day_of_Week": 5
     }
     response = client.post("/predict", json=data)
-
-    # Log the response details
-    print(f"Response status code: {response.status_code}")
-    print(f"Response content: {response.content.decode('utf-8')}")
-
     assert response.status_code == 401, f"Expected 401 Unauthorized, got {response.status_code}"
