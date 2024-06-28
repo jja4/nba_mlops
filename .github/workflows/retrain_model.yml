@@ -1,11 +1,11 @@
 name: Retrain and push to Docker Hub
 
 on:
+  schedule:
+    - cron: '0 5 * * *' # Every day at 5 am at UTC
   push:
     paths:
-      - 'data/new_data/new_data1.csv'
-  schedule:
-    - cron: "*/10 * * * *"
+      - 'data/new_data/new_data.csv'
 
 permissions:
   contents: write  # Grant write permission to contents
