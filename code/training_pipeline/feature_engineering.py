@@ -92,6 +92,9 @@ def split_train_and_test_parts(data):
     # Scale the features for train set and replace the original columns with the scaled features
     X_train[columns_to_scale] = scaler.fit_transform(X_train[columns_to_scale])
 
+    print(X_train.head(30))
+    print(y_train.head(30))
+
     # Scale the features for test set and replace the original columns with the scaled features
     X_test[columns_to_scale] = scaler.transform(X_test[columns_to_scale])
     
@@ -121,7 +124,7 @@ def main():
     # Each service script creates its signal file at the end
     open('signal_feature_engineering_done', 'w').close()
 
-    logging.info("Data processing completed.")
+    logging.info("Feature engineering completed.")
     logging.info("-----------------------------------")
 
 if __name__ == "__main__":
