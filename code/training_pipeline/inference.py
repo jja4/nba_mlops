@@ -4,6 +4,7 @@ import pandas as pd
 from joblib import load
 from sklearn.model_selection import train_test_split
 import logging
+import glob
 
 # Adjust sys.path to include the 'project' directory
 # This allows the script to find and import the Config module
@@ -52,6 +53,20 @@ def make_predictions(model, new_data):
     predictions = model.predict(new_data)
     return predictions
 
+def find_latest_versioned_model(base_filename):
+    """
+    Find the latest versioned model file based on base_filename.
+    Returns the path to the latest versioned model file.
+    """
+    search_pattern = f"{base_filename}-v*-*.joblib"
+    files = glob.glob(search_pattern)
+    
+    if not files:
+        raise FileNotFoundError(f"No model files found with pattern '{search_pattern}'")
+    
+    latest_file = max(files, key=os.path.getctime)
+    return latest_file
+
 def main():
     """
     Main function to load datasets, load the model, make predictions, and save the predictions.
@@ -64,8 +79,17 @@ def main():
     # Load the train and test datasets
     X_train, X_test, y_train, y_test = load(file_path)
 
-    # Load the trained model
-    model = load_model('../../' + Config.OUTPUT_TRAINED_MODEL_FILE_LR)
+    # Path to the base filename of the model
+    base_model_filename = '../../' + Config.OUTPUT_TRAINED_MODEL_FILE_LR
+
+    # Find the latest versioned model file
+    latest_model_file = find_latest_versioned_model(base_model_filename)
+    
+    print('Last version model path:')
+    print(latest_model_file)
+
+    # Load the model
+    model = load(latest_model_file)
     
     # Make predictions using the model
     predictions = make_predictions(model, X_test)

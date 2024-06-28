@@ -85,8 +85,10 @@ def main():
             break
         version += 1
 
+    print('Last version model path:')
+    print(output_file_path)
+
     # Save the trained model to a file
-    output_file_path = '../../' + Config.OUTPUT_TRAINED_MODEL_FILE_LR
     dump(model, output_file_path)
 
     logging.info("Model file data saved successfully.")
