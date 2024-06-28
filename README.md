@@ -1,7 +1,7 @@
 NBA MLOps
 ==============================
-This project demonstrates MLOps best practices using a machine learning model
-that predicts if an NBA player will make a specific shot or not.
+This project demonstrates MLOps best practices using a machine learning 
+model that predicts if an NBA player will make a specific shot or not.
 
 ![NBA Shot by Steph Curry](https://github.com/jja4/nba_mlops/blob/main/reports/images/Curry_perfect_shot.jfif)
 
@@ -57,28 +57,31 @@ Project Organization
 ***
 ## Getting Started
 
-## Installing and Connecting to the PostgreSQL Database
+## Building and Connecting to the App, including the PostgreSQL database
+
+1. Make sure you have docker installed on your machine
+
+2. Navigate to the nba_mlops directory (cd path/to/nba_mlops) and execute:
+
 ```bash
-sudo apt install postgresql postgresql-contrib
-sudo -i -u postgres psql
-CREATE USER ubuntu WITH PASSWORD 'mlops';
-CREATE DATABASE nba_db;
-GRANT ALL PRIVILEGES ON DATABASE nba_db TO ubuntu;
-\q
-exit
-# from within the nba_mlops directory
-python3 code/retrieve_data/setup_database.py
+docker-compose -f docker-compose.api.yml up
 ```
+
+3. To check if the users table exists, run the following code
 ```bash
-# to check if the users table exists, run the following code
-psql -h localhost -U ubuntu -d nba_db
-# enter the password 'mlops'
+docker exec -it nba_mlops_db_1 psql -U ubuntu -d nba_db
+# enter the password 'mlops' if requested
 SELECT * FROM users;
+```
+4. To see the previous predictions and their user verification
+
+```bash
+SELECT id, prediction, user_verification FROM predictions;
 ```
 
 ## Running the app
-How to Use the `@app.post('/unsecure_predict')` Endpoint
-To reach the `/unsecure_predict` endpoint and make a prediction, follow these steps:
+How to Use the `@app.post('/predict')` Endpoint
+To reach the `/predict` endpoint and make a prediction, follow these steps:
 
 We have two options to do that:
 
@@ -131,17 +134,32 @@ uvicorn nba_app:app
 ```
 This command will start the FastAPI application and make it accessible at http://localhost:8000.
 
-## Make a POST Request
+## Using the App
 
-You can use Postman to make a POST request to the /unsecure_predict endpoint. Here’s how:
+1. Open http://localhost:8000/docs.
 
-1. Open Postman and create a new POST request.
+2. Navigate to "POST /signup"
 
-2. Set the request URL to http://localhost:8000/unsecure_predict.
+3. Click "Try it Out"
 
-3. In the Body tab, select raw and JSON.
+4. Enter your username and password to register with the database
+```bash{
+  "username": "newuser",
+  "password": "newpassword",
+  "disabled": false
+}
+```
+5. Click "Execute", in the Response body, you should see a "message": "User {your new username} created successfully"
 
-4. Provide the following JSON object with values for the features used to train the model:
+6. In the FastAPI GUI, navigate to the "Authorize" button at the top.
+
+7. Enter your username and password (you can leave all other fields empty) and click "Authorize"
+
+8. Navigate to "POST /predict"
+
+9. Click "Try it Out"
+
+10. Use the Default values in the Request Body or provide the following JSON object with values for the features used to train the model:
 ```bash
 {
     "Period": 1,
@@ -185,22 +203,28 @@ You can use Postman to make a POST request to the /unsecure_predict endpoint. He
     "Day_of_Week": 5
 }
 ```
-5. Send the request
+11. Click "Execute" and view the prediction (0 or 1) in the Response body
 
-6. Get the prediction (0 or 1)
+# Verifying previous predictions
 
-## Installing and Connecting to the PostgreSQL Database
+1. Once logged in as an authenticated user, navigate to "GET /verify_random_prediction"
+
+2. Click "Try it Out"
+
+3. Inspect the input parameters
+
+4. Navigate to "POST /verify_random_prediction"
+
+5. Click "Try it Out"
+
+6. Enter the corresponding prediction_id and the true_value (0 for miss, 1 for make) of the NBA shot
 ```bash
-sudo apt install postgresql postgresql-contrib
-sudo -i -u postgres
-psql
-CREATE USER nba WITH PASSWORD 'mlops';
-CREATE DATABASE nba_db;
-GRANT ALL PRIVILEGES ON DATABASE nba_db TO nba;
-\q
-exit
+{
+  "prediction_id": 13,
+  "true_value": 0
+}
 ```
-
+7. Click "Execute", in the Response body, you should see a "message": "Prediction_id:13 verified successfully"
 
 ## How to Use the `docker compose up`
 Move to `nba_mlops` project main folder and run:

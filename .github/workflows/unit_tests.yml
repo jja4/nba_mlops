@@ -25,6 +25,8 @@ jobs:
       DB_NAME: nba_db
       DB_USER: ubuntu
       DB_PASSWORD: mlops
+      PREDICTION_SERVICE_HOST: localhost
+      PREDICTION_SERVICE_PORT: 8001
 
     services:
       db:
@@ -68,6 +70,16 @@ jobs:
         run: |
           PGPASSWORD=mlops psql -h localhost -U ubuntu -d nba_db -f code/database/init.sql
 
+      - name: Start prediction service
+        run: |
+          source venv/bin/activate
+          nohup uvicorn code.api.prediction_service:app --host ${PREDICTION_SERVICE_HOST} --port ${PREDICTION_SERVICE_PORT} &
+
+      - name: Wait for prediction service to be ready
+        run: |
+          echo "Waiting for prediction service to start..."
+          sleep 10  # Adjust this time as needed
+          
       - name: Run tests
         run: |
           source venv/bin/activate
