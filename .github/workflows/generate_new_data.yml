@@ -1,8 +1,17 @@
 name: Generate New Data
 
 on:
-  schedule:
-    - cron: '0 4 * * *' # Every day at 4 am at UTC
+  #schedule:
+    #- cron: '0 5 * * *' # Every day at 5 am at UTC
+  push:
+    branches:
+      - main
+    #paths:
+    #  - 'data/new_data/new_data.csv'
+
+#on:
+#  schedule:
+#    - cron: '0 4 * * *' # Every day at 4 am at UTC
 
 permissions:
   contents: write  # Grant write permission to contents
