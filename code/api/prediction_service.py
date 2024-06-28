@@ -3,7 +3,7 @@ from pydantic import BaseModel
 import pandas as pd
 import os
 from joblib import load
-
+import glob
 
 # Get the path to the project root directory
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
@@ -11,11 +11,31 @@ project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..
 # Construct the path to the 'trained_models' directory
 trained_models_dir = os.path.join(project_root, 'trained_models')
 
-# Specify the filename of the trained model
-joblib_filename = 'model_best_lr.joblib'
+def find_latest_versioned_model(base_filename):
+    """
+    Find the latest versioned model file based on base_filename.
+    Returns the path to the latest versioned model file.
+    """
+    search_pattern = f"{base_filename}-v*-*.joblib"
+    files = glob.glob(os.path.join(trained_models_dir, search_pattern))
+    
+    if not files:
+        raise FileNotFoundError(f"No model files found with pattern '{search_pattern}'")
+    
+    latest_file = max(files, key=os.path.getctime)
+    return latest_file
 
-# Construct the full path to the joblib file
-joblib_file_path = os.path.join(trained_models_dir, joblib_filename)
+# Specify the base filename of the trained model
+base_joblib_filename = 'model_best_lr'
+
+# Load the latest versioned model file
+try:
+    joblib_file_path = find_latest_versioned_model(base_joblib_filename)
+    model = load(joblib_file_path)
+    print(f"Loaded model from {joblib_file_path}")
+except Exception as e:
+    print(f"Error loading model: {str(e)}")
+    model = None
 
 # Load the joblib file
 model = load(joblib_file_path)
