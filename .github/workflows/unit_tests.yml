@@ -62,7 +62,7 @@ jobs:
         run: |
           until pg_isready -h localhost -p 5432 -U ubuntu; do
             echo "Waiting for PostgreSQL to be ready..."
-            sleep 2
+            sleep 10
           done
 
       - name: Set up database
