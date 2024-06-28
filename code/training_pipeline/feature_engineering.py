@@ -95,7 +95,10 @@ def split_train_and_test_parts(data):
     print(X_train.head(30))
     print(y_train.head(30))
 
-    print(X_train['Action Type_Frequency', 'X Location', 'Y Location', 'Shot Distance'])
+    print(X_train['Action Type_Frequency'])
+    print(X_train['X Location'])
+    print(X_train['Y Location'])
+    print(X_train['Shot Distance'])
 
     # Scale the features for test set and replace the original columns with the scaled features
     X_test[columns_to_scale] = scaler.transform(X_test[columns_to_scale])
