@@ -73,10 +73,10 @@ def test_predict_endpoint_shot_made(client: TestClient):
         "Period": 1,
         "Minutes_Remaining": 10,
         "Seconds_Remaining": 30,
-        "Shot_Distance": 1,        # change this to '15' to have negative result
-        "X_Location": 5,
-        "Y_Location": 10,
-        "Action_Type_Frequency": 0.2,
+        "Shot_Distance": 1,
+        "X_Location": 2,
+        "Y_Location": 2,
+        "Action_Type_Frequency": 0.5,
         "Team_Name_Frequency": 0.5,
         "Home_Team_Frequency": 0.4,
         "Away_Team_Frequency": 0.6,
@@ -146,7 +146,7 @@ def test_predict_endpoint_shot_missed(client: TestClient):
         "Period": 1,
         "Minutes_Remaining": 10,
         "Seconds_Remaining": 30,
-        "Shot_Distance": 15,        # change this to '1' to have positive result
+        "Shot_Distance": 15,
         "X_Location": 5,
         "Y_Location": 10,
         "Action_Type_Frequency": 0.2,
