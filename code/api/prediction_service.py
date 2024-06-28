@@ -27,12 +27,12 @@ class ScoringItem(BaseModel):
     """
     Model representing scoring parameters for prediction.
     """
-    Period: int
-    Minutes_Remaining: int
-    Seconds_Remaining: int
-    Shot_Distance: int
-    X_Location: int
-    Y_Location: int
+    Period: float
+    Minutes_Remaining: float
+    Seconds_Remaining: float
+    Shot_Distance: float
+    X_Location: float
+    Y_Location: float
     Action_Type_Frequency: float
     Team_Name_Frequency: float
     Home_Team_Frequency: float

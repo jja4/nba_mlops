@@ -70,12 +70,12 @@ def test_predict_endpoint_shot_made(client: TestClient):
     """
     # JSON data to send in the request
     data = {
-        "Period": 2,
-        "Minutes_Remaining": 5,
-        "Seconds_Remaining": 30,
-        "Shot_Distance": 0,
-        "X_Location": 0,
-        "Y_Location": 0,
+        "Period": -0.4,
+        "Minutes_Remaining": 1.4,
+        "Seconds_Remaining": -1.3,
+        "Shot_Distance": 0.3,
+        "X_Location": 0.6,
+        "Y_Location": 0.8,
         "Action_Type_Frequency": 0.57,
         "Team_Name_Frequency": 0.5,
         "Home_Team_Frequency": 0.4,
