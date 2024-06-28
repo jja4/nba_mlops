@@ -117,13 +117,8 @@ def test_predict_endpoint_shot_made(client: TestClient):
         "Content-Type": "application/json"
     }
 
-    # Print data to debug
-    print(f"Sending data: {data}")
-
+    # Send POST request to the endpoint using the test client
     response = client.post("/predict", json=data, headers=headers)
-
-    # Print response text to debug
-    print(f"Response text: {response.text}")
 
     # Check if the response status code is 200
     assert response.status_code == 200

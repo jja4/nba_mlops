@@ -95,20 +95,6 @@ def split_train_and_test_parts(data):
     # Scale the features for test set and replace the original columns with the scaled features
     X_test[columns_to_scale] = scaler.transform(X_test[columns_to_scale])
     
-    # Combine X_train and y_train into a single DataFrame for easier filtering
-    train_data = X_train.copy()
-    train_data['Target'] = y_train.values
-
-    # Filter for rows where the target is 1
-    positive_target_rows = train_data[train_data['Target'] == 1]
-
-    # Select a single row
-    single_row = positive_target_rows.iloc[0]
-
-    # Print all column names and their values
-    for column in single_row.index:
-        print(f"{column}: {single_row[column]}")
-
     # Save the train and test sets in a joblib file
     output_file_path = '../../' + Config.OUTPUT_TRAIN_TEST_JOBLIB_FILE
     dump((X_train, X_test, y_train, y_test), output_file_path)
