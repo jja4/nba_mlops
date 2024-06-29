@@ -198,9 +198,16 @@ def test_predict_endpoint_shot_missed(client: TestClient):
 
     # Check if the response contains the 'prediction' key
     assert 'prediction' in response.json()
+    assert 'evaluation_metrics' in response.json()
 
     # Check if the prediction value is either 0 or 1
     prediction = response.json()['prediction']
+
+    evaluation_metrics = response.json()['evaluation_metrics']
+    accuracy = evaluation_metrics['accuracy']
+    print(accuracy)
+    print(evaluation_metrics)
+
     assert prediction == 0
 
 def test_predict_endpoint_unauthorized(client: TestClient):

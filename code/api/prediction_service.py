@@ -4,6 +4,7 @@ import pandas as pd
 import os
 from joblib import load
 import glob
+from sklearn.metrics import accuracy_score, precision_score, recall_score
 
 # Get the path to the project root directory
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
@@ -142,8 +143,31 @@ async def predict(input_data: ScoringItem):
         "Day": "Day",
         "Day_of_Week": "Day_of_Week"
     })
+
+    # Perform model evaluation (Optional: This is just an example)
+    # Load your validation dataset
+    validation_data = pd.read_csv('path_to_validation_data.csv')  # Load your validation dataset
+    X_val = validation_data.drop(columns=['target_column'])
+    y_val = validation_data['target_column']
+    
+    # Make predictions on the validation set
+    val_predictions = model.predict(X_val)
+    
+    # Calculate evaluation metrics
+    accuracy = accuracy_score(y_val, val_predictions)
+    precision = precision_score(y_val, val_predictions)
+    recall = recall_score(y_val, val_predictions)
+    
+    # Log or return the evaluation metrics (Optional)
+    evaluation_metrics = {
+        'accuracy': accuracy,
+        'precision': precision,
+        'recall': recall
+    }
+    print("Model evaluation metrics:", evaluation_metrics)  # Or use a logging system
+    
     # Make a prediction with the loaded model
     yhat = model.predict(df)
+    
     # Return the prediction as an answer
-    return {"prediction": int(yhat.item())}
-
+    return {"prediction": int(yhat.item()), "evaluation_metrics": evaluation_metrics}
