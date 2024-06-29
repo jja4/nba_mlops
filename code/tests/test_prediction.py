@@ -193,6 +193,10 @@ def test_predict_endpoint_shot_missed(client: TestClient):
     # Send POST request to the endpoint using the test client
     response = client.post("/predict", json=data, headers=headers)
 
+    print('hello world!')
+    print(response.json())
+    print('hello world2!')
+    
     # Check if the response status code is 200
     assert response.status_code == 200
 
