@@ -59,9 +59,31 @@ services:
     networks:
       - nba-network
 
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus_data/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    networks:
+      - nba-network
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - nba-network
+
 networks:
   nba-network:
     driver: bridge
 
 volumes:
-  postgres_data:
+  postgres_data: {}
+  prometheus_data: {}
+  grafana_data: {}
