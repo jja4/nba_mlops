@@ -35,9 +35,23 @@ jobs:
       run: |
         git config --global user.name "Mihran Dovlatyan"
         git config --global user.email mihrandovlatyan@gmail.com
+    
+        # Add new_data.csv to the Git index
         git add "data/new_data/new_data.csv"
-        git pull --rebase
-        git commit -m 'Add simulated new_data.csv for retraining'
-        git push
+    
+        # Pull changes from the remote repository
+        git pull origin main --rebase
+    
+        # Check if there are changes to commit
+        if git diff --cached --quiet; then
+          echo "No changes to commit"
+        else
+          # Commit the changes
+          git commit -m 'Add simulated new_data.csv for retraining'
+    
+          # Push changes to the remote repository
+          git push origin main
+        fi
       env:
         GITHUB_TOKEN: ${{ secrets.GIT_REPO_TOKEN }}
+    

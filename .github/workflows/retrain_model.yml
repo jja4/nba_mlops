@@ -39,7 +39,8 @@ jobs:
         run: |
           git config --global user.name "Github Action"
           git config --global user.email mihrandovlatyan@gmail.com
-
+      
+          # Add files to the index
           git add "code/log.txt"
           git add "data/predictions/predictions.csv"
           git add "data/processed/NBA Shot Locations 1997 - 2020-processed.csv"
@@ -47,14 +48,16 @@ jobs:
           git add "data/raw/NBA Shot Locations 1997 - 2020.csv"
           git add "trained_models/*.joblib"  # Add all versioned model files
           git add "best_model_metrics.json"  # Add metrics file
-
-          git pull --rebase
+      
+          # Check if there are changes in best_model_metrics.json
           if git diff --cached --quiet "best_model_metrics.json"; then
             echo "No changes to best_model_metrics.json"
             echo "::set-output name=changed::false"
           else
+            # Commit and push changes
             git commit -m 'Add logs, preprocessed, trained model files and updated metrics'
-            git push
+            git pull origin main --rebase  # Pull from origin main with rebase
+            git push origin main
             echo "::set-output name=changed::true"
           fi
         env:
