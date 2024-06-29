@@ -50,18 +50,22 @@ jobs:
           git add "best_model_metrics.json"  # Add metrics file
       
           # Check if there are changes in best_model_metrics.json
+          git pull
           if git diff --cached --quiet "best_model_metrics.json"; then
             echo "No changes to best_model_metrics.json"
-            echo "::set-output name=changed::false"
+            echo "changed=false" >> $GITHUB_ENV
           else
             # Commit and push changes
-            git pull
             git commit -m 'Add logs, preprocessed, trained model files and updated metrics'
             git push
-            echo "::set-output name=changed::true"
+            echo "changed=true" >> $GITHUB_ENV
           fi
+      
+          # Save state for output
+          echo "changed=$(if [ -f $GITHUB_ENV ]; then cat $GITHUB_ENV | grep -oP '(?<=changed=).*'; fi)" >> $GITHUB_STATE
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_REPO_TOKEN }}
+        
 
   push-to-dockerhub:
     name: Push Docker Compose to Docker Hub
