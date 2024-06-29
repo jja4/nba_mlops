@@ -3,9 +3,6 @@ name: Python API Tests
 on:
   push:
     branches:
-      - main
-      - push-docker-hub
-      - database_integration
       - retrain-the-model
   pull_request:
     branches:
