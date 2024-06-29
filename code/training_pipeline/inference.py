@@ -119,6 +119,7 @@ def main():
         if os.path.exists(new_model_signal_file):
             os.remove(new_model_signal_file)
             logging.info("Removed signal_new_model_version file.")
+            print("Removed signal_new_model_version file.")
 
 if __name__ == "__main__":
     main()

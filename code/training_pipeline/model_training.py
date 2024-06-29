@@ -99,6 +99,7 @@ def main():
 
         # Create the signal file indicating a new model version
         open('../../signal_new_model_version', 'w').close()
+        print("Creating signal file /app/signal_new_model_version...")
     
     # Always create this signal file at the end of model training
     open('signal_model_training_done', 'w').close()
