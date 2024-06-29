@@ -269,3 +269,33 @@ Logging is a critical part of our data pipeline for several reasons:
 
 ## Getting new data and retrain the model
 We simulate retrieving new data by running a GitHub action (generate_new_data.yml) every Sunday at 9 am UTC. This action generates a small CSV file from our original big data and pushes it to a dedicated path in our repository. On Monday at 9 am UTC, another GitHub action (retrain_model.yml) triggers retraining. This action runs only after receiving a notification of the push action for the new data file. The retraining process involves running Docker Compose and pushing the trained model to Docker Hub.
+
+## Condition for Model Update Based on Accuracy Improvement
+In the context of this project, the model training process involves evaluating the accuracy of the newly trained model against the current best model. Here's the condition that determines whether the new accuracy should trigger a model update and a Docker Hub push:
+
+1. Current Best Model Metrics:
+
+The accuracy of the current best model is stored in best_model_metrics.json.
+
+2. New Model Training:
+
+During the model training process, a new accuracy metric (new_accuracy) is calculated based on the latest training data.
+
+3. Improvement Condition:
+
+The decision to update the model and trigger a Docker Hub push depends on whether the new_accuracy is greater than the best_accuracy recorded in best_model_metrics.json. Specifically:
+- If new_accuracy > best_accuracy, the newly trained model is considered better, and it replaces the current best model.
+- Otherwise, if new_accuracy <= best_accuracy, the new model is not considered an improvement, and the current best model remains unchanged.
+
+4. Action on Improvement:
+
+When the new model shows improved accuracy (new_accuracy > best_accuracy):
+- The new model is saved, and the metrics in best_model_metrics.json are updated to reflect the new accuracy value.
+- A signal file (signal_new_model_version) is generated to indicate that a new model version has been created and should be used for subsequent tasks such as deployment or further evaluation.
+- Docker images associated with various services (like data ingestion, processing, feature engineering, model training, and inference) are built, tagged with a version identifier, and pushed to Docker Hub.
+
+5. Notification:
+
+Users are informed through logs and messages that the model has been updated due to improved accuracy, and Docker images have been pushed to Docker Hub accordingly.
+
+This evaluation ensures that the model continuously improves based on the latest data, and significant accuracy improvements trigger updates to the production model as well as Docker Hub for deployment.
