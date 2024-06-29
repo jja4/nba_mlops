@@ -73,41 +73,52 @@ def main():
     """
     logging.info("(5) Starting the model prediction process.")
 
-    # Path to the joblib file containing train and test datasets
-    file_path = '../../' + Config.OUTPUT_TRAIN_TEST_JOBLIB_FILE
+    # Check if a new model version signal file exists
+    new_model_signal_file = '../../signal_new_model_version'
+    if not os.path.exists(new_model_signal_file):
+        logging.info("No new model version found. Skipping inference.")
+        return
 
-    # Load the train and test datasets
-    X_train, X_test, y_train, y_test = load(file_path)
+    try:
+        # Path to the joblib file containing train and test datasets
+        file_path = '../../' + Config.OUTPUT_TRAIN_TEST_JOBLIB_FILE
 
-    # Path to the base filename of the model
-    base_model_filename = '../../' + Config.OUTPUT_TRAINED_MODEL_FILE_LR
+        # Load the train and test datasets
+        X_train, X_test, y_train, y_test = load(file_path)
 
-    # Find the latest versioned model file
-    latest_model_file = find_latest_versioned_model(base_model_filename)
+        # Path to the base filename of the model
+        base_model_filename = '../../' + Config.OUTPUT_TRAINED_MODEL_FILE_LR
+
+        # Find the latest versioned model file
+        latest_model_file = find_latest_versioned_model(base_model_filename)
+        
+        print('Last version model path:')
+        print(latest_model_file)
+
+        # Load the model
+        model = load(latest_model_file)
+        
+        # Make predictions using the model
+        predictions = make_predictions(model, X_test)
+        print(f"Predictions: {predictions}")
+        
+        # Save predictions to a CSV file
+        output_file_path = '../../' + Config.OUTPUT_PREDICTIONS_RESULTS_FILE
+        pd.DataFrame(predictions, columns=['Prediction']).to_csv(output_file_path, index=False)
+        logging.info("Prediction file data saved successfully.")
+        logging.info(output_file_path)
+
+        # Each service script creates its signal file at the end
+        open('signal_inference_done', 'w').close()
+
+        logging.info("Model inference completed.")
+        logging.info("-----------------------------------")
     
-    print('Last version model path:')
-    print(latest_model_file)
-
-    # Load the model
-    model = load(latest_model_file)
-    
-    # Make predictions using the model
-    predictions = make_predictions(model, X_test)
-    print(f"Predictions: {predictions}")
-
-    print(f"Predictions: {X_test.shape}")
-    
-    # Save predictions to a CSV file
-    output_file_path = '../../' + Config.OUTPUT_PREDICTIONS_RESULTS_FILE
-    pd.DataFrame(predictions, columns=['Prediction']).to_csv(output_file_path, index=False)
-    logging.info("Prediction file data saved successfully.")
-    logging.info(output_file_path)
-
-    # Each service script creates its signal file at the end
-    open('signal_inference_done', 'w').close()
-
-    logging.info("Model inference completed.")
-    logging.info("-----------------------------------")
+    finally:
+        # Remove the signal_new_model_version file regardless of success or failure
+        if os.path.exists(new_model_signal_file):
+            os.remove(new_model_signal_file)
+            logging.info("Removed signal_new_model_version file.")
 
 if __name__ == "__main__":
     main()
