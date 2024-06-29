@@ -202,12 +202,15 @@ def test_predict_endpoint_shot_missed(client: TestClient):
 
     # Check if the prediction value is either 0 or 1
     prediction = response.json()['prediction']
-
+    prediction = response.json()['prediction']
     #evaluation_metrics = response.json()['evaluation_metrics']
     #accuracy = evaluation_metrics['accuracy']
     #print(accuracy)
     #print(evaluation_metrics)
+
+    print('hello world!')
     print(response.json())
+    print('hello world2!')
 
     assert prediction == 0
 
