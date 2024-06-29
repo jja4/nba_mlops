@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import pandas as pd
 import os
@@ -38,16 +38,9 @@ except Exception as e:
     print(f"Error loading model: {str(e)}")
     model = None
 
-# Load the joblib file
-model = load(joblib_file_path)
-
 app = FastAPI()
 
-
 class ScoringItem(BaseModel):
-    """
-    Model representing scoring parameters for prediction.
-    """
     Period: float
     Minutes_Remaining: float
     Seconds_Remaining: float
@@ -90,84 +83,85 @@ class ScoringItem(BaseModel):
 
 @app.post('/predict')
 async def predict(input_data: ScoringItem):
-    """
-    Endpoint for secure prediction based on scoring parameters.
+    try:
+        # Create a DataFrame with the data of the request object
+        df = pd.DataFrame([input_data.model_dump()])
+        
+        # Rename the columns to match the expected names
+        df = df.rename(columns={
+            "Minutes_Remaining": "Minutes Remaining",
+            "Seconds_Remaining": "Seconds Remaining",
+            "Shot_Distance": "Shot Distance",
+            "X_Location": "X Location",
+            "Y_Location": "Y Location",
+            "Action_Type_Frequency": "Action Type_Frequency",
+            "Team_Name_Frequency": "Team Name_Frequency",
+            "Home_Team_Frequency": "Home Team_Frequency",
+            "Away_Team_Frequency": "Away Team_Frequency",
+            "ShotType_2PT_Field_Goal": "ShotType_2PT Field Goal",
+            "ShotType_3PT_Field_Goal": "ShotType_3PT Field Goal",
+            "ShotZoneBasic_Above_the_Break_3": "ShotZoneBasic_Above the Break 3",
+            "ShotZoneBasic_Backcourt": "ShotZoneBasic_Backcourt",
+            "ShotZoneBasic_In_The_Paint_Non_RA": "ShotZoneBasic_In The Paint (Non-RA)",
+            "ShotZoneBasic_Left_Corner_3": "ShotZoneBasic_Left Corner 3",
+            "ShotZoneBasic_Mid_Range": "ShotZoneBasic_Mid-Range",
+            "ShotZoneBasic_Restricted_Area": "ShotZoneBasic_Restricted Area",
+            "ShotZoneBasic_Right_Corner_3": "ShotZoneBasic_Right Corner 3",
+            "ShotZoneArea_Back_Court_BC": "ShotZoneArea_Back Court(BC)",
+            "ShotZoneArea_Center_C": "ShotZoneArea_Center(C)",
+            "ShotZoneArea_Left_Side_Center_LC": "ShotZoneArea_Left Side Center(LC)",
+            "ShotZoneArea_Left_Side_L": "ShotZoneArea_Left Side(L)",
+            "ShotZoneArea_Right_Side_Center_RC": "ShotZoneArea_Right Side Center(RC)",
+            "ShotZoneArea_Right_Side_R": "ShotZoneArea_Right Side(R)",
+            "ShotZoneRange_16_24_ft": "ShotZoneRange_16-24 ft.",
+            "ShotZoneRange_24_ft": "ShotZoneRange_24+ ft.",
+            "ShotZoneRange_8_16_ft": "ShotZoneRange_8-16 ft.",
+            "ShotZoneRange_Back_Court_Shot": "ShotZoneRange_Back Court Shot",
+            "ShotZoneRange_Less_Than_8_ft": "ShotZoneRange_Less Than 8 ft.",
+            "SeasonType_Playoffs": "SeasonType_Playoffs",
+            "SeasonType_Regular_Season": "SeasonType_Regular Season",
+            "Game_ID_Frequency": "Game ID_Frequency",
+            "Game_Event_ID_Frequency": "Game Event ID_Frequency",
+            "Player_ID_Frequency": "Player ID_Frequency",
+            "Year": "Year",
+            "Month": "Month",
+            "Day": "Day",
+            "Day_of_Week": "Day_of_Week"
+        })
 
-    Args:
-        item (ScoringItem): Input parameters for prediction.
+        # Perform model evaluation (Optional: This is just an example)
+        try:
+            validation_data = pd.read_csv('path_to_validation_data.csv')  # Load your validation dataset
+            X_val = validation_data.drop(columns=['target_column'])
+            y_val = validation_data['target_column']
+            
+            # Make predictions on the validation set
+            val_predictions = model.predict(X_val)
+            
+            # Calculate evaluation metrics
+            accuracy = accuracy_score(y_val, val_predictions)
+            precision = precision_score(y_val, val_predictions)
+            recall = recall_score(y_val, val_predictions)
+            
+            evaluation_metrics = {
+                'accuracy': accuracy,
+                'precision': precision,
+                'recall': recall
+            }
+            print("Model evaluation metrics:", evaluation_metrics)  # Or use a logging system
+        except Exception as eval_error:
+            evaluation_metrics = {
+                'error': str(eval_error)
+            }
+            print(f"Error during model evaluation: {str(eval_error)}")
+        
+        # Make a prediction with the loaded model
+        yhat = model.predict(df)
+        
+        # Return the prediction as an answer
+        return {"prediction": int(yhat.item()), "evaluation_metrics": evaluation_metrics}
 
-    Returns:
-        dict: Prediction result, can be 1 or 0 indicating shot made or missed.
-    """
-    # Create a DataFrame with the data of the request object
-    df = pd.DataFrame([input_data.model_dump()])
-    # Rename the columns to match the expected names
-    df = df.rename(columns={
-        "Minutes_Remaining": "Minutes Remaining",
-        "Seconds_Remaining": "Seconds Remaining",
-        "Shot_Distance": "Shot Distance",
-        "X_Location": "X Location",
-        "Y_Location": "Y Location",
-        #"Shot_Made_Flag": "Shot Made Flag",
-        "Action_Type_Frequency": "Action Type_Frequency",
-        "Team_Name_Frequency": "Team Name_Frequency",
-        "Home_Team_Frequency": "Home Team_Frequency",
-        "Away_Team_Frequency": "Away Team_Frequency",
-        "ShotType_2PT_Field_Goal": "ShotType_2PT Field Goal",
-        "ShotType_3PT_Field_Goal": "ShotType_3PT Field Goal",
-        "ShotZoneBasic_Above_the_Break_3": "ShotZoneBasic_Above the Break 3",
-        "ShotZoneBasic_Backcourt": "ShotZoneBasic_Backcourt",
-        "ShotZoneBasic_In_The_Paint_Non_RA": "ShotZoneBasic_In The Paint (Non-RA)",
-        "ShotZoneBasic_Left_Corner_3": "ShotZoneBasic_Left Corner 3",
-        "ShotZoneBasic_Mid_Range": "ShotZoneBasic_Mid-Range",
-        "ShotZoneBasic_Restricted_Area": "ShotZoneBasic_Restricted Area",
-        "ShotZoneBasic_Right_Corner_3": "ShotZoneBasic_Right Corner 3",
-        "ShotZoneArea_Back_Court_BC": "ShotZoneArea_Back Court(BC)",
-        "ShotZoneArea_Center_C": "ShotZoneArea_Center(C)",
-        "ShotZoneArea_Left_Side_Center_LC": "ShotZoneArea_Left Side Center(LC)",
-        "ShotZoneArea_Left_Side_L": "ShotZoneArea_Left Side(L)",
-        "ShotZoneArea_Right_Side_Center_RC": "ShotZoneArea_Right Side Center(RC)",
-        "ShotZoneArea_Right_Side_R": "ShotZoneArea_Right Side(R)",
-        "ShotZoneRange_16_24_ft": "ShotZoneRange_16-24 ft.",
-        "ShotZoneRange_24_ft": "ShotZoneRange_24+ ft.",
-        "ShotZoneRange_8_16_ft": "ShotZoneRange_8-16 ft.",
-        "ShotZoneRange_Back_Court_Shot": "ShotZoneRange_Back Court Shot",
-        "ShotZoneRange_Less_Than_8_ft": "ShotZoneRange_Less Than 8 ft.",
-        "SeasonType_Playoffs": "SeasonType_Playoffs",
-        "SeasonType_Regular_Season": "SeasonType_Regular Season",
-        "Game_ID_Frequency": "Game ID_Frequency",
-        "Game_Event_ID_Frequency": "Game Event ID_Frequency",
-        "Player_ID_Frequency": "Player ID_Frequency",
-        "Year": "Year",
-        "Month": "Month",
-        "Day": "Day",
-        "Day_of_Week": "Day_of_Week"
-    })
+    except Exception as e:
+        print(f"Error during prediction: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
 
-    # Perform model evaluation (Optional: This is just an example)
-    # Load your validation dataset
-    validation_data = pd.read_csv('path_to_validation_data.csv')  # Load your validation dataset
-    X_val = validation_data.drop(columns=['target_column'])
-    y_val = validation_data['target_column']
-    
-    # Make predictions on the validation set
-    val_predictions = model.predict(X_val)
-    
-    # Calculate evaluation metrics
-    accuracy = accuracy_score(y_val, val_predictions)
-    precision = precision_score(y_val, val_predictions)
-    recall = recall_score(y_val, val_predictions)
-    
-    # Log or return the evaluation metrics (Optional)
-    evaluation_metrics = {
-        'accuracy': accuracy,
-        'precision': precision,
-        'recall': recall
-    }
-    print("Model evaluation metrics:", evaluation_metrics)  # Or use a logging system
-    
-    # Make a prediction with the loaded model
-    yhat = model.predict(df)
-    
-    # Return the prediction as an answer
-    return {"prediction": int(yhat.item()), "evaluation_metrics": evaluation_metrics}
