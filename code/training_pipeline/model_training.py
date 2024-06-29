@@ -81,6 +81,10 @@ def main():
     else:
         best_accuracy = 0
 
+    # Print new accuracy
+    print(f"New Accuracy: {new_accuracy}")
+    print(f"Best current Accuracy: {best_accuracy}")
+
     if new_accuracy > best_accuracy:
         base_output_file_path = '../../' + Config.OUTPUT_TRAINED_MODEL_FILE_LR
         version = 1
