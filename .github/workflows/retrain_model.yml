@@ -53,16 +53,13 @@ jobs:
           git pull
           if git diff --cached --quiet "best_model_metrics.json"; then
             echo "No changes to best_model_metrics.json"
-            echo "changed=false" >> $GITHUB_ENV
+            echo "changed=false" >> $GITHUB_OUTPUT
           else
             # Commit and push changes
             git commit -m 'Add logs, preprocessed, trained model files and updated metrics'
             git push
-            echo "changed=true" >> $GITHUB_ENV
+            echo "changed=true" >> $GITHUB_OUTPUT
           fi
-      
-          # Save state for output
-          echo "changed=$(if [ -f $GITHUB_ENV ]; then cat $GITHUB_ENV | grep -oP '(?<=changed=).*'; fi)" >> $GITHUB_STATE
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_REPO_TOKEN }}
         
