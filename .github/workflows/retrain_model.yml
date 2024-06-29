@@ -55,9 +55,9 @@ jobs:
             echo "::set-output name=changed::false"
           else
             # Commit and push changes
+            git pull
             git commit -m 'Add logs, preprocessed, trained model files and updated metrics'
-            git pull origin main --rebase  # Pull from origin main with rebase
-            git push origin main
+            git push
             echo "::set-output name=changed::true"
           fi
         env:

@@ -7,12 +7,14 @@ on:
       - push-docker-hub
       - database_integration
       - retrain-the-model
+      - condintion-push-docker
   pull_request:
     branches:
       - main
       - push-docker-hub
       - database_integration
       - retrain-the-model
+      - condintion-push-docker
 
 jobs:
   unit-tests:
