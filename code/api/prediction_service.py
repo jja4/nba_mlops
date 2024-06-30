@@ -145,5 +145,7 @@ async def predict(input_data: ScoringItem):
     # Make a prediction with the loaded model
     yhat = model.predict(df)
     # Return the prediction as an answer
+    print('prediction:')
+    print(int(yhat.item()))
     return {"prediction": int(yhat.item())}
 
