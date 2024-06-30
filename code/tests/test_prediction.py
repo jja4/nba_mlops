@@ -4,7 +4,8 @@ from fastapi.testclient import TestClient
 from api.nba_app import app, lifespan
 import pytest
 import asyncio
-from unittest.mock import patch
+from unittest.mock import Mock, patch
+import requests_mock
 
 test_client = TestClient(app)
 
