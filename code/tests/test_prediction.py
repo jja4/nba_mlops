@@ -76,11 +76,11 @@ def mock_api():
 
 @pytest.fixture
 def user_repository(mock_api):
-    return {"prediction": 1}
+    return {"prediction": 2}
 
 @pytest.mark.parametrize("user_id, fake_response_data", [
     (1, {
-        "prediction": 1
+        "prediction": 3
     })
 ])
 def test_get_user_by_id(user_id, fake_response_data, mock_api, user_repository, client: TestClient):
@@ -152,7 +152,7 @@ def test_get_user_by_id(user_id, fake_response_data, mock_api, user_repository, 
     assert prediction == 1
 
 # Patch the model's predict method to return a fixed value
-@patch('api.prediction_service.predict')
+@patch('api.prediction_service.predict.requests')
 def test_predict_endpoint_shot_made(mock_get_data, client: TestClient):
     """
     Test the predict endpoint of the NBA prediction API for a made shot prediction.
