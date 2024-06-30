@@ -5,6 +5,7 @@ from api.nba_app import app, lifespan
 import pytest
 import asyncio
 from unittest.mock import Mock, patch
+import requests_mock
 
 test_client = TestClient(app)
 
@@ -63,6 +64,92 @@ def test_root_endpoint(client: TestClient):
     assert response.status_code == 200
     assert response.json() == {"message": "Welcome to the NBA prediction API!"}
 
+@pytest.fixture()
+def fake_prediction_info():
+    """Fixture that returns a static prediction data."""
+    return {"prediction": 1}
+
+@pytest.fixture
+def mock_api():
+    with requests_mock.Mocker() as m:
+        yield m
+
+@pytest.fixture
+def user_repository(mock_api):
+    return {"prediction": 1}
+
+@pytest.mark.parametrize("user_id, fake_response_data", [
+    (1, {
+        "prediction": 1
+    })
+])
+def test_get_user_by_id(user_id, fake_response_data, mock_api, user_repository, client: TestClient):
+    # Register the mock API call with the correct URL and response data
+    mock_api.get(f"http://testserver/predict", json=fake_response_data)
+
+    # JSON data to send in the request
+    data = {
+        "Period": -0.4,
+        "Minutes_Remaining": 1.4,
+        "Seconds_Remaining": -1.3,
+        "Shot_Distance": 0.3,
+        "X_Location": 0.6,
+        "Y_Location": 0.8,
+        "Action_Type_Frequency": 0.5,
+        "Team_Name_Frequency": 0.5,
+        "Home_Team_Frequency": 0.4,
+        "Away_Team_Frequency": 0.6,
+        "ShotType_2PT_Field_Goal": 1,
+        "ShotType_3PT_Field_Goal": 0,
+        "ShotZoneBasic_Above_the_Break_3": 0,
+        "ShotZoneBasic_Backcourt": 0,
+        "ShotZoneBasic_In_The_Paint_Non_RA": 0,
+        "ShotZoneBasic_Left_Corner_3": 0,
+        "ShotZoneBasic_Mid_Range": 0,
+        "ShotZoneBasic_Restricted_Area": 1,
+        "ShotZoneBasic_Right_Corner_3": 0,
+        "ShotZoneArea_Back_Court_BC": 0,
+        "ShotZoneArea_Center_C": 1,
+        "ShotZoneArea_Left_Side_Center_LC": 0,
+        "ShotZoneArea_Left_Side_L": 0,
+        "ShotZoneArea_Right_Side_Center_RC": 0,
+        "ShotZoneArea_Right_Side_R": 0,
+        "ShotZoneRange_16_24_ft": 0,
+        "ShotZoneRange_24_ft": 0,
+        "ShotZoneRange_8_16_ft": 0,
+        "ShotZoneRange_Back_Court_Shot": 0,
+        "ShotZoneRange_Less_Than_8_ft": 1,
+        "SeasonType_Playoffs": 0,
+        "SeasonType_Regular_Season": 1,
+        "Game_ID_Frequency": 0.3,
+        "Game_Event_ID_Frequency": 0.3,
+        "Player_ID_Frequency": 0.3,
+        "Year": 2000,
+        "Month": 3,
+        "Day": 22,
+        "Day_of_Week": 2
+    }
+
+    token = get_token(client)
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json"
+    }
+
+    # Send POST request to the endpoint using the test client
+    response = client.post("/predict", json=data, headers=headers)
+
+    print(response.json()) 
+
+    # Check if the response status code is 200
+    assert response.status_code == 200
+
+    # Check if the response contains the 'prediction' key
+    assert 'prediction' in response.json()
+
+    # Check if the prediction value is 1
+    prediction = response.json()['prediction']
+    assert prediction == 1
 
 # Patch the model's predict method to return a fixed value
 @patch('api.prediction_service.predict')
