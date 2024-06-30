@@ -1,7 +1,7 @@
 import os
 import sys
 from fastapi.testclient import TestClient
-from api.prediction_service import app, lifespan
+from api.nba_app import app, lifespan
 import pytest
 import asyncio
 from unittest.mock import patch
@@ -63,11 +63,10 @@ def test_root_endpoint(client: TestClient):
     assert response.status_code == 200
     assert response.json() == {"message": "Welcome to the NBA prediction API!"}
 
-# Mock the model's predict method to return a fixed value
-def mock_predict(data):
-    return [1]
 
-def test_predict_endpoint_shot_made(client: TestClient):
+# Patch the model's predict method to return a fixed value
+@patch('api.prediction_service.model.predict', return_value=[1])
+def test_predict_endpoint_shot_made(mock_predict, client: TestClient):
     """
     Test the predict endpoint of the NBA prediction API for a made shot prediction.
     
@@ -129,9 +128,8 @@ def test_predict_endpoint_shot_made(client: TestClient):
         "Content-Type": "application/json"
     }
 
-    # Patch the model's predict method with your mock function
-    with patch('api.prediction_service.model.predict', side_effect=mock_predict):
-        response = client.post("/predict", json=data, headers=headers)
+    # Send POST request to the endpoint using the test client
+    response = client.post("/predict", json=data, headers=headers)
 
     # Check if the response status code is 200
     assert response.status_code == 200
