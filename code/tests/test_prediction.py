@@ -51,11 +51,29 @@ def get_token(client: TestClient) -> str:
 
 
 def test_root_endpoint(client: TestClient):
+    """
+    Test the root endpoint of the NBA prediction API.
+
+    This test checks if the root endpoint returns the expected message.
+
+    Returns:
+        None
+    """
     response = client.get("/")
     assert response.status_code == 200
     assert response.json() == {"message": "Welcome to the NBA prediction API!"}
 
 def test_predict_endpoint_shot_made(client: TestClient):
+    """
+    Test the unsecure_predict endpoint of the NBA prediction API for a made shot prediction.
+
+    This test sends a POST request to the free predict endpoint with parameters indicating a shot made, 
+    and checks if the response contains the expected prediction value.
+
+    Returns:
+        None
+    """
+    # JSON data to send in the request
     data = {
         "Period": -0.4,
         "Minutes_Remaining": 1.4,
@@ -104,6 +122,7 @@ def test_predict_endpoint_shot_made(client: TestClient):
         "Content-Type": "application/json"
     }
 
+    # Send POST request to the endpoint using the test client
     response = client.post("/predict", json=data, headers=headers)
     assert response.status_code == 200
     assert 'prediction' in response.json()
