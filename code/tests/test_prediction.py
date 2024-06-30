@@ -152,27 +152,8 @@ def test_get_user_by_id(user_id, fake_response_data, mock_api, user_repository, 
     assert prediction == 1
 
 # Patch the model's predict method to return a fixed value
-@patch('api.prediction_service.model.predict', return_value=[{"prediction": 1}])
-def test_predict_endpoint_shot_made(mock_get_data, client: TestClient):
-    """
-    Test the predict endpoint of the NBA prediction API for a made shot prediction.
-    
-    This test sends a POST request to the predict endpoint with parameters indicating a shot made,
-    and checks if the response contains the expected prediction value.
-    
-    Returns:
-        None
-    """
-
-    # Set up the mock to return a consistent prediction value
-    mock_data = {"prediction": 1}
-  
-    mock_get_data.return_value = Mock() 
-
-    mock_get_data.return_value.json.return_value = mock_data 
-    mock_get_data.return_value.status_code = 200
-    
-    # JSON data to send in the request
+@patch('api.prediction_service.model.predict', return_value=[1])
+def test_predict_endpoint_shot_made(mock_predict):
     data = {
         "Period": -0.4,
         "Minutes_Remaining": 1.4,
@@ -191,50 +172,33 @@ def test_predict_endpoint_shot_made(mock_get_data, client: TestClient):
         "ShotZoneBasic_In_The_Paint_Non_RA": 0,
         "ShotZoneBasic_Left_Corner_3": 0,
         "ShotZoneBasic_Mid_Range": 0,
-        "ShotZoneBasic_Restricted_Area": 1,
+        "ShotZoneBasic_Restricted_Area": 0,
         "ShotZoneBasic_Right_Corner_3": 0,
-        "ShotZoneArea_Back_Court_BC": 0,
-        "ShotZoneArea_Center_C": 1,
+        "ShotZoneArea_Back_Court_BC": 1,
+        "ShotZoneArea_Center_C": 0,
         "ShotZoneArea_Left_Side_Center_LC": 0,
         "ShotZoneArea_Left_Side_L": 0,
-        "ShotZoneArea_Right_Side_Center_RC": 0,
+        "ShotZoneArea_Right_Side_Center_RC": 1,
         "ShotZoneArea_Right_Side_R": 0,
         "ShotZoneRange_16_24_ft": 0,
-        "ShotZoneRange_24_ft": 0,
+        "ShotZoneRange_24_ft": 1,
         "ShotZoneRange_8_16_ft": 0,
-        "ShotZoneRange_Back_Court_Shot": 0,
-        "ShotZoneRange_Less_Than_8_ft": 1,
-        "SeasonType_Playoffs": 0,
-        "SeasonType_Regular_Season": 1,
-        "Game_ID_Frequency": 0.3,
-        "Game_Event_ID_Frequency": 0.3,
-        "Player_ID_Frequency": 0.3,
-        "Year": 2000,
-        "Month": 3,
-        "Day": 22,
-        "Day_of_Week": 2
+        "ShotZoneRange_Back_Court_Shot": 1,
+        "ShotZoneRange_Less_Than_8_ft": 0,
+        "SeasonType_Playoffs": 1,
+        "SeasonType_Regular_Season": 0,
+        "Game_ID_Frequency": 0.8,
+        "Game_Event_ID_Frequency": 0.7,
+        "Player_ID_Frequency": 0.9,
+        "Year": 2022,
+        "Month": 6,
+        "Day": 11,
+        "Day_of_Week": 5
     }
-
-    token = get_token(client)
-    headers = {
-        "Authorization": f"Bearer {token}",
-        "Content-Type": "application/json"
-    }
-
-    # Send POST request to the endpoint using the test client
-    response = client.post("/predict", json=data, headers=headers)
-
-    print(response.json()) 
-
-    # Check if the response status code is 200
+    response = test_client.post("/predict", json=data)
     assert response.status_code == 200
-
-    # Check if the response contains the 'prediction' key
     assert 'prediction' in response.json()
-
-    # Check if the prediction value is 1
-    prediction = response.json()['prediction']
-    assert prediction == 1
+    assert response.json()['prediction'] == 1
 
 def test_predict_endpoint_shot_missed(client: TestClient):
     """
