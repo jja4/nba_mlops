@@ -85,7 +85,7 @@ def user_repository(mock_api):
 ])
 def test_get_user_by_id(user_id, fake_response_data, mock_api, user_repository, client: TestClient):
     # Register the mock API call with the correct URL and response data
-    mock_api.get(f"http://testserver/predict", json=fake_response_data)
+    mock_api.get("/predict", json=fake_response_data)
 
     # JSON data to send in the request
     data = {
@@ -152,7 +152,7 @@ def test_get_user_by_id(user_id, fake_response_data, mock_api, user_repository, 
     assert prediction == 1
 
 # Patch the model's predict method to return a fixed value
-@patch('api.prediction_service.model.predict', return_value=[1])
+@patch('api.prediction_service.model.predict', return_value=[{ "prediction": 3 }])
 def test_predict_endpoint_shot_made(mock_predict):
     data = {
         "Period": -0.4,
