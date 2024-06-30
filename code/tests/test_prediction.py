@@ -4,7 +4,7 @@ from fastapi.testclient import TestClient
 from api.nba_app import app, lifespan
 import pytest
 import asyncio
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 test_client = TestClient(app)
 
@@ -65,7 +65,7 @@ def test_root_endpoint(client: TestClient):
 
 
 # Patch the model's predict method to return a fixed value
-@patch('api.prediction_service.model.predict', return_value=[1])
+@patch('api.prediction_service.requests.post')
 def test_predict_endpoint_shot_made(mock_predict, client: TestClient):
     """
     Test the predict endpoint of the NBA prediction API for a made shot prediction.
