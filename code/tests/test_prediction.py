@@ -195,7 +195,14 @@ def test_predict_endpoint_shot_made(mock_predict):
         "Day": 11,
         "Day_of_Week": 5
     }
-    response = test_client.post("/predict", json=data)
+    
+    token = get_token(client)
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json"
+    }
+
+    response = test_client.post("/predict", json=data, headers=headers)
     assert response.status_code == 200
     assert 'prediction' in response.json()
     assert response.json()['prediction'] == 1
