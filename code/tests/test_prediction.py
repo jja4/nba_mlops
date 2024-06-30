@@ -83,7 +83,7 @@ def user_repository(mock_api):
 ])
 def test_get_user_by_id(user_id, fake_response_data, mock_api, client: TestClient):
     # Register the mock API call with the correct URL and response data
-    mock_api.get(f"/predict/{user_id}", json=fake_response_data)
+    mock_api.post("/predict", json=fake_response_data)
 
     # JSON data to send in the request
     data = {
