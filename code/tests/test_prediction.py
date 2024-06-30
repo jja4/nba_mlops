@@ -152,7 +152,7 @@ def test_get_user_by_id(user_id, fake_response_data, mock_api, user_repository, 
     assert prediction == 1
 
 # Patch the model's predict method to return a fixed value
-@patch('api.prediction_service.predict.requests')
+@patch('api.prediction_service.model.predict', return_value=[{"prediction": 1}])
 def test_predict_endpoint_shot_made(mock_get_data, client: TestClient):
     """
     Test the predict endpoint of the NBA prediction API for a made shot prediction.
