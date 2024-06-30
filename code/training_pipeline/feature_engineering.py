@@ -11,19 +11,7 @@ project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_dir)
 
 from config.config import Config  # Import Config class from config package
-
-# Set up logging
-log_file = os.path.join(project_dir, 'log.txt')
-
-# Set up logging to file with timestamp and append mode
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler(log_file, mode='a'),  # Add a FileHandler for log.txt in append mode
-        logging.StreamHandler()  # Add a StreamHandler for the console output
-    ]
-)
+from logger import logger  # Import the logger
 
 def create_features(data):
     """
@@ -98,18 +86,18 @@ def split_train_and_test_parts(data):
     # Save the train and test sets in a joblib file
     output_file_path = '../../' + Config.OUTPUT_TRAIN_TEST_JOBLIB_FILE
     dump((X_train, X_test, y_train, y_test), output_file_path)
-    logging.info("New joblib file generated successfully.")
-    logging.info(output_file_path)
+    logger.info("New joblib file generated successfully.")
+    logger.info(output_file_path)
 
 def main():
     """
     Main function to load the data, create features, and save the processed train and test sets.
     """
-    logging.info("(3) Starting the feature engineering process.")
+    logger.info("(3) Starting the feature engineering process.")
 
     # Load the processed data from CSV file
     input_file_path = '../../' + Config.OUTPUT_PREPROCESSED_FILE
-    logging.info(f"Loading data from {input_file_path}.")
+    logger.info(f"Loading data from {input_file_path}.")
     data = pd.read_csv(input_file_path)
     
     # Create features
@@ -118,8 +106,8 @@ def main():
     # Split and save the train and test sets
     split_train_and_test_parts(data)
 
-    logging.info("Data processing completed.")
-    logging.info("-----------------------------------")
+    logger.info("Data processing completed.")
+    logger.info("-----------------------------------")
 
 if __name__ == "__main__":
     main()
