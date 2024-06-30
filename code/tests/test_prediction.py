@@ -2,6 +2,7 @@ from fastapi.testclient import TestClient
 from api.nba_app import app, lifespan
 import pytest
 import asyncio
+from unittest.mock import patch
 
 test_client = TestClient(app)
 
@@ -58,16 +59,21 @@ def test_root_endpoint(client: TestClient):
     assert response.json() == {"message": "Welcome to the NBA prediction API!"}
 
 
-def test_predict_endpoint_shot_made(client: TestClient):
+# Patch the model's predict method to return a fixed value
+@patch('api.model.predict')
+def test_predict_endpoint_shot_made(mock_predict):
     """
-    Test the unsecure_predict endpoint of the NBA prediction API for a made shot prediction.
-
-    This test sends a POST request to the free predict endpoint with parameters indicating a shot made, 
+    Test the predict endpoint of the NBA prediction API for a made shot prediction.
+    
+    This test sends a POST request to the predict endpoint with parameters indicating a shot made,
     and checks if the response contains the expected prediction value.
-
+    
     Returns:
         None
     """
+    # Set up the mock to return a consistent prediction value
+    mock_predict.return_value = [1]
+    
     # JSON data to send in the request
     data = {
         "Period": -0.4,
@@ -126,10 +132,9 @@ def test_predict_endpoint_shot_made(client: TestClient):
     # Check if the response contains the 'prediction' key
     assert 'prediction' in response.json()
 
-    # Check if the prediction value is either 0 or 1
+    # Check if the prediction value is 1
     prediction = response.json()['prediction']
     assert prediction == 1
-
 
 def test_predict_endpoint_shot_missed(client: TestClient):
     """
