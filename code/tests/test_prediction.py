@@ -79,13 +79,11 @@ def user_repository(mock_api):
     return {"prediction": 2}
 
 @pytest.mark.parametrize("user_id, fake_response_data", [
-    (1, {
-        "prediction": 3
-    })
+    (1, {"prediction": 1})
 ])
-def test_get_user_by_id(user_id, fake_response_data, mock_api, user_repository, client: TestClient):
+def test_get_user_by_id(user_id, fake_response_data, mock_api, client: TestClient):
     # Register the mock API call with the correct URL and response data
-    mock_api.get("/predict", json=fake_response_data)
+    mock_api.get(f"/predict/{user_id}", json=fake_response_data)
 
     # JSON data to send in the request
     data = {
@@ -139,8 +137,6 @@ def test_get_user_by_id(user_id, fake_response_data, mock_api, user_repository, 
     # Send POST request to the endpoint using the test client
     response = client.post("/predict", json=data, headers=headers)
 
-    print(response.json()) 
-
     # Check if the response status code is 200
     assert response.status_code == 200
 
@@ -149,10 +145,14 @@ def test_get_user_by_id(user_id, fake_response_data, mock_api, user_repository, 
 
     # Check if the prediction value is 1
     prediction = response.json()['prediction']
-    assert prediction == 1
+    assert prediction == fake_response_data['prediction']
+
 
 # Patch the model's predict method to return a fixed value
-@patch('api.prediction_service.model.predict', return_value=[{ "prediction": 3 }])
+from unittest.mock import patch
+
+# Ensure to patch the correct path to the predict method
+@patch('api.prediction_service.model.predict', return_value=[1])
 def test_predict_endpoint_shot_made(mock_predict):
     data = {
         "Period": -0.4,
@@ -172,31 +172,31 @@ def test_predict_endpoint_shot_made(mock_predict):
         "ShotZoneBasic_In_The_Paint_Non_RA": 0,
         "ShotZoneBasic_Left_Corner_3": 0,
         "ShotZoneBasic_Mid_Range": 0,
-        "ShotZoneBasic_Restricted_Area": 0,
+        "ShotZoneBasic_Restricted_Area": 1,
         "ShotZoneBasic_Right_Corner_3": 0,
-        "ShotZoneArea_Back_Court_BC": 1,
-        "ShotZoneArea_Center_C": 0,
+        "ShotZoneArea_Back_Court_BC": 0,
+        "ShotZoneArea_Center_C": 1,
         "ShotZoneArea_Left_Side_Center_LC": 0,
         "ShotZoneArea_Left_Side_L": 0,
-        "ShotZoneArea_Right_Side_Center_RC": 1,
+        "ShotZoneArea_Right_Side_Center_RC": 0,
         "ShotZoneArea_Right_Side_R": 0,
         "ShotZoneRange_16_24_ft": 0,
-        "ShotZoneRange_24_ft": 1,
+        "ShotZoneRange_24_ft": 0,
         "ShotZoneRange_8_16_ft": 0,
-        "ShotZoneRange_Back_Court_Shot": 1,
-        "ShotZoneRange_Less_Than_8_ft": 0,
-        "SeasonType_Playoffs": 1,
-        "SeasonType_Regular_Season": 0,
-        "Game_ID_Frequency": 0.8,
-        "Game_Event_ID_Frequency": 0.7,
-        "Player_ID_Frequency": 0.9,
-        "Year": 2022,
-        "Month": 6,
-        "Day": 11,
-        "Day_of_Week": 5
+        "ShotZoneRange_Back_Court_Shot": 0,
+        "ShotZoneRange_Less_Than_8_ft": 1,
+        "SeasonType_Playoffs": 0,
+        "SeasonType_Regular_Season": 1,
+        "Game_ID_Frequency": 0.3,
+        "Game_Event_ID_Frequency": 0.3,
+        "Player_ID_Frequency": 0.3,
+        "Year": 2000,
+        "Month": 3,
+        "Day": 22,
+        "Day_of_Week": 2
     }
     
-    token = get_token(client)
+    token = get_token(test_client)
     headers = {
         "Authorization": f"Bearer {token}",
         "Content-Type": "application/json"
@@ -206,6 +206,7 @@ def test_predict_endpoint_shot_made(mock_predict):
     assert response.status_code == 200
     assert 'prediction' in response.json()
     assert response.json()['prediction'] == 1
+
 
 def test_predict_endpoint_shot_missed(client: TestClient):
     """
