@@ -1,5 +1,10 @@
 import logging
 import os
+import time
+
+# Set timezone to UTC
+os.environ['TZ'] = 'Europe/Berlin'
+time.tzset()
 
 # Create logs directory if it doesn't exist
 logs_dir = "logs"
