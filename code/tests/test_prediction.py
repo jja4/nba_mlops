@@ -65,7 +65,7 @@ def test_root_endpoint(client: TestClient):
 
 
 # Patch the model's predict method to return a fixed value
-@patch('nba_mlops.code.api.prediction_service')
+@patch('code.api.prediction_service')
 def test_predict_endpoint_shot_made(mock_predict, client: TestClient):
     """
     Test the predict endpoint of the NBA prediction API for a made shot prediction.
