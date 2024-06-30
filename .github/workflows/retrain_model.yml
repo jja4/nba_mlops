@@ -1,21 +1,14 @@
 name: Retrain and push to Docker Hub
 
 on:
-  push:
-    branches:
-      - main
-      - push-docker-hub
-      - database_integration
-      - retrain-the-model
-      - condintion-push-docker
-      - unit-tests
-  pull_request:
-    branches:
-      - main
-      - push-docker-hub
-      - database_integration
-      - retrain-the-model
-      - condintion-push-docker
+  schedule:
+    - cron: '0 5 * * *' # Every day at 5 am at UTC
+  #push:
+  #  branches:
+  #    - condintion-push-docker
+    #  - main
+    #paths:
+    #  - 'data/new_data/new_data.csv'
 
 permissions:
   contents: write  # Grant write permission to contents

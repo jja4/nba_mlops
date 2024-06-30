@@ -4,7 +4,6 @@ from fastapi.testclient import TestClient
 from api.nba_app import app, lifespan
 import pytest
 import asyncio
-from unittest.mock import Mock, patch
 
 test_client = TestClient(app)
 
@@ -124,9 +123,11 @@ def test_predict_endpoint_shot_made(client: TestClient):
 
     # Send POST request to the endpoint using the test client
     response = client.post("/predict", json=data, headers=headers)
+
+    # Check if the response status code is 200
     assert response.status_code == 200
     assert 'prediction' in response.json()
-    assert response.json()['prediction'] == 1  # Ensure this matches the mock return value
+    assert response.json()['prediction'] == 1
 
 def test_predict_endpoint_shot_missed(client: TestClient):
     """
