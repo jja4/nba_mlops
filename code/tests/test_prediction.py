@@ -131,6 +131,8 @@ def test_predict_endpoint_shot_made(mock_predict, client: TestClient):
     # Send POST request to the endpoint using the test client
     response = client.post("/predict", json=data, headers=headers)
 
+    print(response.json()) 
+
     # Check if the response status code is 200
     assert response.status_code == 200
 
