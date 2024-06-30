@@ -8,6 +8,7 @@ on:
       - database_integration
       - retrain-the-model
       - condintion-push-docker
+      - unit-tests
   pull_request:
     branches:
       - main
