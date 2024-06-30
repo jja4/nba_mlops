@@ -8,10 +8,19 @@ project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_dir)
 
 from config.config import Config  # Import Config class from config package
-from logger import logger  # Import the logger
 
 # Set up logging
 log_file = os.path.join(project_dir, 'log.txt')
+
+# Set up logging to file with timestamp and append mode
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler(log_file, mode='a'),  # Add a FileHandler for log.txt in append mode
+        logging.StreamHandler()  # Add a StreamHandler for the console output
+    ]
+)
 
 def clean_data(data):
     """
@@ -120,20 +129,23 @@ def main():
     """
     Main function to load, clean, transform, and save the dataset.
     """
-    logger.info("(2) Starting the data processing process.")
+    logging.info("(2) Starting the data processing process.")
 
     input_file_path = '../../' + Config.OUTPUT_RAW_FILE
     output_file_path = '../../' + Config.OUTPUT_PREPROCESSED_FILE
-    logger.info(f"Data loaded from {input_file_path}.")
+    logging.info(f"Data loaded from {input_file_path}.")
 
     data = pd.read_csv(input_file_path)
     data = clean_data(data)
     data = transform_data(data)
     data.to_csv(output_file_path, index=False)
-    logger.info("Processed data saved successfully.")
-    logger.info(output_file_path)
-    logger.info("Data processing pipeline completed.")
-    logger.info("-----------------------------------")
+    logging.info(output_file_path)
+
+    # Each service script creates its signal file at the end
+    open('signal_data_processing_done', 'w').close()
+
+    logging.info("Data processing pipeline completed.")
+    logging.info("-----------------------------------")
 
 if __name__ == "__main__":
     main()

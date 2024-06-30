@@ -7,8 +7,18 @@ import logging
 project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_dir)
 
+# Set up logging to file with timestamp and append mode
+log_file = os.path.join(project_dir, 'log.txt')
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler(log_file, mode='a'),
+        logging.StreamHandler()  # Also log to console
+    ]
+)
+
 from config.config import Config  # Import Config class from config package
-from logger import logger
 
 def fetch_data_from_csv(file_path):
     """
@@ -21,12 +31,12 @@ def fetch_data_from_csv(file_path):
     DataFrame: A pandas DataFrame containing the data from the CSV file.
     """
     try:
-        logger.info(f"Reading data from CSV file: {file_path}")
+        logging.info(f"Reading data from CSV file: {file_path}")
         data = pd.read_csv(file_path)
-        logger.info("Data read successfully from CSV file.")
+        logging.info("Data read successfully from CSV file.")
         return data
     except FileNotFoundError as e:
-        logger.error(f"Error reading CSV file: {e}")
+        logging.error(f"Error reading CSV file: {e}")
         return pd.DataFrame()  # Return an empty DataFrame on failure
 
 def validate_data(data):
@@ -39,11 +49,11 @@ def validate_data(data):
     Returns:
     DataFrame: The validated DataFrame.
     """
-    logger.info("Validating data.")
+    logging.info("Validating data.")
     if data.empty:
-        logger.warning("Data is empty.")
+        logging.warning("Data is empty.")
     else:
-        logger.info("Data validation passed.")
+        logging.info("Data validation passed.")
     return data
 
 def append_data(existing_data, new_data):
@@ -57,9 +67,9 @@ def append_data(existing_data, new_data):
     Returns:
     DataFrame: A pandas DataFrame containing the combined data.
     """
-    logger.info("Appending new data to existing data.")
+    logging.info("Appending new data to existing data.")
     combined_data = pd.concat([existing_data, new_data], ignore_index=True)
-    logger.info("Data appended successfully.")
+    logging.info("Data appended successfully.")
     return combined_data
 
 def save_data(data, file_path):
@@ -73,9 +83,9 @@ def save_data(data, file_path):
     # Create parent directory if it doesn't exist
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
     
-    logger.info(f"Saving data to CSV file: {file_path}")
+    logging.info(f"Saving data to CSV file: {file_path}")
     data.to_csv(file_path, index=False)
-    logger.info("Data saved successfully.")
+    logging.info("Data saved successfully.")
 
 def main():
     """
@@ -85,7 +95,7 @@ def main():
     - Appends the new data to existing data if it exists.
     - Saves the combined data to a CSV file.
     """
-    logger.info("(1) Starting the data ingestion process.")
+    logging.info("(1) Starting the data ingestion process.")
 
     input_file_path = '../../' + Config.NEW_DATA_FILE
     output_file_path = '../../' + Config.OUTPUT_RAW_FILE
@@ -108,8 +118,11 @@ def main():
     # Save combined data
     save_data(combined_data, output_file_path)
 
-    logger.info("Data ingestion process completed.")
-    logger.info("---------------------------------")
+    # Each service script creates its signal file at the end
+    open('signal_data_ingestion_done', 'w').close()
+
+    logging.info("Data ingestion process completed.")
+    logging.info("---------------------------------")
 
 if __name__ == "__main__":
     main()

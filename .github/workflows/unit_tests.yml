@@ -6,11 +6,15 @@ on:
       - main
       - push-docker-hub
       - database_integration
+      - retrain-the-model
+      - condintion-push-docker
   pull_request:
     branches:
       - main
       - push-docker-hub
       - database_integration
+      - retrain-the-model
+      - condintion-push-docker
 
 jobs:
   unit-tests:
@@ -23,6 +27,8 @@ jobs:
       DB_NAME: nba_db
       DB_USER: ubuntu
       DB_PASSWORD: mlops
+      PREDICTION_SERVICE_HOST: localhost
+      PREDICTION_SERVICE_PORT: 8001
 
     services:
       db:
@@ -58,52 +64,24 @@ jobs:
         run: |
           until pg_isready -h localhost -p 5432 -U ubuntu; do
             echo "Waiting for PostgreSQL to be ready..."
-            sleep 2
+            sleep 20
           done
 
       - name: Set up database
         run: |
           PGPASSWORD=mlops psql -h localhost -U ubuntu -d nba_db -f code/database/init.sql
 
+      - name: Start prediction service
+        run: |
+          source venv/bin/activate
+          nohup uvicorn code.api.prediction_service:app --host ${PREDICTION_SERVICE_HOST} --port ${PREDICTION_SERVICE_PORT} &
+
+      - name: Wait for prediction service to be ready
+        run: |
+          echo "Waiting for prediction service to start..."
+          sleep 20  # Adjust this time as needed
+          
       - name: Run tests
         run: |
           source venv/bin/activate
           pytest -v code/tests
-
-  docker-compose:
-    name: Build Docker Compose
-    runs-on: ubuntu-latest
-#    needs: unit-tests  # Later we will uncomment this. For now we do this to run docker part faster
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Docker
-        uses: docker/setup-buildx-action@v2
-
-      - name: Build and start Docker Compose
-        run: |
-          docker-compose -f docker-compose.yml up --build
-        env:
-          COMPOSE_PROJECT_NAME: nba_app
-
-  push-to-dockerhub:
-    name: Push Docker Compose to Docker Hub
-    runs-on: ubuntu-latest
-    needs: docker-compose
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Log in to Docker Hub
-        run: echo ${{ secrets.DOCKERHUB_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-
-      - name: Tag and push Docker images
-        run: |
-          docker-compose -f docker-compose.yml build
-          docker-compose -f docker-compose.yml push

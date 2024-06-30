@@ -33,6 +33,29 @@ services:
       - DB_NAME=nba_db
       - DB_USER=ubuntu
       - DB_PASSWORD=mlops
+      - PREDICTION_SERVICE_HOST=prediction-service
+      - PREDICTION_SERVICE_PORT=8001
+    volumes:
+      - ./code/api:/app/code/api  # Mount local api directory to /app in the container
+    networks:
+      - nba-network
+  
+  prediction-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.prediction-service
+    ports:
+      - "8001:8001"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DB_HOST=db
+      - DB_NAME=nba_db
+      - DB_USER=ubuntu
+      - DB_PASSWORD=mlops
+    volumes:
+      - ./code/api:/app/code/api  # Mount local prediction_service directory to /app in the container
     networks:
       - nba-network
 

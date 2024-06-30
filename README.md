@@ -1,7 +1,7 @@
 NBA MLOps
 ==============================
-This project demonstrates MLOps best practices using a machine learning model
-that predicts if an NBA player will make a specific shot or not.
+This project demonstrates MLOps best practices using a machine learning 
+model that predicts if an NBA player will make a specific shot or not.
 
 ![NBA Shot by Steph Curry](https://github.com/jja4/nba_mlops/blob/main/reports/images/Curry_perfect_shot.jfif)
 
@@ -57,28 +57,31 @@ Project Organization
 ***
 ## Getting Started
 
-## Installing and Connecting to the PostgreSQL Database
+## Building and Connecting to the App, including the PostgreSQL database
+
+1. Make sure you have docker installed on your machine
+
+2. Navigate to the nba_mlops directory (cd path/to/nba_mlops) and execute:
+
 ```bash
-sudo apt install postgresql postgresql-contrib
-sudo -i -u postgres psql
-CREATE USER ubuntu WITH PASSWORD 'mlops';
-CREATE DATABASE nba_db;
-GRANT ALL PRIVILEGES ON DATABASE nba_db TO ubuntu;
-\q
-exit
-# from within the nba_mlops directory
-python3 code/retrieve_data/setup_database.py
+docker-compose -f docker-compose.api.yml up
 ```
+
+3. To check if the users table exists, run the following code
 ```bash
-# to check if the users table exists, run the following code
-psql -h localhost -U ubuntu -d nba_db
-# enter the password 'mlops'
+docker exec -it nba_mlops_db_1 psql -U ubuntu -d nba_db
+# enter the password 'mlops' if requested
 SELECT * FROM users;
+```
+4. To see the previous predictions and their user verification
+
+```bash
+SELECT id, prediction, user_verification FROM predictions;
 ```
 
 ## Running the app
-How to Use the `@app.post('/unsecure_predict')` Endpoint
-To reach the `/unsecure_predict` endpoint and make a prediction, follow these steps:
+How to Use the `@app.post('/predict')` Endpoint
+To reach the `/predict` endpoint and make a prediction, follow these steps:
 
 We have two options to do that:
 
@@ -131,17 +134,32 @@ uvicorn nba_app:app
 ```
 This command will start the FastAPI application and make it accessible at http://localhost:8000.
 
-## Make a POST Request
+## Using the App
 
-You can use Postman to make a POST request to the /unsecure_predict endpoint. Here’s how:
+1. Open http://localhost:8000/docs.
 
-1. Open Postman and create a new POST request.
+2. Navigate to "POST /signup"
 
-2. Set the request URL to http://localhost:8000/unsecure_predict.
+3. Click "Try it Out"
 
-3. In the Body tab, select raw and JSON.
+4. Enter your username and password to register with the database
+```bash{
+  "username": "newuser",
+  "password": "newpassword",
+  "disabled": false
+}
+```
+5. Click "Execute", in the Response body, you should see a "message": "User {your new username} created successfully"
 
-4. Provide the following JSON object with values for the features used to train the model:
+6. In the FastAPI GUI, navigate to the "Authorize" button at the top.
+
+7. Enter your username and password (you can leave all other fields empty) and click "Authorize"
+
+8. Navigate to "POST /predict"
+
+9. Click "Try it Out"
+
+10. Use the Default values in the Request Body or provide the following JSON object with values for the features used to train the model:
 ```bash
 {
     "Period": 1,
@@ -185,22 +203,28 @@ You can use Postman to make a POST request to the /unsecure_predict endpoint. He
     "Day_of_Week": 5
 }
 ```
-5. Send the request
+11. Click "Execute" and view the prediction (0 or 1) in the Response body
 
-6. Get the prediction (0 or 1)
+## Verifying previous predictions
 
-## Installing and Connecting to the PostgreSQL Database
+1. Once logged in as an authenticated user, navigate to "GET /verify_random_prediction"
+
+2. Click "Try it Out"
+
+3. Inspect the input parameters
+
+4. Navigate to "POST /verify_random_prediction"
+
+5. Click "Try it Out"
+
+6. Enter the corresponding prediction_id and the true_value (0 for miss, 1 for make) of the NBA shot
 ```bash
-sudo apt install postgresql postgresql-contrib
-sudo -i -u postgres
-psql
-CREATE USER nba WITH PASSWORD 'mlops';
-CREATE DATABASE nba_db;
-GRANT ALL PRIVILEGES ON DATABASE nba_db TO nba;
-\q
-exit
+{
+  "prediction_id": 13,
+  "true_value": 0
+}
 ```
-
+7. Click "Execute", in the Response body, you should see a "message": "Prediction_id:13 verified successfully"
 
 ## How to Use the `docker compose up`
 Move to `nba_mlops` project main folder and run:
@@ -209,3 +233,69 @@ docker compose up
 ```
 
 This will initiate the execution of the `docker-compose.yml` file, which in turn launches all Docker containers for the respective scripts.
+
+## Why and how we use logging
+In our project, we have implemented logging across various stages of our data pipeline. Each stage logs important events and statuses to ensure we have a clear and detailed record of the process. Here's a breakdown of how logging is implemented in our project:
+1. Data Ingestion:
+    - The process starts with logging the initiation of the data ingestion process.
+    - It logs the source of the data and confirms successful reading of the data.
+    - Validation of the data is logged, along with the outcome of the validation.
+    - The ingestion of new data and its appending to the existing dataset is logged.
+    - Finally, the successful saving of the data and the completion of the ingestion process are logged.
+2. Data Processing:
+    - The start of the data processing stage is logged.
+    - The source of the data being processed is logged.
+    - Successful saving of the processed data is logged.
+    - Completion of the data processing pipeline is logged.
+3. Feature Engineering:
+    - The initiation of the feature engineering process is logged.
+    - Loading of data for feature engineering is logged.
+    - Generation of the joblib file containing the training and test datasets is logged.
+    - Completion of the feature engineering process is logged.
+4. Model Training:
+    - Logging starts with the model training process.
+    - Successful saving of the trained model is logged.
+    - The completion of the model training process is logged.
+5. Model Prediction:
+    - The start of the model prediction process is logged.
+    - Successful saving of the prediction results is logged.
+    - Completion of the model prediction process is logged.
+
+Logging is a critical part of our data pipeline for several reasons:
+- Monitoring and Debugging: Logging helps us keep track of what our application is doing, making it easier to identify where things might be going wrong.
+- Accountability and Traceability: Logs provide a historical record of events that have taken place in our application.
+- Performance Analysis: By logging timestamps, we can measure the duration of different processes and identify bottlenecks in our data pipeline.
+- Communication: Logs serve as a means of communication among team members. They provide insights into the execution flow and status of different components, which is essential for collaborative development and troubleshooting. 
+
+## Getting new data and retrain the model
+We simulate retrieving new data by running a GitHub action (generate_new_data.yml) every Sunday at 9 am UTC. This action generates a small CSV file from our original big data and pushes it to a dedicated path in our repository. On Monday at 9 am UTC, another GitHub action (retrain_model.yml) triggers retraining. This action runs only after receiving a notification of the push action for the new data file. The retraining process involves running Docker Compose and pushing the trained model to Docker Hub.
+
+## Condition for Model Update Based on Accuracy Improvement
+In the context of this project, the model training process involves evaluating the accuracy of the newly trained model against the current best model. Here's the condition that determines whether the new accuracy should trigger a model update and a Docker Hub push:
+
+1. Current Best Model Metrics:
+
+The accuracy of the current best model is stored in best_model_metrics.json.
+
+2. New Model Training:
+
+During the model training process, a new accuracy metric (new_accuracy) is calculated based on the latest training data.
+
+3. Improvement Condition:
+
+The decision to update the model and trigger a Docker Hub push depends on whether the new_accuracy is greater than the best_accuracy recorded in best_model_metrics.json. Specifically:
+- If new_accuracy > best_accuracy, the newly trained model is considered better, and it replaces the current best model.
+- Otherwise, if new_accuracy <= best_accuracy, the new model is not considered an improvement, and the current best model remains unchanged.
+
+4. Action on Improvement:
+
+When the new model shows improved accuracy (new_accuracy > best_accuracy):
+- The new model is saved, and the metrics in best_model_metrics.json are updated to reflect the new accuracy value.
+- A signal file (signal_new_model_version) is generated to indicate that a new model version has been created and should be used for subsequent tasks such as deployment or further evaluation.
+- Docker images associated with various services (like data ingestion, processing, feature engineering, model training, and inference) are built, tagged with a version identifier, and pushed to Docker Hub.
+
+5. Notification:
+
+Users are informed through logs and messages that the model has been updated due to improved accuracy, and Docker images have been pushed to Docker Hub accordingly.
+
+This evaluation ensures that the model continuously improves based on the latest data, and significant accuracy improvements trigger updates to the production model as well as Docker Hub for deployment.
