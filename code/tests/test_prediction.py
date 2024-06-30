@@ -77,7 +77,7 @@ def test_predict_endpoint_shot_made(mock_predict, client: TestClient):
         None
     """
     # Set up the mock to return a consistent prediction value
-    mock_predict.return_value = [1]
+    mock_predict.return_value = {"prediction": 1}
     
     # JSON data to send in the request
     data = {
