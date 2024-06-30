@@ -66,7 +66,7 @@ def test_root_endpoint(client: TestClient):
 
 # Patch the model's predict method to return a fixed value
 @patch('api.prediction_service.predict')
-def test_predict_endpoint_shot_made(mock_predict, client: TestClient):
+def test_predict_endpoint_shot_made(mock_get_data, client: TestClient):
     """
     Test the predict endpoint of the NBA prediction API for a made shot prediction.
     
@@ -76,8 +76,14 @@ def test_predict_endpoint_shot_made(mock_predict, client: TestClient):
     Returns:
         None
     """
+
     # Set up the mock to return a consistent prediction value
-    mock_predict.return_value = {"prediction": 1}
+    mock_data = {"prediction": 1}
+  
+    mock_get_data.return_value = Mock() 
+
+    mock_get_data.return_value.json.return_value = mock_data 
+    mock_get_data.return_value.status_code = 200
     
     # JSON data to send in the request
     data = {
