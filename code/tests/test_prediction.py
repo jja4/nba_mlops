@@ -56,20 +56,7 @@ def test_root_endpoint(client: TestClient):
     assert response.status_code == 200
     assert response.json() == {"message": "Welcome to the NBA prediction API!"}
 
-@pytest.fixture()
-def fake_prediction_info():
-    return {"prediction": 1}
-
-@pytest.fixture
-def mock_api():
-    with requests_mock.Mocker() as m:
-        yield m
-
-@pytest.fixture
-def user_repository(mock_api):
-    return {"prediction": 2}
-
-@patch('api.prediction_service.model.predict', return_value=[10])
+@patch('api.prediction_service.model.predict', return_value=[100])
 def test_predict_endpoint_shot_made(mock_predict, client: TestClient):
     data = {
         "Period": -0.4,
