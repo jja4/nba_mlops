@@ -1,3 +1,5 @@
+import os
+import sys
 from fastapi.testclient import TestClient
 from api.nba_app import app, lifespan
 import pytest
@@ -6,6 +8,9 @@ from unittest.mock import patch
 
 test_client = TestClient(app)
 
+# Adjust sys.path to include the 'project' directory
+project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, project_dir)
 
 # Create a new event loop for running async functions
 @pytest.fixture(scope="module")
