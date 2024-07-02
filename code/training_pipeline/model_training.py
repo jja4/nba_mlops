@@ -11,18 +11,8 @@ import json
 project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_dir)
 
-log_file = os.path.join(project_dir, 'log.txt')
-
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler(log_file, mode='a'),
-        logging.StreamHandler()
-    ]
-)
-
 from config.config import Config
+from logger import logger
 
 def train_model(file_path):
     """
@@ -64,7 +54,7 @@ def main():
     """
     Main function to train the model and save it.
     """
-    logging.info("(4) Starting the model training process.")
+    logger.info("(4) Starting the model training process.")
 
     # Path to the joblib file containing train and test datasets
     file_path = '../../' + Config.OUTPUT_TRAIN_TEST_JOBLIB_FILE
@@ -94,8 +84,8 @@ def main():
                 break
             version += 1
         dump(model, output_file_path)
-        logging.info("Model file data saved successfully.")
-        logging.info(output_file_path)
+        logger.info("Model file data saved successfully.")
+        logger.info(output_file_path)
 
         new_metrics = {'accuracy': new_accuracy}
         with open(metrics_file, 'w') as f:
@@ -108,8 +98,8 @@ def main():
     # Always create this signal file at the end of model training
     open('signal_model_training_done', 'w').close()
     
-    logging.info("Model training completed.")
-    logging.info("-----------------------------------")
+    logger.info("Model training completed.")
+    logger.info("-----------------------------------")
 
 if __name__ == "__main__":
     main()

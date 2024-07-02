@@ -16,6 +16,9 @@ RUN chmod +x /entrypoint.sh
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
+# Ensure the logs directory exists
+RUN mkdir -p /app/logs
+
 # Create a volume to persist log data
 VOLUME /app/logs
 
