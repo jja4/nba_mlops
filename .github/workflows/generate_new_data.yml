@@ -1,11 +1,11 @@
 name: Generate New Data
 
 on:
-  #schedule:
-  #  - cron: '0 4 * * *' # Every day at 4 am at UTC
-  push:
-    branches:
-      - main
+  schedule:
+    - cron: '0 4 * * *' # Every day at 4 am at UTC
+  #push:
+  #  branches:
+  #    - main
 
 permissions:
   contents: write  # Grant write permission to contents
