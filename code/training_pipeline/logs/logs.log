@@ -239,3 +239,8 @@
 2024-07-02 12:42:01,976 - logger - INFO - Custom logger module initialized.
 2024-07-02 12:42:01,976 - logger - INFO - (5) Starting the model prediction process.
 2024-07-02 12:42:01,977 - logger - INFO - No new model version found. Skipping inference.
+2024-07-02 12:44:42,988 - logger - INFO - Custom logger module initialized.
+2024-07-02 12:44:42,988 - logger - INFO - (4) Starting the model training process.
+2024-07-02 12:44:44,432 - logger - INFO - Model saved locally: ../../trained_models/model_best_lr-v1-20240702.joblib
+2024-07-02 12:44:44,435 - logger - INFO - Model training completed.
+2024-07-02 12:44:44,435 - logger - INFO - -----------------------------------
