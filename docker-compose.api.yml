@@ -76,6 +76,8 @@ services:
       - 3000:3000
     volumes:
       - grafana_data:/var/lib/grafana
+      - ./grafana_data/dashboards:/etc/grafana/dashboards
+      - ./grafana_data/provisioning:/etc/grafana/provisioning
     networks:
       - nba-network
 

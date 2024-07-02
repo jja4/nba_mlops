@@ -7,13 +7,13 @@ global:
   evaluation_interval: 10s
 alerting:
   alertmanagers:
-  # - follow_redirects: true
-  #   enable_http2: true
   - scheme: http
     timeout: 10s
     api_version: v2
     static_configs:
     - targets: []
+rule_files:
+  - "alerting_rules.yml"
 scrape_configs:
 - job_name: prometheus
   honor_timestamps: true
@@ -21,8 +21,6 @@ scrape_configs:
   scrape_timeout: 10s
   metrics_path: /metrics
   scheme: http
-  # follow_redirects: true
-  # enable_http2: true
   static_configs:
   - targets:
     - prometheus:9090
