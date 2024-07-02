@@ -244,3 +244,19 @@
 2024-07-02 12:44:44,432 - logger - INFO - Model saved locally: ../../trained_models/model_best_lr-v1-20240702.joblib
 2024-07-02 12:44:44,435 - logger - INFO - Model training completed.
 2024-07-02 12:44:44,435 - logger - INFO - -----------------------------------
+2024-07-02 21:20:33,448 - logger - INFO - Custom logger module initialized.
+2024-07-02 21:20:33,449 - logger - INFO - (4) Starting the model training process.
+2024-07-02 21:20:34,945 - logger - INFO - Model training completed.
+2024-07-02 21:20:34,945 - logger - INFO - -----------------------------------
+2024-07-02 21:23:03,530 - logger - INFO - Custom logger module initialized.
+2024-07-02 21:23:03,530 - logger - INFO - (4) Starting the model training process.
+2024-07-02 21:23:04,887 - logger - INFO - Model training completed.
+2024-07-02 21:23:04,887 - logger - INFO - -----------------------------------
+2024-07-02 21:24:19,616 - logger - INFO - Custom logger module initialized.
+2024-07-02 21:24:19,616 - logger - INFO - (4) Starting the model training process.
+2024-07-02 21:24:20,772 - logger - INFO - Model training completed.
+2024-07-02 21:24:20,772 - logger - INFO - -----------------------------------
+2024-07-02 21:25:47,433 - logger - INFO - Custom logger module initialized.
+2024-07-02 21:25:47,433 - logger - INFO - (4) Starting the model training process.
+2024-07-02 21:25:48,599 - logger - INFO - Model training completed.
+2024-07-02 21:25:48,599 - logger - INFO - -----------------------------------
