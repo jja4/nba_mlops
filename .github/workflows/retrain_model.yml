@@ -4,7 +4,8 @@ on:
   schedule:
     - cron: '0 5 * * *' # Every day at 5 am at UTC
   #push:
-    #branches:
+  #  branches:
+  #    - condintion-push-docker
     #  - main
     #paths:
     #  - 'data/new_data/new_data.csv'
@@ -16,6 +17,9 @@ jobs:
   retrain-with-docker-compose:
     name: Build Docker Compose
     runs-on: ubuntu-latest
+
+    outputs:
+      changed: ${{ steps.check_changes.outputs.changed }}
 
     steps:
       - name: Checkout code
@@ -30,28 +34,41 @@ jobs:
         env:
           COMPOSE_PROJECT_NAME: nba_app
 
-      - name: Commit and push preprocessed files
+      - name: Commit and push preprocessed files and metrics
+        id: check_changes
         run: |
           git config --global user.name "Github Action"
           git config --global user.email mihrandovlatyan@gmail.com
-          
+      
+          # Add files to the index
           git add "code/log.txt"
           git add "data/predictions/predictions.csv"
           git add "data/processed/NBA Shot Locations 1997 - 2020-processed.csv"
           git add "data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib"
           git add "data/raw/NBA Shot Locations 1997 - 2020.csv"
           git add "trained_models/*.joblib"  # Add all versioned model files
-
+          git add "best_model_metrics.json"  # Add metrics file
+      
+          # Check if there are changes in best_model_metrics.json
           git pull
-          git commit -m 'Add logs, preprocessed and trained model files'
-          git push
+          if git diff --cached --quiet "best_model_metrics.json"; then
+            echo "No changes to best_model_metrics.json"
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            # Commit and push changes
+            git commit -m 'Add logs, preprocessed, trained model files and updated metrics'
+            git push
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_REPO_TOKEN }}
+        
 
   push-to-dockerhub:
     name: Push Docker Compose to Docker Hub
     runs-on: ubuntu-latest
     needs: retrain-with-docker-compose
+    if: needs.retrain-with-docker-compose.outputs.changed == 'true'
 
     steps:
       - name: Checkout code
@@ -95,3 +112,13 @@ jobs:
             docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${IMAGE_NAME}:latest
             docker push ${IMAGE_NAME}:latest
           done
+
+  no-change-message:
+    name: Print no changes message
+    runs-on: ubuntu-latest
+    needs: retrain-with-docker-compose
+    if: needs.retrain-with-docker-compose.outputs.changed == 'false'
+
+    steps:
+      - name: Print message
+        run: echo "No changes to best_model_metrics.json. Skipping Docker push."
