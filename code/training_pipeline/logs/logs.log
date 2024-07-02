@@ -260,3 +260,9 @@
 2024-07-02 21:25:47,433 - logger - INFO - (4) Starting the model training process.
 2024-07-02 21:25:48,599 - logger - INFO - Model training completed.
 2024-07-02 21:25:48,599 - logger - INFO - -----------------------------------
+2024-07-02 21:51:22,635 - logger - INFO - Custom logger module initialized.
+2024-07-02 21:51:22,635 - logger - INFO - (4) Starting the model training process.
+2024-07-02 21:51:24,015 - logger - INFO - Model file data saved successfully.
+2024-07-02 21:51:24,015 - logger - INFO - ../../trained_models/model_best_lr-v2-20240702.joblib
+2024-07-02 21:51:24,015 - logger - INFO - Model training completed.
+2024-07-02 21:51:24,015 - logger - INFO - -----------------------------------
