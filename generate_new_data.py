@@ -10,7 +10,7 @@ sys.path.insert(0, project_dir)
 from config.config import Config  # Import Config class from config package
 
 # For demonstration, assume we have a large dataset 'NBA Shot Locations 1997 - 2020-original.csv'
-# Replace this with your actual data loading logic
+# Replace this with actual data loading logic
 big_data = pd.read_csv(Config.ORIGINAL_BIG_DATA_FILE)
 
 # Shuffle and select a small portion to simulate new data

@@ -34,6 +34,10 @@ jobs:
         env:
           COMPOSE_PROJECT_NAME: nba_app
 
+      - name: Log to MLFlow
+        run: |
+          docker-compose -f docker-compose.yml run --rm model_training python code/training_pipeline/model_training.py
+
       - name: Commit and push preprocessed files and metrics
         id: check_changes
         run: |

@@ -4,9 +4,10 @@ import pandas as pd
 from sklearn import linear_model
 from sklearn.metrics import accuracy_score
 from joblib import load, dump
-import logging
 import datetime
 import json
+import mlflow
+import mlflow.sklearn
 
 project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_dir)
@@ -16,7 +17,7 @@ from logger import logger
 
 def train_model(file_path):
     """
-    Train a logistic regression model on the provided dataset.
+    Train a logistic regression model on the provided dataset and log metrics with MLFlow.
 
     Parameters:
     file_path (str): Path to the joblib file containing the train and test datasets.
@@ -40,6 +41,28 @@ def train_model(file_path):
     accuracy = accuracy_score(y_test, predictions)
     print(f"Model Accuracy: {accuracy}")
     
+    # Initialize MLFlow tracking
+    mlflow.set_tracking_uri("http://your-mlflow-server-uri")  # Set your MLFlow tracking server URI
+    mlflow.set_experiment("nba_shot_prediction")  # Set your experiment name
+
+    with mlflow.start_run():
+        # Log parameters
+        mlflow.log_param("model_type", "LogisticRegression")
+        mlflow.log_param("solver", "liblinear")
+        mlflow.log_param("C", 1)
+        mlflow.log_param("max_iter", 1000)
+
+        # Log metrics
+        mlflow.log_metric("accuracy", accuracy)
+
+        # Log the trained model
+        mlflow.sklearn.log_model(model, "model")
+
+        # Save the model locally
+        versioned_model_path = generate_versioned_filename(Config.OUTPUT_TRAINED_MODEL_FILE_LR, 1)
+        dump(model, versioned_model_path)
+        logger.info(f"Model saved locally: {versioned_model_path}")
+
     return model, accuracy
 
 def generate_versioned_filename(base_filename, version):

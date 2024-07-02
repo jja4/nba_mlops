@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 echo "Starting entrypoint.sh..."
 echo "WAIT_FOR_FILE: $WAIT_FOR_FILE"
@@ -21,8 +22,11 @@ if [ "$WAIT_FOR_PREV_FILE" ]; then
   echo "File $WAIT_FOR_PREV_FILE found, proceeding..."
 fi
 
-# Run the main command
-"$@"
+# Export MLFlow tracking server URI
+export MLFLOW_TRACKING_URI=http://localhost:5000
+
+# Run the main command with MLFlow logging
+mlflow run /app/code/training_pipeline --entry-point model_training.py
 
 # After the main command finishes, remove the previous step's signal file
 if [ "$WAIT_FOR_PREV_FILE" ]; then
