@@ -1,5 +1,5 @@
 NBA MLOps
-==============================
+===========================================================================================
 This project demonstrates MLOps best practices using a machine learning 
 model that predicts if an NBA player will make a specific shot or not.
 
@@ -55,6 +55,9 @@ Project Organization
     ├── requirements.txt   <- The required libraries to deploy this project.
 
 ***
+
+===========================================================================================
+
 ## Getting Started
 
 ## Building and Connecting to the App, including the PostgreSQL database
@@ -78,6 +81,8 @@ SELECT * FROM users;
 ```bash
 SELECT id, prediction, user_verification FROM predictions;
 ```
+
+===========================================================================================
 
 ## Running the app
 How to Use the `@app.post('/predict')` Endpoint
@@ -133,6 +138,8 @@ First, navigate to the `/code/api` directory and start the API using the followi
 uvicorn nba_app:app
 ```
 This command will start the FastAPI application and make it accessible at http://localhost:8000.
+
+===========================================================================================
 
 ## Using the App
 
@@ -205,6 +212,8 @@ This command will start the FastAPI application and make it accessible at http:/
 ```
 11. Click "Execute" and view the prediction (0 or 1) in the Response body
 
+===========================================================================================
+
 ## Verifying previous predictions
 
 1. Once logged in as an authenticated user, navigate to "GET /verify_random_prediction"
@@ -233,6 +242,8 @@ docker compose up
 ```
 
 This will initiate the execution of the `docker-compose.yml` file, which in turn launches all Docker containers for the respective scripts.
+
+===========================================================================================
 
 ## Why and how we use logging
 In our project, we have implemented logging across various stages of our data pipeline. Each stage logs important events and statuses to ensure we have a clear and detailed record of the process. Here's a breakdown of how logging is implemented in our project:
@@ -267,8 +278,12 @@ Logging is a critical part of our data pipeline for several reasons:
 - Performance Analysis: By logging timestamps, we can measure the duration of different processes and identify bottlenecks in our data pipeline.
 - Communication: Logs serve as a means of communication among team members. They provide insights into the execution flow and status of different components, which is essential for collaborative development and troubleshooting. 
 
+===========================================================================================
+
 ## Getting new data and retrain the model
 We simulate retrieving new data by running a GitHub action (generate_new_data.yml) every Sunday at 9 am UTC. This action generates a small CSV file from our original big data and pushes it to a dedicated path in our repository. On Monday at 9 am UTC, another GitHub action (retrain_model.yml) triggers retraining. This action runs only after receiving a notification of the push action for the new data file. The retraining process involves running Docker Compose and pushing the trained model to Docker Hub.
+
+===========================================================================================
 
 ## Condition for Model Update Based on Accuracy Improvement
 In the context of this project, the model training process involves evaluating the accuracy of the newly trained model against the current best model. Here's the condition that determines whether the new accuracy should trigger a model update and a Docker Hub push:
@@ -299,3 +314,43 @@ When the new model shows improved accuracy (new_accuracy > best_accuracy):
 Users are informed through logs and messages that the model has been updated due to improved accuracy, and Docker images have been pushed to Docker Hub accordingly.
 
 This evaluation ensures that the model continuously improves based on the latest data, and significant accuracy improvements trigger updates to the production model as well as Docker Hub for deployment.
+
+===========================================================================================
+
+## MLFlow Integration for Local Model Tracking
+This project integrates MLFlow for local model tracking, enabling you to log model metrics and artifacts for better experiment management. The MLFlow tracking server runs locally and is demonstrated only on the localhost due to the lack of an external server URL.
+
+# Prerequisites
+Ensure that MLFlow is installed on your local machine. You can install it using pip:
+```bash
+pip install mlflow
+```
+
+# Running the MLFlow Tracking Server
+To run the MLFlow tracking server locally, use the following command:
+```bash
+mlflow server --host 0.0.0.0 --port 6001
+```
+This command starts an MLFlow server on port 6001.
+
+# Accessing the MLFlow UI
+To visualize the experiments and logged data, open your web browser and navigate to:
+```bash
+http://localhost:6001
+```
+Here, you can explore the logged experiments, runs, parameters, metrics, and artifacts.
+
+# MLFlow Configuration in the Project
+The 'model_training.py' script has been updated to log model parameters, metrics, and the trained model itself to the MLFlow tracking server. The relevant changes include:
+
+1. Set Tracking URI: The MLFlow tracking server URI is set to http://localhost:6001.
+2. Set Experiment Name: The experiment name is set to nba_shot_prediction.
+3. Start a Run: A new MLFlow run is started with a unique name based on the versioned filename.
+4. Log Parameters: Model parameters like model_type, solver, C, and max_iter are logged.
+5. Log Metrics: The accuracy of the model is logged as a metric.
+6. Log Model: The trained model is logged using mlflow.sklearn.log_model.
+
+By following these steps and understanding the MLFlow integration, you can effectively manage and track your machine learning experiments locally.
+
+===========================================================================================
+
