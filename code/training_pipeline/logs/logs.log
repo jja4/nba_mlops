@@ -172,3 +172,40 @@
 2024-07-02 10:32:48,203 - logger - INFO - No new model version found. Skipping inference.
 
 
+2024-07-02 12:23:09,551 - logger - INFO - Custom logger module initialized.
+2024-07-02 12:23:09,551 - logger - INFO - (4) Starting the model training process.
+2024-07-02 12:24:31,109 - logger - INFO - Custom logger module initialized.
+2024-07-02 12:24:31,109 - logger - INFO - (4) Starting the model training process.
+2024-07-02 12:24:36,797 - logger - INFO - Custom logger module initialized.
+2024-07-02 12:24:36,797 - logger - INFO - (4) Starting the model training process.
+2024-07-02 12:29:08,081 - logger - INFO - Custom logger module initialized.
+2024-07-02 12:29:08,081 - logger - INFO - (4) Starting the model training process.
+2024-07-02 12:30:32,544 - logger - INFO - Custom logger module initialized.
+2024-07-02 12:30:32,544 - logger - INFO - (4) Starting the model training process.
+2024-07-02 12:30:33,856 - logger - INFO - Model saved locally: trained_models/trained_models/model_best_lr-v1-20240702.joblib
+2024-07-02 12:30:33,861 - logger - INFO - Model training completed.
+2024-07-02 12:30:33,861 - logger - INFO - -----------------------------------
+2024-07-02 12:32:44,780 - logger - INFO - Custom logger module initialized.
+2024-07-02 12:32:44,780 - logger - INFO - (4) Starting the model training process.
+2024-07-02 12:32:46,314 - logger - INFO - Model saved locally: trained_models/model_best_lr-v1-20240702.joblib
+2024-07-02 12:32:46,317 - logger - INFO - Model training completed.
+2024-07-02 12:32:46,317 - logger - INFO - -----------------------------------
+2024-07-02 12:36:08,860 - logger - INFO - Custom logger module initialized.
+2024-07-02 12:36:08,860 - logger - INFO - (4) Starting the model training process.
+2024-07-02 12:36:10,384 - logger - INFO - Model saved locally: ../../trained_models/model_best_lr-v1-20240702.joblib
+2024-07-02 12:36:10,388 - logger - INFO - Model training completed.
+2024-07-02 12:36:10,388 - logger - INFO - -----------------------------------
+2024-07-02 12:37:25,554 - logger - INFO - Custom logger module initialized.
+2024-07-02 12:37:25,554 - logger - INFO - (1) Starting the data ingestion process.
+2024-07-02 12:37:25,554 - logger - INFO - Reading data from CSV file: ../../data/new_data/new_data.csv
+2024-07-02 12:37:25,559 - logger - INFO - Data read successfully from CSV file.
+2024-07-02 12:37:25,560 - logger - INFO - Validating data.
+2024-07-02 12:37:25,560 - logger - INFO - Data validation passed.
+2024-07-02 12:37:25,560 - logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-02 12:37:25,572 - logger - INFO - Data read successfully from CSV file.
+2024-07-02 12:37:25,572 - logger - INFO - Appending new data to existing data.
+2024-07-02 12:37:25,575 - logger - INFO - Data appended successfully.
+2024-07-02 12:37:25,575 - logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-02 12:37:25,601 - logger - INFO - Data saved successfully.
+2024-07-02 12:37:25,601 - logger - INFO - Data ingestion process completed.
+2024-07-02 12:37:25,601 - logger - INFO - ---------------------------------

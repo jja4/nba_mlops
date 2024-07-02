@@ -23,7 +23,7 @@ if [ "$WAIT_FOR_PREV_FILE" ]; then
 fi
 
 # Export MLFlow tracking server URI
-export MLFLOW_TRACKING_URI=http://localhost:5000
+export MLFLOW_TRACKING_URI=http://localhost:6001
 
 # Run the main command with MLFlow logging
 mlflow run /app/code/training_pipeline --entry-point model_training.py

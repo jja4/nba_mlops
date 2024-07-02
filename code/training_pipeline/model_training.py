@@ -25,6 +25,9 @@ def train_model(file_path):
     Returns:
     model: Trained logistic regression model.
     """
+    # Generate versioned filename for the model
+    versioned_model_path = generate_versioned_filename('../../' + Config.OUTPUT_TRAINED_MODEL_FILE_LR, 1)
+
     # Load train and test datasets from joblib file
     X_train, X_test, y_train, y_test = load(file_path)
 
@@ -42,8 +45,8 @@ def train_model(file_path):
     print(f"Model Accuracy: {accuracy}")
     
     # Initialize MLFlow tracking
-    mlflow.set_tracking_uri("http://your-mlflow-server-uri")  # Set your MLFlow tracking server URI
-    mlflow.set_experiment("nba_shot_prediction")  # Set your experiment name
+    mlflow.set_tracking_uri("http://localhost:6001")  # MLFlow tracking server URI
+    mlflow.set_experiment("nba_shot_prediction")  # Experiment name
 
     with mlflow.start_run():
         # Log parameters
@@ -58,8 +61,10 @@ def train_model(file_path):
         # Log the trained model
         mlflow.sklearn.log_model(model, "model")
 
+        # Ensure the directory exists for saving the model
+        os.makedirs(os.path.dirname(versioned_model_path), exist_ok=True)
+
         # Save the model locally
-        versioned_model_path = generate_versioned_filename(Config.OUTPUT_TRAINED_MODEL_FILE_LR, 1)
         dump(model, versioned_model_path)
         logger.info(f"Model saved locally: {versioned_model_path}")
 
