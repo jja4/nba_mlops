@@ -59,9 +59,46 @@ services:
     networks:
       - nba-network
 
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus_data/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus_data/alerting_rules.yml:/etc/prometheus/alerting_rules.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    networks:
+      - nba-network
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana_data/dashboards:/etc/grafana/dashboards
+      - ./grafana_data/provisioning:/etc/grafana/provisioning
+    networks:
+      - nba-network
+  
+  alertmanager:
+    image: prom/alertmanager
+    volumes:
+      - ./alertmanager:/etc/alertmanager
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+      - '--storage.path=/alertmanager'
+    ports:
+      - 9093:9093
+    networks:
+      - nba-network
+
 networks:
   nba-network:
     driver: bridge
 
 volumes:
-  postgres_data:
+  postgres_data: {}
+  prometheus_data: {}
+  grafana_data: {}
