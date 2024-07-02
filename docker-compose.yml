@@ -1,14 +1,6 @@
 version: '3.8'
 
 services:
-  mlflow-server:
-    image: mlflow/mlflow
-    ports:
-      - "6001:5000"  # Expose MLFlow server port
-    environment:
-      - MLFLOW_DEFAULT_ARTIFACT_ROOT=s3://your-bucket/mlflow  # Replace with your artifact storage
-    command: server --host 0.0.0.0 --port 5000  # Run MLFlow server on port 5000 inside the container
-
   data_ingestion:
     build:
       context: .
@@ -56,11 +48,9 @@ services:
       - .:/app
     depends_on:
       - feature_engineering
-      - mlflow-server  # Ensure mlflow-server is started before model_training
     environment:
       - WAIT_FOR_FILE=/app/signal_model_training_done
       - WAIT_FOR_PREV_FILE=/app/signal_feature_engineering_done
-      - MLFLOW_TRACKING_URI=http://mlflow-server:5000  # Use the internal service name and port
 
   inference:
     build:

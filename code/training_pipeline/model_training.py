@@ -25,8 +25,6 @@ def train_model(file_path):
     Returns:
     model: Trained logistic regression model.
     """
-    # Generate versioned filename for the model
-    versioned_model_path = generate_versioned_filename('../../' + Config.OUTPUT_TRAINED_MODEL_FILE_LR, 1)
 
     # Load train and test datasets from joblib file
     X_train, X_test, y_train, y_test = load(file_path)
@@ -60,13 +58,6 @@ def train_model(file_path):
 
         # Log the trained model
         mlflow.sklearn.log_model(model, "model")
-
-        # Ensure the directory exists for saving the model
-        os.makedirs(os.path.dirname(versioned_model_path), exist_ok=True)
-
-        # Save the model locally
-        dump(model, versioned_model_path)
-        logger.info(f"Model saved locally: {versioned_model_path}")
 
     return model, accuracy
 
