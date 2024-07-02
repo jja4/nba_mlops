@@ -64,7 +64,7 @@ def main():
     # Check if a new model version signal file exists
     new_model_signal_file = '../../signal_new_model_version'
     if not os.path.exists(new_model_signal_file):
-        logging.info("No new model version found. Skipping inference.")
+        logger.info("No new model version found. Skipping inference.")
         return
 
     try:
@@ -93,20 +93,20 @@ def main():
         # Save predictions to a CSV file
         output_file_path = '../../' + Config.OUTPUT_PREDICTIONS_RESULTS_FILE
         pd.DataFrame(predictions, columns=['Prediction']).to_csv(output_file_path, index=False)
-        logging.info("Prediction file data saved successfully.")
-        logging.info(output_file_path)
+        logger.info("Prediction file data saved successfully.")
+        logger.info(output_file_path)
 
         # Each service script creates its signal file at the end
         open('signal_inference_done', 'w').close()
 
-        logging.info("Model inference completed.")
-        logging.info("-----------------------------------")
+        logger.info("Model inference completed.")
+        logger.info("-----------------------------------")
     
     finally:
         # Remove the signal_new_model_version file regardless of success or failure
         if os.path.exists(new_model_signal_file):
             os.remove(new_model_signal_file)
-            logging.info("Removed signal_new_model_version file.")
+            logger.info("Removed signal_new_model_version file.")
             print("Removed signal_new_model_version file.")
 
 if __name__ == "__main__":
