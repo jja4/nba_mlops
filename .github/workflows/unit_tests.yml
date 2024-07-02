@@ -9,6 +9,7 @@ on:
       - retrain-the-model
       - condintion-push-docker
       - logging_script
+      - unit-tests
   pull_request:
     branches:
       - main

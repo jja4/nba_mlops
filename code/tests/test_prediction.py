@@ -1,3 +1,5 @@
+import os
+import sys
 from fastapi.testclient import TestClient
 from api.nba_app import app, lifespan
 import pytest
@@ -5,6 +7,9 @@ import asyncio
 
 test_client = TestClient(app)
 
+# Adjust sys.path to include the 'project' directory
+project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, project_dir)
 
 # Create a new event loop for running async functions
 @pytest.fixture(scope="module")
@@ -57,7 +62,6 @@ def test_root_endpoint(client: TestClient):
     assert response.status_code == 200
     assert response.json() == {"message": "Welcome to the NBA prediction API!"}
 
-
 def test_predict_endpoint_shot_made(client: TestClient):
     """
     Test the unsecure_predict endpoint of the NBA prediction API for a made shot prediction.
@@ -89,28 +93,28 @@ def test_predict_endpoint_shot_made(client: TestClient):
         "ShotZoneBasic_Mid_Range": 0,
         "ShotZoneBasic_Restricted_Area": 1,
         "ShotZoneBasic_Right_Corner_3": 0,
-        "ShotZoneArea_Back_Court_BC": 0,
-        "ShotZoneArea_Center_C": 1,
+        "ShotZoneArea_Back_Court_BC": 1,
+        "ShotZoneArea_Center_C": 0,
         "ShotZoneArea_Left_Side_Center_LC": 0,
         "ShotZoneArea_Left_Side_L": 0,
-        "ShotZoneArea_Right_Side_Center_RC": 0,
+        "ShotZoneArea_Right_Side_Center_RC": 1,
         "ShotZoneArea_Right_Side_R": 0,
         "ShotZoneRange_16_24_ft": 0,
-        "ShotZoneRange_24_ft": 0,
+        "ShotZoneRange_24_ft": 1,
         "ShotZoneRange_8_16_ft": 0,
-        "ShotZoneRange_Back_Court_Shot": 0,
-        "ShotZoneRange_Less_Than_8_ft": 1,
-        "SeasonType_Playoffs": 0,
-        "SeasonType_Regular_Season": 1,
-        "Game_ID_Frequency": 0.3,
-        "Game_Event_ID_Frequency": 0.3,
-        "Player_ID_Frequency": 0.3,
-        "Year": 2000,
-        "Month": 3,
-        "Day": 22,
-        "Day_of_Week": 2
+        "ShotZoneRange_Back_Court_Shot": 1,
+        "ShotZoneRange_Less_Than_8_ft": 0,
+        "SeasonType_Playoffs": 1,
+        "SeasonType_Regular_Season": 0,
+        "Game_ID_Frequency": 0.8,
+        "Game_Event_ID_Frequency": 0.7,
+        "Player_ID_Frequency": 0.9,
+        "Year": 2022,
+        "Month": 6,
+        "Day": 11,
+        "Day_of_Week": 5
     }
-
+    
     token = get_token(client)
     headers = {
         "Authorization": f"Bearer {token}",
@@ -122,14 +126,8 @@ def test_predict_endpoint_shot_made(client: TestClient):
 
     # Check if the response status code is 200
     assert response.status_code == 200
-
-    # Check if the response contains the 'prediction' key
     assert 'prediction' in response.json()
-
-    # Check if the prediction value is either 0 or 1
-    prediction = response.json()['prediction']
-    assert prediction == 1
-
+    assert response.json()['prediction'] == 1
 
 def test_predict_endpoint_shot_missed(client: TestClient):
     """
