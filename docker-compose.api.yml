@@ -65,6 +65,7 @@ services:
       - 9090:9090
     volumes:
       - ./prometheus_data/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus_data/alerting_rules.yml:/etc/prometheus/alerting_rules.yml
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
     networks:
@@ -78,6 +79,18 @@ services:
       - grafana_data:/var/lib/grafana
       - ./grafana_data/dashboards:/etc/grafana/dashboards
       - ./grafana_data/provisioning:/etc/grafana/provisioning
+    networks:
+      - nba-network
+  
+  alertmanager:
+    image: prom/alertmanager
+    volumes:
+      - ./alertmanager:/etc/alertmanager
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+      - '--storage.path=/alertmanager'
+    ports:
+      - 9093:9093
     networks:
       - nba-network
 
