@@ -115,7 +115,8 @@ Instrumentator().instrument(app).expose(app)
 
 # Configure CORS so we can communicate with the React frontend app
 origins = [
-    "http://localhost:3001",  # origin for the React app
+    "http://localhost:3001",
+    "http://frontend:3001",  # origin for the React app
 ]
 
 app.add_middleware(
