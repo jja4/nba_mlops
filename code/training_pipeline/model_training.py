@@ -18,13 +18,14 @@ sys.path.insert(0, project_dir)
 from config.config import Config
 from logger import logger
 
-def train_model(file_path, output_base_filename):
+def train_model(file_path, output_base_filename, log_to_mlflow=True):
     """
     Train a logistic regression model on the provided dataset and log metrics with MLFlow.
 
     Parameters:
     file_path (str): Path to the joblib file containing the train and test datasets.
     output_base_filename (str): Base filename for saving the model.
+    log_to_mlflow (bool): Whether to log metrics to MLFlow.
 
     Returns:
     model: Trained logistic regression model.
@@ -54,25 +55,26 @@ def train_model(file_path, output_base_filename):
             break
         version += 1
 
-    # Extract just the filename without the path and extension for the run name
-    run_name = os.path.splitext(os.path.basename(versioned_filename))[0]
+    if log_to_mlflow:
+        # Extract just the filename without the path and extension for the run name
+        run_name = os.path.splitext(os.path.basename(versioned_filename))[0]
 
-    # Initialize MLFlow tracking
-    mlflow.set_tracking_uri("http://localhost:6001")  # MLFlow tracking server URI
-    mlflow.set_experiment("nba_shot_prediction")  # Experiment name
+        # Initialize MLFlow tracking
+        mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "http://localhost:5000"))  # MLFlow tracking server URI
+        mlflow.set_experiment("nba_shot_prediction")  # Experiment name
 
-    with mlflow.start_run(run_name=run_name):
-        # Log parameters
-        mlflow.log_param("model_type", "LogisticRegression")
-        mlflow.log_param("solver", "liblinear")
-        mlflow.log_param("C", 1)
-        mlflow.log_param("max_iter", 1000)
+        with mlflow.start_run(run_name=run_name):
+            # Log parameters
+            mlflow.log_param("model_type", "LogisticRegression")
+            mlflow.log_param("solver", "liblinear")
+            mlflow.log_param("C", 1)
+            mlflow.log_param("max_iter", 1000)
 
-        # Log metrics
-        mlflow.log_metric("accuracy", accuracy)
+            # Log metrics
+            mlflow.log_metric("accuracy", accuracy)
 
-        # Log the trained model
-        mlflow.sklearn.log_model(model, "model")
+            # Log the trained model
+            mlflow.sklearn.log_model(model, "model")
 
     return model, accuracy, versioned_filename
 
@@ -97,7 +99,8 @@ def main():
     base_output_file_path = '../../' + Config.OUTPUT_TRAINED_MODEL_FILE_LR
 
     # Train the logistic regression model
-    model, new_accuracy, versioned_filename = train_model(file_path, base_output_file_path)
+    log_to_mlflow = os.getenv("LOG_TO_MLFLOW", "true").lower() == "true"
+    model, new_accuracy, versioned_filename = train_model(file_path, base_output_file_path, log_to_mlflow)
     
     metrics_file = '../../best_model_metrics.json'
     
