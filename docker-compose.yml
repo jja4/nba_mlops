@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   mlflow_server:
-    image: mlflow/mlflow:latest
+    image: mlflow/mlflow:2.7.0
     ports:
       - "6001:6001"
     command: mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root ./artifacts --host 0.0.0.0 --port 6001
