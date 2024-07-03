@@ -6,53 +6,78 @@ model that predicts if an NBA player will make a specific shot or not.
 ![NBA Shot by Steph Curry](https://github.com/jja4/nba_mlops/blob/main/reports/images/Curry_perfect_shot.jfif)
 
 Project Organization
-------------
+------------------------------------------------------------------------
     ├── .github            <- Scripts for Github configs
     │   └── workflow       <- Scripts for Github Actions
-    │       └── nba_app.yml
+    │       ├── generate_new_data.yml
+    |       ├── retrain_model.yml
+    |       └── unit_tests.yml
     |
     ├── code               <- Source code for use in this project.
     │   ├── __init__.py    <- Makes src a Python module
     │   │
-    │   ├── database  <- Scripts to download or generate data
-    │   │   └── setup_database.py
-    │   │
-    │   ├── training_pipeline <- Scripts to run training pipeline
-    │   │   │                 
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
-    │   │
-    │   ├── api            <- Scripts for the FastAPI application
-    │   │   └── nba_app.py <- Main application file for the API
-    │   │
-    |   ├── tests          <- Scripts to run unit tests
-    │   │   └── test_example.py
+    |   ├── api                         <- Scripts for the FastAPI application
+    │   │   ├── nba_app.py              <- Main application file for the API
+    │   │   └── prediction_service.py   <- Endpoint function which actualy calculates the prediction
     |   |
-    │   ├── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │   │   └── visualize.py
-    │   └── config         <- Describe the parameters used in train_model.py and predict_model.py
-    |
-    ├── data
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │   └── raw            <- The original, immutable data dump.
+    │   ├── config          <- Saves configurations
+    │   │   └── config.py   <- Saves file path configurations
+    │   │
+    │   ├── database        <- Databse for use in this project.
+    │   │   └── init.sql    <- INitialising databases
+    │   │
+    │   └── training_pipeline       <- Scripts to run training pipeline  
+    │       ├── data_ingestion.py
+    │       ├── data_processing.py
+    │       ├── feature_engineering.py
+    │       ├── model_training.py
+    │       └── inference.py
+    │   
+    ├── data    <- Dataset for training pipeline
+    |   ├── new_data            
+    │   │   └── new_data.csv    <- New unseeen dataset for training
+    |   |
+    |   ├── predictions            
+    │   │   └── predictions.csv <- Saves inference prediction results
+    |   |
+    │   ├── processed       <- The final, canonical data sets for modeling
+    │   │   └── NBA Shot Locations 1997 - 2020-processed.csv        <- Processed new dataset. Ready for feature engineering
+    │   │   └── NBA Shot Locations 1997 - 2020-train-test.joblib    <- Feature enginnered train and test sets. Ready for training
+    |   |
+    │   └── raw             <- The original, immutable data dump
+    │       └── NBA Shot Locations 1997 - 2020-original.csv         <- Big dataset, which used for generating a new small dataset
+    │       └── NBA Shot Locations 1997 - 2020.csv                  <- Dataset for for starting training pipeline
+    |    
+    ├── grafana_data        <- Monitoring api requests
+    |   ├── dashboards
+    │   |    └── nba_dashboard.json     <- Grafana dashboard data
+    │   │
+    │   └── datasources
+    │        └── datasources.yaml
+    │
+    ├── logs            <- Keep all logs
+    │   └── logs.log    <- Logs processes to logs.log
     │
     ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
     │                         the creator's initials, and a short `-` delimited description, e.g.
     │                         `1.0-jqp-initial-data-exploration`.
+    │
+    ├── prometheus_data       
+    │   └── alerting_rules.yml      <- Alerting rules when server goes down or up
+    │   └── prometheus.yml
     │
     ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
     │
     ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
     │   └── figures        <- Generated graphics and figures to be used in reporting
     │
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-    │                         generated with `pip freeze > requirements.txt`
+    ├── requirements.txt   <- The required libraries to deploy this project.
+    │                         Generated with `pip freeze > requirements.txt`
     |
-    ├── trained_models     <- Trained and serialized models, model predictions, or model summaries
+    ├── trained_models     <- Trained models with their version numbers
     |
     ├── LICENSE
-    ├── README.md          <- The top-level README for developers using this project.
-    ├── requirements.txt   <- The required libraries to deploy this project.
+    └── README.md          <- The top-level README for developers using this project.
 
 ***
 
