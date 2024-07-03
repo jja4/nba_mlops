@@ -60,7 +60,7 @@ def train_model(file_path, output_base_filename, log_to_mlflow=True):
         run_name = os.path.splitext(os.path.basename(versioned_filename))[0]
 
         # Initialize MLFlow tracking
-        mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "http://localhost:5000"))  # MLFlow tracking server URI
+        mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "http://localhost:6001"))  # MLFlow tracking server URI
         mlflow.set_experiment("nba_shot_prediction")  # Experiment name
 
         with mlflow.start_run(run_name=run_name):

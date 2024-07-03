@@ -281,3 +281,7 @@
 2024-07-02 21:51:24,015 - logger - INFO - Model training completed.
 2024-07-02 21:51:24,015 - logger - INFO - -----------------------------------
 >>>>>>> 139a4a63984a55f0264877e30db5238554f4a205
+2024-07-03 13:43:17,412 - logger - INFO - Custom logger module initialized.
+2024-07-03 13:43:17,412 - logger - INFO - (4) Starting the model training process.
+2024-07-03 13:43:18,800 - logger - INFO - Model training completed.
+2024-07-03 13:43:18,800 - logger - INFO - -----------------------------------
