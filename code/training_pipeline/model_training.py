@@ -1,12 +1,16 @@
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning, message="Setuptools is replacing distutils.")
+
 import sys
 import os
 import pandas as pd
 from sklearn import linear_model
 from sklearn.metrics import accuracy_score
 from joblib import load, dump
-import logging
 import datetime
 import json
+import mlflow
+import mlflow.sklearn
 
 project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_dir)
@@ -14,16 +18,18 @@ sys.path.insert(0, project_dir)
 from config.config import Config
 from logger import logger
 
-def train_model(file_path):
+def train_model(file_path, output_base_filename):
     """
-    Train a logistic regression model on the provided dataset.
+    Train a logistic regression model on the provided dataset and log metrics with MLFlow.
 
     Parameters:
     file_path (str): Path to the joblib file containing the train and test datasets.
+    output_base_filename (str): Base filename for saving the model.
 
     Returns:
     model: Trained logistic regression model.
     """
+
     # Load train and test datasets from joblib file
     X_train, X_test, y_train, y_test = load(file_path)
 
@@ -40,7 +46,35 @@ def train_model(file_path):
     accuracy = accuracy_score(y_test, predictions)
     print(f"Model Accuracy: {accuracy}")
     
-    return model, accuracy
+    # Generate versioned filename
+    version = 1
+    while True:
+        versioned_filename = generate_versioned_filename(output_base_filename, version)
+        if not os.path.exists(versioned_filename):
+            break
+        version += 1
+
+    # Extract just the filename without the path and extension for the run name
+    run_name = os.path.splitext(os.path.basename(versioned_filename))[0]
+
+    # Initialize MLFlow tracking
+    mlflow.set_tracking_uri("http://localhost:6001")  # MLFlow tracking server URI
+    mlflow.set_experiment("nba_shot_prediction")  # Experiment name
+
+    with mlflow.start_run(run_name=run_name):
+        # Log parameters
+        mlflow.log_param("model_type", "LogisticRegression")
+        mlflow.log_param("solver", "liblinear")
+        mlflow.log_param("C", 1)
+        mlflow.log_param("max_iter", 1000)
+
+        # Log metrics
+        mlflow.log_metric("accuracy", accuracy)
+
+        # Log the trained model
+        mlflow.sklearn.log_model(model, "model")
+
+    return model, accuracy, versioned_filename
 
 def generate_versioned_filename(base_filename, version):
     """
@@ -59,8 +93,11 @@ def main():
     # Path to the joblib file containing train and test datasets
     file_path = '../../' + Config.OUTPUT_TRAIN_TEST_JOBLIB_FILE
 
+    # Base filename for the output model file
+    base_output_file_path = '../../' + Config.OUTPUT_TRAINED_MODEL_FILE_LR
+
     # Train the logistic regression model
-    model, new_accuracy = train_model(file_path)
+    model, new_accuracy, versioned_filename = train_model(file_path, base_output_file_path)
     
     metrics_file = '../../best_model_metrics.json'
     
@@ -76,16 +113,9 @@ def main():
     print(f"Best current Accuracy: {best_accuracy}")
 
     if new_accuracy > best_accuracy:
-        base_output_file_path = '../../' + Config.OUTPUT_TRAINED_MODEL_FILE_LR
-        version = 1
-        while True:
-            output_file_path = generate_versioned_filename(base_output_file_path, version)
-            if not os.path.exists(output_file_path):
-                break
-            version += 1
-        dump(model, output_file_path)
+        dump(model, versioned_filename)
         logger.info("Model file data saved successfully.")
-        logger.info(output_file_path)
+        logger.info(versioned_filename)
 
         new_metrics = {'accuracy': new_accuracy}
         with open(metrics_file, 'w') as f:

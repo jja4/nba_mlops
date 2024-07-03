@@ -1,0 +1,19 @@
+global:
+  smtp_from: "prometheus.datascientest@gmail.com"
+  smtp_smarthost: "smtp.gmail.com:465"
+  smtp_auth_username: "prometheus.datascientest@gmail.com"
+  smtp_auth_password: "qsyhonvlraonufcg"
+  smtp_require_tls: false
+
+route:
+  group_by: ['alertname']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 1h
+  receiver: 'email-notifications'
+
+receivers:
+- name: 'email-notifications'
+  email_configs:
+  - to: 'your@email.com'
+    send_resolved: true

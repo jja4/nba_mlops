@@ -5,7 +5,7 @@ on:
     - cron: '0 5 * * *' # Every day at 5 am at UTC
   #push:
   #  branches:
-  #    - condintion-push-docker
+  #    - main
     #  - main
     #paths:
     #  - 'data/new_data/new_data.csv'

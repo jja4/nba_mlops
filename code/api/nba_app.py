@@ -16,6 +16,9 @@ from psycopg2.extras import RealDictCursor
 import logging
 import httpx
 import json
+from prometheus_fastapi_instrumentator import Instrumentator
+from prometheus_client import Summary
+
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -108,6 +111,7 @@ async def lifespan(app: FastAPI):
     # can add any cleanup code here if necessary
 
 app = FastAPI(lifespan=lifespan)
+Instrumentator().instrument(app).expose(app)
 
 # Configure CORS so we can communicate with the React frontend app
 origins = [
@@ -298,6 +302,7 @@ class ScoringItem(BaseModel):
     Day_of_Week: int
 
 
+inference_time_summary = Summary('inference_time_seconds', 'Time taken for inference')
 
 
 @app.post('/predict', name="Secure prediction based on scoring parameters.")
@@ -305,29 +310,30 @@ async def predict(
     current_user: Annotated[User, Depends(authorize_user)],
     item: ScoringItem
 ):
-    url = f"http://{PREDICTION_SERVICE_HOST}:{PREDICTION_SERVICE_PORT}/predict"
-    async with httpx.AsyncClient() as client:
-        response = await client.post(url, json=item.dict())
-        result = response.json()
+    with inference_time_summary.time():
+        url = f"http://{PREDICTION_SERVICE_HOST}:{PREDICTION_SERVICE_PORT}/predict"
+        async with httpx.AsyncClient() as client:
+            response = await client.post(url, json=item.dict())
+            result = response.json()
 
-    # Save prediction and input parameters to database
-    conn = get_db_connection()
-    cur = conn.cursor()
-    try:
-        insert_query = """
-        INSERT INTO predictions (prediction, input_parameters)
-        VALUES (%s, %s)
-        """
-        cur.execute(insert_query, (result["prediction"], json.dumps(item.dict())))
-        conn.commit()
-    except Exception as e:
-        print(f"Error saving prediction: {e}")
-        raise HTTPException(status_code=500, detail="Error saving prediction")
-    finally:
-        cur.close()
-        conn.close()
-        
-        return response.json()
+        # Save prediction and input parameters to database
+        conn = get_db_connection()
+        cur = conn.cursor()
+        try:
+            insert_query = """
+            INSERT INTO predictions (prediction, input_parameters)
+            VALUES (%s, %s)
+            """
+            cur.execute(insert_query, (result["prediction"], json.dumps(item.dict())))
+            conn.commit()
+        except Exception as e:
+            print(f"Error saving prediction: {e}")
+            raise HTTPException(status_code=500, detail="Error saving prediction")
+        finally:
+            cur.close()
+            conn.close()
+            
+            return response.json()
 
 
 class VerificationInput(BaseModel):

@@ -10,6 +10,7 @@ on:
       - condintion-push-docker
       - logging_script
       - unit-tests
+      - mlflow
   pull_request:
     branches:
       - main
@@ -17,7 +18,8 @@ on:
       - database_integration
       - retrain-the-model
       - condintion-push-docker
-
+      - mlflow
+      
 jobs:
   unit-tests:
     name: Run Unit Tests

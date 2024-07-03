@@ -5,7 +5,7 @@ on:
     - cron: '0 4 * * *' # Every day at 4 am at UTC
   #push:
   #  branches:
-  #    - condintion-push-docker
+  #    - main
 
 permissions:
   contents: write  # Grant write permission to contents
