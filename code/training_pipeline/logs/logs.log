@@ -172,3 +172,17 @@
 2024-07-02 10:32:48,203 - logger - INFO - No new model version found. Skipping inference.
 
 
+2024-07-03 08:58:46,954 - logger - INFO - Custom logger module initialized.
+2024-07-03 08:58:46,959 - logger - INFO - (1) Starting the data ingestion process.
+2024-07-03 08:58:46,959 - logger - INFO - Reading data from CSV file: ../../data/new_data/new_data.csv
+2024-07-03 08:58:46,980 - logger - INFO - Data read successfully from CSV file.
+2024-07-03 08:58:46,981 - logger - INFO - Validating data.
+2024-07-03 08:58:46,981 - logger - INFO - Data validation passed.
+2024-07-03 08:58:46,981 - logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-03 08:58:47,004 - logger - INFO - Data read successfully from CSV file.
+2024-07-03 08:58:47,004 - logger - INFO - Appending new data to existing data.
+2024-07-03 08:58:47,007 - logger - INFO - Data appended successfully.
+2024-07-03 08:58:47,008 - logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-03 08:58:47,109 - logger - INFO - Data saved successfully.
+2024-07-03 08:58:47,110 - logger - INFO - Data ingestion process completed.
+2024-07-03 08:58:47,110 - logger - INFO - ---------------------------------
