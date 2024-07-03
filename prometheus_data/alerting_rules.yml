@@ -3,12 +3,12 @@ groups:
   rules:
     - alert: APIDown
       expr: up{job="fastapi"} == 0
-      for: 1m
+      for: 10s
       labels:
         severity: critical
       annotations:
         summary: "API is down"
-        description: "The FastAPI application at :8000 has been down for more than 1 minute."
+        description: "The FastAPI application at :8000 has been down for more than 10 seconds."
 
     - alert: high_load
       expr: node_load1 > 0.5

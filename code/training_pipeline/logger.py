@@ -6,15 +6,25 @@ import time
 os.environ['TZ'] = 'Europe/Berlin'
 time.tzset()
 
-# Create logs directory if it doesn't exist
-logs_dir = "logs"
-if not os.path.exists(logs_dir):
-    os.makedirs(logs_dir)
+# Set the path for the logs directory
+nba_logs_dir = os.path.join("..", "..", "logs")
+if not os.path.exists(nba_logs_dir):
+    os.makedirs(nba_logs_dir)
 
-# Create logs.log file if it doesn't exist
-log_file = os.path.join(logs_dir, "logs.log")
+# Create logs.log file if it doesn't exist in the NBA logs directory
+log_file = os.path.join(nba_logs_dir, "logs.log")
 if not os.path.exists(log_file):
     open(log_file, 'a').close()
+
+# Create logs directory if it doesn't exist
+# logs_dir = "logs"
+# if not os.path.exists(logs_dir):
+#    os.makedirs(logs_dir)
+
+# Create logs.log file if it doesn't exist
+# log_file = os.path.join(logs_dir, "logs.log")
+# if not os.path.exists(log_file):
+#    open(log_file, 'a').close()
 
 # Configure logging without specifying filename in basicConfig
 logging.basicConfig(

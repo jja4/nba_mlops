@@ -15,5 +15,5 @@ route:
 receivers:
 - name: 'email-notifications'
   email_configs:
-  - to: 'your@email.com'
+  - to: 'yourmail@email.com'
     send_resolved: true
