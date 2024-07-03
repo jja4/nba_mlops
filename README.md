@@ -58,6 +58,81 @@ Project Organization
 
 ===========================================================================================
 
+## Textual Architecture Diagram
+
++-----------------------------------+
+|       GitHub Actions              |
+|-----------------------------------|
+| 1. generate_new_data.yml          |
+|    - Triggers at 4 am UTC         |
+|    - Calls generate_new_data.py   |
+|    - Outputs new_data.csv         |
+|-------------------------------------------------------------------|
+| 2. retrain_model.yml                                              |
+|    - Triggers at 5 am UTC                                         |
+|    - Checks for new_data.csv                                      |
+|    - Runs docker-compose.yml                                      |
+|    - Uploads new Docker images to Docker Hub if model is improved |
++-------------------------------------------------------------------------------------------+
+| 3. unit_tests.yml                                                                         |
+|    - Runs on all branches and every push or pull request                                  |
+|    - Sets up database and runs unit tests for API functions and training pipeline scripts |
++-------------------------------------------------------------------------------------------+
+
++---------------------------------------+
+|  Docker Compose Setup                 |
+|---------------------------------------|
+| 1. Data Pipeline Containers           |
+|    - Data Ingestion                   |
+|    - Data Preprocessing               |
+|    - Feature Engineering              |
+|    - Model Training (logs to MLFlow)  |
+|    - Inference                        |
+|---------------------------------------|
+| Uses signal files for order           |
++---------------------------------------+
+
++---------------------------------------+
+|     Deployment Setup                  |
+|---------------------------------------|
+| docker-compose.api.yml                |   
+|    - Database                         |
+|    - API                              |
+|    - NBA Shot Prediction Service      |
+|    - Prometheus (Monitoring)          |
+|    - Grafana (Visualization)          |
+|    - Alertmanager (Alerts)            |
++---------------------------------------+
+
++-------------------------------+
+|       MLFlow Integration      |
+|-------------------------------|
+| Model experiment data         |
+| is logged to local MLFlow     |
+| server during training        |
++-------------------------------+
+
++-------------------------------+
+|         Logging               |
+|-------------------------------|
+| Logs processes to logs.log    |
+|                               |
++-------------------------------+
+
++-------------------------------+
+|     User Interaction          |
+|-------------------------------|
+| Users can:                    |
+|  - Register                   |
+|  - Login                      |
+|  - Send prediction request    |
+|  - Receive results            |
+|  - Provide feedback           |
++-------------------------------+
+
+
+===========================================================================================
+
 ## Getting Started
 
 ## Building and Connecting to the App, including the PostgreSQL database
