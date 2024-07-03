@@ -1,19 +1,6 @@
 version: '3.8'
 
 services:
-  mlflow_server:
-    image: mlflow:latest
-    ports:
-      - "6001:6001"
-    command: mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root ./artifacts --host 0.0.0.0 --port 6001
-
-  model_training:
-    build: .
-    depends_on:
-      - mlflow_server
-    environment:
-      MLFLOW_TRACKING_URI: http://mlflow_server:6001
-
   data_ingestion:
     build:
       context: .
@@ -52,6 +39,19 @@ services:
       - WAIT_FOR_FILE=/app/signal_feature_engineering_done
       - WAIT_FOR_PREV_FILE=/app/signal_data_processing_done
 
+  mlflow_server:
+    image: mlflow:latest
+    ports:
+      - "6001:6001"
+    command: mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root ./artifacts --host 0.0.0.0 --port 6001
+
+  model_training:
+    build: .
+    depends_on:
+      - mlflow_server
+    environment:
+      MLFLOW_TRACKING_URI: http://mlflow_server:6001
+      
   model_training:
     build:
       context: .
