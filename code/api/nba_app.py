@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 # openssl rand -hex 32
 SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
 # Database connection details
 DB_HOST = os.getenv("DB_HOST", "localhost")  # Uses'db' for Docker Compose
@@ -115,7 +115,7 @@ Instrumentator().instrument(app).expose(app)
 
 # Configure CORS so we can communicate with the React frontend app
 origins = [
-    "http://localhost:3000",  # origin for the React app
+    "http://localhost:3001",  # origin for the React app
 ]
 
 app.add_middleware(
