@@ -115,11 +115,11 @@ def main():
     print(f"New Accuracy: {new_accuracy}")
     print(f"Best current Accuracy: {best_accuracy}")
 
-    if new_accuracy > best_accuracy:
-        dump(model, versioned_filename)
-        logger.info("Model file data saved successfully.")
-        logger.info(versioned_filename)
+    dump(model, versioned_filename)
+    logger.info("Model file data saved successfully.")
+    logger.info(versioned_filename)
 
+    if new_accuracy > best_accuracy:
         new_metrics = {'accuracy': new_accuracy}
         with open(metrics_file, 'w') as f:
             json.dump(new_metrics, f)
