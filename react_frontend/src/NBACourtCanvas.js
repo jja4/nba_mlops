@@ -4,7 +4,8 @@ import nbaLogo from './nba_logo.png';
 
 
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+// const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+const API_URL = 'http://localhost:8000';
 
 async function getToken(username, password) {
   const loginData = new URLSearchParams({
@@ -125,9 +126,9 @@ const NBACourtCanvas = () => {
       Period: -0.4,
       Minutes_Remaining: 1.4,
       Seconds_Remaining: -1.3,
-      Shot_Distance: 0.3,
-      X_Location: x/100,
-      Y_Location: y/100,
+      Shot_Distance: 0.4,
+      X_Location: (x-250)/10,
+      Y_Location: y/10,
       Action_Type_Frequency: 0.5,
       Team_Name_Frequency: 0.5,
       Home_Team_Frequency: 0.4,
