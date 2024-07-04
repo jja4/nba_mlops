@@ -7,11 +7,11 @@ from joblib import dump
 import logging
 
 # Adjust sys.path to include the 'project' directory
-project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 sys.path.insert(0, project_dir)
 
-from config.config import Config  # Import Config class from config package
-from logger import logger  # Import the logger
+from code.config.config import Config
+from logger import logger
 
 def create_features(data):
     """
