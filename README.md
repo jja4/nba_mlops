@@ -5,7 +5,7 @@ model that predicts if an NBA player will make a specific shot or not.
 
 ![NBA Shot by Steph Curry](https://github.com/jja4/nba_mlops/blob/main/reports/images/Curry_perfect_shot.jfif)
 
-Project Organization
+## Project Organization
 ------------------------------------------------------------------------
     ├── .github            <- Scripts for Github configs
     │   └── workflow       <- Scripts for Github Actions
@@ -154,7 +154,6 @@ Project Organization
 |  - Receive results            |
 |  - Provide feedback           |
 +-------------------------------+
-
 
 ===========================================================================================
 

@@ -328,3 +328,9 @@
 2024-07-03 15:33:20,348 - logger - INFO - Model inference completed.
 2024-07-03 15:33:20,349 - logger - INFO - -----------------------------------
 2024-07-03 15:33:20,354 - logger - INFO - Removed signal_new_model_version file.
+2024-07-04 11:10:50,452 - logger - INFO - Custom logger module initialized.
+2024-07-04 11:10:50,452 - logger - INFO - (4) Starting the model training process.
+2024-07-04 11:10:52,079 - logger - INFO - Model file data saved successfully.
+2024-07-04 11:10:52,079 - logger - INFO - ../../trained_models/model_best_lr-v1-20240704.joblib
+2024-07-04 11:10:52,079 - logger - INFO - Model training completed.
+2024-07-04 11:10:52,079 - logger - INFO - -----------------------------------
