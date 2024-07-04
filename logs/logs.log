@@ -406,3 +406,9 @@
 2024-07-04 12:00:00,064 - logger - INFO - ../../trained_models/model_best_lr-v13-20240704.joblib
 2024-07-04 12:00:00,064 - logger - INFO - Model training completed.
 2024-07-04 12:00:00,064 - logger - INFO - -----------------------------------
+2024-07-04 13:00:32,954 - logger - INFO - Custom logger module initialized.
+2024-07-04 13:00:32,954 - logger - INFO - (4) Starting the model training process.
+2024-07-04 13:00:34,483 - logger - INFO - Model file data saved successfully.
+2024-07-04 13:00:34,484 - logger - INFO - ../../trained_models/model_best_lr-v4-20240704.joblib
+2024-07-04 13:00:34,484 - logger - INFO - Model training completed.
+2024-07-04 13:00:34,484 - logger - INFO - -----------------------------------
