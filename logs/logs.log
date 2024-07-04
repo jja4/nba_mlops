@@ -698,3 +698,8 @@
 2024-07-04 14:45:31,724 - logger - INFO - Generating a new data is starting.
 2024-07-04 14:45:31,729 - logger - INFO - Generating a new data was finished.
 2024-07-04 14:45:31,729 - logger - INFO - ---------------------------------
+2024-07-04 17:02:33,212 - logger - INFO - Custom logger module initialized.
+2024-07-04 17:02:33,212 - logger - INFO - ---------------------------------
+2024-07-04 17:02:33,212 - logger - INFO - Generating a new data is starting.
+2024-07-04 17:02:33,217 - logger - INFO - Generating a new data was finished.
+2024-07-04 17:02:33,217 - logger - INFO - ---------------------------------
