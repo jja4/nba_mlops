@@ -2,7 +2,7 @@ import sys
 import os
 import unittest
 import pandas as pd
-from unittest.mock import patch, mock_open, MagicMock
+from unittest.mock import patch, mock_open
 
 # Adjust sys.path to include the 'project' directory
 # This allows the script to find and import the Config module

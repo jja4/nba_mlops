@@ -5,9 +5,11 @@ import logging
 
 # Adjust sys.path to include the 'project' directory
 project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+code_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_dir)
+sys.path.insert(0, code_dir)
 
-from code.config.config import Config
+from config.config import Config
 from logger import logger
 
 def clean_data(data):

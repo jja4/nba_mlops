@@ -41,6 +41,7 @@ jobs:
           git config --global user.email mihrandovlatyan@gmail.com
       
           # Add files to the index
+          git add "logs/logs.log"
           git add "data/predictions/predictions.csv"
           git add "data/processed/NBA Shot Locations 1997 - 2020-processed.csv"
           git add "data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib"
