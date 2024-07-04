@@ -65,6 +65,7 @@ def main():
     new_model_signal_file = '../../signal_new_model_version'
     if not os.path.exists(new_model_signal_file):
         logger.info("No new model version found. Skipping inference.")
+        logger.info("-----------------------------------")
         return
 
     try:

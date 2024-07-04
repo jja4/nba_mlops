@@ -8,6 +8,7 @@ services:
     image: mihrando/data_ingestion:latest
     volumes:
       - .:/app
+      - ./logs:/app/logs
     depends_on: []
     environment:
       - WAIT_FOR_FILE=/app/signal_data_ingestion_done
@@ -20,6 +21,7 @@ services:
     image: mihrando/data_processing:latest
     volumes:
       - .:/app
+      - ./logs:/app/logs
     depends_on:
       - data_ingestion
     environment:
@@ -33,6 +35,7 @@ services:
     image: mihrando/feature_engineering:latest
     volumes:
       - .:/app
+      - ./logs:/app/logs
     depends_on:
       - data_processing
     environment:
@@ -46,6 +49,7 @@ services:
     image: mihrando/model_training:latest
     volumes:
       - .:/app
+      - ./logs:/app/logs
     depends_on:
       - feature_engineering
     environment:
@@ -60,6 +64,7 @@ services:
     image: mihrando/inference:latest
     volumes:    
       - .:/app
+      - ./logs:/app/logs
     depends_on:
       - model_training
     environment:
