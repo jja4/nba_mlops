@@ -11,6 +11,7 @@ import datetime
 import json
 import mlflow
 import mlflow.sklearn
+import random
 
 project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_dir)
@@ -34,8 +35,23 @@ def train_model(file_path, output_base_filename, log_to_mlflow=True):
     # Load train and test datasets from joblib file
     X_train, X_test, y_train, y_test = load(file_path)
 
-    # Initialize logistic regression model with 'liblinear' solver
-    model = linear_model.LogisticRegression(solver='liblinear', C=1, max_iter=1000)
+    # (solver='liblinear', C=1, max_iter=1000): this is the best params that we get from previous project
+    # For demonstration purposes we are using a mechanism to pick up parameters randomly.
+    # Define possible values for each parameter
+    solvers = ['liblinear', 'saga', 'newton-cg', 'lbfgs']
+    C_values = [0.01, 0.1, 1, 10, 100]
+    max_iters = [100, 200, 500, 1000, 2000]
+
+    # Randomly select a value for each parameter
+    solver = random.choice(solvers)
+    C = random.choice(C_values)
+    max_iter = random.choice(max_iters)
+
+    # Initialize the LogisticRegression model with the random parameters
+    model = linear_model.LogisticRegression(solver=solver, C=C, max_iter=max_iter)
+
+    # Print the selected parameters for reference
+    print(f"Selected parameters: solver={solver}, C={C}, max_iter={max_iter}")
 
     # Fit the model to the training data
     model.fit(X_train, y_train)
@@ -66,9 +82,9 @@ def train_model(file_path, output_base_filename, log_to_mlflow=True):
         with mlflow.start_run(run_name=run_name):
             # Log parameters
             mlflow.log_param("model_type", "LogisticRegression")
-            mlflow.log_param("solver", "liblinear")
-            mlflow.log_param("C", 1)
-            mlflow.log_param("max_iter", 1000)
+            mlflow.log_param("solver", solver)
+            mlflow.log_param("C", C)
+            mlflow.log_param("max_iter", max_iter)
 
             # Log metrics
             mlflow.log_metric("accuracy", accuracy)

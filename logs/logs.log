@@ -334,3 +334,75 @@
 2024-07-04 11:10:52,079 - logger - INFO - ../../trained_models/model_best_lr-v1-20240704.joblib
 2024-07-04 11:10:52,079 - logger - INFO - Model training completed.
 2024-07-04 11:10:52,079 - logger - INFO - -----------------------------------
+2024-07-04 11:43:48,772 - logger - INFO - Custom logger module initialized.
+2024-07-04 11:43:48,772 - logger - INFO - (4) Starting the model training process.
+2024-07-04 11:43:50,267 - logger - INFO - Model file data saved successfully.
+2024-07-04 11:43:50,267 - logger - INFO - ../../trained_models/model_best_lr-v2-20240704.joblib
+2024-07-04 11:43:50,267 - logger - INFO - Model training completed.
+2024-07-04 11:43:50,267 - logger - INFO - -----------------------------------
+2024-07-04 11:44:05,611 - logger - INFO - Custom logger module initialized.
+2024-07-04 11:44:05,611 - logger - INFO - (4) Starting the model training process.
+2024-07-04 11:44:06,966 - logger - INFO - Model file data saved successfully.
+2024-07-04 11:44:06,966 - logger - INFO - ../../trained_models/model_best_lr-v3-20240704.joblib
+2024-07-04 11:44:06,966 - logger - INFO - Model training completed.
+2024-07-04 11:44:06,966 - logger - INFO - -----------------------------------
+2024-07-04 11:44:16,018 - logger - INFO - Custom logger module initialized.
+2024-07-04 11:44:16,019 - logger - INFO - (4) Starting the model training process.
+2024-07-04 11:44:17,355 - logger - INFO - Model file data saved successfully.
+2024-07-04 11:44:17,355 - logger - INFO - ../../trained_models/model_best_lr-v4-20240704.joblib
+2024-07-04 11:44:17,355 - logger - INFO - Model training completed.
+2024-07-04 11:44:17,355 - logger - INFO - -----------------------------------
+2024-07-04 11:44:22,639 - logger - INFO - Custom logger module initialized.
+2024-07-04 11:44:22,640 - logger - INFO - (4) Starting the model training process.
+2024-07-04 11:44:23,899 - logger - INFO - Model file data saved successfully.
+2024-07-04 11:44:23,899 - logger - INFO - ../../trained_models/model_best_lr-v5-20240704.joblib
+2024-07-04 11:44:23,899 - logger - INFO - Model training completed.
+2024-07-04 11:44:23,899 - logger - INFO - -----------------------------------
+2024-07-04 11:44:26,716 - logger - INFO - Custom logger module initialized.
+2024-07-04 11:44:26,716 - logger - INFO - (4) Starting the model training process.
+2024-07-04 11:44:27,956 - logger - INFO - Model file data saved successfully.
+2024-07-04 11:44:27,956 - logger - INFO - ../../trained_models/model_best_lr-v6-20240704.joblib
+2024-07-04 11:44:27,956 - logger - INFO - Model training completed.
+2024-07-04 11:44:27,956 - logger - INFO - -----------------------------------
+2024-07-04 11:44:30,959 - logger - INFO - Custom logger module initialized.
+2024-07-04 11:44:30,960 - logger - INFO - (4) Starting the model training process.
+2024-07-04 11:44:32,279 - logger - INFO - Model file data saved successfully.
+2024-07-04 11:44:32,279 - logger - INFO - ../../trained_models/model_best_lr-v7-20240704.joblib
+2024-07-04 11:44:32,279 - logger - INFO - Model training completed.
+2024-07-04 11:44:32,279 - logger - INFO - -----------------------------------
+2024-07-04 11:44:36,765 - logger - INFO - Custom logger module initialized.
+2024-07-04 11:44:36,766 - logger - INFO - (4) Starting the model training process.
+2024-07-04 11:44:38,137 - logger - INFO - Model file data saved successfully.
+2024-07-04 11:44:38,137 - logger - INFO - ../../trained_models/model_best_lr-v8-20240704.joblib
+2024-07-04 11:44:38,137 - logger - INFO - Model training completed.
+2024-07-04 11:44:38,137 - logger - INFO - -----------------------------------
+2024-07-04 11:46:19,115 - logger - INFO - Custom logger module initialized.
+2024-07-04 11:46:19,115 - logger - INFO - (4) Starting the model training process.
+2024-07-04 11:46:20,714 - logger - INFO - Model file data saved successfully.
+2024-07-04 11:46:20,714 - logger - INFO - ../../trained_models/model_best_lr-v9-20240704.joblib
+2024-07-04 11:46:20,714 - logger - INFO - Model training completed.
+2024-07-04 11:46:20,714 - logger - INFO - -----------------------------------
+2024-07-04 11:46:23,101 - logger - INFO - Custom logger module initialized.
+2024-07-04 11:46:23,101 - logger - INFO - (4) Starting the model training process.
+2024-07-04 11:46:24,484 - logger - INFO - Model file data saved successfully.
+2024-07-04 11:46:24,484 - logger - INFO - ../../trained_models/model_best_lr-v10-20240704.joblib
+2024-07-04 11:46:24,484 - logger - INFO - Model training completed.
+2024-07-04 11:46:24,484 - logger - INFO - -----------------------------------
+2024-07-04 11:46:26,965 - logger - INFO - Custom logger module initialized.
+2024-07-04 11:46:26,965 - logger - INFO - (4) Starting the model training process.
+2024-07-04 11:46:28,290 - logger - INFO - Model file data saved successfully.
+2024-07-04 11:46:28,290 - logger - INFO - ../../trained_models/model_best_lr-v11-20240704.joblib
+2024-07-04 11:46:28,290 - logger - INFO - Model training completed.
+2024-07-04 11:46:28,290 - logger - INFO - -----------------------------------
+2024-07-04 11:46:30,622 - logger - INFO - Custom logger module initialized.
+2024-07-04 11:46:30,622 - logger - INFO - (4) Starting the model training process.
+2024-07-04 11:46:31,880 - logger - INFO - Model file data saved successfully.
+2024-07-04 11:46:31,880 - logger - INFO - ../../trained_models/model_best_lr-v12-20240704.joblib
+2024-07-04 11:46:31,881 - logger - INFO - Model training completed.
+2024-07-04 11:46:31,881 - logger - INFO - -----------------------------------
+2024-07-04 11:59:58,306 - logger - INFO - Custom logger module initialized.
+2024-07-04 11:59:58,306 - logger - INFO - (4) Starting the model training process.
+2024-07-04 12:00:00,063 - logger - INFO - Model file data saved successfully.
+2024-07-04 12:00:00,064 - logger - INFO - ../../trained_models/model_best_lr-v13-20240704.joblib
+2024-07-04 12:00:00,064 - logger - INFO - Model training completed.
+2024-07-04 12:00:00,064 - logger - INFO - -----------------------------------
