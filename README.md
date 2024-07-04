@@ -5,36 +5,90 @@ model that predicts if an NBA player will make a specific shot or not.
 
 ![NBA Shot by Steph Curry](https://github.com/jja4/nba_mlops/blob/main/reports/images/Curry_perfect_shot.jfif)
 
-Project Organization
-------------
+## Project Organization
+------------------------------------------------------------------------
     ├── .github            <- Scripts for Github configs
     │   └── workflow       <- Scripts for Github Actions
-    │       └── nba_app.yml
+    │       ├── generate_new_data.yml   <- Generates new data on a specified time period
+    |       ├── retrain_model.yml       <- Retrains a new model on a specified time period and condition
+    |       └── unit_tests.yml          <- Runs on evry push on every branch
+    ├── .gitignore      <- Includes files and folders that we don't want to control
     |
     ├── code               <- Source code for use in this project.
     │   ├── __init__.py    <- Makes src a Python module
     │   │
-    │   ├── database  <- Scripts to download or generate data
-    │   │   └── setup_database.py
-    │   │
-    │   ├── training_pipeline <- Scripts to run training pipeline
-    │   │   │                 
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
-    │   │
-    │   ├── api            <- Scripts for the FastAPI application
-    │   │   └── nba_app.py <- Main application file for the API
-    │   │
-    |   ├── tests          <- Scripts to run unit tests
-    │   │   └── test_example.py
+    |   ├── api                         <- Scripts for the FastAPI application
+    │   │   ├── nba_app.py              <- Main application file for the API
+    │   │   └── prediction_service.py   <- Endpoint function which actualy calculates the prediction
     |   |
-    │   ├── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │   │   └── visualize.py
-    │   └── config         <- Describe the parameters used in train_model.py and predict_model.py
+    │   ├── config          <- Saves configurations
+    │   │   └── config.py   <- Saves file path configurations
+    │   │
+    │   ├── database        <- Databse for use in this project.
+    │   │   └── init.sql    <- INitialising databases
+    │   │
+    │   └── training_pipeline           <- Scripts to run training pipeline  
+    │       ├── data_ingestion.py       <- Data ingestion from generated new data
+    │       ├── data_processing.py      <- Preprocessing
+    │       ├── feature_engineering.py  <- Feature engineering
+    │       ├── model_training.py       <- Model training, pushing to MlFlow and Docker Hub if needed
+    │       └── inference.py            <- Inference a new model
+    │   
+    ├── data    <- Dataset for training pipeline
+    |   ├── new_data            
+    │   │   └── new_data.csv    <- New unseeen dataset for training
+    |   |
+    |   ├── predictions            
+    │   │   └── predictions.csv <- Saves inference prediction results
+    |   |
+    │   ├── processed       <- The final, canonical data sets for modeling
+    │   │   └── NBA Shot Locations 1997 - 2020-processed.csv        <- Processed new dataset. Ready for feature engineering
+    │   │   └── NBA Shot Locations 1997 - 2020-train-test.joblib    <- Feature enginnered train and test sets. Ready for training
+    |   |
+    │   └── raw             <- The original, immutable data dump
+    │       └── NBA Shot Locations 1997 - 2020-original.csv         <- Big dataset, which used for generating a new small dataset
+    │       └── NBA Shot Locations 1997 - 2020.csv                  <- Dataset for for starting training pipeline
     |
-    ├── data
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │   └── raw            <- The original, immutable data dump.
+    ├── generate_new_data.py    <- Generates signal files for next running container
+    |
+    ├── docker-compose.yml  <- Rans in a sequential order training pipeline containers
+    |
+    ├── entrypoint.sh   <- Generates signal files for next running containers
+    |
+    ├── Dockerfile.data_ingestion       <- Data ingestion container
+    ├── Dockerfile.data_processing      <- Data preprocessing container
+    ├── Dockerfile.feature_engineering  <- Fetaure engineering contrainer
+    ├── Dockerfile.model_training       <- Model training container
+    ├── Dockerfile.inference            <- Inference container
+    |
+    ├── trained_models     <- Trained models with their version numbers and the date that they were created
+    │   └── model_best_lr-v1-20240628.joblib    <- Trained model example
+    |
+    ├── best_model_metrics.json     <- Saved best accuracy for trained models
+    |
+    ├── docker_notes.sh     <- Provides commands to reset Docker and to check specific tables in a PostgreSQL
+    |
+    ├── docker-compose.api.yml  <- Interconnects multiple services via a custom network
+    |
+    ├── Dockerfile.api                  <- API container
+    ├── Dockerfile.db                   <- Database container
+    ├── Dockerfile.prediction_service   <- Prediction service container
+    |    
+    ├── grafana_data        <- Monitoring api requests
+    |   ├── dashboards
+    │   |    └── nba_dashboard.json     <- Grafana dashboard data
+    │   │
+    │   └── datasources
+    │        └── datasources.yaml   <- Defines configuration settings for Grafana to connect to Prometheus 
+    │
+    ├── prometheus_data       
+    │   └── alerting_rules.yml      <- Alerting rules when server goes down or up
+    │   └── prometheus.yml          <- Prometheus configuration file specifying global settings
+    │
+    ├── logs            <- Keep all logs
+    │   └── logs.log    <- Logs processes to logs.log
+    |
+    ├── pytest.ini      <- To suppress warnings during pytest runs
     │
     ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
     │                         the creator's initials, and a short `-` delimited description, e.g.
@@ -42,19 +96,90 @@ Project Organization
     │
     ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
     │
-    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
+    ├── reports                     <- Generated analysis as HTML, PDF, LaTeX, etc.
+    │   └── NBA-MLOps-Report.pdf    <- Specification describing project context
     │
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-    │                         generated with `pip freeze > requirements.txt`
-    |
-    ├── trained_models     <- Trained and serialized models, model predictions, or model summaries
-    |
-    ├── LICENSE
-    ├── README.md          <- The top-level README for developers using this project.
     ├── requirements.txt   <- The required libraries to deploy this project.
+    │                         Generated with `pip freeze > requirements.txt`
+    |
+    ├── LICENSE     <- The MIT License (MIT)
+    └── README.md   <- The top-level README for developers using this project.
 
 ***
+
+===========================================================================================
+
+## Textual Architecture Diagram
+
++-----------------------------------+
+|       GitHub Actions              |
+|-----------------------------------|
+| 1. generate_new_data.yml          |
+|    - Triggers at 4 am UTC         |
+|    - Calls generate_new_data.py   |
+|    - Outputs new_data.csv         |
+|-------------------------------------------------------------------|
+| 2. retrain_model.yml                                              |
+|    - Triggers at 5 am UTC                                         |
+|    - Checks for new_data.csv                                      |
+|    - Runs docker-compose.yml                                      |
+|    - Uploads new Docker images to Docker Hub if model is improved |
++-------------------------------------------------------------------------------------------+
+| 3. unit_tests.yml                                                                         |
+|    - Runs on all branches and every push or pull request                                  |
+|    - Sets up database and runs unit tests for API functions and training pipeline scripts |
++-------------------------------------------------------------------------------------------+
+
++---------------------------------------+
+|  Docker Compose Setup                 |
+|---------------------------------------|
+| 1. Data Pipeline Containers           |
+|    - Data Ingestion                   |
+|    - Data Preprocessing               |
+|    - Feature Engineering              |
+|    - Model Training (logs to MLFlow)  |
+|    - Inference                        |
+|---------------------------------------|
+| Uses signal files for order           |
++---------------------------------------+
+
++---------------------------------------+
+|     Deployment Setup                  |
+|---------------------------------------|
+| docker-compose.api.yml                |   
+|    - Database                         |
+|    - API                              |
+|    - NBA Shot Prediction Service      |
+|    - Prometheus (Monitoring)          |
+|    - Grafana (Visualization)          |
+|    - Alertmanager (Alerts)            |
++---------------------------------------+
+
++-------------------------------+
+|       MLFlow Integration      |
+|-------------------------------|
+| Model experiment data         |
+| is logged to local MLFlow     |
+| server during training        |
++-------------------------------+
+
++-------------------------------+
+|         Logging               |
+|-------------------------------|
+| Logs processes to logs.log    |
+|                               |
++-------------------------------+
+
++-------------------------------+
+|     User Interaction          |
+|-------------------------------|
+| Users can:                    |
+|  - Register                   |
+|  - Login                      |
+|  - Send prediction request    |
+|  - Receive results            |
+|  - Provide feedback           |
++-------------------------------+
 
 ===========================================================================================
 

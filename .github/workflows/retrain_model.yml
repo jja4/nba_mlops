@@ -1,11 +1,11 @@
 name: Retrain and push to Docker Hub
 
 on:
-  schedule:
-    - cron: '0 5 * * *' # Every day at 5 am at UTC
-  #push:
-  #  branches:
-  #    - main
+  #schedule:
+  #  - cron: '0 5 * * *' # Every day at 5 am at UTC
+  push:
+    branches:
+      - mlflow
     #  - main
     #paths:
     #  - 'data/new_data/new_data.csv'
@@ -41,7 +41,6 @@ jobs:
           git config --global user.email mihrandovlatyan@gmail.com
       
           # Add files to the index
-          git add "code/log.txt"
           git add "data/predictions/predictions.csv"
           git add "data/processed/NBA Shot Locations 1997 - 2020-processed.csv"
           git add "data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib"

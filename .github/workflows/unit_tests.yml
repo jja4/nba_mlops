@@ -11,6 +11,7 @@ on:
       - logging_script
       - unit-tests
       - mlflow
+      #- '**' # runs on every branch
   pull_request:
     branches:
       - main
@@ -19,6 +20,7 @@ on:
       - retrain-the-model
       - condintion-push-docker
       - mlflow
+      #- '**' # runs on every branch
       
 jobs:
   unit-tests:
