@@ -6,7 +6,7 @@ from unittest.mock import patch
 from sklearn import linear_model
 
 # Adjust sys.path to include the 'project' directory
-project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 sys.path.insert(0, project_dir)
 
 from training_pipeline.inference import make_predictions
