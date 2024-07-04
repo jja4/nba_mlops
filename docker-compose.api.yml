@@ -94,6 +94,26 @@ services:
     networks:
       - nba-network
 
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.react
+    ports:
+      - "3001:3001"
+    depends_on:
+      - api
+    networks:
+      - nba-network
+    environment:
+      - REACT_APP_API_URL=http://api:8000 
+      - PORT=3001
+    volumes:
+      - ./react_frontend:/app
+      - /app/node_modules
+    stdin_open: true
+    tty: true
+
+
 networks:
   nba-network:
     driver: bridge

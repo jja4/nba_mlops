@@ -3,7 +3,7 @@ groups:
   rules:
     - alert: APIDown
       expr: up{job="fastapi"} == 0
-      for: 10s
+      for: 5s
       labels:
         severity: critical
       annotations:
