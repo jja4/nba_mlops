@@ -9,9 +9,10 @@ model that predicts if an NBA player will make a specific shot or not.
 ------------------------------------------------------------------------
     ├── .github            <- Scripts for Github configs
     │   └── workflow       <- Scripts for Github Actions
-    │       ├── generate_new_data.yml
-    |       ├── retrain_model.yml
-    |       └── unit_tests.yml
+    │       ├── generate_new_data.yml   <- Generates new data on a specified time period
+    |       ├── retrain_model.yml       <- Retrains a new model on a specified time period and condition
+    |       └── unit_tests.yml          <- Runs on evry push on every branch
+    ├── .gitignore      <- Includes files and folders that we don't want to control
     |
     ├── code               <- Source code for use in this project.
     │   ├── __init__.py    <- Makes src a Python module
@@ -26,12 +27,12 @@ model that predicts if an NBA player will make a specific shot or not.
     │   ├── database        <- Databse for use in this project.
     │   │   └── init.sql    <- INitialising databases
     │   │
-    │   └── training_pipeline       <- Scripts to run training pipeline  
-    │       ├── data_ingestion.py
-    │       ├── data_processing.py
-    │       ├── feature_engineering.py
-    │       ├── model_training.py
-    │       └── inference.py
+    │   └── training_pipeline           <- Scripts to run training pipeline  
+    │       ├── data_ingestion.py       <- Data ingestion from generated new data
+    │       ├── data_processing.py      <- Preprocessing
+    │       ├── feature_engineering.py  <- Feature engineering
+    │       ├── model_training.py       <- Model training, pushing to MlFlow and Docker Hub if needed
+    │       └── inference.py            <- Inference a new model
     │   
     ├── data    <- Dataset for training pipeline
     |   ├── new_data            
@@ -47,37 +48,62 @@ model that predicts if an NBA player will make a specific shot or not.
     │   └── raw             <- The original, immutable data dump
     │       └── NBA Shot Locations 1997 - 2020-original.csv         <- Big dataset, which used for generating a new small dataset
     │       └── NBA Shot Locations 1997 - 2020.csv                  <- Dataset for for starting training pipeline
+    |
+    ├── generate_new_data.py    <- Generates signal files for next running container
+    |
+    ├── docker-compose.yml  <- Rans in a sequential order training pipeline containers
+    |
+    ├── entrypoint.sh   <- Generates signal files for next running containers
+    |
+    ├── Dockerfile.data_ingestion       <- Data ingestion container
+    ├── Dockerfile.data_processing      <- Data preprocessing container
+    ├── Dockerfile.feature_engineering  <- Fetaure engineering contrainer
+    ├── Dockerfile.model_training       <- Model training container
+    ├── Dockerfile.inference            <- Inference container
+    |
+    ├── trained_models     <- Trained models with their version numbers and the date that they were created
+    │   └── model_best_lr-v1-20240628.joblib    <- Trained model example
+    |
+    ├── best_model_metrics.json     <- Saved best accuracy for trained models
+    |
+    ├── docker_notes.sh     <- Provides commands to reset Docker and to check specific tables in a PostgreSQL
+    |
+    ├── docker-compose.api.yml  <- Interconnects multiple services via a custom network
+    |
+    ├── Dockerfile.api                  <- API container
+    ├── Dockerfile.db                   <- Database container
+    ├── Dockerfile.prediction_service   <- Prediction service container
     |    
     ├── grafana_data        <- Monitoring api requests
     |   ├── dashboards
     │   |    └── nba_dashboard.json     <- Grafana dashboard data
     │   │
     │   └── datasources
-    │        └── datasources.yaml
+    │        └── datasources.yaml   <- Defines configuration settings for Grafana to connect to Prometheus 
+    │
+    ├── prometheus_data       
+    │   └── alerting_rules.yml      <- Alerting rules when server goes down or up
+    │   └── prometheus.yml          <- Prometheus configuration file specifying global settings
     │
     ├── logs            <- Keep all logs
     │   └── logs.log    <- Logs processes to logs.log
+    |
+    ├── pytest.ini      <- To suppress warnings during pytest runs
     │
     ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
     │                         the creator's initials, and a short `-` delimited description, e.g.
     │                         `1.0-jqp-initial-data-exploration`.
     │
-    ├── prometheus_data       
-    │   └── alerting_rules.yml      <- Alerting rules when server goes down or up
-    │   └── prometheus.yml
-    │
     ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
     │
-    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
+    ├── reports                     <- Generated analysis as HTML, PDF, LaTeX, etc.
+    │   └── NBA-MLOps-Report.pdf    <- Specification describing project context
     │
     ├── requirements.txt   <- The required libraries to deploy this project.
     │                         Generated with `pip freeze > requirements.txt`
     |
-    ├── trained_models     <- Trained models with their version numbers
-    |
-    ├── LICENSE
-    └── README.md          <- The top-level README for developers using this project.
+    ├── LICENSE     <- The MIT License (MIT)
+    └── README.md   <- The top-level README for developers using this project.
 
 ***
 
