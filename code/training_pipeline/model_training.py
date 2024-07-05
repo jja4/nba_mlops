@@ -13,16 +13,13 @@ import mlflow
 import mlflow.sklearn
 import random
 
-# Adjust sys.path to include the 'project' directory
 project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
-sys.path.insert(0, project_dir)
-
-from logger import logger
-
 code_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, project_dir)
 sys.path.insert(0, code_dir)
 
 from config.config import Config
+from logger import logger
 
 def load_best_metrics(metrics_file_path):
     """
@@ -134,6 +131,17 @@ def generate_versioned_filename(base_filename, version):
     current_date = datetime.datetime.now().strftime('%Y%m%d')
     return f"{base_filename}-v{version}-{current_date}.joblib"
 
+def ensure_directory_exists(file_path):
+    """
+    Ensure the directory for the specified file path exists.
+    
+    Parameters:
+    file_path (str): The file path for which the directory should be ensured.
+    """
+    directory = os.path.dirname(file_path)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
 def main():
     """
     Main function to train the model and save it.
@@ -165,6 +173,7 @@ def main():
 
     if new_accuracy > best_accuracy:
         # Save the model to the original path
+        ensure_directory_exists(versioned_filename)
         dump(model, versioned_filename)
         logger.info("Model file data saved successfully.")
         logger.info(versioned_filename)
@@ -179,6 +188,7 @@ def main():
     else:
         # Save the model to the discarded path
         discarded_filename = generate_versioned_filename(discarded_output_file_path, 1)
+        ensure_directory_exists(discarded_filename)
         dump(model, discarded_filename)
         logger.info("Model file data saved in discarded folder.")
         logger.info(discarded_filename)
