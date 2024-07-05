@@ -1,4 +1,5 @@
-NBA MLOps
+# NBA MLOps
+
 ***
 This project demonstrates MLOps best practices using a machine learning 
 model that predicts if an NBA player will make a specific shot or not. The emphasis
@@ -106,8 +107,6 @@ the model, the deployment of the model, and the monitoring of the model.
     |
     ├── LICENSE     <- The MIT License (MIT)
     └── README.md   <- The top-level README for developers using this project.
-
-***
 
 ***
 
