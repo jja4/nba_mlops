@@ -1,7 +1,9 @@
 NBA MLOps
 ===========================================================================================
 This project demonstrates MLOps best practices using a machine learning 
-model that predicts if an NBA player will make a specific shot or not.
+model that predicts if an NBA player will make a specific shot or not. The emphasis
+is less on the machine learning model, and more on the automated data pipeline to train
+the model, the deployment of the model, and the monitoring of the model.
 
 ![NBA Shot by Steph Curry](https://github.com/jja4/nba_mlops/blob/main/reports/images/Curry_perfect_shot.jfif)
 
@@ -109,7 +111,7 @@ model that predicts if an NBA player will make a specific shot or not.
 
 ===========================================================================================
 
-# Textual Architecture Diagram
+## Textual Architecture Diagram
 
 +-----------------------------------+
 |       GitHub Actions              |
@@ -183,9 +185,10 @@ model that predicts if an NBA player will make a specific shot or not.
 
 ===========================================================================================
 
-# Getting Started
+## Getting Started
 
-# Building and Connecting to the App, including the PostgreSQL database
+## Building and Connecting to the App, including the PostgreSQL database, using Prometheus/
+## Grafana for monitoring, and a React frontend to interact with the ML model 
 
 1. Make sure you have docker installed on your machine
 
@@ -209,64 +212,7 @@ SELECT id, prediction, user_verification FROM predictions;
 
 ===========================================================================================
 
-# Running the app
-How to Use the `@app.post('/predict')` Endpoint
-To reach the `/predict` endpoint and make a prediction, follow these steps:
-
-We have two options to do that:
-
-A. Running the API in Python virtual environment (RECOMMENDED)
-    
-1. Start the API
-
-First, navigate to the main directory and start the API using the following command in your terminal:
-```bash
-uvicorn code.api.nba_app:app --reload
-```
-This command will start the FastAPI application and make it accessible at http://localhost:8000.
-    
-2. Run unit tests in another console
-```bash
-python -m venv venv
-```
-This command creates a Python virtual environment named "venv" in the current directory. A virtual environment is a self-contained 
-directory tree that contains a Python installation for a particular version of Python, plus a number of additional packages.
-    
-```bash
-source venv/bin/activate
-```
-This command activates the virtual environment. When you activate a virtual environment, it changes your shell's PATH environment variable to point to the Python interpreter and other scripts specific to the virtual environment. This ensures that when you run Python commands, you're using the version of Python and packages installed in the virtual environment, rather than the system-wide Python installation.
-    
-```bash
-pip install -r requirements.txt
-```
-This command installs Python packages listed in the requirements.txt file into the activated virtual environment using pip, the Python package installer. The -r flag tells pip to install all the packages listed in the requirements file.
-    
-```bash
-export PYTHONPATH=./code
-```
-This command sets the PYTHONPATH environment variable to include the ./code directory. PYTHONPATH is a list of directories where Python looks for modules when you import them. By adding ./code to PYTHONPATH, you're telling Python to also search for modules in the code directory when you run your tests.
-    
-```bash
-pytest -v code/tests
-```
-This command runs your unit tests using pytest, a testing framework for Python. The -v flag makes pytest run in verbose mode, which provides more detailed output about the tests being run. code/tests specifies the directory containing your test files.
-
-
-B. Running the API locally
-    
-1. Start the API
-
-First, navigate to the `/code/api` directory and start the API using the following command in your terminal:
-    
-```bash
-uvicorn nba_app:app
-```
-This command will start the FastAPI application and make it accessible at http://localhost:8000.
-
-===========================================================================================
-
-# Using the App
+## Using the App
 
 1. Open http://localhost:8000/docs.
 
@@ -339,7 +285,7 @@ This command will start the FastAPI application and make it accessible at http:/
 
 ===========================================================================================
 
-# Verifying previous predictions
+## Verifying previous predictions
 
 1. Once logged in as an authenticated user, navigate to "GET /verify_random_prediction"
 
@@ -360,17 +306,17 @@ This command will start the FastAPI application and make it accessible at http:/
 ```
 7. Click "Execute", in the Response body, you should see a "message": "Prediction_id:13 verified successfully"
 
-# How to Use the `docker compose up`
-Move to `nba_mlops` project main folder and run:
+# How to Train the Model
+Move to the `nba_mlops` main project folder and run:
 ```bash
-docker compose up
+docker-compose docker/docker-compose.yml up
 ```
 
-This will initiate the execution of the `docker-compose.yml` file, which in turn launches all Docker containers for the respective scripts.
+This will initiate the execution of the training pipeline `docker-compose.yml` file, which in turn launches all relevant Docker containers for training.
 
 ===========================================================================================
 
-# Why and how we use logging
+## Why and how we use logging
 In our project, we have implemented logging across various stages of our data pipeline. Each stage logs important events and statuses to ensure we have a clear and detailed record of the process. Here's a breakdown of how logging is implemented in our project:
 1. Data Ingestion:
     - The process starts with logging the initiation of the data ingestion process.
@@ -405,10 +351,9 @@ Logging is a critical part of our data pipeline for several reasons:
 
 ===========================================================================================
 
-# Python API Tests
+## Python API Tests
 This document describes the process for running unit tests on our Python API using GitHub Actions. The unit tests are designed to ensure that our API functions correctly and interacts properly with the database and prediction service.
 
-## Overview
 The unit_tests.yaml workflow is triggered by pushes and pull requests to any branches. It sets up the necessary environment, including a PostgreSQL database and a prediction service, and then runs the unit tests.
 
 ## Triggering the Workflow
@@ -441,10 +386,9 @@ This workflow ensures that our Python API is tested thoroughly before any change
 
 ===========================================================================================
 
-# Retraining Model Process
+## Process of Retraining the Model 
 This document outlines the process of retraining our model using GitHub Actions and Docker Compose, and subsequently pushing the trained model to Docker Hub. The retraining process is scheduled to run daily.
 
-## Overview
 We utilize two main GitHub Actions for our retraining pipeline:
 
 1. generate_new_data.yml: Runs every day at 4 am UTC to generate and push new data.
@@ -467,7 +411,7 @@ By following this process, we ensure that our model is retrained daily with the 
 
 ===========================================================================================
 
-# Condition for Model Update Based on Accuracy Improvement
+## Condition for Model Update Based on Accuracy Improvement
 In the context of this project, the model training process involves evaluating the accuracy of the newly trained model against the current best model. Here's the condition that determines whether the new accuracy should trigger a model update and a Docker Hub push:
 
 1. Current Best Model Metrics:
@@ -499,10 +443,10 @@ This evaluation ensures that the model continuously improves based on the latest
 
 ===========================================================================================
 
-# MLFlow Integration for Local Model Tracking
+## MLFlow Integration for Local Model Tracking
 This project integrates MLFlow for local model tracking, enabling you to log model metrics and artifacts for better experiment management. The MLFlow tracking server runs locally and is demonstrated only on the localhost due to the lack of an external server URL.
 
-## Prerequisites
+**Prerequisites**
 Ensure that MLFlow is installed on your local machine. You can install it using pip:
 ```bash
 pip install mlflow
