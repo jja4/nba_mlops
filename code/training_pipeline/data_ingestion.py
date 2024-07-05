@@ -7,8 +7,12 @@ import logging
 project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 sys.path.insert(0, project_dir)
 
-from code.config.config import Config
 from logger import logger
+
+code_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, code_dir)
+
+from config.config import Config
 
 def fetch_data_from_csv(file_path):
     """
