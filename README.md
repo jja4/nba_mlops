@@ -187,8 +187,7 @@ the model, the deployment of the model, and the monitoring of the model.
 
 ## Getting Started
 
-## Building and Connecting to the App, including the PostgreSQL database, using Prometheus/
-## Grafana for monitoring, and a React frontend to interact with the ML model 
+### Building and Connecting to the App, including the PostgreSQL database, using Prometheus/Grafana for monitoring, and a React frontend to interact with the ML model 
 
 1. Make sure you have docker installed on your machine
 
