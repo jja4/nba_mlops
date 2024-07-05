@@ -5,7 +5,7 @@ import pandas as pd
 
 # Adjust sys.path to include the 'project' directory
 # This allows the script to find and import the Config module
-project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_dir)
 
 from training_pipeline.data_processing import clean_data, transform_data, frequency_encode_column, transform_attributes_with_high_cardinality, transform_quantitative_attributes_with_unique_ids, one_hot_encoding

@@ -6,7 +6,7 @@ from unittest.mock import patch, mock_open
 
 # Adjust sys.path to include the 'project' directory
 # This allows the script to find and import the Config module
-project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_dir)
 
 # Mock the config module
