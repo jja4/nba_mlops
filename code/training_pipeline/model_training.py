@@ -24,6 +24,33 @@ sys.path.insert(0, code_dir)
 
 from config.config import Config
 
+def load_best_metrics(metrics_file_path):
+    """
+    Load the best metrics from the specified file.
+    
+    Parameters:
+    metrics_file_path (str): Path to the file containing the best metrics.
+    
+    Returns:
+    dict: Dictionary containing the best metrics.
+    """
+    if os.path.exists(metrics_file_path):
+        with open(metrics_file_path, 'r') as f:
+            return json.load(f)
+    else:
+        return {'accuracy': 0}
+
+def save_metrics(metrics_file_path, metrics):
+    """
+    Save the given metrics to the specified file.
+    
+    Parameters:
+    metrics_file_path (str): Path to the file where the metrics will be saved.
+    metrics (dict): Dictionary containing the metrics to save.
+    """
+    with open(metrics_file_path, 'w') as f:
+        json.dump(metrics, f)
+
 def train_model(file_path, output_base_filename, log_to_mlflow=True):
     """
     Train a logistic regression model on the provided dataset and log metrics with MLFlow.
@@ -119,35 +146,42 @@ def main():
     # Base filename for the output model file
     base_output_file_path = '../../' + Config.OUTPUT_TRAINED_MODEL_FILE_LR
 
+    # Base filename for the discarded model file
+    discarded_output_file_path = '../../' + Config.OUTPUT_TRAINED_MODEL_FILE_LR_DISCARDED
+
     # Train the logistic regression model
     log_to_mlflow = os.getenv("LOG_TO_MLFLOW", "true").lower() == "true"
     model, new_accuracy, versioned_filename = train_model(file_path, base_output_file_path, log_to_mlflow)
     
     metrics_file = '../../best_model_metrics.json'
     
-    if os.path.exists(metrics_file):
-        with open(metrics_file, 'r') as f:
-            best_metrics = json.load(f)
-        best_accuracy = best_metrics.get('accuracy', 0)
-    else:
-        best_accuracy = 0
+    # Load the best accuracy from metrics file
+    best_metrics = load_best_metrics(metrics_file)
+    best_accuracy = best_metrics.get('accuracy', 0)
 
     # Print new accuracy
     print(f"New Accuracy: {new_accuracy}")
     print(f"Best current Accuracy: {best_accuracy}")
 
-    dump(model, versioned_filename)
-    logger.info("Model file data saved successfully.")
-    logger.info(versioned_filename)
-
     if new_accuracy > best_accuracy:
+        # Save the model to the original path
+        dump(model, versioned_filename)
+        logger.info("Model file data saved successfully.")
+        logger.info(versioned_filename)
+
+        # Save new metrics as the best metrics
         new_metrics = {'accuracy': new_accuracy}
-        with open(metrics_file, 'w') as f:
-            json.dump(new_metrics, f)
+        save_metrics(metrics_file, new_metrics)
 
         # Create the signal file indicating a new model version
         open('../../signal_new_model_version', 'w').close()
         print("Creating signal file /app/signal_new_model_version...")
+    else:
+        # Save the model to the discarded path
+        discarded_filename = generate_versioned_filename(discarded_output_file_path, 1)
+        dump(model, discarded_filename)
+        logger.info("Model file data saved in discarded folder.")
+        logger.info(discarded_filename)
     
     # Always create this signal file at the end of model training
     open('signal_model_training_done', 'w').close()
