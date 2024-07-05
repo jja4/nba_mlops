@@ -11,6 +11,7 @@ import datetime
 import json
 import mlflow
 import mlflow.sklearn
+import dagshub
 import random
 
 project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
@@ -100,26 +101,25 @@ def train_model(file_path, output_base_filename, log_to_mlflow=True):
             break
         version += 1
 
-    if log_to_mlflow:
-        # Extract just the filename without the path and extension for the run name
-        run_name = os.path.splitext(os.path.basename(versioned_filename))[0]
+    dagshub.init("nba_mlops", "joelaftreth", mlflow=True)
+    run_name = os.path.splitext(os.path.basename(versioned_filename))[0]
 
-        # Initialize MLFlow tracking
-        mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "http://localhost:6001"))  # MLFlow tracking server URI
-        mlflow.set_experiment("nba_shot_prediction")  # Experiment name
+    # "http://localhost:6001"
+    mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "https://dagshub.com/joelaftreth/nba_mlops.mlflow"))
+    mlflow.set_experiment("nba_shot_prediction")
 
-        with mlflow.start_run(run_name=run_name):
-            # Log parameters
-            mlflow.log_param("model_type", "LogisticRegression")
-            mlflow.log_param("solver", solver)
-            mlflow.log_param("C", C)
-            mlflow.log_param("max_iter", max_iter)
+    with mlflow.start_run(run_name=run_name):
+        # Log parameters
+        mlflow.log_param("model_type", "LogisticRegression")
+        mlflow.log_param("solver", solver)
+        mlflow.log_param("C", C)
+        mlflow.log_param("max_iter", max_iter)
 
-            # Log metrics
-            mlflow.log_metric("accuracy", accuracy)
+        # Log metrics
+        mlflow.log_metric("accuracy", accuracy)
 
-            # Log the trained model
-            mlflow.sklearn.log_model(model, "model")
+        # Log the trained model
+        mlflow.sklearn.log_model(model, "model")
 
     return model, accuracy, versioned_filename
 
