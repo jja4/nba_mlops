@@ -703,3 +703,17 @@
 2024-07-04 17:02:33,212 - logger - INFO - Generating a new data is starting.
 2024-07-04 17:02:33,217 - logger - INFO - Generating a new data was finished.
 2024-07-04 17:02:33,217 - logger - INFO - ---------------------------------
+2024-07-05 10:34:01,872 - logger - INFO - Custom logger module initialized.
+2024-07-05 10:34:01,872 - logger - INFO - ---------------------------------
+2024-07-05 10:34:01,872 - logger - INFO - (4) Starting the model training process.
+2024-07-05 10:34:03,463 - logger - INFO - Model file data saved successfully.
+2024-07-05 10:34:03,463 - logger - INFO - ../../trained_models/model_best_lr-v1-20240705.joblib
+2024-07-05 10:34:03,463 - logger - INFO - Model training completed.
+2024-07-05 10:34:03,463 - logger - INFO - -----------------------------------
+2024-07-05 10:36:56,658 - logger - INFO - Custom logger module initialized.
+2024-07-05 10:36:56,658 - logger - INFO - ---------------------------------
+2024-07-05 10:36:56,658 - logger - INFO - (4) Starting the model training process.
+2024-07-05 10:36:58,137 - logger - INFO - Model file data saved successfully.
+2024-07-05 10:36:58,137 - logger - INFO - ../../trained_models/model_best_lr-v2-20240705.joblib
+2024-07-05 10:36:58,137 - logger - INFO - Model training completed.
+2024-07-05 10:36:58,137 - logger - INFO - -----------------------------------

@@ -13,13 +13,16 @@ import mlflow
 import mlflow.sklearn
 import random
 
+# Adjust sys.path to include the 'project' directory
 project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
-code_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_dir)
+
+from logger import logger
+
+code_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, code_dir)
 
 from config.config import Config
-from logger import logger
 
 def train_model(file_path, output_base_filename, log_to_mlflow=True):
     """
