@@ -74,14 +74,14 @@ model that predicts if an NBA player will make a specific shot or not.
     ├── Dockerfile.db                   <- Database container
     ├── Dockerfile.prediction_service   <- Prediction service container
     |    
-    ├── grafana_data        <- Monitoring api requests
+    ├── grafana_setup        <- Monitoring api requests
     |   ├── dashboards
     │   |    └── nba_dashboard.json     <- Grafana dashboard data
     │   │
     │   └── datasources
     │        └── datasources.yaml   <- Defines configuration settings for Grafana to connect to Prometheus 
     │
-    ├── prometheus_data       
+    ├── prometheus_setup       
     │   └── alerting_rules.yml      <- Alerting rules when server goes down or up
     │   └── prometheus.yml          <- Prometheus configuration file specifying global settings
     │

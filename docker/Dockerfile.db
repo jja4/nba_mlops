@@ -1,6 +1,6 @@
 FROM postgres:12-alpine
 
-COPY /code/database/init.sql /docker-entrypoint-initdb.d/
+COPY code/database/init.sql /docker-entrypoint-initdb.d/
 
 ENV POSTGRES_USER=ubuntu
 ENV POSTGRES_PASSWORD=mlops

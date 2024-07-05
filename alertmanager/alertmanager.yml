@@ -4,7 +4,7 @@ global:
   smtp_auth_username: "prometheus.datascientest@gmail.com"
   smtp_auth_password: "qsyhonvlraonufcg"
   smtp_require_tls: false
-  slack_api_url: 'insert hooks url here'
+  slack_api_url: 'URL/to/slack/hooks'
 
 route:
   group_by: ['alertname']
@@ -24,4 +24,11 @@ receivers:
   - channel: '#may24_bmlops_int_nba'
     send_resolved: true
     title: '{{ .GroupLabels.alertname }}'
-    text: "{{ range .Alerts }}*Alert:* {{ .Annotations.summary }}\n*Description:* {{ .Annotations.description }}\n*Severity:* {{ .Labels.severity }}\n{{ end }}"
+    text: >-
+      {{ range .Alerts -}}
+      *Status:* {{ if .Status }}{{ .Status | toUpper }}{{ else }}FIRING{{ end }}
+      *Alert:* {{ .Annotations.summary }}
+      *Description:* {{ .Annotations.description }}
+      *Severity:* {{ .Labels.severity }}
+      {{ if .Status }}*Resolved:* {{ .EndsAt }}{{ end }}
+      {{ end }}

@@ -2,8 +2,8 @@ version: '3'
 services:
   db:
     build:
-      context: .
-      dockerfile: Dockerfile.db
+      context: ..
+      dockerfile: docker/Dockerfile.db
     environment:
       - POSTGRES_USER=ubuntu
       - POSTGRES_PASSWORD=mlops
@@ -21,8 +21,8 @@ services:
 
   api:
     build:
-      context: .
-      dockerfile: Dockerfile.api
+      context: ..
+      dockerfile: docker/Dockerfile.api
     ports:
       - "8000:8000"
     depends_on:
@@ -36,14 +36,14 @@ services:
       - PREDICTION_SERVICE_HOST=prediction-service
       - PREDICTION_SERVICE_PORT=8001
     volumes:
-      - ./code/api:/app/code/api  # Mount local api directory to /app in the container
+      - ../code/api:/app/code/api
     networks:
       - nba-network
   
   prediction-service:
     build:
-      context: .
-      dockerfile: Dockerfile.prediction-service
+      context: ..
+      dockerfile: docker/Dockerfile.prediction-service
     ports:
       - "8001:8001"
     depends_on:
@@ -55,7 +55,7 @@ services:
       - DB_USER=ubuntu
       - DB_PASSWORD=mlops
     volumes:
-      - ./code/api:/app/code/api  # Mount local prediction_service directory to /app in the container
+      - ../code/api:/app/code/api
     networks:
       - nba-network
 
@@ -64,8 +64,8 @@ services:
     ports:
       - 9090:9090
     volumes:
-      - ./prometheus_data/prometheus.yml:/etc/prometheus/prometheus.yml
-      - ./prometheus_data/alerting_rules.yml:/etc/prometheus/alerting_rules.yml
+      - ../prometheus_setup/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ../prometheus_setup/alerting_rules.yml:/etc/prometheus/alerting_rules.yml
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
     networks:
@@ -77,15 +77,15 @@ services:
       - 3000:3000
     volumes:
       - grafana_data:/var/lib/grafana
-      - ./grafana_data/dashboards:/etc/grafana/dashboards
-      - ./grafana_data/provisioning:/etc/grafana/provisioning
+      - ../grafana_setup/dashboards:/etc/grafana/dashboards
+      - ../grafana_setup/provisioning:/etc/grafana/provisioning
     networks:
       - nba-network
   
   alertmanager:
     image: prom/alertmanager
     volumes:
-      - ./alertmanager:/etc/alertmanager
+      - ../alertmanager:/etc/alertmanager
     command:
       - '--config.file=/etc/alertmanager/alertmanager.yml'
       - '--storage.path=/alertmanager'
@@ -96,8 +96,8 @@ services:
 
   frontend:
     build:
-      context: .
-      dockerfile: Dockerfile.react
+      context: ..
+      dockerfile: docker/Dockerfile.react
     ports:
       - "3001:3001"
     depends_on:
@@ -108,11 +108,10 @@ services:
       - REACT_APP_API_URL=http://api:8000 
       - PORT=3001
     volumes:
-      - ./react_frontend:/app
+      - ../react_frontend:/app
       - /app/node_modules
     stdin_open: true
     tty: true
-
 
 networks:
   nba-network:

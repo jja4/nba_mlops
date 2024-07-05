@@ -5,7 +5,7 @@ docker rmi $(docker images -q)
 docker volume rm $(docker volume ls -q)
 
 # check users table in PostgreSQL docker container
-docker exec -it nba_mlops_db_1 psql -U ubuntu -d nba_db
+docker exec -it docker_db_1 psql -U ubuntu -d nba_db
 SELECT * FROM users;
 
 # check predictions table
@@ -15,6 +15,6 @@ SELECT id, prediction, user_verification FROM predictions;
 # SELECT * FROM logging;
 
 # to demo alerts being activated
-docker container stop nba_mlops_api_1
+docker container stop docker_api_1
 
-docker container start nba_mlops_api_1
+docker container start docker_api_1
