@@ -3,24 +3,10 @@ name: Python API Tests
 on:
   push:
     branches:
-      - main
-      - push-docker-hub
-      - database_integration
-      - retrain-the-model
-      - condintion-push-docker
-      - logging_script
-      - unit-tests
-      - mlflow
-      #- '**' # runs on every branch
+      - '**' # runs on every branch
   pull_request:
     branches:
-      - main
-      - push-docker-hub
-      - database_integration
-      - retrain-the-model
-      - condintion-push-docker
-      - mlflow
-      #- '**' # runs on every branch
+      - '**'
       
 jobs:
   unit-tests:
