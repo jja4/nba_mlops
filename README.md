@@ -5,7 +5,7 @@ model that predicts if an NBA player will make a specific shot or not.
 
 ![NBA Shot by Steph Curry](https://github.com/jja4/nba_mlops/blob/main/reports/images/Curry_perfect_shot.jfif)
 
-## Project Organization
+# Project Organization
 ------------------------------------------------------------------------
     ├── .github            <- Scripts for Github configs
     │   └── workflow       <- Scripts for Github Actions
@@ -109,7 +109,7 @@ model that predicts if an NBA player will make a specific shot or not.
 
 ===========================================================================================
 
-## Textual Architecture Diagram
+# Textual Architecture Diagram
 
 +-----------------------------------+
 |       GitHub Actions              |
@@ -183,9 +183,9 @@ model that predicts if an NBA player will make a specific shot or not.
 
 ===========================================================================================
 
-## Getting Started
+# Getting Started
 
-## Building and Connecting to the App, including the PostgreSQL database
+# Building and Connecting to the App, including the PostgreSQL database
 
 1. Make sure you have docker installed on your machine
 
@@ -209,7 +209,7 @@ SELECT id, prediction, user_verification FROM predictions;
 
 ===========================================================================================
 
-## Running the app
+# Running the app
 How to Use the `@app.post('/predict')` Endpoint
 To reach the `/predict` endpoint and make a prediction, follow these steps:
 
@@ -266,7 +266,7 @@ This command will start the FastAPI application and make it accessible at http:/
 
 ===========================================================================================
 
-## Using the App
+# Using the App
 
 1. Open http://localhost:8000/docs.
 
@@ -339,7 +339,7 @@ This command will start the FastAPI application and make it accessible at http:/
 
 ===========================================================================================
 
-## Verifying previous predictions
+# Verifying previous predictions
 
 1. Once logged in as an authenticated user, navigate to "GET /verify_random_prediction"
 
@@ -360,7 +360,7 @@ This command will start the FastAPI application and make it accessible at http:/
 ```
 7. Click "Execute", in the Response body, you should see a "message": "Prediction_id:13 verified successfully"
 
-## How to Use the `docker compose up`
+# How to Use the `docker compose up`
 Move to `nba_mlops` project main folder and run:
 ```bash
 docker compose up
@@ -370,7 +370,7 @@ This will initiate the execution of the `docker-compose.yml` file, which in turn
 
 ===========================================================================================
 
-## Why and how we use logging
+# Why and how we use logging
 In our project, we have implemented logging across various stages of our data pipeline. Each stage logs important events and statuses to ensure we have a clear and detailed record of the process. Here's a breakdown of how logging is implemented in our project:
 1. Data Ingestion:
     - The process starts with logging the initiation of the data ingestion process.
@@ -405,16 +405,16 @@ Logging is a critical part of our data pipeline for several reasons:
 
 ===========================================================================================
 
-## Python API Tests
+# Python API Tests
 This document describes the process for running unit tests on our Python API using GitHub Actions. The unit tests are designed to ensure that our API functions correctly and interacts properly with the database and prediction service.
 
-# Overview
+## Overview
 The unit_tests.yaml workflow is triggered by pushes and pull requests to any branches. It sets up the necessary environment, including a PostgreSQL database and a prediction service, and then runs the unit tests.
 
-# Triggering the Workflow
+## Triggering the Workflow
 The workflow is triggered when we push any code or create a pull request on the all branches.
 
-# Workflow Steps
+## Workflow Steps
 1. Checkout Code: The workflow checks out the latest version of the code from the repository.
 2. Set Up Python: Sets up Python 3.9 for the workflow environment.
 3. Install Dependencies: Installs the necessary Python dependencies in a virtual environment.
@@ -425,7 +425,7 @@ The workflow is triggered when we push any code or create a pull request on the 
 8. Wait for Prediction Service to Be Ready: Waits for the prediction service to start by pausing the workflow for a specified amount of time.
 9. Run Tests: Runs the unit tests using pytest to verify the functionality of the API.
 
-# Environment Variables
+## Environment Variables
 The workflow uses the following environment variables:
 
 - PYTHONPATH: Specifies the Python path to the code directory.
@@ -436,38 +436,38 @@ The workflow uses the following environment variables:
 - PREDICTION_SERVICE_HOST: Hostname for the prediction service.
 - PREDICTION_SERVICE_PORT: Port for the prediction service.
 
-# Summary
+## Summary
 This workflow ensures that our Python API is tested thoroughly before any changes are merged into key branches. By setting up a PostgreSQL database and a prediction service, we simulate the production environment to catch any potential issues early in the development process.
 
 ===========================================================================================
 
-## Retraining Model Process
+# Retraining Model Process
 This document outlines the process of retraining our model using GitHub Actions and Docker Compose, and subsequently pushing the trained model to Docker Hub. The retraining process is scheduled to run daily.
 
-# Overview
+## Overview
 We utilize two main GitHub Actions for our retraining pipeline:
 
 1. generate_new_data.yml: Runs every day at 4 am UTC to generate and push new data.
 2. retrain_model.yml: Runs every day at 5 am UTC to retrain the model using the new data and push the updated model to Docker Hub.
 
-# GitHub Actions Workflow
+## GitHub Actions Workflow
 - generate_new_data.yml
 This workflow generates new data from our original dataset and pushes a small CSV file to a dedicated path in our repository.
 
 - retrain_model.yml
 This workflow retrains the model using the new data generated by the previous action and pushes the trained model to Docker Hub. Below is a detailed explanation of the retrain_model.yml workflow.
 
-# Docker Compose Configuration
+## Docker Compose Configuration
 Our Docker Compose file defines the services for data ingestion, data processing, feature engineering, model training, and inference. Each service builds from a specific Dockerfile and uses shared volumes for data transfer.
 
-# entrypoint.sh
+## entrypoint.sh
 The entrypoint script coordinates the execution order of services based on signal files.
 
 By following this process, we ensure that our model is retrained daily with the latest data and that the updated model is deployed to Docker Hub for further use.
 
 ===========================================================================================
 
-## Condition for Model Update Based on Accuracy Improvement
+# Condition for Model Update Based on Accuracy Improvement
 In the context of this project, the model training process involves evaluating the accuracy of the newly trained model against the current best model. Here's the condition that determines whether the new accuracy should trigger a model update and a Docker Hub push:
 
 1. Current Best Model Metrics:
@@ -499,30 +499,30 @@ This evaluation ensures that the model continuously improves based on the latest
 
 ===========================================================================================
 
-## MLFlow Integration for Local Model Tracking
+# MLFlow Integration for Local Model Tracking
 This project integrates MLFlow for local model tracking, enabling you to log model metrics and artifacts for better experiment management. The MLFlow tracking server runs locally and is demonstrated only on the localhost due to the lack of an external server URL.
 
-# Prerequisites
+## Prerequisites
 Ensure that MLFlow is installed on your local machine. You can install it using pip:
 ```bash
 pip install mlflow
 ```
 
-# Running the MLFlow Tracking Server
+## Running the MLFlow Tracking Server
 To run the MLFlow tracking server locally, use the following command:
 ```bash
 mlflow server --host 0.0.0.0 --port 6001
 ```
 This command starts an MLFlow server on port 6001.
 
-# Accessing the MLFlow UI
+## Accessing the MLFlow UI
 To visualize the experiments and logged data, open your web browser and navigate to:
 ```bash
 http://localhost:6001
 ```
 Here, you can explore the logged experiments, runs, parameters, metrics, and artifacts.
 
-# MLFlow Configuration in the Project
+## MLFlow Configuration in the Project
 The 'model_training.py' script has been updated to log model parameters, metrics, and the trained model itself to the MLFlow tracking server. The relevant changes include:
 
 1. Set Tracking URI: The MLFlow tracking server URI is set to http://localhost:6001.
