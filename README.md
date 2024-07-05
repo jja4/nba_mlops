@@ -515,13 +515,6 @@ mlflow server --host 0.0.0.0 --port 6001
 ```
 This command starts an MLFlow server on port 6001.
 
-## Accessing the MLFlow UI
-To visualize the experiments and logged data, open your web browser and navigate to:
-```bash
-http://localhost:6001
-```
-Here, you can explore the logged experiments, runs, parameters, metrics, and artifacts.
-
 ## MLFlow Configuration in the Project
 The 'model_training.py' script has been updated to log model parameters, metrics, and the trained model itself to the MLFlow tracking server. The relevant changes include:
 
@@ -531,6 +524,19 @@ The 'model_training.py' script has been updated to log model parameters, metrics
 4. Log Parameters: Model parameters like model_type, solver, C, and max_iter are logged.
 5. Log Metrics: The accuracy of the model is logged as a metric.
 6. Log Model: The trained model is logged using mlflow.sklearn.log_model.
+
+## Running the Model Training Script
+To execute the model_training.py script and track your machine learning experiments locally, navigate to the code/training_pipeline folder and run the script using:
+```bash
+python3 model_training.py
+```
+
+## Accessing the MLFlow UI
+To visualize the experiments and logged data, open your web browser and navigate to:
+```bash
+http://localhost:6001
+```
+Here, you can explore the logged experiments, runs, parameters, metrics, and artifacts.
 
 By following these steps and understanding the MLFlow integration, you can effectively manage and track your machine learning experiments locally.
 
