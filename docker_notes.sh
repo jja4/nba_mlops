@@ -13,3 +13,8 @@ SELECT id, prediction, user_verification FROM predictions;
 
 # check logging table
 # SELECT * FROM logging;
+
+# to demo alerts being activated
+docker container stop nba_mlops_api_1
+
+docker container start nba_mlops_api_1
