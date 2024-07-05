@@ -1,5 +1,5 @@
 NBA MLOps
-===========================================================================================
+***
 This project demonstrates MLOps best practices using a machine learning 
 model that predicts if an NBA player will make a specific shot or not. The emphasis
 is less on the machine learning model, and more on the automated data pipeline to train
@@ -109,7 +109,7 @@ the model, the deployment of the model, and the monitoring of the model.
 
 ***
 
-===========================================================================================
+***
 
 ## Textual Architecture Diagram
 
@@ -183,7 +183,7 @@ the model, the deployment of the model, and the monitoring of the model.
 |  - Provide feedback           |
 +-------------------------------+
 
-===========================================================================================
+***
 
 ## Getting Started
 
@@ -209,7 +209,7 @@ SELECT * FROM users;
 SELECT id, prediction, user_verification FROM predictions;
 ```
 
-===========================================================================================
+***
 
 ## Using the App
 
@@ -282,7 +282,7 @@ SELECT id, prediction, user_verification FROM predictions;
 ```
 11. Click "Execute" and view the prediction (0 or 1) in the Response body
 
-===========================================================================================
+***
 
 ## Verifying previous predictions
 
@@ -313,7 +313,7 @@ docker-compose docker/docker-compose.yml up
 
 This will initiate the execution of the training pipeline `docker-compose.yml` file, which in turn launches all relevant Docker containers for training.
 
-===========================================================================================
+***
 
 ## Why and how we use logging
 In our project, we have implemented logging across various stages of our data pipeline. Each stage logs important events and statuses to ensure we have a clear and detailed record of the process. Here's a breakdown of how logging is implemented in our project:
@@ -348,7 +348,7 @@ Logging is a critical part of our data pipeline for several reasons:
 - Performance Analysis: By logging timestamps, we can measure the duration of different processes and identify bottlenecks in our data pipeline.
 - Communication: Logs serve as a means of communication among team members. They provide insights into the execution flow and status of different components, which is essential for collaborative development and troubleshooting. 
 
-===========================================================================================
+***
 
 ## Python API Tests
 This document describes the process for running unit tests on our Python API using GitHub Actions. The unit tests are designed to ensure that our API functions correctly and interacts properly with the database and prediction service.
@@ -383,7 +383,7 @@ The workflow uses the following environment variables:
 ### Summary
 This workflow ensures that our Python API is tested thoroughly before any changes are merged into key branches. By setting up a PostgreSQL database and a prediction service, we simulate the production environment to catch any potential issues early in the development process.
 
-===========================================================================================
+***
 
 ## Process of Retraining the Model 
 This document outlines the process of retraining our model using GitHub Actions and Docker Compose, and subsequently pushing the trained model to Docker Hub. The retraining process is scheduled to run daily.
@@ -408,7 +408,7 @@ The entrypoint script coordinates the execution order of services based on signa
 
 By following this process, we ensure that our model is retrained daily with the latest data and that the updated model is deployed to Docker Hub for further use.
 
-===========================================================================================
+***
 
 ## Condition for Model Update Based on Accuracy Improvement
 In the context of this project, the model training process involves evaluating the accuracy of the newly trained model against the current best model. Here's the condition that determines whether the new accuracy should trigger a model update and a Docker Hub push:
@@ -440,7 +440,7 @@ Users are informed through logs and messages that the model has been updated due
 
 This evaluation ensures that the model continuously improves based on the latest data, and significant accuracy improvements trigger updates to the production model as well as Docker Hub for deployment.
 
-===========================================================================================
+***
 
 ## MLFlow Integration for Local Model Tracking
 This project integrates MLFlow for local model tracking, enabling you to log model metrics and artifacts for better experiment management. The MLFlow tracking server runs locally and is demonstrated only on the localhost due to the lack of an external server URL.
@@ -477,5 +477,5 @@ The 'model_training.py' script has been updated to log model parameters, metrics
 
 By following these steps and understanding the MLFlow integration, you can effectively manage and track your machine learning experiments locally.
 
-===========================================================================================
+***
 
