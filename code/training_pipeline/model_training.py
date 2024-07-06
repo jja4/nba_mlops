@@ -13,6 +13,7 @@ import mlflow
 import mlflow.sklearn
 import dagshub
 import random
+import importlib.metadata as metadata
 
 project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 code_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -147,6 +148,13 @@ def main():
     Main function to train the model and save it.
     """
     logger.info("(4) Starting the model training process.")
+
+    # Print dagshub version
+    try:
+        dagshub_version = metadata.version('dagshub')
+        print(f"dagshub version: {dagshub_version}")
+    except metadata.PackageNotFoundError:
+        print("dagshub is not installed or its version cannot be determined.")
 
     # Path to the joblib file containing train and test datasets
     file_path = '../../' + Config.OUTPUT_TRAIN_TEST_JOBLIB_FILE
