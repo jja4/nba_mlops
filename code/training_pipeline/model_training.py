@@ -12,7 +12,6 @@ import json
 import mlflow
 import mlflow.sklearn
 import random
-import importlib.metadata as metadata
 
 project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 code_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
