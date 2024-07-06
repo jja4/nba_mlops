@@ -9,9 +9,9 @@ email_validator==2.1.1
 fastapi==0.111.0
 fastapi-cli==0.0.4
 h11==0.14.0
-httpcore==1.0.5
+httpcore>=0.15.0,<0.17.0
 httptools==0.6.1
-httpx==0.27.0
+httpx>=0.23.0,<0.28.0
 idna==3.7
 iniconfig==2.0.0
 Jinja2==3.1.4
@@ -40,7 +40,7 @@ python-multipart==0.0.9
 pytz==2024.1
 PyYAML==6.0.1
 requests==2.32.3
-rich==13.7.1
+rich>=13.1.0,<14.0.0
 scikit-learn==1.5.0
 scipy==1.13.1
 shellingham==1.5.4
