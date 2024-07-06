@@ -101,10 +101,7 @@ def train_model(file_path, output_base_filename, log_to_mlflow=True):
             break
         version += 1
 
-    # Initialize DagsHub logging for MLflow
-    dagshub.auth.login(username=os.getenv("DAGSHUB_USERNAME"), password=os.getenv("DAGSHUB_PASSWORD"))
-
-    # Extract just the filename without the path and extension for the run name
+    dagshub.init("nba_mlops", "joelaftreth", mlflow=True)
     run_name = os.path.splitext(os.path.basename(versioned_filename))[0]
 
     # "http://localhost:6001"
