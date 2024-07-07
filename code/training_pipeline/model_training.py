@@ -102,8 +102,9 @@ def train_model(file_path, output_base_filename, log_to_mlflow=True):
             break
         version += 1
 
-    #if log_to_mlflow:
-    #dagshub.init("nba_mlops", "joelaftreth", mlflow=True)
+    if log_to_mlflow:
+        dagshub.init("nba_mlops", "joelaftreth", mlflow=True)
+    
     print("MLFLOW_TRACKING_USERNAME:", os.getenv("MLFLOW_TRACKING_USERNAME"))
     print("MLFLOW_TRACKING_PASSWORD:", os.getenv("MLFLOW_TRACKING_PASSWORD"))
     # Extract just the filename without the path and extension for the run name
