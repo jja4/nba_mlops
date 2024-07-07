@@ -7,7 +7,7 @@ import logging
 project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 sys.path.insert(0, project_dir)
 
-from logger import logger
+from logs.logger import logger
 
 code_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, code_dir)

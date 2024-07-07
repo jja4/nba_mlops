@@ -15,12 +15,14 @@ import random
 import dagshub
 
 project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
-code_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_dir)
+
+from logs.logger import logger
+
+code_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, code_dir)
 
 from config.config import Config
-from logger import logger
 
 def load_best_metrics(metrics_file_path):
     """
