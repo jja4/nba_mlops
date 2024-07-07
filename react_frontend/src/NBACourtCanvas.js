@@ -3,8 +3,7 @@ import axios from 'axios';
 import nbaLogo from './nba_logo.png';
 
 
-
-// const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+//use AWS EC2 IP address or localhost when running locally
 const API_URL = 'http://13.48.249.166:8000' || 'http://localhost:8000';
 
 async function getToken(username, password) {
