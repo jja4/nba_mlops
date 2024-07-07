@@ -34,7 +34,8 @@ the model, the deployment of the model, and the monitoring of the model.
     │       ├── data_processing.py      <- Preprocessing
     │       ├── feature_engineering.py  <- Feature engineering
     │       ├── model_training.py       <- Model training, pushing to MlFlow and Docker Hub if needed
-    │       └── inference.py            <- Inference a new model
+    │       ├── inference.py            <- Inference a new model
+    |       └── best_model_metrics.json <- Saved best accuracy for trained models
     │   
     ├── data    <- Dataset for training pipeline
     |   ├── new_data            
@@ -70,8 +71,6 @@ the model, the deployment of the model, and the monitoring of the model.
     |
     ├── trained_models     <- Trained models with their version numbers and the date that they were created
     │   └── model_best_lr-v1-20240628.joblib    <- Trained model example
-    |
-    ├── best_model_metrics.json     <- Saved best accuracy for trained models
     |
     ├── grafana_setup        <- Monitoring api requests
     |   ├── dashboards
