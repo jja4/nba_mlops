@@ -102,6 +102,9 @@ def train_model(file_path, output_base_filename, log_to_mlflow=True):
         version += 1
 
     if log_to_mlflow:
+        # When we run it via github action, it gives an error: dagshub does not have init function.
+        # This is because github action's dagshub version is different.
+        # For github actions we use user-token env variables.
         dagshub.init("nba_mlops", "joelaftreth", mlflow=True)
     
     # Extract just the filename without the path and extension for the run name
