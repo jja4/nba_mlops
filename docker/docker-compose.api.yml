@@ -105,8 +105,9 @@ services:
     networks:
       - nba-network
     environment:
-      - REACT_APP_API_URL=http://api:8000 
-      - PORT=3001
+      # - REACT_APP_API_URL=http://13.48.249.166:8000
+      # - PORT=3001
+      # see react_frontend/src/.env to update ENV
     volumes:
       - ../react_frontend:/app
       - /app/node_modules
