@@ -499,6 +499,47 @@ This evaluation ensures that the model continuously improves based on the latest
 
 ===========================================================================================
 
+# DagsHub Integration
+This project utilizes DagsHub for collaborative machine learning and version control. DagsHub helps us manage our data, models, and experiments effectively.
+
+## DagsHub Setup
+To use DagsHub with this project, follow these steps:
+
+First, clone the repository from DagsHub to your local machine:
+```bash
+git clone https://dagshub.com/joelaftreth/nba_mlops.git
+cd nba_mlops
+```
+
+Ensure you have the DagsHub CLI installed. If not, install it using:
+```bash
+pip install dagshub
+```
+
+Initialize DagsHub in your project if you want to run it via python script `python3 model_training.py`:
+```bash
+import dagshub
+dagshub.init("nba_mlops", "joelaftreth", mlflow=True)
+```
+
+Add your DagsHub credentials to your environment variables in `docker-compose.yml` file:
+- MLFLOW_TRACKING_USERNAME=mihrandovlatyan
+- MLFLOW_TRACKING_PASSWORD=generated_token
+
+This project uses MLFlow for experiment tracking, which is integrated with DagsHub. Make sure the tracking URI is set correctly in your `model_training.py` script:
+
+`mlflow.set_tracking_uri("https://dagshub.com/joelaftreth/nba_mlops.mlflow")`
+
+You can run the MLOps pipeline using Docker Compose:
+```bash
+docker compose up --build
+```
+
+## Logging and Visualization
+DagsHub provides a comprehensive interface for visualizing your model training progress, metrics, and versioned artifacts. Navigate to your repository on DagsHub to explore these features.
+
+===========================================================================================
+
 # MLFlow Integration for Local Model Tracking
 This project integrates MLFlow for local model tracking, enabling you to log model metrics and artifacts for better experiment management. The MLFlow tracking server runs locally and is demonstrated only on the localhost due to the lack of an external server URL.
 
