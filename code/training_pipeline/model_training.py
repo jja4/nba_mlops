@@ -103,7 +103,15 @@ def train_model(file_path, output_base_filename, log_to_mlflow=True):
         version += 1
 
     #if log_to_mlflow:
-    dagshub.init("nba_mlops", "joelaftreth", mlflow=True)
+    #dagshub.init("nba_mlops", "joelaftreth", mlflow=True)
+    print("DAGSHUB_USER_NAME:", os.getenv("DAGSHUB_USER_NAME"))
+    print("DAGSHUB_API_TOKEN:", os.getenv("DAGSHUB_API_TOKEN"))
+    
+    dagshub.init(
+        repo_name="nba_mlops",
+        repo_owner="joelaftreth",
+        mlflow=True
+    )
     # Extract just the filename without the path and extension for the run name
     run_name = os.path.splitext(os.path.basename(versioned_filename))[0]
 
