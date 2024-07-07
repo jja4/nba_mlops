@@ -104,20 +104,15 @@ def train_model(file_path, output_base_filename, log_to_mlflow=True):
 
     #if log_to_mlflow:
     #dagshub.init("nba_mlops", "joelaftreth", mlflow=True)
-    print("DAGSHUB_USER_NAME:", os.getenv("DAGSHUB_USER_NAME"))
-    print("DAGSHUB_API_TOKEN:", os.getenv("DAGSHUB_API_TOKEN"))
-    
-    dagshub.init(
-        repo_name="nba_mlops",
-        repo_owner="joelaftreth",
-        mlflow=True
-    )
+    print("MLFLOW_TRACKING_USERNAME:", os.getenv("MLFLOW_TRACKING_USERNAME"))
+    print("MLFLOW_TRACKING_PASSWORD:", os.getenv("MLFLOW_TRACKING_PASSWORD"))
     # Extract just the filename without the path and extension for the run name
     run_name = os.path.splitext(os.path.basename(versioned_filename))[0]
 
     # Initialize MLFlow tracking
     #mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "http://localhost:6001"))  # MLFlow tracking server URI
     mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "https://dagshub.com/joelaftreth/nba_mlops.mlflow"))
+    #mlflow.set_tracking_uri(https://dagshub.com/<DagsHub-user-name>/<repository-name>.mlflow)
     mlflow.set_experiment("nba_shot_prediction")  # Experiment name
 
     with mlflow.start_run(run_name=run_name):
