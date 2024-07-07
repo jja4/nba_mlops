@@ -29,7 +29,7 @@ jobs:
         pip install pandas scikit-learn joblib
 
     - name: Generate new_data.csv
-      run: python generate_new_data.py
+      run: python code/generate_new_data/generate_new_data.py
 
     - name: Commit and push new_data.csv
       run: |

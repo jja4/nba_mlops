@@ -4,13 +4,13 @@ import pandas as pd
 import numpy as np
 
 # Adjust sys.path to include the 'project' directory
-project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__)))
-code_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'code'))
+project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+code_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_dir)
 sys.path.insert(0, code_dir)
 
 from config.config import Config
-from logger import logger
+from logs.logger import logger
 
 logger.info("Generating a new data is starting.")
 
