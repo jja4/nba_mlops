@@ -51,31 +51,28 @@ the model, the deployment of the model, and the monitoring of the model.
     │       └── NBA Shot Locations 1997 - 2020-original.csv         <- Big dataset, which used for generating a new small dataset
     │       └── NBA Shot Locations 1997 - 2020.csv                  <- Dataset for for starting training pipeline
     |
+    ├── docker  <- Holds all docker related files
+    |   ├── docker_notes.sh                 <- Provides commands to reset Docker and to check specific tables in a PostgreSQL
+    |   ├── docker-compose.api.yml          <- Interconnects multiple services via a custom network
+    |   ├── docker-compose.yml              <- Rans in a sequential order training pipeline containers
+    |   ├── Dockerfile.api                  <- API container
+    |   ├── Dockerfile.db                   <- Database container
+    |   ├── Dockerfile.prediction_service   <- Prediction service container
+    |   ├── Dockerfile.data_ingestion       <- Data ingestion container
+    |   ├── Dockerfile.data_processing      <- Data preprocessing container
+    |   ├── Dockerfile.feature_engineering  <- Fetaure engineering contrainer
+    |   ├── Dockerfile.model_training       <- Model training container
+    |   └── Dockerfile.inference            <- Inference container
+    |    
     ├── generate_new_data.py    <- Generates signal files for next running container
     |
-    ├── docker-compose.yml  <- Rans in a sequential order training pipeline containers
-    |
     ├── entrypoint.sh   <- Generates signal files for next running containers
-    |
-    ├── Dockerfile.data_ingestion       <- Data ingestion container
-    ├── Dockerfile.data_processing      <- Data preprocessing container
-    ├── Dockerfile.feature_engineering  <- Fetaure engineering contrainer
-    ├── Dockerfile.model_training       <- Model training container
-    ├── Dockerfile.inference            <- Inference container
     |
     ├── trained_models     <- Trained models with their version numbers and the date that they were created
     │   └── model_best_lr-v1-20240628.joblib    <- Trained model example
     |
     ├── best_model_metrics.json     <- Saved best accuracy for trained models
     |
-    ├── docker_notes.sh     <- Provides commands to reset Docker and to check specific tables in a PostgreSQL
-    |
-    ├── docker-compose.api.yml  <- Interconnects multiple services via a custom network
-    |
-    ├── Dockerfile.api                  <- API container
-    ├── Dockerfile.db                   <- Database container
-    ├── Dockerfile.prediction_service   <- Prediction service container
-    |    
     ├── grafana_setup        <- Monitoring api requests
     |   ├── dashboards
     │   |    └── nba_dashboard.json     <- Grafana dashboard data
@@ -194,7 +191,7 @@ the model, the deployment of the model, and the monitoring of the model.
 2. Navigate to the nba_mlops directory (cd path/to/nba_mlops) and execute:
 
 ```bash
-docker-compose -f docker-compose.api.yml up
+docker-compose -f docker/docker-compose.api.yml up
 ```
 
 3. To check if the users table exists, run the following code
@@ -368,7 +365,7 @@ Move to `nba_mlops` project main folder and run:
 docker compose up
 ```
 
-This will initiate the execution of the `docker-compose.yml` file, which in turn launches all Docker containers for the respective scripts.
+This will initiate the execution of the `docker-compose -f docker/docker-compose.yml up` file, which in turn launches all Docker containers for the respective scripts.
 
 ===========================================================================================
 
