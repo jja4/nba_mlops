@@ -50,7 +50,7 @@ jobs:
       
           # Check if there are changes in best_model_metrics.json
           git pull
-          if git diff --cached --quiet "best_model_metrics.json"; then
+          if git diff --cached --quiet "code/training_pipeline/best_model_metrics.json"; then
             echo "No changes to best_model_metrics.json"
             echo "changed=false" >> $GITHUB_OUTPUT
           else
