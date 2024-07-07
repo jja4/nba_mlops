@@ -154,6 +154,14 @@ the model, the deployment of the model, and the monitoring of the model.
 +---------------------------------------+
 
 +-------------------------------+
+|      DagsHub Integration      |
+|-------------------------------|
+| Model experiment data         |
+| is logged to DagsHub          |
+| server during github action   |
++-------------------------------+
+
++-------------------------------+
 |       MLFlow Integration      |
 |-------------------------------|
 | Model experiment data         |
