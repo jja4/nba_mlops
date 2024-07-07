@@ -105,8 +105,6 @@ the model, the deployment of the model, and the monitoring of the model.
     ├── LICENSE     <- The MIT License (MIT)
     └── README.md   <- The top-level README for developers using this project.
 
-***
-
 ===========================================================================================
 
 # Textual Architecture Diagram
