@@ -3,12 +3,12 @@ version: '3.8'
 services:
   data_ingestion:
     build:
-      context: .
-      dockerfile: Dockerfile.data_ingestion
+      context: ..
+      dockerfile: docker/Dockerfile.data_ingestion
     image: mihrando/data_ingestion:latest
     volumes:
-      - .:/app
-      - ./logs:/app/logs
+      - ..:/app
+      - ../logs:/app/logs
     depends_on: []
     environment:
       - WAIT_FOR_FILE=/app/signal_data_ingestion_done
@@ -16,12 +16,12 @@ services:
 
   data_processing:
     build:
-      context: .
-      dockerfile: Dockerfile.data_processing
+      context: ..
+      dockerfile: docker/Dockerfile.data_processing
     image: mihrando/data_processing:latest
     volumes:
-      - .:/app
-      - ./logs:/app/logs
+      - ..:/app
+      - ../logs:/app/logs
     depends_on:
       - data_ingestion
     environment:
@@ -30,12 +30,12 @@ services:
 
   feature_engineering:
     build:
-      context: .
-      dockerfile: Dockerfile.feature_engineering
+      context: ..
+      dockerfile: docker/Dockerfile.feature_engineering
     image: mihrando/feature_engineering:latest
     volumes:
-      - .:/app
-      - ./logs:/app/logs
+      - ..:/app
+      - ../logs:/app/logs
     depends_on:
       - data_processing
     environment:
@@ -44,12 +44,12 @@ services:
 
   model_training:
     build:
-      context: .
-      dockerfile: Dockerfile.model_training
+      context: ..
+      dockerfile: docker/Dockerfile.model_training
     image: mihrando/model_training:latest
     volumes:
-      - .:/app
-      - ./logs:/app/logs
+      - ..:/app
+      - ../logs:/app/logs
     depends_on:
       - feature_engineering
     environment:
@@ -61,12 +61,12 @@ services:
 
   inference:
     build:
-      context: .
-      dockerfile: Dockerfile.inference
+      context: ..
+      dockerfile: docker/Dockerfile.inference
     image: mihrando/inference:latest
     volumes:    
-      - .:/app
-      - ./logs:/app/logs
+      - ..:/app
+      - ../logs:/app/logs
     depends_on:
       - model_training
     environment:
