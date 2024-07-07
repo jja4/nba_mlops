@@ -117,6 +117,7 @@ Instrumentator().instrument(app).expose(app)
 origins = [
     "http://localhost:3001",
     "http://frontend:3001",  # origin for the React app
+    "http://13.48.249.166:3001" #AWS IP
 ]
 
 app.add_middleware(
