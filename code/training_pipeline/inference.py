@@ -2,8 +2,6 @@ import sys
 import os
 import pandas as pd
 from joblib import load
-from sklearn.model_selection import train_test_split
-import logging
 import glob
 
 # Adjust sys.path to include the 'project' directory

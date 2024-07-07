@@ -12,5 +12,6 @@ class Config:
     OUTPUT_PREPROCESSED_FILE = 'data/processed/NBA Shot Locations 1997 - 2020-processed.csv'    # preprocessed data
     OUTPUT_TRAIN_TEST_JOBLIB_FILE = 'data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib'   # Splitted data for training and testing
     OUTPUT_TRAINED_MODEL_FILE_LR = 'trained_models/model_best_lr'    # Trained Logistic Regression model file. We will skip joblib extension
+    OUTPUT_TRAINED_MODEL_FILE_LR_DISCARDED = 'trained_models/discarded/model_best_lr'    # Trained Logistic Regression model file which has not a good accuracy. We will skip joblib extension
     OUTPUT_PREDICTIONS_RESULTS_FILE = 'data/predictions/predictions.csv'  # Prediction results
     

@@ -717,3 +717,32 @@
 2024-07-05 10:36:58,137 - logger - INFO - ../../trained_models/model_best_lr-v2-20240705.joblib
 2024-07-05 10:36:58,137 - logger - INFO - Model training completed.
 2024-07-05 10:36:58,137 - logger - INFO - -----------------------------------
+2024-07-05 13:20:11,564 - logger - INFO - Custom logger module initialized.
+2024-07-05 13:20:11,564 - logger - INFO - ---------------------------------
+2024-07-05 13:20:11,566 - logger - INFO - (4) Starting the model training process.
+2024-07-05 13:20:37,278 - logger - INFO - Custom logger module initialized.
+2024-07-05 13:20:37,278 - logger - INFO - ---------------------------------
+2024-07-05 13:20:37,279 - logger - INFO - (4) Starting the model training process.
+2024-07-05 13:21:06,972 - logger - INFO - Custom logger module initialized.
+2024-07-05 13:21:06,972 - logger - INFO - ---------------------------------
+2024-07-05 13:21:06,973 - logger - INFO - (4) Starting the model training process.
+2024-07-05 13:23:32,380 - logger - INFO - Custom logger module initialized.
+2024-07-05 13:23:32,380 - logger - INFO - ---------------------------------
+2024-07-05 13:23:32,380 - logger - INFO - (4) Starting the model training process.
+2024-07-05 13:23:33,591 - logger - INFO - Model file data saved in discarded folder.
+2024-07-05 13:23:33,592 - logger - INFO - ../../trained_models/discarded/model_best_lr-v1-20240705.joblib
+2024-07-05 13:23:33,592 - logger - INFO - Model training completed.
+2024-07-05 13:23:33,592 - logger - INFO - -----------------------------------
+2024-07-05 14:39:46,838 - logger - INFO - Custom logger module initialized.
+2024-07-05 14:39:46,838 - logger - INFO - ---------------------------------
+2024-07-05 14:39:46,838 - logger - INFO - (4) Starting the model training process.
+2024-07-05 14:40:44,973 - logger - INFO - Custom logger module initialized.
+2024-07-05 14:40:44,973 - logger - INFO - ---------------------------------
+2024-07-05 14:40:44,973 - logger - INFO - (4) Starting the model training process.
+2024-07-05 14:40:45,232 - dagshub - INFO - Accessing as mihrandovlatyan
+2024-07-05 14:40:45,517 - dagshub - INFO - Initialized MLflow to track repo "joelaftreth/nba_mlops"
+2024-07-05 14:40:45,518 - dagshub - INFO - Repository joelaftreth/nba_mlops initialized!
+2024-07-05 14:40:56,533 - logger - INFO - Model file data saved in discarded folder.
+2024-07-05 14:40:56,533 - logger - INFO - ../../trained_models/discarded/model_best_lr-v1-20240705.joblib
+2024-07-05 14:40:56,534 - logger - INFO - Model training completed.
+2024-07-05 14:40:56,534 - logger - INFO - -----------------------------------

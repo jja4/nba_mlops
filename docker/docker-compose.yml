@@ -56,6 +56,8 @@ services:
       - WAIT_FOR_FILE=/app/signal_model_training_done
       - WAIT_FOR_PREV_FILE=/app/signal_feature_engineering_done
       - LOG_TO_MLFLOW=false  # Disable MLFlow logging in Docker Compose
+      - MLFLOW_TRACKING_USERNAME=mihrandovlatyan
+      - MLFLOW_TRACKING_PASSWORD=96e4b203f8905586136bc84272ba497374583499
 
   inference:
     build:

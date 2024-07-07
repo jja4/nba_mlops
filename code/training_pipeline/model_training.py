@@ -12,17 +12,42 @@ import json
 import mlflow
 import mlflow.sklearn
 import random
+import dagshub
 
-# Adjust sys.path to include the 'project' directory
 project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
-sys.path.insert(0, project_dir)
-
-from logger import logger
-
 code_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, project_dir)
 sys.path.insert(0, code_dir)
 
 from config.config import Config
+from logger import logger
+
+def load_best_metrics(metrics_file_path):
+    """
+    Load the best metrics from the specified file.
+    
+    Parameters:
+    metrics_file_path (str): Path to the file containing the best metrics.
+    
+    Returns:
+    dict: Dictionary containing the best metrics.
+    """
+    if os.path.exists(metrics_file_path):
+        with open(metrics_file_path, 'r') as f:
+            return json.load(f)
+    else:
+        return {'accuracy': 0}
+
+def save_metrics(metrics_file_path, metrics):
+    """
+    Save the given metrics to the specified file.
+    
+    Parameters:
+    metrics_file_path (str): Path to the file where the metrics will be saved.
+    metrics (dict): Dictionary containing the metrics to save.
+    """
+    with open(metrics_file_path, 'w') as f:
+        json.dump(metrics, f)
 
 def train_model(file_path, output_base_filename, log_to_mlflow=True):
     """
@@ -77,25 +102,32 @@ def train_model(file_path, output_base_filename, log_to_mlflow=True):
         version += 1
 
     if log_to_mlflow:
-        # Extract just the filename without the path and extension for the run name
-        run_name = os.path.splitext(os.path.basename(versioned_filename))[0]
+        # When we run it via github action, it gives an error: dagshub does not have init function.
+        # This is because github action's dagshub version is different.
+        # For github actions we use user-token env variables.
+        dagshub.init("nba_mlops", "joelaftreth", mlflow=True)
+    
+    # Extract just the filename without the path and extension for the run name
+    run_name = os.path.splitext(os.path.basename(versioned_filename))[0]
 
-        # Initialize MLFlow tracking
-        mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "http://localhost:6001"))  # MLFlow tracking server URI
-        mlflow.set_experiment("nba_shot_prediction")  # Experiment name
+    # Initialize MLFlow tracking
+    #mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "http://localhost:6001"))  # MLFlow tracking server URI
+    mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "https://dagshub.com/joelaftreth/nba_mlops.mlflow"))
+    #mlflow.set_tracking_uri(https://dagshub.com/<DagsHub-user-name>/<repository-name>.mlflow)
+    mlflow.set_experiment("nba_shot_prediction")  # Experiment name
 
-        with mlflow.start_run(run_name=run_name):
-            # Log parameters
-            mlflow.log_param("model_type", "LogisticRegression")
-            mlflow.log_param("solver", solver)
-            mlflow.log_param("C", C)
-            mlflow.log_param("max_iter", max_iter)
+    with mlflow.start_run(run_name=run_name):
+        # Log parameters
+        mlflow.log_param("model_type", "LogisticRegression")
+        mlflow.log_param("solver", solver)
+        mlflow.log_param("C", C)
+        mlflow.log_param("max_iter", max_iter)
 
-            # Log metrics
-            mlflow.log_metric("accuracy", accuracy)
+        # Log metrics
+        mlflow.log_metric("accuracy", accuracy)
 
-            # Log the trained model
-            mlflow.sklearn.log_model(model, "model")
+        # Log the trained model
+        mlflow.sklearn.log_model(model, "model")
 
     return model, accuracy, versioned_filename
 
@@ -106,6 +138,17 @@ def generate_versioned_filename(base_filename, version):
     """
     current_date = datetime.datetime.now().strftime('%Y%m%d')
     return f"{base_filename}-v{version}-{current_date}.joblib"
+
+def ensure_directory_exists(file_path):
+    """
+    Ensure the directory for the specified file path exists.
+    
+    Parameters:
+    file_path (str): The file path for which the directory should be ensured.
+    """
+    directory = os.path.dirname(file_path)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
 def main():
     """
@@ -119,35 +162,44 @@ def main():
     # Base filename for the output model file
     base_output_file_path = '../../' + Config.OUTPUT_TRAINED_MODEL_FILE_LR
 
+    # Base filename for the discarded model file
+    discarded_output_file_path = '../../' + Config.OUTPUT_TRAINED_MODEL_FILE_LR_DISCARDED
+
     # Train the logistic regression model
     log_to_mlflow = os.getenv("LOG_TO_MLFLOW", "true").lower() == "true"
     model, new_accuracy, versioned_filename = train_model(file_path, base_output_file_path, log_to_mlflow)
     
     metrics_file = '../../best_model_metrics.json'
     
-    if os.path.exists(metrics_file):
-        with open(metrics_file, 'r') as f:
-            best_metrics = json.load(f)
-        best_accuracy = best_metrics.get('accuracy', 0)
-    else:
-        best_accuracy = 0
+    # Load the best accuracy from metrics file
+    best_metrics = load_best_metrics(metrics_file)
+    best_accuracy = best_metrics.get('accuracy', 0)
 
     # Print new accuracy
     print(f"New Accuracy: {new_accuracy}")
     print(f"Best current Accuracy: {best_accuracy}")
 
-    dump(model, versioned_filename)
-    logger.info("Model file data saved successfully.")
-    logger.info(versioned_filename)
-
     if new_accuracy > best_accuracy:
+        # Save the model to the original path
+        ensure_directory_exists(versioned_filename)
+        dump(model, versioned_filename)
+        logger.info("Model file data saved successfully.")
+        logger.info(versioned_filename)
+
+        # Save new metrics as the best metrics
         new_metrics = {'accuracy': new_accuracy}
-        with open(metrics_file, 'w') as f:
-            json.dump(new_metrics, f)
+        save_metrics(metrics_file, new_metrics)
 
         # Create the signal file indicating a new model version
         open('../../signal_new_model_version', 'w').close()
         print("Creating signal file /app/signal_new_model_version...")
+    else:
+        # Save the model to the discarded path
+        discarded_filename = generate_versioned_filename(discarded_output_file_path, 1)
+        ensure_directory_exists(discarded_filename)
+        dump(model, discarded_filename)
+        logger.info("Model file data saved in discarded folder.")
+        logger.info(discarded_filename)
     
     # Always create this signal file at the end of model training
     open('signal_model_training_done', 'w').close()
