@@ -46,7 +46,7 @@ jobs:
           git add "data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib"
           git add "data/raw/NBA Shot Locations 1997 - 2020.csv"
           git add "trained_models/*.joblib"  # Add all versioned model files
-          git add "best_model_metrics.json"  # Add metrics file
+          git add "code/training_pipeline/best_model_metrics.json"  # Add metrics file
       
           # Check if there are changes in best_model_metrics.json
           git pull

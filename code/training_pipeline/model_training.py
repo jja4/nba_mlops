@@ -175,7 +175,7 @@ def main():
     log_to_mlflow = os.getenv("LOG_TO_MLFLOW", "true").lower() == "true"
     model, new_accuracy, versioned_filename = train_model(file_path, base_output_file_path, log_to_mlflow)
     
-    metrics_file = '../../best_model_metrics.json'
+    metrics_file = 'best_model_metrics.json'
     
     # Load the best accuracy from metrics file
     best_metrics = load_best_metrics(metrics_file)
