@@ -3,8 +3,8 @@ version: '3.8'
 services:
   data_ingestion:
     build:
-      context: ..
-      dockerfile: docker/Dockerfile.data_ingestion
+      context: .
+      dockerfile: Dockerfile.data_ingestion
     image: mihrando/data_ingestion:latest
     volumes:
       - .:/app
@@ -16,8 +16,8 @@ services:
 
   data_processing:
     build:
-      context: ..
-      dockerfile: docker/Dockerfile.data_processing
+      context: .
+      dockerfile: Dockerfile.data_processing
     image: mihrando/data_processing:latest
     volumes:
       - .:/app
@@ -30,8 +30,8 @@ services:
 
   feature_engineering:
     build:
-      context: ..
-      dockerfile: docker/Dockerfile.feature_engineering
+      context: .
+      dockerfile: Dockerfile.feature_engineering
     image: mihrando/feature_engineering:latest
     volumes:
       - .:/app
@@ -44,8 +44,8 @@ services:
 
   model_training:
     build:
-      context: ..
-      dockerfile: docker/Dockerfile.model_training
+      context: .
+      dockerfile: Dockerfile.model_training
     image: mihrando/model_training:latest
     volumes:
       - .:/app
@@ -61,8 +61,8 @@ services:
 
   inference:
     build:
-      context: ..
-      dockerfile: docker/Dockerfile.inference
+      context: .
+      dockerfile: Dockerfile.inference
     image: mihrando/inference:latest
     volumes:    
       - .:/app

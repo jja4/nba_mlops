@@ -101,6 +101,12 @@ def train_model(file_path, output_base_filename, log_to_mlflow=True):
             break
         version += 1
 
+    # Suppress GitPython warning
+    os.environ["GIT_PYTHON_REFRESH"] = "quiet"
+
+    # Set path to git executable if not in PATH
+    os.environ["GIT_PYTHON_GIT_EXECUTABLE"] = "/usr/bin/git"
+
     if log_to_mlflow:
         # When we run it via github action, it gives an error: dagshub does not have init function.
         # This is because github action's dagshub version is different.
