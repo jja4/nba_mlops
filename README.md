@@ -308,7 +308,7 @@ SELECT id, prediction, user_verification FROM predictions;
 ```
 7. Click "Execute", in the Response body, you should see a "message": "Prediction_id:13 verified successfully"
 
-# How to Use the `docker compose up`
+## How to Use the `docker compose up`
 Move to `nba_mlops` project main folder and run:
 ```bash
 docker compose up
