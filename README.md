@@ -28,6 +28,9 @@ the model, the deployment of the model, and the monitoring of the model.
     │   │
     │   ├── database        <- Databse for use in this project.
     │   │   └── init.sql    <- INitialising databases
+    |   |
+    │   ├── generate_new_data
+    │   │   └── generate_new_data.py    <- Generates signal files for next running container
     │   │
     │   └── training_pipeline           <- Scripts to run training pipeline  
     │       ├── data_ingestion.py       <- Data ingestion from generated new data
@@ -63,14 +66,13 @@ the model, the deployment of the model, and the monitoring of the model.
     |   ├── Dockerfile.data_processing      <- Data preprocessing container
     |   ├── Dockerfile.feature_engineering  <- Fetaure engineering contrainer
     |   ├── Dockerfile.model_training       <- Model training container
-    |   └── Dockerfile.inference            <- Inference container
-    |    
-    ├── generate_new_data.py    <- Generates signal files for next running container
+    |   ├── Dockerfile.inference            <- Inference container
+    |   └── entrypoint.sh                   <- Generates signal files for next running containers
     |
-    ├── entrypoint.sh   <- Generates signal files for next running containers
-    |
-    ├── trained_models     <- Trained models with their version numbers and the date that they were created
-    │   └── model_best_lr-v1-20240628.joblib    <- Trained model example
+    ├── trained_models      <- Trained models with their version numbers and the date that they were created
+    │   ├── model_best_lr-v1-20240628.joblib    <- Trained model example
+    |   └── discarded       <- Keeps discarded (not improved) trained model versions
+    |        └── model_best_lr-v1-20240705.joblib   <- Discarded file example
     |
     ├── grafana_setup        <- Monitoring api requests
     |   ├── dashboards

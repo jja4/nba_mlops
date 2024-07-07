@@ -104,6 +104,9 @@ jobs:
             ["inference"]=$DOCKERHUB_USERNAME/inference
           )
 
+          # Navigate to the directory containing docker-compose.yml
+          cd docker
+
           # Build, tag, and push each service image
           for service in "${!services_images[@]}"; do
             IMAGE_NAME=${services_images[$service]}

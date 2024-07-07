@@ -6,7 +6,7 @@ import time
 os.environ['TZ'] = 'Europe/Berlin'
 time.tzset()
 
-project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__)))
+project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 nba_logs_dir = os.path.join(project_dir, "logs")
 
 # Set the path for the logs directory
