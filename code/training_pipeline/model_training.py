@@ -105,8 +105,6 @@ def train_model(file_path, output_base_filename, log_to_mlflow=True):
     if log_to_mlflow:
         dagshub.init("nba_mlops", "joelaftreth", mlflow=True)
     
-    print("MLFLOW_TRACKING_USERNAME:", os.getenv("MLFLOW_TRACKING_USERNAME"))
-    print("MLFLOW_TRACKING_PASSWORD:", os.getenv("MLFLOW_TRACKING_PASSWORD"))
     # Extract just the filename without the path and extension for the run name
     run_name = os.path.splitext(os.path.basename(versioned_filename))[0]
 
@@ -155,13 +153,6 @@ def main():
     Main function to train the model and save it.
     """
     logger.info("(4) Starting the model training process.")
-
-        # Print dagshub version
-    try:
-        dagshub_version = metadata.version('dagshub')
-        print(f"dagshub version: {dagshub_version}")
-    except metadata.PackageNotFoundError:
-        print("dagshub is not installed or its version cannot be determined.")
 
     # Path to the joblib file containing train and test datasets
     file_path = '../../' + Config.OUTPUT_TRAIN_TEST_JOBLIB_FILE
