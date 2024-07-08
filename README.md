@@ -109,6 +109,7 @@ the model, the deployment of the model, and the monitoring of the model.
 ***
 ## Textual Architecture Diagram
 
+![NBA MLOps Architecture Diagram](https://github.com/jja4/nba_mlops/blob/main/reports/figures/NBA_architecture.png)
 +-----------------------------------+
 |       GitHub Actions              |
 |-----------------------------------|
@@ -217,6 +218,8 @@ SELECT id, prediction, user_verification FROM predictions;
 
 ## Using the App
 
+![FastApi GUI](https://github.com/jja4/nba_mlops/blob/main/reports/images/FastAPI_screenshot.png)
+
 1. Open http://localhost:8000/docs.
 
 2. Navigate to "POST /signup"
@@ -286,7 +289,6 @@ SELECT id, prediction, user_verification FROM predictions;
 ```
 11. Click "Execute" and view the prediction (0 or 1) in the Response body
 
-***
 
 ## Verifying previous predictions
 
@@ -308,6 +310,32 @@ SELECT id, prediction, user_verification FROM predictions;
 }
 ```
 7. Click "Execute", in the Response body, you should see a "message": "Prediction_id:13 verified successfully"
+
+## Using Grafana to Monitor the App
+
+![Grafana GUI](https://github.com/jja4/nba_mlops/blob/main/reports/images/Grafana_screenshot.png)
+
+1. Open http://localhost:3000
+
+2. Navigate to hamburger menu on the top left (three horizontal lines)
+
+3. Click "Dashboards", then click on "nba_dashboard" from the list
+
+4. The top row monitors HTTP requests, Inference Time, and the Status of the Gateway API
+
+5. The bottom row monitors the PostgreQSL database: the number of users, number of predictions, and number of verified predictions.
+
+## Using React to Interact with the ML model
+
+![React GUI](https://github.com/jja4/nba_mlops/blob/main/reports/images/React_screenshot.png)
+
+1. Open http://localhost:3001
+
+2. Click on the basketball court to input a position for the NBA player to shoot from
+
+3. View the prediction from the ML model if the player will make or miss the shot
+
+***
 
 ## How to Use the `docker compose up`
 Move to `nba_mlops` project main folder and run:
