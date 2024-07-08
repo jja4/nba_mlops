@@ -68,6 +68,7 @@ services:
       - ../prometheus_setup/alerting_rules.yml:/etc/prometheus/alerting_rules.yml
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.retention.time=1d'
     networks:
       - nba-network
 
@@ -79,6 +80,8 @@ services:
       - grafana_data:/var/lib/grafana
       - ../grafana_setup/dashboards:/etc/grafana/dashboards
       - ../grafana_setup/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_LOG_MAX_DAYS=1
     networks:
       - nba-network
   
@@ -104,10 +107,10 @@ services:
       - api
     networks:
       - nba-network
-    environment:
-      # - REACT_APP_API_URL=http://13.48.249.166:8000
-      # - PORT=3001
-      # see react_frontend/src/.env to update ENV
+    # environment:
+    #   - REACT_APP_API_URL=http://13.48.249.166:8000
+    #   - PORT=3001
+    # see react_frontend/src/.env to update ENV
     volumes:
       - ../react_frontend:/app
       - /app/node_modules
