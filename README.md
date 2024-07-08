@@ -325,7 +325,7 @@ Move to the `nba_mlops` project folder and run:
 docker-compose -f docker/docker-compose.yml up
 ```
 
-This will initiate the execution of the `docker-compose.yml up` file, which in turn launches all Docker containers for the training pipeline.
+This will initiate the execution of the `docker-compose.yml` file, which in turn launches all Docker containers for the training pipeline.
 
 ***
 
