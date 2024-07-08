@@ -130,7 +130,11 @@ the model, the deployment of the model, and the monitoring of the model.
 docker-compose -f docker/docker-compose.api.yml up
 ```
 
-3. To check if the users table exists, run the following code
+3. To check if the users table exists, first let's find the name of the database container:
+```bash
+docker container ls
+```
+4. Then use the `nba_mlops_db_1`, or similar, container name in the following:
 ```bash
 docker exec -it nba_mlops_db_1 psql -U ubuntu -d nba_db
 # enter the password 'mlops' if requested
@@ -267,13 +271,13 @@ SELECT id, prediction, user_verification FROM predictions;
 ## Configure and Test Alerts when the API shuts down
 
 ### Configure
-1. In the codebase, open nba_mlops/alertmanager/alertmanager.yml
+1. In the codebase, open `nba_mlops/alertmanager/alertmanager.yml`
 
-2. In the "global" header, replace "slack_api_url: 'URL/to/slack/hooks'" with a functional webhook for slack. Set one up here for you slack channel (https://api.slack.com/messaging/webhooks)
+2. In the "global" header, replace `slack_api_url: 'URL/to/slack/hooks'` with a functional webhook for slack. Set one up here for you slack channel (https://api.slack.com/messaging/webhooks)
 
-3. In the "receivers" header, update "- channel: '#may24_bmlops_int_nba'" with your channel name as well.
+3. In the "receivers" header, update `- channel: '#may24_bmlops_int_nba'` with your channel name as well.
 
-4. For email notifications, in the "receivers" header, replace "- to: 'fake@gmail.com'" with your email.
+4. For email notifications, in the "receivers" header, replace `- to: 'fake@gmail.com'` with your email.
 
 ### Test
 1. Make sure docker-compose already up and running 
@@ -292,6 +296,27 @@ docker container stop docker-api-1
 ```bash
 docker container start docker-api-1
 ``` 
+***
+## Deploying to AWS EC2
+
+The app has been delpoyed to an EC2 instance, virtual machine, on AWS. 
+To utilize the Free-Tier of AWS, a t3.micro virtual machine was chosen, using 16GB of Elastic Block Storage.
+These links can be followed to see the AWS hosted version of the app, at least temporarily.
+
+FastAPI
+(http://13.48.249.166:8000/docs)
+
+Grafana Monitoring
+(http://13.48.249.166:3000)
+u: Admin
+p: Admin
+
+React Frontend
+(http://13.48.249.166:3001)
+
+The AWS Security Group was configured with these Inbound rules:
+![AWS Security Group](https://github.com/jja4/nba_mlops/blob/main/reports/images/AWS_SecurityGroup_screenshot.png)
+
 ***
 
 ## How to Run the Model Training Pipeline
