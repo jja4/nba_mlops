@@ -11,6 +11,7 @@ project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..
 # Construct the path to the 'trained_models' directory
 trained_models_dir = os.path.join(project_root, 'trained_models')
 
+
 def find_latest_versioned_model(base_filename):
     """
     Find the latest versioned model file based on base_filename.
@@ -18,12 +19,13 @@ def find_latest_versioned_model(base_filename):
     """
     search_pattern = f"{base_filename}-v*-*.joblib"
     files = glob.glob(os.path.join(trained_models_dir, search_pattern))
-    
+
     if not files:
         raise FileNotFoundError(f"No model files found with pattern '{search_pattern}'")
-    
+
     latest_file = max(files, key=os.path.getctime)
     return latest_file
+
 
 # Specify the base filename of the trained model
 base_joblib_filename = 'model_best_lr'
@@ -87,6 +89,7 @@ class ScoringItem(BaseModel):
     Day: int
     Day_of_Week: int
 
+
 @app.post('/predict')
 async def predict(input_data: ScoringItem):
     """
@@ -107,7 +110,7 @@ async def predict(input_data: ScoringItem):
         "Shot_Distance": "Shot Distance",
         "X_Location": "X Location",
         "Y_Location": "Y Location",
-        #"Shot_Made_Flag": "Shot Made Flag",
+        # "Shot_Made_Flag": "Shot Made Flag",
         "Action_Type_Frequency": "Action Type_Frequency",
         "Team_Name_Frequency": "Team Name_Frequency",
         "Home_Team_Frequency": "Home Team_Frequency",
@@ -146,4 +149,3 @@ async def predict(input_data: ScoringItem):
     yhat = model.predict(df)
     # Return the prediction as an answer
     return {"prediction": int(yhat.item())}
-

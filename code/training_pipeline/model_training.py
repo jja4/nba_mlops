@@ -1,9 +1,6 @@
 import warnings
-warnings.filterwarnings("ignore", category=UserWarning, message="Setuptools is replacing distutils.")
-
 import sys
 import os
-import pandas as pd
 from sklearn import linear_model
 from sklearn.metrics import accuracy_score
 from joblib import load, dump
@@ -14,23 +11,25 @@ import mlflow.sklearn
 import random
 import dagshub
 
+warnings.filterwarnings("ignore", category=UserWarning, message="Setuptools is replacing distutils.")
+
 project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 sys.path.insert(0, project_dir)
-
-from logs.logger import logger
 
 code_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, code_dir)
 
+from logs.logger import logger
 from config.config import Config
+
 
 def load_best_metrics(metrics_file_path):
     """
     Load the best metrics from the specified file.
-    
+
     Parameters:
     metrics_file_path (str): Path to the file containing the best metrics.
-    
+
     Returns:
     dict: Dictionary containing the best metrics.
     """
@@ -40,16 +39,18 @@ def load_best_metrics(metrics_file_path):
     else:
         return {'accuracy': 0}
 
+
 def save_metrics(metrics_file_path, metrics):
     """
     Save the given metrics to the specified file.
-    
+
     Parameters:
     metrics_file_path (str): Path to the file where the metrics will be saved.
     metrics (dict): Dictionary containing the metrics to save.
     """
     with open(metrics_file_path, 'w') as f:
         json.dump(metrics, f)
+
 
 def train_model(file_path, output_base_filename, log_to_mlflow=True):
     """
@@ -87,14 +88,14 @@ def train_model(file_path, output_base_filename, log_to_mlflow=True):
 
     # Fit the model to the training data
     model.fit(X_train, y_train)
-    
+
     # Predict the target variable for the test set
     predictions = model.predict(X_test)
 
     # Calculate accuracy of the model
     accuracy = accuracy_score(y_test, predictions)
     print(f"Model Accuracy: {accuracy}")
-    
+
     # Generate versioned filename
     version = 1
     while True:
@@ -114,14 +115,14 @@ def train_model(file_path, output_base_filename, log_to_mlflow=True):
         # This is because github action's dagshub version is different.
         # For github actions we use user-token env variables.
         dagshub.init("nba_mlops", "joelaftreth", mlflow=True)
-    
+
     # Extract just the filename without the path and extension for the run name
     run_name = os.path.splitext(os.path.basename(versioned_filename))[0]
 
     # Initialize MLFlow tracking
-    #mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "http://localhost:6001"))  # MLFlow tracking server URI
+    # mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "http://localhost:6001"))  # MLFlow tracking server URI
     mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "https://dagshub.com/joelaftreth/nba_mlops.mlflow"))
-    #mlflow.set_tracking_uri(https://dagshub.com/<DagsHub-user-name>/<repository-name>.mlflow)
+    # mlflow.set_tracking_uri(https://dagshub.com/<DagsHub-user-name>/<repository-name>.mlflow)
     mlflow.set_experiment("nba_shot_prediction")  # Experiment name
 
     with mlflow.start_run(run_name=run_name):
@@ -139,6 +140,7 @@ def train_model(file_path, output_base_filename, log_to_mlflow=True):
 
     return model, accuracy, versioned_filename
 
+
 def generate_versioned_filename(base_filename, version):
     """
     Generate a versioned filename based on base_filename, version number, and current date.
@@ -147,16 +149,18 @@ def generate_versioned_filename(base_filename, version):
     current_date = datetime.datetime.now().strftime('%Y%m%d')
     return f"{base_filename}-v{version}-{current_date}.joblib"
 
+
 def ensure_directory_exists(file_path):
     """
     Ensure the directory for the specified file path exists.
-    
+
     Parameters:
     file_path (str): The file path for which the directory should be ensured.
     """
     directory = os.path.dirname(file_path)
     if not os.path.exists(directory):
         os.makedirs(directory)
+
 
 def main():
     """
@@ -176,9 +180,9 @@ def main():
     # Train the logistic regression model
     log_to_mlflow = os.getenv("LOG_TO_MLFLOW", "true").lower() == "true"
     model, new_accuracy, versioned_filename = train_model(file_path, base_output_file_path, log_to_mlflow)
-    
+
     metrics_file = 'best_model_metrics.json'
-    
+
     # Load the best accuracy from metrics file
     best_metrics = load_best_metrics(metrics_file)
     best_accuracy = best_metrics.get('accuracy', 0)
@@ -208,12 +212,13 @@ def main():
         dump(model, discarded_filename)
         logger.info("Model file data saved in discarded folder.")
         logger.info(discarded_filename)
-    
+
     # Always create this signal file at the end of model training
     open('signal_model_training_done', 'w').close()
-    
+
     logger.info("Model training completed.")
     logger.info("-----------------------------------")
+
 
 if __name__ == "__main__":
     main()

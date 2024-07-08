@@ -1,6 +1,5 @@
 from datetime import datetime, timedelta, timezone
 from typing import Union, Optional
-
 import jwt
 from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
@@ -117,7 +116,7 @@ Instrumentator().instrument(app).expose(app)
 origins = [
     "http://localhost:3001",
     "http://frontend:3001",  # origin for the React app
-    "http://13.48.249.166:3001" #AWS IP
+    "http://13.48.249.166:3001"  # AWS IP
 ]
 
 app.add_middleware(
@@ -151,7 +150,8 @@ class UserInDB(User):
 def get_user(username: str):
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute("SELECT username, hashed_password, disabled FROM users WHERE username = %s", (username,))
+    cur.execute("SELECT username, hashed_password, disabled FROM users WHERE username = %s",
+                (username,))
     user = cur.fetchone()
     cur.close()
     conn.close()
@@ -212,6 +212,7 @@ async def authorize_user(
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
 
+
 # Root endpoint
 @app.get("/")
 async def root():
@@ -222,6 +223,7 @@ async def root():
         dict: A message indicating the welcome message.
     """
     return {"message": "Welcome to the NBA prediction API!"}
+
 
 @app.post("/login")
 async def login_for_access_token(
@@ -334,13 +336,14 @@ async def predict(
         finally:
             cur.close()
             conn.close()
-            
+
             return response.json()
 
 
 class VerificationInput(BaseModel):
     prediction_id: Optional[int] = None
     true_value: int
+
 
 @app.get("/verify_random_prediction")
 async def get_random_prediction(
@@ -351,17 +354,17 @@ async def get_random_prediction(
     try:
         cur.execute("""
             SELECT id, prediction, input_parameters, timestamp
-            FROM predictions 
+            FROM predictions
             WHERE user_verification IS NULL
             ORDER BY RANDOM()
             LIMIT 1
             FOR UPDATE SKIP LOCKED
         """)
         prediction = cur.fetchone()
-        
+
         if not prediction:
             return {"message": "No unverified predictions available"}
-            
+
         response = {
             "prediction_id": prediction['id'],
             "model_prediction": prediction['prediction'],
@@ -369,13 +372,14 @@ async def get_random_prediction(
             "input_parameters": json.loads(prediction['input_parameters'])
             if isinstance(prediction['input_parameters'], str) else prediction['input_parameters']
         }
-        
+
         return response
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     finally:
         cur.close()
         conn.close()
+
 
 @app.post("/verify_random_prediction")
 async def verify_prediction(
@@ -388,16 +392,16 @@ async def verify_prediction(
     try:
         cur.execute("SELECT * FROM predictions WHERE id = %s", (verification.prediction_id,))
         prediction = cur.fetchone()
-        
+
         if not prediction:
             raise HTTPException(status_code=404, detail="Prediction not found")
-        
+
         cur.execute(
             "UPDATE predictions SET user_verification = %s WHERE id = %s",
             (verification.true_value, verification.prediction_id)
         )
         conn.commit()
-        
+
         return {"message": f"Prediction_id:{verification.prediction_id} verified successfully"}
     except Exception as e:
         conn.rollback()

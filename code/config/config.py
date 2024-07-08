@@ -8,10 +8,10 @@ class Config:
 
     NEW_DATA_FILE = 'data/new_data/new_data.csv'    # contains fresh new data
     ORIGINAL_BIG_DATA_FILE = 'data/raw/NBA Shot Locations 1997 - 2020-original.csv'  # original big data
-    OUTPUT_RAW_FILE = 'data/raw/NBA Shot Locations 1997 - 2020.csv' # validated data
+    OUTPUT_RAW_FILE = 'data/raw/NBA Shot Locations 1997 - 2020.csv'  # validated data
     OUTPUT_PREPROCESSED_FILE = 'data/processed/NBA Shot Locations 1997 - 2020-processed.csv'    # preprocessed data
     OUTPUT_TRAIN_TEST_JOBLIB_FILE = 'data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib'   # Splitted data for training and testing
     OUTPUT_TRAINED_MODEL_FILE_LR = 'trained_models/model_best_lr'    # Trained Logistic Regression model file. We will skip joblib extension
-    OUTPUT_TRAINED_MODEL_FILE_LR_DISCARDED = 'trained_models/discarded/model_best_lr'    # Trained Logistic Regression model file which has not a good accuracy. We will skip joblib extension
+    # Trained Logistic Regression model file which has not an improved accuracy. We will skip joblib extension
+    OUTPUT_TRAINED_MODEL_FILE_LR_DISCARDED = 'trained_models/discarded/model_best_lr'
     OUTPUT_PREDICTIONS_RESULTS_FILE = 'data/predictions/predictions.csv'  # Prediction results
-    

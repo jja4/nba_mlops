@@ -1,14 +1,8 @@
-import sys
-import os
 import unittest
 import pandas as pd
+from training_pipeline.data_processing import clean_data, transform_data, frequency_encode_column, transform_attributes_with_high_cardinality
+from training_pipeline.data_processing import transform_quantitative_attributes_with_unique_ids, one_hot_encoding
 
-# Adjust sys.path to include the 'project' directory
-# This allows the script to find and import the Config module
-project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.insert(0, project_dir)
-
-from training_pipeline.data_processing import clean_data, transform_data, frequency_encode_column, transform_attributes_with_high_cardinality, transform_quantitative_attributes_with_unique_ids, one_hot_encoding
 
 class TestDataPreprocessing(unittest.TestCase):
 
@@ -53,6 +47,7 @@ class TestDataPreprocessing(unittest.TestCase):
         transformed_data = one_hot_encoding(self.data)
         self.assertNotIn('Shot Type', transformed_data.columns)  # Check if columns are dropped
         self.assertTrue(transformed_data.columns.str.startswith('ShotType').any())  # Check for one-hot encoded columns
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,5 +1,3 @@
-import os
-import sys
 from fastapi.testclient import TestClient
 from api.nba_app import app, lifespan
 import pytest
@@ -7,9 +5,6 @@ import asyncio
 
 test_client = TestClient(app)
 
-# Adjust sys.path to include the 'project' directory
-project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.insert(0, project_dir)
 
 # Create a new event loop for running async functions
 @pytest.fixture(scope="module")
@@ -18,11 +13,13 @@ def event_loop():
     yield loop
     loop.close()
 
+
 # Run the lifespan event before tests
 @pytest.fixture(scope="module", autouse=True)
 async def run_lifespan():
     async with lifespan(app):
         yield
+
 
 # Create a test client
 @pytest.fixture(scope="module")
@@ -62,11 +59,12 @@ def test_root_endpoint(client: TestClient):
     assert response.status_code == 200
     assert response.json() == {"message": "Welcome to the NBA prediction API!"}
 
+
 def test_predict_endpoint_shot_made(client: TestClient):
     """
     Test the unsecure_predict endpoint of the NBA prediction API for a made shot prediction.
 
-    This test sends a POST request to the free predict endpoint with parameters indicating a shot made, 
+    This test sends a POST request to the free predict endpoint with parameters indicating a shot made,
     and checks if the response contains the expected prediction value.
 
     Returns:
@@ -114,7 +112,7 @@ def test_predict_endpoint_shot_made(client: TestClient):
         "Day": 11,
         "Day_of_Week": 5
     }
-    
+
     token = get_token(client)
     headers = {
         "Authorization": f"Bearer {token}",
@@ -129,11 +127,12 @@ def test_predict_endpoint_shot_made(client: TestClient):
     assert 'prediction' in response.json()
     assert response.json()['prediction'] == 1
 
+
 def test_predict_endpoint_shot_missed(client: TestClient):
     """
     Test the unsecure_predict endpoint of the NBA prediction API for a missed shot prediction.
 
-    This test sends a POST request to the free predict endpoint with parameters indicating a shot missed, 
+    This test sends a POST request to the free predict endpoint with parameters indicating a shot missed,
     and checks if the response contains the expected prediction value.
 
     Returns:
@@ -200,6 +199,7 @@ def test_predict_endpoint_shot_missed(client: TestClient):
     # Check if the prediction value is either 0 or 1
     prediction = response.json()['prediction']
     assert prediction == 0
+
 
 def test_predict_endpoint_unauthorized(client: TestClient):
     """
