@@ -17,17 +17,17 @@ the model, the deployment of the model, and the monitoring of the model.
     ├── .gitignore      <- Includes files and folders that we don't want to control
     |
     ├── code               <- Source code for use in this project.
-    │   ├── __init__.py    <- Makes src a Python module
+    │   ├── __init__.py    <- Makes code a Python module
     │   │
     |   ├── api                         <- Scripts for the FastAPI application
-    │   │   ├── nba_app.py              <- Main application file for the API
-    │   │   └── prediction_service.py   <- Endpoint function which actualy calculates the prediction
+    │   │   ├── nba_app.py              <- Main gateway API
+    │   │   └── prediction_service.py   <- Endpoint function which actually calculates the prediction
     |   |
-    │   ├── config          <- Saves configurations
+    │   ├── config          
     │   │   └── config.py   <- Saves file path configurations
     │   │
-    │   ├── database        <- Databse for use in this project.
-    │   │   └── init.sql    <- INitialising databases
+    │   ├── database        
+    │   │   └── init.sql    <- Initializes database and tables
     |   |
     │   ├── generate_new_data
     │   │   └── generate_new_data.py    <- Generates signal files for next running container
@@ -40,24 +40,24 @@ the model, the deployment of the model, and the monitoring of the model.
     │       ├── inference.py            <- Inference a new model
     |       └── best_model_metrics.json <- Saved best accuracy for trained models
     │   
-    ├── data    <- Dataset for training pipeline
+    ├── data                    <- Data for training the model
     |   ├── new_data            
     │   │   └── new_data.csv    <- New unseeen dataset for training
     |   |
     |   ├── predictions            
     │   │   └── predictions.csv <- Saves inference prediction results
     |   |
-    │   ├── processed       <- The final, canonical data sets for modeling
+    │   ├── processed           <- The final, canonical data sets for modeling
     │   │   └── NBA Shot Locations 1997 - 2020-processed.csv        <- Processed new dataset. Ready for feature engineering
     │   │   └── NBA Shot Locations 1997 - 2020-train-test.joblib    <- Feature enginnered train and test sets. Ready for training
     |   |
-    │   └── raw             <- The original, immutable data dump
-    │       └── NBA Shot Locations 1997 - 2020-original.csv         <- Big dataset, which used for generating a new small dataset
-    │       └── NBA Shot Locations 1997 - 2020.csv                  <- Dataset for for starting training pipeline
+    │   └── raw                 <- The original, immutable data dump
+    │       └── NBA Shot Locations 1997 - 2020-original.csv         <- Big dataset, which is used for generating a new small dataset
+    │       └── NBA Shot Locations 1997 - 2020.csv                  <- Dataset for for starting the training pipeline
     |
-    ├── docker  <- Holds all docker related files
+    ├── docker                              <- Holds all docker related files
     |   ├── docker_notes.sh                 <- Provides commands to reset Docker and to check specific tables in a PostgreSQL
-    |   ├── docker-compose.api.yml          <- Interconnects multiple services via a custom network
+    |   ├── docker-compose.api.yml          <- Connects the API, database, frontend, and monitoring
     |   ├── docker-compose.yml              <- Rans in a sequential order training pipeline containers
     |   ├── Dockerfile.api                  <- API container
     |   ├── Dockerfile.db                   <- Database container
@@ -71,18 +71,18 @@ the model, the deployment of the model, and the monitoring of the model.
     |
     ├── trained_models      <- Trained models with their version numbers and the date that they were created
     │   ├── model_best_lr-v1-20240628.joblib    <- Trained model example
-    |   └── discarded       <- Keeps discarded (not improved) trained model versions
+    |   └── discarded       <- Keeps discarded (not improved) model versions
     |        └── model_best_lr-v1-20240705.joblib   <- Discarded file example
     |
-    ├── grafana_setup        <- Monitoring api requests
+    ├── grafana_setup                   <- Monitoring api requests
     |   ├── dashboards
     │   |    └── nba_dashboard.json     <- Grafana dashboard data
     │   │
     │   └── datasources
-    │        └── datasources.yaml   <- Defines configuration settings for Grafana to connect to Prometheus 
+    │        └── datasources.yaml       <- Defines configuration settings for Grafana 
     │
     ├── prometheus_setup       
-    │   └── alerting_rules.yml      <- Alerting rules when server goes down or up
+    │   └── alerting_rules.yml      <- Alerting rules when server goes down
     │   └── prometheus.yml          <- Prometheus configuration file specifying global settings
     │
     ├── logs            <- Keep all logs
@@ -294,13 +294,13 @@ docker container start docker-api-1
 ``` 
 ***
 
-## How to Use the `docker compose up`
-Move to `nba_mlops` project main folder and run:
+## How to Run the Model Training Pipeline
+Move to the `nba_mlops` project folder and run:
 ```bash
-docker compose up
+docker-compose -f docker/docker-compose.yml up
 ```
 
-This will initiate the execution of the `docker-compose -f docker/docker-compose.yml up` file, which in turn launches all Docker containers for the respective scripts.
+This will initiate the execution of the `docker-compose.yml up` file, which in turn launches all Docker containers for the training pipeline.
 
 ***
 
@@ -374,8 +374,8 @@ This workflow ensures that our Python API is tested thoroughly before any change
 
 ***
 
-## Retraining Model Process
-This document outlines the process of retraining our model using GitHub Actions and Docker Compose, and subsequently pushing the trained model to Docker Hub. The retraining process is scheduled to run daily.
+## Process for Retraining the Model 
+Here we outline the process of retraining our model using GitHub Actions and Docker Compose, and subsequently pushing the trained model to Docker Hub. The retraining process is scheduled to run daily.
 
 We utilize two main GitHub Actions for our retraining pipeline:
 
@@ -516,5 +516,5 @@ By following these steps and understanding the MLFlow integration, you can effec
 ***
 ## Recap & next steps
 
-![NBA MLOps Architecture Diagram](https://github.com/jja4/nba_mlops/blob/main/reports/figures/Recap_v2.png)
+![NBA MLOps Next Steps Diagram](https://github.com/jja4/nba_mlops/blob/main/reports/figures/Recap_v2.png)
 
