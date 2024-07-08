@@ -68,7 +68,7 @@ services:
       - ../prometheus_setup/alerting_rules.yml:/etc/prometheus/alerting_rules.yml
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.retention.time=1d'
+      - '--storage.tsdb.retention.time=7d'
     networks:
       - nba-network
 
@@ -81,7 +81,7 @@ services:
       - ../grafana_setup/dashboards:/etc/grafana/dashboards
       - ../grafana_setup/provisioning:/etc/grafana/provisioning
     environment:
-      - GF_LOG_MAX_DAYS=1
+      - GF_LOG_MAX_DAYS=7
     networks:
       - nba-network
   
