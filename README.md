@@ -102,6 +102,7 @@ the model, the deployment of the model, and the monitoring of the model.
     ├── requirements.txt   <- The required libraries to deploy this project.
     │                         Generated with `pip freeze > requirements.txt`
     |
+    ├── .flake8     <- Includes Flake8 standard configs
     ├── LICENSE     <- The MIT License (MIT)
     └── README.md   <- The top-level README for developers using this project.
 
