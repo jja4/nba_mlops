@@ -107,86 +107,9 @@ the model, the deployment of the model, and the monitoring of the model.
     └── README.md   <- The top-level README for developers using this project.
 
 ***
-## Textual Architecture Diagram
+## Architecture Diagram
 
 ![NBA MLOps Architecture Diagram](https://github.com/jja4/nba_mlops/blob/main/reports/figures/NBA_architecture.png)
-+-----------------------------------+
-|       GitHub Actions              |
-|-----------------------------------|
-| 1. generate_new_data.yml          |
-|    - Triggers at 4 am UTC         |
-|    - Calls generate_new_data.py   |
-|    - Outputs new_data.csv         |
-|-------------------------------------------------------------------|
-| 2. retrain_model.yml                                              |
-|    - Triggers at 5 am UTC                                         |
-|    - Checks for new_data.csv                                      |
-|    - Runs docker-compose.yml                                      |
-|    - Uploads new Docker images to Docker Hub if model is improved |
-+-------------------------------------------------------------------------------------------+
-| 3. unit_tests.yml                                                                         |
-|    - Runs on all branches and every push or pull request                                  |
-|    - Sets up database and runs unit tests for API functions and training pipeline scripts |
-+-------------------------------------------------------------------------------------------+
-
-+---------------------------------------+
-|  Docker Compose Setup                 |
-|---------------------------------------|
-| 1. Data Pipeline Containers           |
-|    - Data Ingestion                   |
-|    - Data Preprocessing               |
-|    - Feature Engineering              |
-|    - Model Training (logs to MLFlow)  |
-|    - Inference                        |
-|---------------------------------------|
-| Uses signal files for order           |
-+---------------------------------------+
-
-+---------------------------------------+
-|     Deployment Setup                  |
-|---------------------------------------|
-| docker-compose.api.yml                |   
-|    - Database                         |
-|    - API                              |
-|    - NBA Shot Prediction Service      |
-|    - Prometheus (Monitoring)          |
-|    - Grafana (Visualization)          |
-|    - Alertmanager (Alerts)            |
-+---------------------------------------+
-
-+-------------------------------+
-|      DagsHub Integration      |
-|-------------------------------|
-| Model experiment data         |
-| is logged to DagsHub          |
-| server during github action   |
-+-------------------------------+
-
-+-------------------------------+
-|       MLFlow Integration      |
-|-------------------------------|
-| Model experiment data         |
-| is logged to local MLFlow     |
-| server during training        |
-+-------------------------------+
-
-+-------------------------------+
-|         Logging               |
-|-------------------------------|
-| Logs processes to logs.log    |
-|                               |
-+-------------------------------+
-
-+-------------------------------+
-|     User Interaction          |
-|-------------------------------|
-| Users can:                    |
-|  - Register                   |
-|  - Login                      |
-|  - Send prediction request    |
-|  - Receive results            |
-|  - Provide feedback           |
-+-------------------------------+
 
 ***
 
@@ -335,6 +258,36 @@ SELECT id, prediction, user_verification FROM predictions;
 
 3. View the prediction from the ML model if the player will make or miss the shot
 
+***
+
+## Configure and Test Alerts when the API shuts down
+
+### Configure
+1. In the codebase, open nba_mlops/alertmanager/alertmanager.yml
+
+2. In the "global" header, replace "slack_api_url: 'URL/to/slack/hooks'" with a functional webhook for slack. Set one up here for you slack channel (https://api.slack.com/messaging/webhooks)
+
+3. In the "receivers" header, update "- channel: '#may24_bmlops_int_nba'" with your channel name as well.
+
+4. For email notifications, in the "receivers" header, replace "- to: 'fake@gmail.com'" with your email.
+
+### Test
+1. Make sure docker-compose already up and running 
+```bash
+docker-compose -f docker/docker-compose.api.yml up
+``` 
+2. Find the name of your API container with:
+```bash
+docker container ls
+``` 
+3. We are going to shut down your API container with:
+```bash
+docker container stop docker-api-1
+``` 
+4. You should receive a Slack message and an email after 30 seconds or so. You can resolve the alert with:
+```bash
+docker container start docker-api-1
+``` 
 ***
 
 ## How to Use the `docker compose up`
