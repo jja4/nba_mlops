@@ -107,9 +107,13 @@ the model, the deployment of the model, and the monitoring of the model.
     └── README.md   <- The top-level README for developers using this project.
 
 ***
+## Project Introduction
+![NBA MLOps Architecture Diagram](https://github.com/jja4/nba_mlops/blob/main/reports/figures/Intro.png)
+
+***
 ## Architecture Diagram
 
-![NBA MLOps Architecture Diagram](https://github.com/jja4/nba_mlops/blob/main/reports/figures/NBA_architecture.png)
+![NBA MLOps Architecture Diagram](https://github.com/jja4/nba_mlops/blob/main/reports/figures/architecture_v2.png)
 
 ***
 
@@ -510,4 +514,7 @@ Here, you can explore the logged experiments, runs, parameters, metrics, and art
 By following these steps and understanding the MLFlow integration, you can effectively manage and track your machine learning experiments locally.
 
 ***
+## Recap & next steps
+
+![NBA MLOps Architecture Diagram](https://github.com/jja4/nba_mlops/blob/main/reports/figures/Recap_v2.png)
 
