@@ -1,101 +1,101 @@
 Game ID,Game Event ID,Player ID,Player Name,Team ID,Team Name,Period,Minutes Remaining,Seconds Remaining,Action Type,Shot Type,Shot Zone Basic,Shot Zone Area,Shot Zone Range,Shot Distance,X Location,Y Location,Shot Made Flag,Game Date,Home Team,Away Team,Season Type
-20701082,346,977,Kobe Bryant,1610612747,Los Angeles Lakers,3,3,46,Jump Shot,2PT Field Goal,Mid-Range,Right Side Center(RC),16-24 ft.,19,107,161,0,20080328,LAL,MEM,Regular Season
-21300348,375,201961,Wayne Ellington,1610612742,Dallas Mavericks,3,1,50,Jump Shot,2PT Field Goal,Mid-Range,Right Side Center(RC),16-24 ft.,20,130,159,0,20131214,DAL,MIL,Regular Season
-20200435,116,949,Shareef Abdur-Rahim,1610612737,Atlanta Hawks,2,10,27,Hook Shot,2PT Field Goal,In The Paint (Non-RA),Left Side(L),8-16 ft.,11,-69,92,0,20021230,MIA,ATL,Regular Season
-21300723,225,2399,Mike Dunleavy,1610612741,Chicago Bulls,2,3,19,Jump Shot,3PT Field Goal,Above the Break 3,Right Side Center(RC),24+ ft.,25,222,116,0,20140204,PHX,CHI,Regular Season
-20400387,336,1712,Antawn Jamison,1610612764,Washington Wizards,4,10,53,Jump Shot,2PT Field Goal,Mid-Range,Left Side(L),16-24 ft.,20,-202,0,1,20041226,MIN,WAS,Regular Season
-21900007,186,201609,Goran Dragic,1610612748,Miami Heat,2,11,20,Jump Shot,2PT Field Goal,Mid-Range,Right Side(R),8-16 ft.,12,128,-6,0,20191023,MIA,MEM,Regular Season
-20300259,42,1536,Stephen Jackson,1610612737,Atlanta Hawks,1,7,5,Jump Shot,3PT Field Goal,Above the Break 3,Right Side Center(RC),24+ ft.,24,84,233,0,20031205,TOR,ATL,Regular Season
-20001067,283,915,Rodney Rogers,1610612756,Phoenix Suns,3,5,38,Jump Shot,3PT Field Goal,Left Corner 3,Left Side(L),24+ ft.,22,-221,-2,0,20010403,IND,PHX,Regular Season
-21600237,359,203076,Anthony Davis,1610612740,New Orleans Pelicans,3,5,22,Jump Shot,3PT Field Goal,Above the Break 3,Left Side Center(LC),24+ ft.,24,-110,223,1,20161125,POR,NOP,Regular Season
-21200115,164,2731,Emeka Okafor,1610612764,Washington Wizards,2,6,55,Turnaround Hook Shot,2PT Field Goal,In The Paint (Non-RA),Center(C),Less Than 8 ft.,7,-5,71,1,20121114,DAL,WAS,Regular Season
-21300552,434,202738,Isaiah Thomas,1610612758,Sacramento Kings,4,10,18,Jump Shot,3PT Field Goal,Above the Break 3,Center(C),24+ ft.,24,-15,244,1,20140112,SAC,CLE,Regular Season
-21400717,194,201961,Wayne Ellington,1610612747,Los Angeles Lakers,2,4,41,Jump Shot,3PT Field Goal,Above the Break 3,Right Side Center(RC),24+ ft.,25,185,172,0,20150201,NYK,LAL,Regular Season
-20500395,302,951,Ray Allen,1610612760,Seattle SuperSonics,3,8,32,Jump Shot,3PT Field Goal,Above the Break 3,Left Side Center(LC),24+ ft.,28,-235,156,0,20051226,SEA,BOS,Regular Season
-20000968,425,1065,Erick Strickland,1610612763,Vancouver Grizzlies,4,1,16,Driving Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,0,0,0,20010320,NJN,VAN,Regular Season
-20000254,90,2030,Kenyon Martin,1610612751,New Jersey Nets,1,2,3,Slam Dunk Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,1,16,4,1,20001205,IND,NJN,Regular Season
-20800042,292,2419,Tayshaun Prince,1610612765,Detroit Pistons,3,5,13,Jump Shot,2PT Field Goal,Mid-Range,Center(C),16-24 ft.,16,40,164,0,20081103,CHA,DET,Regular Season
-21601141,388,203081,Damian Lillard,1610612757,Portland Trail Blazers,3,1,15,Pullup Jump shot,3PT Field Goal,Above the Break 3,Left Side Center(LC),24+ ft.,25,-160,195,0,20170401,POR,PHX,Regular Season
-20301089,426,2052,DeShawn Stevenson,1610612753,Orlando Magic,4,6,20,Jump Shot,3PT Field Goal,Right Corner 3,Right Side(R),24+ ft.,22,225,-3,0,20040402,ORL,ATL,Regular Season
-21100306,128,202693,Markieff Morris,1610612756,Phoenix Suns,2,7,17,Jump Shot,2PT Field Goal,Mid-Range,Right Side(R),8-16 ft.,15,157,0,0,20120130,PHX,DAL,Regular Season
-21800492,118,203524,Solomon Hill,1610612740,New Orleans Pelicans,1,3,15,Jump Shot,3PT Field Goal,Above the Break 3,Right Side Center(RC),24+ ft.,25,187,169,0,20181223,SAC,NOP,Regular Season
-21800327,152,203613,Jonathon Simmons,1610612753,Orlando Magic,1,0,9,Driving Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,-3,8,1,20181130,PHX,ORL,Regular Season
-21800774,514,1628392,Isaiah Hartenstein,1610612745,Houston Rockets,4,8,8,Dunk Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,2,-7,28,0,20190201,DEN,HOU,Regular Season
-21200472,438,201572,Brook Lopez,1610612751,Brooklyn Nets,4,3,4,Jump Shot,2PT Field Goal,In The Paint (Non-RA),Center(C),Less Than 8 ft.,4,45,-6,1,20130102,OKC,BKN,Regular Season
-21000979,492,101139,CJ Miles,1610612762,Utah Jazz,4,4,1,Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,3,18,30,1,20110312,CHI,UTA,Regular Season
-20900489,109,2590,Mo Williams,1610612739,Cleveland Cavaliers,2,9,53,Jump Shot,2PT Field Goal,Mid-Range,Left Side Center(LC),16-24 ft.,22,-82,209,1,20100103,CLE,CHA,Regular Season
-20600146,236,2031,Stromile Swift,1610612763,Memphis Grizzlies,3,10,38,Jump Shot,2PT Field Goal,Mid-Range,Left Side Center(LC),16-24 ft.,20,-141,145,0,20061120,MEM,ORL,Regular Season
-21200633,434,201584,Courtney Lee,1610612738,Boston Celtics,4,8,4,Jump Shot,2PT Field Goal,Mid-Range,Left Side Center(LC),16-24 ft.,17,-127,126,1,20130125,ATL,BOS,Regular Season
-29700842,359,213,Antonio Davis,1610612754,Indiana Pacers,4,11,47,Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,1,-10,5,1,19980303,VAN,IND,Regular Season
-21400645,149,203901,Elfrid Payton,1610612753,Orlando Magic,2,10,24,Floating Jump shot,2PT Field Goal,In The Paint (Non-RA),Center(C),Less Than 8 ft.,4,-32,31,0,20150123,NYK,ORL,Regular Season
-20400829,18,1882,Elton Brand,1610612746,Los Angeles Clippers,1,9,19,Slam Dunk Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,0,0,1,20050227,LAC,ATL,Regular Season
-21600240,62,203490,Otto Porter Jr.,1610612764,Washington Wizards,1,4,16,Jump Shot,2PT Field Goal,In The Paint (Non-RA),Center(C),8-16 ft.,10,33,101,0,20161126,WAS,SAS,Regular Season
-21001014,245,201565,Derrick Rose,1610612741,Chicago Bulls,3,11,42,Jump Shot,2PT Field Goal,In The Paint (Non-RA),Left Side(L),8-16 ft.,15,-78,134,1,20110317,NJN,CHI,Regular Season
-21500321,67,203490,Otto Porter Jr.,1610612764,Washington Wizards,1,5,0,Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,1,2,0,20151209,WAS,HOU,Regular Season
-20800692,318,101211,Stephen Graham,1610612754,Indiana Pacers,3,6,44,Reverse Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,1,-16,3,0,20090131,IND,NYK,Regular Season
-21100868,420,201581,JJ Hickson,1610612757,Portland Trail Blazers,4,8,27,Tip Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,1,-5,9,1,20120411,POR,GSW,Regular Season
-21600521,337,101141,Ersan Ilyasova,1610612755,Philadelphia 76ers,3,7,43,Jump Shot,3PT Field Goal,Above the Break 3,Left Side Center(LC),24+ ft.,25,-184,178,0,20170103,PHI,MIN,Regular Season
-21800071,548,203476,Gorgui Dieng,1610612750,Minnesota Timberwolves,4,9,25,Jump Shot,3PT Field Goal,Above the Break 3,Center(C),24+ ft.,24,1,248,0,20181026,MIN,MIL,Regular Season
-20301095,76,2248,Earl Watson,1610612763,Memphis Grizzlies,1,2,30,Jump Shot,2PT Field Goal,Mid-Range,Left Side Center(LC),16-24 ft.,19,-87,176,0,20040402,MEM,PHX,Regular Season
-40900311,390,977,Kobe Bryant,1610612747,Los Angeles Lakers,4,10,16,Jump Shot,3PT Field Goal,Above the Break 3,Right Side Center(RC),24+ ft.,26,94,247,0,20100517,LAL,PHX,Playoffs
-20700821,196,2207,Joe Johnson,1610612737,Atlanta Hawks,2,3,34,Jump Shot,2PT Field Goal,In The Paint (Non-RA),Center(C),Less Than 8 ft.,6,3,68,0,20080223,UTA,ATL,Regular Season
-21900770,405,1629060,Rui Hachimura,1610612764,Washington Wizards,3,6,5,Jump Shot,3PT Field Goal,Above the Break 3,Right Side Center(RC),24+ ft.,25,150,209,0,20200207,WAS,DAL,Regular Season
-29900001,358,913,Larry Johnson,1610612752,New York Knicks,4,11,51,Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,0,0,0,19991102,NYK,CLE,Regular Season
-21000505,199,2544,LeBron James,1610612748,Miami Heat,2,5,26,Jump Bank Shot,2PT Field Goal,In The Paint (Non-RA),Center(C),8-16 ft.,12,-57,108,1,20110104,MIA,MIL,Regular Season
-20001156,57,1889,Andre Miller,1610612739,Cleveland Cavaliers,1,6,26,Running Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,3,4,1,20010415,WAS,CLE,Regular Season
-20500567,106,2243,Brian Scalabrine,1610612738,Boston Celtics,2,11,15,Jump Shot,2PT Field Goal,Mid-Range,Right Side(R),16-24 ft.,20,204,25,1,20060120,BOS,NJN,Regular Season
-20901204,21,2045,Hedo Turkoglu,1610612761,Toronto Raptors,1,8,16,Jump Shot,3PT Field Goal,Above the Break 3,Left Side Center(LC),24+ ft.,26,-199,176,0,20100412,DET,TOR,Regular Season
-20700087,199,1715,Jason Williams,1610612748,Miami Heat,2,1,41,Jump Shot,2PT Field Goal,Mid-Range,Right Side(R),16-24 ft.,19,190,0,1,20071111,NYK,MIA,Regular Season
-20800050,384,1521,Jacque Vaughn,1610612759,San Antonio Spurs,4,2,58,Floating Jump shot,2PT Field Goal,In The Paint (Non-RA),Right Side(R),8-16 ft.,9,70,66,1,20081104,SAS,DAL,Regular Season
-20200928,299,1749,Cuttino Mobley,1610612745,Houston Rockets,3,0,42,Driving Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,0,0,1,20030312,HOU,LAC,Regular Season
-21500300,279,2207,Joe Johnson,1610612751,Brooklyn Nets,2,0,2,Jump Shot,3PT Field Goal,Left Corner 3,Left Side(L),24+ ft.,23,-237,-31,1,20151206,BKN,GSW,Regular Season
-20701160,75,101138,Brandon Bass,1610612742,Dallas Mavericks,1,3,15,Jump Shot,2PT Field Goal,In The Paint (Non-RA),Center(C),8-16 ft.,8,-29,77,1,20080408,DAL,SEA,Regular Season
+20100871,387,990,Malik Rose,1610612759,San Antonio Spurs,4,5,12,Jump Shot,2PT Field Goal,Mid-Range,Center(C),16-24 ft.,17,47,169,0,20020307,SAS,HOU,Regular Season
 20500581,225,2056,Primoz Brezec,1610612766,Charlotte Bobcats,2,3,30,Jump Shot,2PT Field Goal,Mid-Range,Left Side(L),8-16 ft.,14,-141,-16,0,20060121,MIL,CHA,Regular Season
-20900944,200,201977,Marcus Thornton,1610612740,New Orleans Hornets,2,6,30,Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,0,0,1,20100308,NOH,GSW,Regular Season
-21201068,332,979,Jermaine O'Neal,1610612756,Phoenix Suns,3,0,4,Jump Shot,2PT Field Goal,Mid-Range,Right Side(R),8-16 ft.,15,111,113,0,20130327,UTA,PHX,Regular Season
-20400727,207,952,Antoine Walker,1610612737,Atlanta Hawks,2,5,35,Running Hook Shot,2PT Field Goal,In The Paint (Non-RA),Center(C),Less Than 8 ft.,6,5,61,0,20050210,ORL,ATL,Regular Season
-20400159,586,384,Calbert Cheaney,1610612744,Golden State Warriors,6,0,41,Jump Shot,2PT Field Goal,Mid-Range,Left Side Center(LC),16-24 ft.,16,-131,104,0,20041123,GSW,NOH,Regular Season
-29800070,57,708,Kevin Garnett,1610612750,Minnesota Timberwolves,1,4,15,Jump Shot,2PT Field Goal,Mid-Range,Center(C),16-24 ft.,23,42,229,0,19990214,LAC,MIN,Regular Season
-21900973,579,203999,Nikola Jokic,1610612743,Denver Nuggets,4,2,6,Fadeaway Jump Shot,2PT Field Goal,In The Paint (Non-RA),Center(C),8-16 ft.,12,22,125,1,20200311,DAL,DEN,Regular Season
-21301112,424,203110,Draymond Green,1610612744,Golden State Warriors,4,2,34,Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,-4,-2,1,20140401,DAL,GSW,Regular Season
-20100930,26,361,Clifford Robinson,1610612765,Detroit Pistons,1,8,52,Jump Shot,2PT Field Goal,Mid-Range,Left Side(L),8-16 ft.,11,-86,80,0,20020315,DET,UTA,Regular Season
-20000493,108,1720,Michael Doleac,1610612753,Orlando Magic,1,1,46,Jump Shot,2PT Field Goal,Mid-Range,Left Side(L),16-24 ft.,17,-178,-6,0,20010109,ORL,SAS,Regular Season
-21500637,45,2585,Zaza Pachulia,1610612742,Dallas Mavericks,1,6,19,Step Back Jump shot,2PT Field Goal,Mid-Range,Right Side(R),8-16 ft.,12,122,13,0,20160120,DAL,MIN,Regular Season
-21600305,385,202732,DeAndre Liggins,1610612739,Cleveland Cavaliers,3,1,20,Jump Shot,3PT Field Goal,Right Corner 3,Right Side(R),24+ ft.,23,236,8,1,20161205,TOR,CLE,Regular Season
-20800122,193,2548,Dwyane Wade,1610612748,Miami Heat,2,4,41,Jump Shot,2PT Field Goal,Mid-Range,Right Side Center(RC),16-24 ft.,19,143,137,1,20081114,MIA,WAS,Regular Season
-20800528,161,2436,Flip Murray,1610612737,Atlanta Hawks,2,10,49,Jump Shot,3PT Field Goal,Above the Break 3,Right Side Center(RC),24+ ft.,25,181,186,0,20090109,ORL,ATL,Regular Season
-20200341,342,977,Kobe Bryant,1610612747,Los Angeles Lakers,3,4,27,Jump Shot,2PT Field Goal,Mid-Range,Right Side(R),8-16 ft.,9,95,28,1,20021215,LAL,ORL,Regular Season
-21200917,336,1891,Jason Terry,1610612738,Boston Celtics,3,1,8,Jump Shot,3PT Field Goal,Above the Break 3,Right Side Center(RC),24+ ft.,24,105,224,0,20130308,BOS,ATL,Regular Season
-21001002,404,200746,LaMarcus Aldridge,1610612757,Portland Trail Blazers,4,3,51,Slam Dunk Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,1,12,1,1,20110315,POR,DAL,Regular Season
-20300779,236,2047,Quentin Richardson,1610612746,Los Angeles Clippers,3,10,50,Jump Shot,2PT Field Goal,In The Paint (Non-RA),Center(C),Less Than 8 ft.,4,46,10,0,20040218,POR,LAC,Regular Season
+20600521,347,2050,Morris Peterson,1610612761,Toronto Raptors,4,9,19,Jump Shot,3PT Field Goal,Above the Break 3,Center(C),24+ ft.,24,62,232,0,20070110,MIL,TOR,Regular Season
 21200021,42,200794,Paul Millsap,1610612762,Utah Jazz,1,6,25,Jump Shot,2PT Field Goal,Mid-Range,Left Side(L),8-16 ft.,12,-127,0,0,20121102,NOH,UTA,Regular Season
-29700687,127,299,Glenn Robinson,1610612749,Milwaukee Bucks,2,8,58,Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,0,0,0,19980210,MIL,ATL,Regular Season
-21000478,404,101154,Andray Blatche,1610612764,Washington Wizards,4,11,13,Jump Shot,2PT Field Goal,Mid-Range,Right Side(R),8-16 ft.,9,92,25,0,20101231,IND,WAS,Regular Season
+21500560,80,203935,Marcus Smart,1610612738,Boston Celtics,1,3,7,Jump Shot,3PT Field Goal,Above the Break 3,Right Side Center(RC),24+ ft.,25,182,178,0,20160110,MEM,BOS,Regular Season
+21400456,355,203112,Quincy Acy,1610612752,New York Knicks,4,11,46,Jump Shot,3PT Field Goal,Above the Break 3,Right Side Center(RC),24+ ft.,25,78,238,1,20141228,POR,NYK,Regular Season
+20000010,325,317,John Starks,1610612762,Utah Jazz,3,6,17,Jump Shot,2PT Field Goal,Mid-Range,Center(C),16-24 ft.,20,-12,200,0,20001031,UTA,LAC,Regular Season
+20300713,303,467,Jason Kidd,1610612751,New Jersey Nets,3,6,6,Jump Shot,3PT Field Goal,Right Corner 3,Right Side(R),24+ ft.,24,235,82,1,20040206,NJN,ORL,Regular Season
 21600271,238,203952,Andrew Wiggins,1610612750,Minnesota Timberwolves,2,2,33,Jump Shot,3PT Field Goal,Above the Break 3,Center(C),24+ ft.,24,6,242,1,20161130,MIN,NYK,Regular Season
-20400338,19,1885,Lamar Odom,1610612747,Los Angeles Lakers,1,10,22,Running Hook Shot,2PT Field Goal,In The Paint (Non-RA),Left Side(L),8-16 ft.,9,-79,48,1,20041217,LAL,WAS,Regular Season
-20300339,442,2073,Brian Cardinal,1610612744,Golden State Warriors,4,1,5,Jump Shot,2PT Field Goal,Mid-Range,Center(C),16-24 ft.,20,31,202,0,20031216,NYK,GSW,Regular Season
-20500599,344,2067,Eddie House,1610612756,Phoenix Suns,4,10,34,Jump Shot,3PT Field Goal,Above the Break 3,Right Side Center(RC),24+ ft.,24,154,194,0,20060124,ORL,PHX,Regular Season
-29700628,77,779,Glen Rice,1610612766,Charlotte Hornets,1,2,38,Jump Shot,2PT Field Goal,Mid-Range,Left Side(L),16-24 ft.,18,-171,59,0,19980130,BOS,CHH,Regular Season
-21400034,558,201145,Jeff Green,1610612738,Boston Celtics,4,4,10,Jump Shot,3PT Field Goal,Above the Break 3,Center(C),24+ ft.,27,77,265,1,20141101,HOU,BOS,Regular Season
-20500992,10,1712,Antawn Jamison,1610612764,Washington Wizards,1,10,37,Jump Shot,2PT Field Goal,Mid-Range,Right Side(R),16-24 ft.,17,172,-24,0,20060321,WAS,NJN,Regular Season
-20700667,318,2045,Hedo Turkoglu,1610612753,Orlando Magic,3,4,3,Running Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,0,0,1,20080130,ORL,MIA,Regular Season
-21100531,167,2594,Kyle Korver,1610612741,Chicago Bulls,2,5,53,Jump Shot,3PT Field Goal,Above the Break 3,Center(C),24+ ft.,24,-29,246,1,20120302,CLE,CHI,Regular Season
-21301207,208,202714,Shelvin Mack,1610612737,Atlanta Hawks,2,8,34,Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,2,0,25,0,20140414,ATL,CHA,Regular Season
-21300177,367,203138,Hollis Thompson,1610612755,Philadelphia 76ers,3,2,26,Jump Shot,2PT Field Goal,In The Paint (Non-RA),Center(C),Less Than 8 ft.,4,1,44,0,20131122,PHI,MIL,Regular Season
-20101111,14,15,Eric Piatkowski,1610612746,Los Angeles Clippers,1,10,27,Jump Shot,3PT Field Goal,Above the Break 3,Left Side Center(LC),24+ ft.,25,-185,173,1,20020408,SEA,LAC,Regular Season
-20500256,125,1719,Bonzi Wells,1610612758,Sacramento Kings,2,11,10,Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,0,0,1,20051206,SAC,CLE,Regular Season
-20300493,442,2594,Kyle Korver,1610612755,Philadelphia 76ers,4,3,31,Jump Shot,3PT Field Goal,Above the Break 3,Center(C),24+ ft.,25,-44,255,0,20040107,PHI,LAC,Regular Season
-20100049,246,2216,Zach Randolph,1610612757,Portland Trail Blazers,2,2,37,Tip Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,1,-10,13,0,20011104,GSW,POR,Regular Season
-20000414,125,951,Ray Allen,1610612749,Milwaukee Bucks,2,11,40,Jump Shot,2PT Field Goal,In The Paint (Non-RA),Center(C),8-16 ft.,15,-77,137,0,20001228,CLE,MIL,Regular Season
-49900051,349,243,Aaron McKie,1610612755,Philadelphia 76ers,3,4,10,Jump Shot,3PT Field Goal,Above the Break 3,Left Side Center(LC),24+ ft.,28,-89,267,0,20000513,PHI,IND,Playoffs
-21900358,107,203076,Anthony Davis,1610612747,Los Angeles Lakers,1,4,28,Cutting Dunk Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,3,7,1,20191211,ORL,LAL,Regular Season
-20701179,173,693,Joe Smith,1610612739,Cleveland Cavaliers,2,6,31,Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,0,0,1,20080411,CHI,CLE,Regular Season
-20600205,426,1713,Vince Carter,1610612751,New Jersey Nets,4,6,16,Jump Shot,3PT Field Goal,Above the Break 3,Right Side Center(RC),24+ ft.,24,187,160,0,20061128,NJN,CHA,Regular Season
-29900431,206,949,Shareef Abdur-Rahim,1610612763,Vancouver Grizzlies,2,2,55,Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,0,0,1,20000104,MIA,VAN,Regular Season
-20601193,250,2863,Damien Wilkins,1610612760,Seattle SuperSonics,3,9,26,Jump Shot,2PT Field Goal,Mid-Range,Right Side(R),8-16 ft.,13,133,12,1,20070414,POR,SEA,Regular Season
-20700535,492,1888,Richard Hamilton,1610612765,Detroit Pistons,5,2,42,Jump Shot,3PT Field Goal,Left Corner 3,Left Side(L),24+ ft.,23,-230,12,0,20080112,CHA,DET,Regular Season
+20700277,334,1712,Antawn Jamison,1610612764,Washington Wizards,3,0,3,Jump Shot,2PT Field Goal,Mid-Range,Left Side Center(LC),16-24 ft.,19,-156,117,0,20071207,WAS,PHX,Regular Season
+21000970,307,200745,Andrea Bargnani,1610612761,Toronto Raptors,2,0,0,Running Jump Shot,3PT Field Goal,Backcourt,Back Court(BC),Back Court Shot,58,206,544,0,20110311,TOR,IND,Regular Season
+21300963,497,203076,Anthony Davis,1610612740,New Orleans Pelicans,4,2,3,Jump Shot,2PT Field Goal,In The Paint (Non-RA),Right Side(R),8-16 ft.,8,80,14,0,20140312,NOP,MEM,Regular Season
+21600594,422,203953,Jabari Parker,1610612749,Milwaukee Bucks,4,7,35,Jump Shot,2PT Field Goal,Mid-Range,Center(C),16-24 ft.,18,1,183,0,20170113,MIL,MIA,Regular Season
+20800059,22,200765,Rajon Rondo,1610612738,Boston Celtics,1,9,9,Reverse Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,0,0,1,20081105,OKC,BOS,Regular Season
+20100013,459,1718,Paul Pierce,1610612738,Boston Celtics,4,3,28,Jump Shot,3PT Field Goal,Right Corner 3,Right Side(R),24+ ft.,23,233,4,1,20011031,BOS,NJN,Regular Season
+21000423,312,2736,Luol Deng,1610612741,Chicago Bulls,3,8,30,Running Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,9,4,1,20101222,WAS,CHI,Regular Season
+20900626,138,201563,Michael Beasley,1610612748,Miami Heat,2,7,36,Alley Oop Dunk Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,1,-5,11,1,20100122,WAS,MIA,Regular Season
+20600641,197,2294,Charlie Bell,1610612749,Milwaukee Bucks,2,4,18,Jump Shot,3PT Field Goal,Above the Break 3,Left Side Center(LC),24+ ft.,26,-223,143,0,20070126,MIL,PHX,Regular Season
+40900154,131,1938,Manu Ginobili,1610612759,San Antonio Spurs,2,9,50,Jump Shot,2PT Field Goal,Mid-Range,Left Side Center(LC),16-24 ft.,17,-105,146,0,20100425,SAS,DAL,Playoffs
+21801169,560,1627747,Caris LeVert,1610612751,Brooklyn Nets,4,4,52,Jump Shot,3PT Field Goal,Above the Break 3,Right Side Center(RC),24+ ft.,24,213,125,1,20190403,BKN,TOR,Regular Season
+20300982,293,1503,Tracy McGrady,1610612753,Orlando Magic,3,4,26,Jump Shot,3PT Field Goal,Above the Break 3,Left Side Center(LC),24+ ft.,25,-123,225,1,20040317,GSW,ORL,Regular Season
+40400127,45,1536,Stephen Jackson,1610612754,Indiana Pacers,1,4,35,Jump Shot,2PT Field Goal,Mid-Range,Right Side Center(RC),16-24 ft.,19,97,173,0,20050507,BOS,IND,Playoffs
+21900449,285,1629639,Tyler Herro,1610612748,Miami Heat,2,2,54,Jump Shot,3PT Field Goal,Above the Break 3,Left Side Center(LC),24+ ft.,26,-106,248,0,20191223,MIA,UTA,Regular Season
+21800822,123,1626162,Kelly Oubre Jr.,1610612756,Phoenix Suns,1,2,54,Driving Layup Shot,2PT Field Goal,In The Paint (Non-RA),Center(C),Less Than 8 ft.,7,37,67,0,20190208,PHX,GSW,Regular Season
+20101060,299,1088,Chucky Atkins,1610612765,Detroit Pistons,3,4,21,Running Jump Shot,2PT Field Goal,In The Paint (Non-RA),Center(C),8-16 ft.,11,32,112,0,20020402,MIA,DET,Regular Season
+20300763,420,970,Othella Harrington,1610612752,New York Knicks,4,5,59,Jump Shot,2PT Field Goal,Mid-Range,Right Side(R),8-16 ft.,14,148,23,0,20040217,NYK,DET,Regular Season
+20401142,35,1908,Jumaine Jones,1610612747,Los Angeles Lakers,1,7,51,Dunk Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,0,0,1,20050410,SAC,LAL,Regular Season
+20700180,3,1630,Mikki Moore,1610612758,Sacramento Kings,1,11,25,Reverse Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,0,0,1,20071123,POR,SAC,Regular Season
+20200695,61,2045,Hedo Turkoglu,1610612758,Sacramento Kings,1,4,12,Jump Shot,2PT Field Goal,Mid-Range,Right Side(R),16-24 ft.,17,144,95,1,20030204,DAL,SAC,Regular Season
+21600553,219,201143,Al Horford,1610612738,Boston Celtics,2,3,19,Jump Shot,3PT Field Goal,Above the Break 3,Center(C),24+ ft.,25,32,257,0,20170107,BOS,NOP,Regular Season
+29800146,353,98,Nick Anderson,1610612753,Orlando Magic,3,2,9,Driving Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,-1,3,1,19990224,BOS,ORL,Regular Season
+21100840,148,2555,Nick Collison,1610612760,Oklahoma City Thunder,2,7,54,Jump Shot,2PT Field Goal,Mid-Range,Right Side(R),16-24 ft.,16,166,-8,1,20120408,OKC,TOR,Regular Season
+20300335,65,1541,Alvin Williams,1610612761,Toronto Raptors,1,2,59,Jump Shot,2PT Field Goal,In The Paint (Non-RA),Left Side(L),8-16 ft.,8,-80,12,1,20031215,DAL,TOR,Regular Season
+21400549,4,203501,Tim Hardaway Jr.,1610612752,New York Knicks,1,10,58,Jump Shot,3PT Field Goal,Above the Break 3,Right Side Center(RC),24+ ft.,26,119,233,0,20150110,NYK,CHA,Regular Season
+21700219,455,203526,Raul Neto,1610612762,Utah Jazz,3,0,20,Driving Layup Shot,2PT Field Goal,In The Paint (Non-RA),Center(C),Less Than 8 ft.,4,47,5,0,20171117,BKN,UTA,Regular Season
+20700743,196,1897,Metta World Peace,1610612758,Sacramento Kings,2,5,34,Step Back Jump shot,2PT Field Goal,Mid-Range,Right Side(R),8-16 ft.,15,156,5,1,20080209,GSW,SAC,Regular Season
+20100740,355,1887,Wally Szczerbiak,1610612750,Minnesota Timberwolves,4,8,18,Jump Shot,2PT Field Goal,Mid-Range,Right Side(R),16-24 ft.,20,180,95,0,20020217,MIN,MIA,Regular Season
+21100057,307,201580,JaVale McGee,1610612764,Washington Wizards,3,9,31,Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,1,13,6,0,20120101,WAS,BOS,Regular Season
+21700132,362,202340,Avery Bradley,1610612765,Detroit Pistons,3,6,2,Driving Floating Jump Shot,2PT Field Goal,In The Paint (Non-RA),Center(C),Less Than 8 ft.,6,8,67,1,20171104,DET,SAC,Regular Season
+21300831,155,203187,Chris Johnson,1610612738,Boston Celtics,2,9,16,Jump Shot,3PT Field Goal,Right Corner 3,Right Side(R),24+ ft.,23,234,20,1,20140222,SAC,BOS,Regular Season
+21300305,352,203138,Hollis Thompson,1610612755,Philadelphia 76ers,3,6,3,Jump Shot,3PT Field Goal,Left Corner 3,Left Side(L),24+ ft.,23,-235,-22,0,20131209,PHI,LAC,Regular Season
+20100274,32,133,David Wesley,1610612766,Charlotte Hornets,1,8,51,Reverse Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,0,0,1,20011207,GSW,CHH,Regular Season
+21401143,457,203506,Victor Oladipo,1610612753,Orlando Magic,4,1,28,Jump Shot,3PT Field Goal,Right Corner 3,Right Side(R),24+ ft.,24,242,37,1,20150404,MIL,ORL,Regular Season
+21200332,4,201600,Omer Asik,1610612745,Houston Rockets,1,11,17,Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,1,15,7,0,20121214,HOU,BOS,Regular Season
+29800641,206,757,Damon Stoudamire,1610612757,Portland Trail Blazers,2,2,44,Jump Shot,3PT Field Goal,Above the Break 3,Left Side Center(LC),24+ ft.,23,-91,222,0,19990425,POR,MIN,Regular Season
+20600380,383,2772,Trevor Ariza,1610612753,Orlando Magic,3,3,33,Driving Dunk Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,0,0,1,20061222,ORL,GSW,Regular Season
+29701012,2,297,Alonzo Mourning,1610612748,Miami Heat,1,11,47,Hook Shot,2PT Field Goal,In The Paint (Non-RA),Center(C),Less Than 8 ft.,5,1,59,0,19980327,MIA,MIL,Regular Season
+20600297,150,1731,Tyronn Lue,1610612737,Atlanta Hawks,2,8,28,Running Jump Shot,2PT Field Goal,Mid-Range,Right Side(R),8-16 ft.,9,89,41,0,20061210,SAC,ATL,Regular Season
+20800414,205,201161,Daequan Cook,1610612748,Miami Heat,2,4,58,Jump Shot,3PT Field Goal,Left Corner 3,Left Side(L),24+ ft.,24,-239,31,1,20081223,MIA,GSW,Regular Season
+20100190,66,699,Brent Barry,1610612760,Seattle SuperSonics,1,3,37,Jump Shot,3PT Field Goal,Left Corner 3,Left Side(L),24+ ft.,22,-225,13,0,20011125,SEA,IND,Regular Season
+21500698,54,203506,Victor Oladipo,1610612753,Orlando Magic,1,7,21,Jump Shot,3PT Field Goal,Above the Break 3,Right Side Center(RC),24+ ft.,27,156,228,0,20160129,BOS,ORL,Regular Season
+20501204,365,2545,Darko Milicic,1610612753,Orlando Magic,3,0,46,Jump Shot,2PT Field Goal,Mid-Range,Center(C),16-24 ft.,20,24,206,0,20060417,ORL,CHI,Regular Season
+21900305,15,203468,CJ McCollum,1610612757,Portland Trail Blazers,1,10,43,Pullup Jump shot,2PT Field Goal,In The Paint (Non-RA),Center(C),8-16 ft.,13,-56,127,0,20191203,LAC,POR,Regular Season
+20500172,77,2617,Udonis Haslem,1610612748,Miami Heat,1,3,0,Driving Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,0,0,1,20051125,MIA,DAL,Regular Season
+29800246,25,753,Randy Brown,1610612741,Chicago Bulls,1,9,4,Dunk Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,0,0,1,19990308,MIL,CHI,Regular Season
+21200742,474,201939,Stephen Curry,1610612744,Golden State Warriors,4,0,29,Jump Bank Shot,2PT Field Goal,Mid-Range,Right Side(R),8-16 ft.,13,118,58,1,20130208,MEM,GSW,Regular Season
+20801125,82,1952,Raja Bell,1610612766,Charlotte Bobcats,1,2,22,Jump Shot,2PT Field Goal,Mid-Range,Center(C),16-24 ft.,22,26,227,0,20090403,CHA,MIA,Regular Season
+20200320,128,1742,Shammond Williams,1610612738,Boston Celtics,1,0,25,Jump Shot,3PT Field Goal,Above the Break 3,Left Side Center(LC),24+ ft.,26,-184,189,1,20021213,BOS,CLE,Regular Season
+21001196,32,2756,Sasha Vujacic,1610612751,New Jersey Nets,1,8,16,Pullup Jump shot,2PT Field Goal,Mid-Range,Center(C),16-24 ft.,21,0,214,0,20110410,TOR,NJN,Regular Season
+41000225,223,201188,Marc Gasol,1610612763,Memphis Grizzlies,2,0,20,Turnaround Hook Shot,2PT Field Goal,In The Paint (Non-RA),Center(C),Less Than 8 ft.,5,-54,12,1,20110511,OKC,MEM,Playoffs
+21400160,391,202362,Lance Stephenson,1610612766,Charlotte Hornets,4,7,48,Jump Shot,2PT Field Goal,Mid-Range,Right Side Center(RC),16-24 ft.,18,95,159,0,20141119,IND,CHA,Regular Season
+20401026,154,1497,Chauncey Billups,1610612765,Detroit Pistons,2,4,39,Jump Shot,3PT Field Goal,Left Corner 3,Left Side(L),24+ ft.,23,-232,7,0,20050326,DET,BOS,Regular Season
+29700154,458,369,Charlie Ward,1610612752,New York Knicks,4,0,57,Jump Shot,2PT Field Goal,Mid-Range,Center(C),16-24 ft.,21,-18,214,1,19971121,WAS,NYK,Regular Season
+29900129,160,87,Dikembe Mutombo,1610612737,Atlanta Hawks,2,6,13,Jump Shot,2PT Field Goal,In The Paint (Non-RA),Center(C),Less Than 8 ft.,6,57,23,1,19991119,IND,ATL,Regular Season
+29700212,188,1000,Shandon Anderson,1610612762,Utah Jazz,2,3,35,Tip Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,0,0,1,19971129,LAC,UTA,Regular Season
+29900895,419,77,Doug Overton,1610612738,Boston Celtics,4,8,49,Jump Shot,3PT Field Goal,Above the Break 3,Right Side Center(RC),24+ ft.,24,149,196,0,20000312,BOS,PHI,Regular Season
+21200962,257,2744,Al Jefferson,1610612762,Utah Jazz,2,0,27,Jump Shot,2PT Field Goal,Mid-Range,Right Side(R),16-24 ft.,16,151,69,0,20130313,OKC,UTA,Regular Season
 21700239,552,1628374,Lauri Markkanen,1610612741,Chicago Bulls,4,8,3,Jump Shot,3PT Field Goal,Above the Break 3,Center(C),24+ ft.,25,57,246,0,20171119,PHX,CHI,Regular Season
-20301169,350,57,Doug Christie,1610612758,Sacramento Kings,3,0,0,Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,0,0,1,20040412,DEN,SAC,Regular Season
-20901217,41,1515,Anthony Parker,1610612739,Cleveland Cavaliers,1,7,47,Jump Shot,2PT Field Goal,Mid-Range,Left Side Center(LC),16-24 ft.,21,-130,168,0,20100414,ATL,CLE,Regular Season
-21400023,487,201564,O.J. Mayo,1610612749,Milwaukee Bucks,4,7,14,Running Jump Shot,2PT Field Goal,In The Paint (Non-RA),Center(C),Less Than 8 ft.,6,53,42,1,20141031,MIL,PHI,Regular Season
-21500683,490,1717,Dirk Nowitzki,1610612742,Dallas Mavericks,4,3,46,Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,2,-24,2,1,20160126,LAL,DAL,Regular Season
+20400081,444,2562,Sasha Pavlovic,1610612739,Cleveland Cavaliers,4,5,2,Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,1,16,10,0,20041113,CLE,WAS,Regular Season
+20700344,2,2584,Willie Green,1610612755,Philadelphia 76ers,1,11,43,Running Bank shot,2PT Field Goal,In The Paint (Non-RA),Center(C),Less Than 8 ft.,6,62,28,0,20071215,CLE,PHI,Regular Season
+21000497,516,1713,Vince Carter,1610612756,Phoenix Suns,4,0,42,Jump Shot,3PT Field Goal,Above the Break 3,Center(C),24+ ft.,25,-57,246,0,20110102,SAC,PHX,Regular Season
+21500896,162,1626156,D'Angelo Russell,1610612747,Los Angeles Lakers,2,6,41,Jump Shot,3PT Field Goal,Right Corner 3,Right Side(R),24+ ft.,23,233,7,1,20160301,LAL,BKN,Regular Season
+21700354,314,1628374,Lauri Markkanen,1610612741,Chicago Bulls,3,11,23,Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,-7,2,1,20171206,IND,CHI,Regular Season
+20900388,343,1747,Rafer Alston,1610612751,New Jersey Nets,3,2,3,Jump Shot,2PT Field Goal,Mid-Range,Right Side(R),16-24 ft.,17,179,4,0,20091219,NJN,LAL,Regular Season
+20900047,416,2561,David West,1610612740,New Orleans Hornets,4,6,15,Jump Shot,2PT Field Goal,Mid-Range,Left Side Center(LC),16-24 ft.,19,-97,170,1,20091102,NYK,NOH,Regular Season
+21500073,282,202344,Trevor Booker,1610612762,Utah Jazz,3,8,34,Jump Shot,2PT Field Goal,In The Paint (Non-RA),Center(C),Less Than 8 ft.,4,-16,38,0,20151105,DEN,UTA,Regular Season
+20000370,128,952,Antoine Walker,1610612738,Boston Celtics,2,10,57,Jump Shot,3PT Field Goal,Right Corner 3,Right Side(R),24+ ft.,23,235,-15,1,20001221,NYK,BOS,Regular Season
+29800364,113,949,Shareef Abdur-Rahim,1610612763,Vancouver Grizzlies,2,10,52,Hook Shot,2PT Field Goal,In The Paint (Non-RA),Center(C),Less Than 8 ft.,6,-21,59,1,19990322,PHX,VAN,Regular Season
+21300931,322,202322,John Wall,1610612764,Washington Wizards,3,3,14,Jump Shot,3PT Field Goal,Left Corner 3,Left Side(L),24+ ft.,23,-235,-14,0,20140308,MIL,WAS,Regular Season
+29900977,130,296,Rick Fox,1610612747,Los Angeles Lakers,2,10,6,Jump Shot,2PT Field Goal,Mid-Range,Right Side Center(RC),16-24 ft.,16,63,156,1,20000322,LAL,GSW,Regular Season
+21600907,384,201158,Marco Belinelli,1610612766,Charlotte Hornets,3,0,21,Jump Shot,2PT Field Goal,Mid-Range,Center(C),16-24 ft.,16,19,159,0,20170302,PHX,CHA,Regular Season
+20501032,305,979,Jermaine O'Neal,1610612754,Indiana Pacers,3,5,16,Jump Shot,2PT Field Goal,Mid-Range,Center(C),16-24 ft.,18,-18,181,0,20060326,IND,PHI,Regular Season
+40900206,38,2590,Mo Williams,1610612739,Cleveland Cavaliers,1,8,9,Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,2,-2,0,20100513,BOS,CLE,Playoffs
+21500494,481,101138,Brandon Bass,1610612747,Los Angeles Lakers,4,7,2,Jump Shot,2PT Field Goal,Mid-Range,Left Side(L),8-16 ft.,14,-143,18,0,20160101,LAL,PHI,Regular Season
+20800241,12,2546,Carmelo Anthony,1610612743,Denver Nuggets,1,10,16,Jump Shot,2PT Field Goal,Mid-Range,Right Side Center(RC),16-24 ft.,19,155,116,0,20081129,MIN,DEN,Regular Season
+20800642,425,200767,Josh Boone,1610612751,New Jersey Nets,4,7,6,Putback Dunk Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,0,0,0,20090124,MEM,NJN,Regular Season
+20500703,360,2804,Andres Nocioni,1610612741,Chicago Bulls,3,2,38,Jump Shot,3PT Field Goal,Right Corner 3,Right Side(R),24+ ft.,23,236,-5,0,20060206,UTA,CHI,Regular Season
+20701193,226,2078,Jason Hart,1610612762,Utah Jazz,2,0,43,Jump Shot,2PT Field Goal,Mid-Range,Right Side Center(RC),16-24 ft.,17,67,166,0,20080412,UTA,DEN,Regular Season
+21300806,409,201880,Greg Stiemsma,1610612740,New Orleans Pelicans,4,8,2,Tip Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,2,17,19,0,20140219,NOP,NYK,Regular Season
+29900309,70,954,Kerry Kittles,1610612751,New Jersey Nets,1,5,22,Jump Shot,3PT Field Goal,Above the Break 3,Right Side Center(RC),24+ ft.,25,147,214,0,19991215,NJN,CLE,Regular Season
+20300392,338,2548,Dwyane Wade,1610612748,Miami Heat,4,9,59,Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,0,0,1,20031223,MIA,WAS,Regular Season
+20400115,146,1894,Corey Maggette,1610612746,Los Angeles Clippers,2,8,34,Jump Shot,3PT Field Goal,Above the Break 3,Left Side Center(LC),24+ ft.,25,-179,187,0,20041117,LAL,LAC,Regular Season
+21000623,473,1889,Andre Miller,1610612757,Portland Trail Blazers,4,0,33,Jump Shot,2PT Field Goal,Mid-Range,Right Side(R),16-24 ft.,17,170,0,1,20110119,SAC,POR,Regular Season
+20000212,385,446,Lucious Harris,1610612751,New Jersey Nets,4,9,42,Jump Shot,3PT Field Goal,Above the Break 3,Right Side Center(RC),24+ ft.,26,98,245,0,20001129,DET,NJN,Regular Season
+20600783,70,1729,Ricky Davis,1610612750,Minnesota Timberwolves,1,1,59,Running Jump Shot,2PT Field Goal,Mid-Range,Right Side(R),8-16 ft.,14,146,7,1,20070214,MIN,DEN,Regular Season
+21200283,242,203084,Harrison Barnes,1610612744,Golden State Warriors,3,10,54,Layup Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,2,24,0,0,20121208,WAS,GSW,Regular Season
+20000773,209,1890,Shawn Marion,1610612756,Phoenix Suns,2,0,3,Dunk Shot,2PT Field Goal,Restricted Area,Center(C),Less Than 8 ft.,0,0,0,1,20010221,MIA,PHX,Regular Season
+29700239,35,1065,Erick Strickland,1610612742,Dallas Mavericks,1,7,24,Jump Shot,2PT Field Goal,Mid-Range,Center(C),16-24 ft.,19,38,194,0,19971204,DAL,NYK,Regular Season
+21700508,480,201158,Marco Belinelli,1610612737,Atlanta Hawks,3,0,40,Step Back Jump shot,3PT Field Goal,Above the Break 3,Right Side Center(RC),24+ ft.,25,120,220,0,20171227,ATL,WAS,Regular Season
+20000031,454,469,Jamal Mashburn,1610612766,Charlotte Hornets,4,2,42,Jump Shot,2PT Field Goal,In The Paint (Non-RA),Center(C),8-16 ft.,8,-27,80,1,20001103,CHH,MIA,Regular Season
