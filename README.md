@@ -308,8 +308,8 @@ FastAPI
 
 Grafana Monitoring
 (http://13.48.249.166:3000)
-u: Admin
-p: Admin
+u: admin
+p: admin
 
 React Frontend
 (http://13.48.249.166:3001)
