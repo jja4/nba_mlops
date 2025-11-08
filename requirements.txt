@@ -3,6 +3,7 @@ anyio==4.4.0
 certifi==2024.6.2
 charset-normalizer==3.3.2
 click==8.1.7
+dagshub
 dnspython==2.6.1
 email_validator==2.1.1
 fastapi==0.111.0
@@ -15,15 +16,18 @@ idna==3.7
 iniconfig==2.0.0
 Jinja2==3.1.4
 joblib==1.4.2
+logger==1.4
 markdown-it-py==3.0.0
 MarkupSafe==2.1.5
 mdurl==0.1.2
+mlflow==2.14.1
 numpy==1.26.4
 orjson==3.10.4
 packaging==24.1
 pandas==2.2.2
 passlib==1.7.4
 pluggy==1.5.0
+prometheus-fastapi-instrumentator==6.1.0
 psycopg2-binary==2.9.9
 pydantic==2.7.3
 pydantic_core==2.18.4

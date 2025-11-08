@@ -1,0 +1,1015 @@
+2024-06-30 15:18:43,304 - logger - INFO - Custom logger module initialized.
+2024-06-30 15:18:43,304 - logger - INFO - (1) Starting the data ingestion process.
+2024-06-30 15:18:43,304 - logger - INFO - Reading data from CSV file: ../../data/new_data/data.csv
+2024-06-30 15:18:43,320 - logger - INFO - Data read successfully from CSV file.
+2024-06-30 15:18:43,320 - logger - INFO - Validating data.
+2024-06-30 15:18:43,320 - logger - INFO - Data validation passed.
+2024-06-30 15:18:43,321 - logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-06-30 15:18:43,324 - logger - INFO - Data read successfully from CSV file.
+2024-06-30 15:18:43,324 - logger - INFO - Appending new data to existing data.
+2024-06-30 15:18:43,325 - logger - INFO - Data appended successfully.
+2024-06-30 15:18:43,326 - logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-06-30 15:18:43,334 - logger - INFO - Data saved successfully.
+2024-06-30 15:18:43,335 - logger - INFO - Data ingestion process completed.
+2024-06-30 15:18:43,335 - logger - INFO - ---------------------------------
+2024-06-30 16:00:02,060 - logger - INFO - Custom logger module initialized.
+2024-06-30 16:00:02,062 - logger - INFO - (2) Starting the data processing process.
+2024-06-30 16:00:02,062 - logger - INFO - Data loaded from ../../data/raw/NBA Shot Locations 1997 - 2020.csv.
+2024-06-30 16:00:02,124 - logger - INFO - Processed data saved successfully.
+2024-06-30 16:00:02,124 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv
+2024-06-30 16:00:02,124 - logger - INFO - Data processing pipeline completed.
+2024-06-30 16:00:02,124 - logger - INFO - -----------------------------------
+2024-06-30 16:01:18,978 - logger - INFO - Custom logger module initialized.
+2024-06-30 16:01:18,978 - logger - INFO - (3) Starting the feature engineering process.
+2024-06-30 16:01:18,978 - logger - INFO - Loading data from ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv.
+2024-06-30 16:01:19,028 - logger - INFO - New joblib file generated successfully.
+2024-06-30 16:01:19,029 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib
+2024-06-30 16:01:19,029 - logger - INFO - Data processing completed.
+2024-06-30 16:01:19,029 - logger - INFO - -----------------------------------
+2024-06-30 14:22:01,159 - logger - INFO - Custom logger module initialized.
+2024-06-30 14:22:01,163 - logger - INFO - (1) Starting the data ingestion process.
+2024-06-30 14:22:01,164 - logger - INFO - Reading data from CSV file: ../../data/new_data/data.csv
+2024-06-30 14:22:01,180 - logger - INFO - Data read successfully from CSV file.
+2024-06-30 14:22:01,183 - logger - INFO - Validating data.
+2024-06-30 14:22:01,184 - logger - INFO - Data validation passed.
+2024-06-30 14:22:01,193 - logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-06-30 14:22:01,247 - logger - INFO - Data read successfully from CSV file.
+2024-06-30 14:22:01,248 - logger - INFO - Appending new data to existing data.
+2024-06-30 14:22:01,256 - logger - INFO - Data appended successfully.
+2024-06-30 14:22:01,258 - logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-06-30 14:22:01,308 - logger - INFO - Data saved successfully.
+2024-06-30 14:22:01,309 - logger - INFO - Data ingestion process completed.
+2024-06-30 14:22:01,310 - logger - INFO - ---------------------------------
+2024-06-30 14:22:02,316 - logger - INFO - Custom logger module initialized.
+2024-06-30 14:22:02,317 - logger - INFO - (2) Starting the data processing process.
+2024-06-30 14:22:02,318 - logger - INFO - Data loaded from ../../data/raw/NBA Shot Locations 1997 - 2020.csv.
+2024-06-30 14:22:02,389 - logger - INFO - Processed data saved successfully.
+2024-06-30 14:22:02,390 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv
+2024-06-30 14:22:02,391 - logger - INFO - Data processing pipeline completed.
+2024-06-30 14:22:02,392 - logger - INFO - -----------------------------------
+2024-06-30 14:22:06,194 - logger - INFO - Custom logger module initialized.
+2024-06-30 14:22:06,195 - logger - INFO - (3) Starting the feature engineering process.
+2024-06-30 14:22:06,196 - logger - INFO - Loading data from ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv.
+2024-06-30 14:22:06,270 - logger - INFO - New joblib file generated successfully.
+2024-06-30 14:22:06,271 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib
+2024-06-30 14:22:06,272 - logger - INFO - Data processing completed.
+2024-06-30 14:22:06,273 - logger - INFO - -----------------------------------
+2024-06-30 14:22:10,187 - logger - INFO - Custom logger module initialized.
+2024-06-30 14:22:10,188 - logger - INFO - (4) Starting the model training process.
+2024-06-30 14:22:10,216 - logger - INFO - Model file data saved successfully.
+2024-06-30 14:22:10,217 - logger - INFO - ../../trained_models/model_best_lr.joblib
+2024-06-30 14:22:10,220 - logger - INFO - -----------------------------------
+2024-06-30 14:22:12,794 - logger - INFO - Custom logger module initialized.
+2024-06-30 14:22:12,796 - logger - INFO - (5) Starting the model prediction process.
+2024-06-30 14:22:12,877 - logger - INFO - Prediction file data saved successfully.
+2024-06-30 14:22:12,878 - logger - INFO - ../../data/predictions/predictions.csv
+2024-06-30 14:22:12,879 - logger - INFO - -----------------------------------
+2024-06-30 16:30:22,357 - logger - INFO - Custom logger module initialized.
+2024-06-30 16:30:22,359 - logger - INFO - (1) Starting the data ingestion process.
+2024-06-30 16:30:22,361 - logger - INFO - Reading data from CSV file: ../../data/new_data/data.csv
+2024-06-30 16:30:22,388 - logger - INFO - Data read successfully from CSV file.
+2024-06-30 16:30:22,390 - logger - INFO - Validating data.
+2024-06-30 16:30:22,391 - logger - INFO - Data validation passed.
+2024-06-30 16:30:22,404 - logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-06-30 16:30:22,421 - logger - INFO - Data read successfully from CSV file.
+2024-06-30 16:30:22,423 - logger - INFO - Appending new data to existing data.
+2024-06-30 16:30:22,428 - logger - INFO - Data appended successfully.
+2024-06-30 16:30:22,441 - logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-06-30 16:30:22,475 - logger - INFO - Data saved successfully.
+2024-06-30 16:30:22,476 - logger - INFO - Data ingestion process completed.
+2024-06-30 16:30:22,477 - logger - INFO - ---------------------------------
+2024-06-30 16:30:24,488 - logger - INFO - Custom logger module initialized.
+2024-06-30 16:30:24,489 - logger - INFO - (2) Starting the data processing process.
+2024-06-30 16:30:24,490 - logger - INFO - Data loaded from ../../data/raw/NBA Shot Locations 1997 - 2020.csv.
+2024-06-30 16:30:24,538 - logger - INFO - Processed data saved successfully.
+2024-06-30 16:30:24,540 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv
+2024-06-30 16:30:24,541 - logger - INFO - Data processing pipeline completed.
+2024-06-30 16:30:24,541 - logger - INFO - -----------------------------------
+2024-06-30 16:30:27,767 - logger - INFO - Custom logger module initialized.
+2024-06-30 16:30:27,768 - logger - INFO - (3) Starting the feature engineering process.
+2024-06-30 16:30:27,769 - logger - INFO - Loading data from ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv.
+2024-06-30 16:30:27,831 - logger - INFO - New joblib file generated successfully.
+2024-06-30 16:30:27,832 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib
+2024-06-30 16:30:27,833 - logger - INFO - Data processing completed.
+2024-06-30 16:30:27,834 - logger - INFO - -----------------------------------
+2024-06-30 16:30:30,828 - logger - INFO - Custom logger module initialized.
+2024-06-30 16:30:30,829 - logger - INFO - (4) Starting the model training process.
+2024-06-30 16:30:30,863 - logger - INFO - Model file data saved successfully.
+2024-06-30 16:30:30,865 - logger - INFO - ../../trained_models/model_best_lr.joblib
+2024-06-30 16:30:30,867 - logger - INFO - -----------------------------------
+2024-06-30 16:30:33,090 - logger - INFO - Custom logger module initialized.
+2024-06-30 16:30:33,092 - logger - INFO - (5) Starting the model prediction process.
+2024-06-30 16:30:33,191 - logger - INFO - Prediction file data saved successfully.
+2024-06-30 16:30:33,192 - logger - INFO - ../../data/predictions/predictions.csv
+2024-06-30 16:30:33,193 - logger - INFO - -----------------------------------
+2024-07-02 10:28:10,971 - logger - INFO - Custom logger module initialized.
+2024-07-02 10:28:10,973 - logger - INFO - (1) Starting the data ingestion process.
+2024-07-02 10:28:10,974 - logger - INFO - Reading data from CSV file: ../../data/new_data/new_data.csv
+2024-07-02 10:28:10,999 - logger - INFO - Data read successfully from CSV file.
+2024-07-02 10:28:11,000 - logger - INFO - Validating data.
+2024-07-02 10:28:11,005 - logger - INFO - Data validation passed.
+2024-07-02 10:28:11,011 - logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-02 10:28:11,061 - logger - INFO - Data read successfully from CSV file.
+2024-07-02 10:28:11,062 - logger - INFO - Appending new data to existing data.
+2024-07-02 10:28:11,065 - logger - INFO - Data appended successfully.
+2024-07-02 10:28:11,072 - logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-02 10:28:11,437 - logger - INFO - Data saved successfully.
+2024-07-02 10:28:11,442 - logger - INFO - Data ingestion process completed.
+2024-07-02 10:28:11,443 - logger - INFO - ---------------------------------
+2024-07-02 10:28:14,434 - logger - INFO - Custom logger module initialized.
+2024-07-02 10:28:14,436 - logger - INFO - (2) Starting the data processing process.
+2024-07-02 10:28:14,438 - logger - INFO - Data loaded from ../../data/raw/NBA Shot Locations 1997 - 2020.csv.
+2024-07-02 10:28:14,639 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv
+2024-07-02 10:28:14,642 - logger - INFO - Data processing pipeline completed.
+2024-07-02 10:28:14,643 - logger - INFO - -----------------------------------
+2024-07-02 10:28:21,244 - logger - INFO - Custom logger module initialized.
+2024-07-02 10:28:21,292 - logger - INFO - (3) Starting the feature engineering process.
+2024-07-02 10:28:21,293 - logger - INFO - Loading data from ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv.
+2024-07-02 10:28:21,725 - logger - INFO - New joblib file generated successfully.
+2024-07-02 10:28:21,727 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib
+2024-07-02 10:28:21,733 - logger - INFO - Feature engineering completed.
+2024-07-02 10:28:21,734 - logger - INFO - -----------------------------------
+2024-07-02 10:28:26,577 - logger - INFO - Custom logger module initialized.
+2024-07-02 10:28:26,579 - logger - INFO - (4) Starting the model training process.
+2024-07-02 10:28:26,647 - logger - INFO - Model training completed.
+2024-07-02 10:28:26,649 - logger - INFO - -----------------------------------
+2024-07-02 10:28:31,625 - logger - INFO - Custom logger module initialized.
+2024-07-02 10:28:31,626 - logger - INFO - (5) Starting the model prediction process.
+2024-07-02 10:28:31,631 - logger - INFO - No new model version found. Skipping inference.
+2024-07-02 10:32:30,078 - logger - INFO - Custom logger module initialized.
+2024-07-02 10:32:30,082 - logger - INFO - (1) Starting the data ingestion process.
+2024-07-02 10:32:30,083 - logger - INFO - Reading data from CSV file: ../../data/new_data/new_data.csv
+2024-07-02 10:32:30,102 - logger - INFO - Data read successfully from CSV file.
+2024-07-02 10:32:30,104 - logger - INFO - Validating data.
+2024-07-02 10:32:30,106 - logger - INFO - Data validation passed.
+2024-07-02 10:32:30,112 - logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-02 10:32:30,167 - logger - INFO - Data read successfully from CSV file.
+2024-07-02 10:32:30,171 - logger - INFO - Appending new data to existing data.
+2024-07-02 10:32:30,175 - logger - INFO - Data appended successfully.
+2024-07-02 10:32:30,184 - logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-02 10:32:30,486 - logger - INFO - Data saved successfully.
+2024-07-02 10:32:30,493 - logger - INFO - Data ingestion process completed.
+2024-07-02 10:32:30,494 - logger - INFO - ---------------------------------
+2024-07-02 10:32:32,947 - logger - INFO - Custom logger module initialized.
+2024-07-02 10:32:32,949 - logger - INFO - (2) Starting the data processing process.
+2024-07-02 10:32:32,953 - logger - INFO - Data loaded from ../../data/raw/NBA Shot Locations 1997 - 2020.csv.
+2024-07-02 10:32:33,160 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv
+2024-07-02 10:32:33,165 - logger - INFO - Data processing pipeline completed.
+2024-07-02 10:32:33,167 - logger - INFO - -----------------------------------
+2024-07-02 10:32:37,792 - logger - INFO - Custom logger module initialized.
+2024-07-02 10:32:37,794 - logger - INFO - (3) Starting the feature engineering process.
+2024-07-02 10:32:37,795 - logger - INFO - Loading data from ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv.
+2024-07-02 10:32:37,995 - logger - INFO - New joblib file generated successfully.
+2024-07-02 10:32:37,997 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib
+2024-07-02 10:32:38,002 - logger - INFO - Feature engineering completed.
+2024-07-02 10:32:38,003 - logger - INFO - -----------------------------------
+2024-07-02 10:32:42,963 - logger - INFO - Custom logger module initialized.
+2024-07-02 10:32:42,965 - logger - INFO - (4) Starting the model training process.
+2024-07-02 10:32:43,022 - logger - INFO - Model training completed.
+2024-07-02 10:32:43,023 - logger - INFO - -----------------------------------
+2024-07-02 10:32:48,197 - logger - INFO - Custom logger module initialized.
+2024-07-02 10:32:48,199 - logger - INFO - (5) Starting the model prediction process.
+2024-07-02 10:32:48,203 - logger - INFO - No new model version found. Skipping inference.
+
+
+2024-07-03 08:58:46,954 - logger - INFO - Custom logger module initialized.
+2024-07-03 08:58:46,959 - logger - INFO - (1) Starting the data ingestion process.
+2024-07-03 08:58:46,959 - logger - INFO - Reading data from CSV file: ../../data/new_data/new_data.csv
+2024-07-03 08:58:46,980 - logger - INFO - Data read successfully from CSV file.
+2024-07-03 08:58:46,981 - logger - INFO - Validating data.
+2024-07-03 08:58:46,981 - logger - INFO - Data validation passed.
+2024-07-03 08:58:46,981 - logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-03 08:58:47,004 - logger - INFO - Data read successfully from CSV file.
+2024-07-03 08:58:47,004 - logger - INFO - Appending new data to existing data.
+2024-07-03 08:58:47,007 - logger - INFO - Data appended successfully.
+2024-07-03 08:58:47,008 - logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-03 08:58:47,109 - logger - INFO - Data saved successfully.
+2024-07-03 08:58:47,110 - logger - INFO - Data ingestion process completed.
+2024-07-03 08:58:47,110 - logger - INFO - ---------------------------------
+=======
+2024-07-02 12:23:09,551 - logger - INFO - Custom logger module initialized.
+2024-07-02 12:23:09,551 - logger - INFO - (4) Starting the model training process.
+2024-07-02 12:24:31,109 - logger - INFO - Custom logger module initialized.
+2024-07-02 12:24:36,797 - logger - INFO - Custom logger module initialized.
+2024-07-02 12:24:36,797 - logger - INFO - (4) Starting the model training process.
+2024-07-02 12:29:08,081 - logger - INFO - Custom logger module initialized.
+2024-07-02 12:29:08,081 - logger - INFO - (4) Starting the model training process.
+2024-07-02 12:30:32,544 - logger - INFO - Custom logger module initialized.
+2024-07-02 12:30:32,544 - logger - INFO - (4) Starting the model training process.
+2024-07-02 12:30:33,856 - logger - INFO - Model saved locally: trained_models/trained_models/model_best_lr-v1-20240702.joblib
+2024-07-02 12:30:33,861 - logger - INFO - Model training completed.
+2024-07-02 12:30:33,861 - logger - INFO - -----------------------------------
+2024-07-02 12:32:44,780 - logger - INFO - Custom logger module initialized.
+2024-07-02 12:32:44,780 - logger - INFO - (4) Starting the model training process.
+2024-07-02 12:32:46,314 - logger - INFO - Model saved locally: trained_models/model_best_lr-v1-20240702.joblib
+2024-07-02 12:32:46,317 - logger - INFO - Model training completed.
+2024-07-02 12:32:46,317 - logger - INFO - -----------------------------------
+2024-07-02 12:36:08,860 - logger - INFO - Custom logger module initialized.
+2024-07-02 12:36:08,860 - logger - INFO - (4) Starting the model training process.
+2024-07-02 12:36:10,384 - logger - INFO - Model saved locally: ../../trained_models/model_best_lr-v1-20240702.joblib
+2024-07-02 12:36:10,388 - logger - INFO - Model training completed.
+2024-07-02 12:36:10,388 - logger - INFO - -----------------------------------
+2024-07-02 12:37:25,554 - logger - INFO - Custom logger module initialized.
+2024-07-02 12:37:25,554 - logger - INFO - (1) Starting the data ingestion process.
+2024-07-02 12:37:25,554 - logger - INFO - Reading data from CSV file: ../../data/new_data/new_data.csv
+2024-07-02 12:37:25,559 - logger - INFO - Data read successfully from CSV file.
+2024-07-02 12:37:25,560 - logger - INFO - Validating data.
+2024-07-02 12:37:25,560 - logger - INFO - Data validation passed.
+2024-07-02 12:37:25,560 - logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-02 12:37:25,572 - logger - INFO - Data read successfully from CSV file.
+2024-07-02 12:37:25,572 - logger - INFO - Appending new data to existing data.
+2024-07-02 12:37:25,575 - logger - INFO - Data appended successfully.
+2024-07-02 12:37:25,575 - logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-02 12:37:25,601 - logger - INFO - Data saved successfully.
+2024-07-02 12:37:25,601 - logger - INFO - Data ingestion process completed.
+2024-07-02 12:37:25,601 - logger - INFO - ---------------------------------
+2024-07-02 12:41:53,279 - logger - INFO - Custom logger module initialized.
+2024-07-02 12:41:53,280 - logger - INFO - (1) Starting the data ingestion process.
+2024-07-02 12:41:53,281 - logger - INFO - Reading data from CSV file: ../../data/new_data/new_data.csv
+2024-07-02 12:41:53,307 - logger - INFO - Data read successfully from CSV file.
+2024-07-02 12:41:53,307 - logger - INFO - Validating data.
+2024-07-02 12:41:53,307 - logger - INFO - Data validation passed.
+2024-07-02 12:41:53,308 - logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-02 12:41:53,327 - logger - INFO - Data read successfully from CSV file.
+2024-07-02 12:41:53,328 - logger - INFO - Appending new data to existing data.
+2024-07-02 12:41:53,330 - logger - INFO - Data appended successfully.
+2024-07-02 12:41:53,330 - logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-02 12:41:53,375 - logger - INFO - Data saved successfully.
+2024-07-02 12:41:53,375 - logger - INFO - Data ingestion process completed.
+2024-07-02 12:41:53,375 - logger - INFO - ---------------------------------
+2024-07-02 12:41:54,940 - logger - INFO - Custom logger module initialized.
+2024-07-02 12:41:54,941 - logger - INFO - (2) Starting the data processing process.
+2024-07-02 12:41:54,941 - logger - INFO - Data loaded from ../../data/raw/NBA Shot Locations 1997 - 2020.csv.
+2024-07-02 12:41:55,042 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv
+2024-07-02 12:41:55,043 - logger - INFO - Data processing pipeline completed.
+2024-07-02 12:41:55,043 - logger - INFO - -----------------------------------
+2024-07-02 12:41:58,075 - logger - INFO - Custom logger module initialized.
+2024-07-02 12:41:58,076 - logger - INFO - (3) Starting the feature engineering process.
+2024-07-02 12:41:58,077 - logger - INFO - Loading data from ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv.
+2024-07-02 12:41:58,152 - logger - INFO - New joblib file generated successfully.
+2024-07-02 12:41:58,153 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib
+2024-07-02 12:41:58,153 - logger - INFO - Feature engineering completed.
+2024-07-02 12:41:58,154 - logger - INFO - -----------------------------------
+2024-07-02 12:42:01,976 - logger - INFO - Custom logger module initialized.
+2024-07-02 12:42:01,976 - logger - INFO - (5) Starting the model prediction process.
+2024-07-02 12:42:01,977 - logger - INFO - No new model version found. Skipping inference.
+2024-07-02 12:44:42,988 - logger - INFO - Custom logger module initialized.
+2024-07-02 12:44:42,988 - logger - INFO - (4) Starting the model training process.
+2024-07-02 12:44:44,432 - logger - INFO - Model saved locally: ../../trained_models/model_best_lr-v1-20240702.joblib
+2024-07-02 12:44:44,435 - logger - INFO - Model training completed.
+2024-07-02 12:44:44,435 - logger - INFO - -----------------------------------
+2024-07-02 21:20:33,448 - logger - INFO - Custom logger module initialized.
+2024-07-02 21:20:33,449 - logger - INFO - (4) Starting the model training process.
+2024-07-02 21:20:34,945 - logger - INFO - Model training completed.
+2024-07-02 21:20:34,945 - logger - INFO - -----------------------------------
+2024-07-02 21:23:03,530 - logger - INFO - Custom logger module initialized.
+2024-07-02 21:23:03,530 - logger - INFO - (4) Starting the model training process.
+2024-07-02 21:23:04,887 - logger - INFO - Model training completed.
+2024-07-02 21:23:04,887 - logger - INFO - -----------------------------------
+2024-07-02 21:24:19,616 - logger - INFO - Custom logger module initialized.
+2024-07-02 21:24:19,616 - logger - INFO - (4) Starting the model training process.
+2024-07-02 21:24:20,772 - logger - INFO - Model training completed.
+2024-07-02 21:24:20,772 - logger - INFO - -----------------------------------
+2024-07-02 21:25:47,433 - logger - INFO - Custom logger module initialized.
+2024-07-02 21:25:47,433 - logger - INFO - (4) Starting the model training process.
+2024-07-02 21:25:48,599 - logger - INFO - Model training completed.
+2024-07-02 21:25:48,599 - logger - INFO - -----------------------------------
+2024-07-02 21:51:22,635 - logger - INFO - Custom logger module initialized.
+2024-07-02 21:51:22,635 - logger - INFO - (4) Starting the model training process.
+2024-07-02 21:51:24,015 - logger - INFO - Model file data saved successfully.
+2024-07-02 21:51:24,015 - logger - INFO - ../../trained_models/model_best_lr-v2-20240702.joblib
+2024-07-02 21:51:24,015 - logger - INFO - Model training completed.
+2024-07-02 21:51:24,015 - logger - INFO - -----------------------------------
+2024-07-03 15:32:02,088 - logger - INFO - Custom logger module initialized.
+2024-07-03 15:32:02,089 - logger - INFO - (1) Starting the data ingestion process.
+2024-07-03 15:32:02,089 - logger - INFO - Reading data from CSV file: ../../data/new_data/new_data.csv
+2024-07-03 15:32:02,105 - logger - INFO - Data read successfully from CSV file.
+2024-07-03 15:32:02,105 - logger - INFO - Validating data.
+2024-07-03 15:32:02,106 - logger - INFO - Data validation passed.
+2024-07-03 15:32:02,106 - logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-03 15:32:02,135 - logger - INFO - Data read successfully from CSV file.
+2024-07-03 15:32:02,136 - logger - INFO - Appending new data to existing data.
+2024-07-03 15:32:02,139 - logger - INFO - Data appended successfully.
+2024-07-03 15:32:02,139 - logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-03 15:32:02,184 - logger - INFO - Data saved successfully.
+2024-07-03 15:32:02,185 - logger - INFO - Data ingestion process completed.
+2024-07-03 15:32:02,185 - logger - INFO - ---------------------------------
+2024-07-03 15:33:04,420 - logger - INFO - Custom logger module initialized.
+2024-07-03 15:33:04,422 - logger - INFO - (1) Starting the data ingestion process.
+2024-07-03 15:33:04,423 - logger - INFO - Reading data from CSV file: ../../data/new_data/new_data.csv
+2024-07-03 15:33:04,438 - logger - INFO - Data read successfully from CSV file.
+2024-07-03 15:33:04,440 - logger - INFO - Validating data.
+2024-07-03 15:33:04,443 - logger - INFO - Data validation passed.
+2024-07-03 15:33:04,454 - logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-03 15:33:04,488 - logger - INFO - Data read successfully from CSV file.
+2024-07-03 15:33:04,489 - logger - INFO - Appending new data to existing data.
+2024-07-03 15:33:04,491 - logger - INFO - Data appended successfully.
+2024-07-03 15:33:04,494 - logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-03 15:33:04,711 - logger - INFO - Data saved successfully.
+2024-07-03 15:33:04,716 - logger - INFO - Data ingestion process completed.
+2024-07-03 15:33:04,717 - logger - INFO - ---------------------------------
+2024-07-03 15:33:06,765 - logger - INFO - Custom logger module initialized.
+2024-07-03 15:33:06,767 - logger - INFO - (2) Starting the data processing process.
+2024-07-03 15:33:06,769 - logger - INFO - Data loaded from ../../data/raw/NBA Shot Locations 1997 - 2020.csv.
+2024-07-03 15:33:06,933 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv
+2024-07-03 15:33:06,935 - logger - INFO - Data processing pipeline completed.
+2024-07-03 15:33:06,936 - logger - INFO - -----------------------------------
+2024-07-03 15:33:10,403 - logger - INFO - Custom logger module initialized.
+2024-07-03 15:33:10,406 - logger - INFO - (3) Starting the feature engineering process.
+2024-07-03 15:33:10,407 - logger - INFO - Loading data from ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv.
+2024-07-03 15:33:10,628 - logger - INFO - New joblib file generated successfully.
+2024-07-03 15:33:10,629 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib
+2024-07-03 15:33:10,634 - logger - INFO - Feature engineering completed.
+2024-07-03 15:33:10,635 - logger - INFO - -----------------------------------
+2024-07-03 15:33:20,182 - logger - INFO - Custom logger module initialized.
+2024-07-03 15:33:20,184 - logger - INFO - (5) Starting the model prediction process.
+2024-07-03 15:33:20,335 - logger - INFO - Prediction file data saved successfully.
+2024-07-03 15:33:20,340 - logger - INFO - ../../data/predictions/predictions.csv
+2024-07-03 15:33:20,348 - logger - INFO - Model inference completed.
+2024-07-03 15:33:20,349 - logger - INFO - -----------------------------------
+2024-07-03 15:33:20,354 - logger - INFO - Removed signal_new_model_version file.
+2024-07-04 11:10:50,452 - logger - INFO - Custom logger module initialized.
+2024-07-04 11:10:50,452 - logger - INFO - (4) Starting the model training process.
+2024-07-04 11:10:52,079 - logger - INFO - Model file data saved successfully.
+2024-07-04 11:10:52,079 - logger - INFO - ../../trained_models/model_best_lr-v1-20240704.joblib
+2024-07-04 11:10:52,079 - logger - INFO - Model training completed.
+2024-07-04 11:10:52,079 - logger - INFO - -----------------------------------
+2024-07-04 11:43:48,772 - logger - INFO - Custom logger module initialized.
+2024-07-04 11:43:48,772 - logger - INFO - (4) Starting the model training process.
+2024-07-04 11:43:50,267 - logger - INFO - Model file data saved successfully.
+2024-07-04 11:43:50,267 - logger - INFO - ../../trained_models/model_best_lr-v2-20240704.joblib
+2024-07-04 11:43:50,267 - logger - INFO - Model training completed.
+2024-07-04 11:43:50,267 - logger - INFO - -----------------------------------
+2024-07-04 11:44:05,611 - logger - INFO - Custom logger module initialized.
+2024-07-04 11:44:05,611 - logger - INFO - (4) Starting the model training process.
+2024-07-04 11:44:06,966 - logger - INFO - Model file data saved successfully.
+2024-07-04 11:44:06,966 - logger - INFO - ../../trained_models/model_best_lr-v3-20240704.joblib
+2024-07-04 11:44:06,966 - logger - INFO - Model training completed.
+2024-07-04 11:44:06,966 - logger - INFO - -----------------------------------
+2024-07-04 11:44:16,018 - logger - INFO - Custom logger module initialized.
+2024-07-04 11:44:16,019 - logger - INFO - (4) Starting the model training process.
+2024-07-04 11:44:17,355 - logger - INFO - Model file data saved successfully.
+2024-07-04 11:44:17,355 - logger - INFO - ../../trained_models/model_best_lr-v4-20240704.joblib
+2024-07-04 11:44:17,355 - logger - INFO - Model training completed.
+2024-07-04 11:44:17,355 - logger - INFO - -----------------------------------
+2024-07-04 11:44:22,639 - logger - INFO - Custom logger module initialized.
+2024-07-04 11:44:22,640 - logger - INFO - (4) Starting the model training process.
+2024-07-04 11:44:23,899 - logger - INFO - Model file data saved successfully.
+2024-07-04 11:44:23,899 - logger - INFO - ../../trained_models/model_best_lr-v5-20240704.joblib
+2024-07-04 11:44:23,899 - logger - INFO - Model training completed.
+2024-07-04 11:44:23,899 - logger - INFO - -----------------------------------
+2024-07-04 11:44:26,716 - logger - INFO - Custom logger module initialized.
+2024-07-04 11:44:26,716 - logger - INFO - (4) Starting the model training process.
+2024-07-04 11:44:27,956 - logger - INFO - Model file data saved successfully.
+2024-07-04 11:44:27,956 - logger - INFO - ../../trained_models/model_best_lr-v6-20240704.joblib
+2024-07-04 11:44:27,956 - logger - INFO - Model training completed.
+2024-07-04 11:44:27,956 - logger - INFO - -----------------------------------
+2024-07-04 11:44:30,959 - logger - INFO - Custom logger module initialized.
+2024-07-04 11:44:30,960 - logger - INFO - (4) Starting the model training process.
+2024-07-04 11:44:32,279 - logger - INFO - Model file data saved successfully.
+2024-07-04 11:44:32,279 - logger - INFO - ../../trained_models/model_best_lr-v7-20240704.joblib
+2024-07-04 11:44:32,279 - logger - INFO - Model training completed.
+2024-07-04 11:44:32,279 - logger - INFO - -----------------------------------
+2024-07-04 11:44:36,765 - logger - INFO - Custom logger module initialized.
+2024-07-04 11:44:36,766 - logger - INFO - (4) Starting the model training process.
+2024-07-04 11:44:38,137 - logger - INFO - Model file data saved successfully.
+2024-07-04 11:44:38,137 - logger - INFO - ../../trained_models/model_best_lr-v8-20240704.joblib
+2024-07-04 11:44:38,137 - logger - INFO - Model training completed.
+2024-07-04 11:44:38,137 - logger - INFO - -----------------------------------
+2024-07-04 11:46:19,115 - logger - INFO - Custom logger module initialized.
+2024-07-04 11:46:19,115 - logger - INFO - (4) Starting the model training process.
+2024-07-04 11:46:20,714 - logger - INFO - Model file data saved successfully.
+2024-07-04 11:46:20,714 - logger - INFO - ../../trained_models/model_best_lr-v9-20240704.joblib
+2024-07-04 11:46:20,714 - logger - INFO - Model training completed.
+2024-07-04 11:46:20,714 - logger - INFO - -----------------------------------
+2024-07-04 11:46:23,101 - logger - INFO - Custom logger module initialized.
+2024-07-04 11:46:23,101 - logger - INFO - (4) Starting the model training process.
+2024-07-04 11:46:24,484 - logger - INFO - Model file data saved successfully.
+2024-07-04 11:46:24,484 - logger - INFO - ../../trained_models/model_best_lr-v10-20240704.joblib
+2024-07-04 11:46:24,484 - logger - INFO - Model training completed.
+2024-07-04 11:46:24,484 - logger - INFO - -----------------------------------
+2024-07-04 11:46:26,965 - logger - INFO - Custom logger module initialized.
+2024-07-04 11:46:26,965 - logger - INFO - (4) Starting the model training process.
+2024-07-04 11:46:28,290 - logger - INFO - Model file data saved successfully.
+2024-07-04 11:46:28,290 - logger - INFO - ../../trained_models/model_best_lr-v11-20240704.joblib
+2024-07-04 11:46:28,290 - logger - INFO - Model training completed.
+2024-07-04 11:46:28,290 - logger - INFO - -----------------------------------
+2024-07-04 11:46:30,622 - logger - INFO - Custom logger module initialized.
+2024-07-04 11:46:30,622 - logger - INFO - (4) Starting the model training process.
+2024-07-04 11:46:31,880 - logger - INFO - Model file data saved successfully.
+2024-07-04 11:46:31,880 - logger - INFO - ../../trained_models/model_best_lr-v12-20240704.joblib
+2024-07-04 11:46:31,881 - logger - INFO - Model training completed.
+2024-07-04 11:46:31,881 - logger - INFO - -----------------------------------
+2024-07-04 11:59:58,306 - logger - INFO - Custom logger module initialized.
+2024-07-04 11:59:58,306 - logger - INFO - (4) Starting the model training process.
+2024-07-04 12:00:00,063 - logger - INFO - Model file data saved successfully.
+2024-07-04 12:00:00,064 - logger - INFO - ../../trained_models/model_best_lr-v13-20240704.joblib
+2024-07-04 12:00:00,064 - logger - INFO - Model training completed.
+2024-07-04 12:00:00,064 - logger - INFO - -----------------------------------
+2024-07-04 13:00:32,954 - logger - INFO - Custom logger module initialized.
+2024-07-04 13:00:32,954 - logger - INFO - (4) Starting the model training process.
+2024-07-04 13:00:34,483 - logger - INFO - Model file data saved successfully.
+2024-07-04 13:00:34,484 - logger - INFO - ../../trained_models/model_best_lr-v4-20240704.joblib
+2024-07-04 13:00:34,484 - logger - INFO - Model training completed.
+2024-07-04 13:00:34,484 - logger - INFO - -----------------------------------
+2024-07-04 14:15:34,911 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:15:34,912 - logger - INFO - (1) Starting the data ingestion process.
+2024-07-04 14:15:34,912 - logger - INFO - Reading data from CSV file: ../../data/new_data/new_data.csv
+2024-07-04 14:15:34,915 - logger - INFO - Data read successfully from CSV file.
+2024-07-04 14:15:34,915 - logger - INFO - Validating data.
+2024-07-04 14:15:34,915 - logger - INFO - Data validation passed.
+2024-07-04 14:15:34,916 - logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-04 14:15:34,923 - logger - INFO - Data read successfully from CSV file.
+2024-07-04 14:15:34,924 - logger - INFO - Appending new data to existing data.
+2024-07-04 14:15:34,924 - logger - INFO - Data appended successfully.
+2024-07-04 14:15:34,925 - logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-04 14:15:34,964 - logger - INFO - Data saved successfully.
+2024-07-04 14:15:34,965 - logger - INFO - Data ingestion process completed.
+2024-07-04 14:15:34,965 - logger - INFO - ---------------------------------
+2024-07-04 14:15:37,062 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:15:37,062 - logger - INFO - (2) Starting the data processing process.
+2024-07-04 14:15:37,062 - logger - INFO - Data loaded from ../../data/raw/NBA Shot Locations 1997 - 2020.csv.
+2024-07-04 14:15:37,089 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv
+2024-07-04 14:15:37,090 - logger - INFO - Data processing pipeline completed.
+2024-07-04 14:15:37,090 - logger - INFO - -----------------------------------
+2024-07-04 14:15:39,420 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:15:39,420 - logger - INFO - (3) Starting the feature engineering process.
+2024-07-04 14:15:39,420 - logger - INFO - Loading data from ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv.
+2024-07-04 14:15:39,436 - logger - INFO - New joblib file generated successfully.
+2024-07-04 14:15:39,436 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib
+2024-07-04 14:15:39,437 - logger - INFO - Feature engineering completed.
+2024-07-04 14:15:39,437 - logger - INFO - -----------------------------------
+2024-07-04 14:15:41,790 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:15:41,790 - logger - INFO - (4) Starting the model training process.
+2024-07-04 14:15:41,800 - logger - INFO - Model file data saved successfully.
+2024-07-04 14:15:41,801 - logger - INFO - ../../trained_models/model_best_lr-v4-20240704.joblib
+2024-07-04 14:15:41,801 - logger - INFO - Model training completed.
+2024-07-04 14:15:41,801 - logger - INFO - -----------------------------------
+2024-07-04 14:15:43,690 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:15:43,691 - logger - INFO - (5) Starting the model prediction process.
+2024-07-04 14:15:43,691 - logger - INFO - No new model version found. Skipping inference.
+2024-07-04 14:16:01,155 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:16:01,155 - logger - INFO - (1) Starting the data ingestion process.
+2024-07-04 14:16:01,156 - logger - INFO - Reading data from CSV file: ../../data/new_data/new_data.csv
+2024-07-04 14:16:01,158 - logger - INFO - Data read successfully from CSV file.
+2024-07-04 14:16:01,158 - logger - INFO - Validating data.
+2024-07-04 14:16:01,158 - logger - INFO - Data validation passed.
+2024-07-04 14:16:01,158 - logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-04 14:16:01,166 - logger - INFO - Data read successfully from CSV file.
+2024-07-04 14:16:01,166 - logger - INFO - Appending new data to existing data.
+2024-07-04 14:16:01,167 - logger - INFO - Data appended successfully.
+2024-07-04 14:16:01,168 - logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-04 14:16:01,201 - logger - INFO - Data saved successfully.
+2024-07-04 14:16:01,202 - logger - INFO - Data ingestion process completed.
+2024-07-04 14:16:01,202 - logger - INFO - ---------------------------------
+2024-07-04 14:16:03,354 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:16:03,355 - logger - INFO - (2) Starting the data processing process.
+2024-07-04 14:16:03,355 - logger - INFO - Data loaded from ../../data/raw/NBA Shot Locations 1997 - 2020.csv.
+2024-07-04 14:16:03,383 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv
+2024-07-04 14:16:03,384 - logger - INFO - Data processing pipeline completed.
+2024-07-04 14:16:03,384 - logger - INFO - -----------------------------------
+2024-07-04 14:16:05,653 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:16:05,653 - logger - INFO - (3) Starting the feature engineering process.
+2024-07-04 14:16:05,654 - logger - INFO - Loading data from ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv.
+2024-07-04 14:16:05,668 - logger - INFO - New joblib file generated successfully.
+2024-07-04 14:16:05,668 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib
+2024-07-04 14:16:05,668 - logger - INFO - Feature engineering completed.
+2024-07-04 14:16:05,668 - logger - INFO - -----------------------------------
+2024-07-04 14:16:08,030 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:16:08,030 - logger - INFO - (4) Starting the model training process.
+2024-07-04 14:16:08,294 - logger - INFO - Model file data saved successfully.
+2024-07-04 14:16:08,295 - logger - INFO - ../../trained_models/model_best_lr-v5-20240704.joblib
+2024-07-04 14:16:08,299 - logger - INFO - Model training completed.
+2024-07-04 14:16:08,299 - logger - INFO - -----------------------------------
+2024-07-04 14:16:09,973 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:16:09,973 - logger - INFO - (5) Starting the model prediction process.
+2024-07-04 14:16:09,974 - logger - INFO - No new model version found. Skipping inference.
+2024-07-04 14:17:29,648 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:17:29,648 - logger - INFO - (1) Starting the data ingestion process.
+2024-07-04 14:17:29,648 - logger - INFO - Reading data from CSV file: ../../data/new_data/new_data.csv
+2024-07-04 14:17:29,650 - logger - INFO - Data read successfully from CSV file.
+2024-07-04 14:17:29,650 - logger - INFO - Validating data.
+2024-07-04 14:17:29,650 - logger - INFO - Data validation passed.
+2024-07-04 14:17:29,651 - logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-04 14:17:29,659 - logger - INFO - Data read successfully from CSV file.
+2024-07-04 14:17:29,659 - logger - INFO - Appending new data to existing data.
+2024-07-04 14:17:29,660 - logger - INFO - Data appended successfully.
+2024-07-04 14:17:29,660 - logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-04 14:17:29,696 - logger - INFO - Data saved successfully.
+2024-07-04 14:17:29,696 - logger - INFO - Data ingestion process completed.
+2024-07-04 14:17:29,697 - logger - INFO - ---------------------------------
+2024-07-04 14:17:31,835 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:17:31,836 - logger - INFO - (2) Starting the data processing process.
+2024-07-04 14:17:31,836 - logger - INFO - Data loaded from ../../data/raw/NBA Shot Locations 1997 - 2020.csv.
+2024-07-04 14:17:31,863 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv
+2024-07-04 14:17:31,863 - logger - INFO - Data processing pipeline completed.
+2024-07-04 14:17:31,863 - logger - INFO - -----------------------------------
+2024-07-04 14:17:34,136 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:17:34,136 - logger - INFO - (3) Starting the feature engineering process.
+2024-07-04 14:17:34,137 - logger - INFO - Loading data from ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv.
+2024-07-04 14:17:34,150 - logger - INFO - New joblib file generated successfully.
+2024-07-04 14:17:34,150 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib
+2024-07-04 14:17:34,151 - logger - INFO - Feature engineering completed.
+2024-07-04 14:17:34,151 - logger - INFO - -----------------------------------
+2024-07-04 14:17:36,462 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:17:36,463 - logger - INFO - (4) Starting the model training process.
+2024-07-04 14:17:36,470 - logger - INFO - Model file data saved successfully.
+2024-07-04 14:17:36,471 - logger - INFO - ../../trained_models/model_best_lr-v6-20240704.joblib
+2024-07-04 14:17:36,471 - logger - INFO - Model training completed.
+2024-07-04 14:17:36,471 - logger - INFO - -----------------------------------
+2024-07-04 14:17:38,356 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:17:38,356 - logger - INFO - (5) Starting the model prediction process.
+2024-07-04 14:17:38,356 - logger - INFO - No new model version found. Skipping inference.
+2024-07-04 14:17:38,356 - logger - INFO - -----------------------------------
+2024-07-04 14:18:28,830 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:18:28,830 - logger - INFO - (1) Starting the data ingestion process.
+2024-07-04 14:18:28,830 - logger - INFO - Reading data from CSV file: ../../data/new_data/new_data.csv
+2024-07-04 14:18:28,832 - logger - INFO - Data read successfully from CSV file.
+2024-07-04 14:18:28,832 - logger - INFO - Validating data.
+2024-07-04 14:18:28,832 - logger - INFO - Data validation passed.
+2024-07-04 14:18:28,832 - logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-04 14:18:28,838 - logger - INFO - Data read successfully from CSV file.
+2024-07-04 14:18:28,838 - logger - INFO - Appending new data to existing data.
+2024-07-04 14:18:28,839 - logger - INFO - Data appended successfully.
+2024-07-04 14:18:28,839 - logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-04 14:18:28,853 - logger - INFO - Data saved successfully.
+2024-07-04 14:18:28,853 - logger - INFO - Data ingestion process completed.
+2024-07-04 14:18:28,853 - logger - INFO - ---------------------------------
+2024-07-04 14:18:33,067 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:18:33,067 - logger - INFO - (4) Starting the model training process.
+2024-07-04 14:18:34,613 - logger - INFO - Model file data saved successfully.
+2024-07-04 14:18:34,613 - logger - INFO - ../../trained_models/model_best_lr-v3-20240704.joblib
+2024-07-04 14:18:34,613 - logger - INFO - Model training completed.
+2024-07-04 14:18:34,613 - logger - INFO - -----------------------------------
+2024-07-04 14:27:40,233 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:27:40,234 - logger - INFO - (1) Starting the data ingestion process.
+2024-07-04 14:27:40,234 - logger - INFO - Reading data from CSV file: ../../data/new_data/new_data.csv
+2024-07-04 14:27:40,237 - logger - INFO - Data read successfully from CSV file.
+2024-07-04 14:27:40,237 - logger - INFO - Validating data.
+2024-07-04 14:27:40,237 - logger - INFO - Data validation passed.
+2024-07-04 14:27:40,237 - logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-04 14:27:40,246 - logger - INFO - Data read successfully from CSV file.
+2024-07-04 14:27:40,247 - logger - INFO - Appending new data to existing data.
+2024-07-04 14:27:40,247 - logger - INFO - Data appended successfully.
+2024-07-04 14:27:40,248 - logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-04 14:27:40,280 - logger - INFO - Data saved successfully.
+2024-07-04 14:27:40,281 - logger - INFO - Data ingestion process completed.
+2024-07-04 14:27:40,281 - logger - INFO - ---------------------------------
+2024-07-04 14:27:42,376 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:27:42,376 - logger - INFO - (2) Starting the data processing process.
+2024-07-04 14:27:42,376 - logger - INFO - Data loaded from ../../data/raw/NBA Shot Locations 1997 - 2020.csv.
+2024-07-04 14:27:42,402 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv
+2024-07-04 14:27:42,403 - logger - INFO - Data processing pipeline completed.
+2024-07-04 14:27:42,403 - logger - INFO - -----------------------------------
+2024-07-04 14:27:44,675 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:27:44,675 - logger - INFO - (3) Starting the feature engineering process.
+2024-07-04 14:27:44,676 - logger - INFO - Loading data from ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv.
+2024-07-04 14:27:44,692 - logger - INFO - New joblib file generated successfully.
+2024-07-04 14:27:44,692 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib
+2024-07-04 14:27:44,693 - logger - INFO - Feature engineering completed.
+2024-07-04 14:27:44,693 - logger - INFO - -----------------------------------
+2024-07-04 14:27:47,032 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:27:47,032 - logger - INFO - (4) Starting the model training process.
+2024-07-04 14:27:47,041 - logger - INFO - Model file data saved successfully.
+2024-07-04 14:27:47,041 - logger - INFO - ../../trained_models/model_best_lr-v5-20240704.joblib
+2024-07-04 14:27:47,041 - logger - INFO - Model training completed.
+2024-07-04 14:27:47,041 - logger - INFO - -----------------------------------
+2024-07-04 14:27:48,931 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:27:48,932 - logger - INFO - (5) Starting the model prediction process.
+2024-07-04 14:27:48,932 - logger - INFO - No new model version found. Skipping inference.
+2024-07-04 14:27:48,932 - logger - INFO - -----------------------------------
+2024-07-04 14:27:52,175 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:27:52,175 - logger - INFO - (1) Starting the data ingestion process.
+2024-07-04 14:27:52,176 - logger - INFO - Reading data from CSV file: ../../data/new_data/new_data.csv
+2024-07-04 14:27:52,179 - logger - INFO - Data read successfully from CSV file.
+2024-07-04 14:27:52,179 - logger - INFO - Validating data.
+2024-07-04 14:27:52,179 - logger - INFO - Data validation passed.
+2024-07-04 14:27:52,180 - logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-04 14:27:52,190 - logger - INFO - Data read successfully from CSV file.
+2024-07-04 14:27:52,190 - logger - INFO - Appending new data to existing data.
+2024-07-04 14:27:52,191 - logger - INFO - Data appended successfully.
+2024-07-04 14:27:52,191 - logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-04 14:27:52,208 - logger - INFO - Data saved successfully.
+2024-07-04 14:27:52,208 - logger - INFO - Data ingestion process completed.
+2024-07-04 14:27:52,208 - logger - INFO - ---------------------------------
+2024-07-04 14:28:14,906 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:28:14,906 - logger - INFO - (1) Starting the data ingestion process.
+2024-07-04 14:28:14,906 - logger - INFO - Reading data from CSV file: ../../data/new_data/new_data.csv
+2024-07-04 14:28:14,911 - logger - INFO - Data read successfully from CSV file.
+2024-07-04 14:28:14,911 - logger - INFO - Validating data.
+2024-07-04 14:28:14,911 - logger - INFO - Data validation passed.
+2024-07-04 14:28:14,911 - logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-04 14:28:14,921 - logger - INFO - Data read successfully from CSV file.
+2024-07-04 14:28:14,921 - logger - INFO - Appending new data to existing data.
+2024-07-04 14:28:14,922 - logger - INFO - Data appended successfully.
+2024-07-04 14:28:14,922 - logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-04 14:28:14,939 - logger - INFO - Data saved successfully.
+2024-07-04 14:28:14,939 - logger - INFO - Data ingestion process completed.
+2024-07-04 14:28:14,939 - logger - INFO - ---------------------------------
+2024-07-04 14:28:20,079 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:28:20,079 - logger - INFO - (1) Starting the data ingestion process.
+2024-07-04 14:28:20,079 - logger - INFO - Reading data from CSV file: ../../data/new_data/new_data.csv
+2024-07-04 14:28:20,081 - logger - INFO - Data read successfully from CSV file.
+2024-07-04 14:28:20,081 - logger - INFO - Validating data.
+2024-07-04 14:28:20,081 - logger - INFO - Data validation passed.
+2024-07-04 14:28:20,081 - logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-04 14:28:20,089 - logger - INFO - Data read successfully from CSV file.
+2024-07-04 14:28:20,090 - logger - INFO - Appending new data to existing data.
+2024-07-04 14:28:20,091 - logger - INFO - Data appended successfully.
+2024-07-04 14:28:20,091 - logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-04 14:28:20,133 - logger - INFO - Data saved successfully.
+2024-07-04 14:28:20,134 - logger - INFO - Data ingestion process completed.
+2024-07-04 14:28:20,134 - logger - INFO - ---------------------------------
+2024-07-04 14:28:22,238 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:28:22,238 - logger - INFO - (2) Starting the data processing process.
+2024-07-04 14:28:22,238 - logger - INFO - Data loaded from ../../data/raw/NBA Shot Locations 1997 - 2020.csv.
+2024-07-04 14:28:22,264 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv
+2024-07-04 14:28:22,265 - logger - INFO - Data processing pipeline completed.
+2024-07-04 14:28:22,265 - logger - INFO - -----------------------------------
+2024-07-04 14:28:24,525 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:28:24,525 - logger - INFO - (3) Starting the feature engineering process.
+2024-07-04 14:28:24,525 - logger - INFO - Loading data from ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv.
+2024-07-04 14:28:24,540 - logger - INFO - New joblib file generated successfully.
+2024-07-04 14:28:24,540 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib
+2024-07-04 14:28:24,540 - logger - INFO - Feature engineering completed.
+2024-07-04 14:28:24,540 - logger - INFO - -----------------------------------
+2024-07-04 14:28:26,901 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:28:26,901 - logger - INFO - (4) Starting the model training process.
+2024-07-04 14:28:26,949 - logger - INFO - Model file data saved successfully.
+2024-07-04 14:28:26,950 - logger - INFO - ../../trained_models/model_best_lr-v6-20240704.joblib
+2024-07-04 14:28:26,950 - logger - INFO - Model training completed.
+2024-07-04 14:28:26,950 - logger - INFO - -----------------------------------
+2024-07-04 14:28:28,806 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:28:28,807 - logger - INFO - (5) Starting the model prediction process.
+2024-07-04 14:28:28,807 - logger - INFO - No new model version found. Skipping inference.
+2024-07-04 14:28:28,807 - logger - INFO - -----------------------------------
+2024-07-04 14:40:29,244 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:40:29,245 - logger - INFO - (4) Starting the model training process.
+2024-07-04 14:40:30,968 - logger - INFO - Model file data saved successfully.
+2024-07-04 14:40:30,968 - logger - INFO - ../../trained_models/model_best_lr-v3-20240704.joblib
+2024-07-04 14:40:30,969 - logger - INFO - Model training completed.
+2024-07-04 14:40:30,969 - logger - INFO - -----------------------------------
+2024-07-04 14:40:40,738 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:40:40,739 - logger - INFO - (1) Starting the data ingestion process.
+2024-07-04 14:40:40,739 - logger - INFO - Reading data from CSV file: ../../data/new_data/new_data.csv
+2024-07-04 14:40:40,742 - logger - INFO - Data read successfully from CSV file.
+2024-07-04 14:40:40,742 - logger - INFO - Validating data.
+2024-07-04 14:40:40,742 - logger - INFO - Data validation passed.
+2024-07-04 14:40:40,743 - logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-04 14:40:40,752 - logger - INFO - Data read successfully from CSV file.
+2024-07-04 14:40:40,752 - logger - INFO - Appending new data to existing data.
+2024-07-04 14:40:40,752 - logger - INFO - Data appended successfully.
+2024-07-04 14:40:40,753 - logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-04 14:40:40,798 - logger - INFO - Data saved successfully.
+2024-07-04 14:40:40,799 - logger - INFO - Data ingestion process completed.
+2024-07-04 14:40:40,799 - logger - INFO - ---------------------------------
+2024-07-04 14:40:42,916 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:40:42,916 - logger - INFO - (2) Starting the data processing process.
+2024-07-04 14:40:42,916 - logger - INFO - Data loaded from ../../data/raw/NBA Shot Locations 1997 - 2020.csv.
+2024-07-04 14:40:42,947 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv
+2024-07-04 14:40:42,948 - logger - INFO - Data processing pipeline completed.
+2024-07-04 14:40:42,948 - logger - INFO - -----------------------------------
+2024-07-04 14:40:45,242 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:40:45,242 - logger - INFO - (3) Starting the feature engineering process.
+2024-07-04 14:40:45,242 - logger - INFO - Loading data from ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv.
+2024-07-04 14:40:45,259 - logger - INFO - New joblib file generated successfully.
+2024-07-04 14:40:45,259 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib
+2024-07-04 14:40:45,260 - logger - INFO - Feature engineering completed.
+2024-07-04 14:40:45,260 - logger - INFO - -----------------------------------
+2024-07-04 14:40:47,722 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:40:47,723 - logger - INFO - (4) Starting the model training process.
+2024-07-04 14:40:48,075 - logger - INFO - Model file data saved successfully.
+2024-07-04 14:40:48,075 - logger - INFO - ../../trained_models/model_best_lr-v4-20240704.joblib
+2024-07-04 14:40:48,076 - logger - INFO - Model training completed.
+2024-07-04 14:40:48,076 - logger - INFO - -----------------------------------
+2024-07-04 14:40:49,578 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:40:49,578 - logger - INFO - (5) Starting the model prediction process.
+2024-07-04 14:40:49,597 - logger - INFO - Prediction file data saved successfully.
+2024-07-04 14:40:49,597 - logger - INFO - ../../data/predictions/predictions.csv
+2024-07-04 14:40:49,597 - logger - INFO - Model inference completed.
+2024-07-04 14:40:49,598 - logger - INFO - -----------------------------------
+2024-07-04 14:40:49,598 - logger - INFO - Removed signal_new_model_version file.
+2024-07-04 14:44:50,256 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:44:50,257 - logger - INFO - Generating a new data is starting.
+2024-07-04 14:44:50,263 - logger - INFO - Generating a new data was finished.
+2024-07-04 14:44:50,263 - logger - INFO - ---------------------------------
+2024-07-04 14:45:31,724 - logger - INFO - Custom logger module initialized.
+2024-07-04 14:45:31,724 - logger - INFO - ---------------------------------
+2024-07-04 14:45:31,724 - logger - INFO - Generating a new data is starting.
+2024-07-04 14:45:31,729 - logger - INFO - Generating a new data was finished.
+2024-07-04 14:45:31,729 - logger - INFO - ---------------------------------
+2024-07-04 17:02:33,212 - logger - INFO - Custom logger module initialized.
+2024-07-04 17:02:33,212 - logger - INFO - ---------------------------------
+2024-07-04 17:02:33,212 - logger - INFO - Generating a new data is starting.
+2024-07-04 17:02:33,217 - logger - INFO - Generating a new data was finished.
+2024-07-04 17:02:33,217 - logger - INFO - ---------------------------------
+2024-07-05 10:34:01,872 - logger - INFO - Custom logger module initialized.
+2024-07-05 10:34:01,872 - logger - INFO - ---------------------------------
+2024-07-05 10:34:01,872 - logger - INFO - (4) Starting the model training process.
+2024-07-05 10:34:03,463 - logger - INFO - Model file data saved successfully.
+2024-07-05 10:34:03,463 - logger - INFO - ../../trained_models/model_best_lr-v1-20240705.joblib
+2024-07-05 10:34:03,463 - logger - INFO - Model training completed.
+2024-07-05 10:34:03,463 - logger - INFO - -----------------------------------
+2024-07-05 10:36:56,658 - logger - INFO - Custom logger module initialized.
+2024-07-05 10:36:56,658 - logger - INFO - ---------------------------------
+2024-07-05 10:36:56,658 - logger - INFO - (4) Starting the model training process.
+2024-07-05 10:36:58,137 - logger - INFO - Model file data saved successfully.
+2024-07-05 10:36:58,137 - logger - INFO - ../../trained_models/model_best_lr-v2-20240705.joblib
+2024-07-05 10:36:58,137 - logger - INFO - Model training completed.
+2024-07-05 10:36:58,137 - logger - INFO - -----------------------------------
+2024-07-05 13:20:11,564 - logger - INFO - Custom logger module initialized.
+2024-07-05 13:20:11,564 - logger - INFO - ---------------------------------
+2024-07-05 13:20:11,566 - logger - INFO - (4) Starting the model training process.
+2024-07-05 13:20:37,278 - logger - INFO - Custom logger module initialized.
+2024-07-05 13:20:37,278 - logger - INFO - ---------------------------------
+2024-07-05 13:20:37,279 - logger - INFO - (4) Starting the model training process.
+2024-07-05 13:21:06,972 - logger - INFO - Custom logger module initialized.
+2024-07-05 13:21:06,972 - logger - INFO - ---------------------------------
+2024-07-05 13:21:06,973 - logger - INFO - (4) Starting the model training process.
+2024-07-05 13:23:32,380 - logger - INFO - Custom logger module initialized.
+2024-07-05 13:23:32,380 - logger - INFO - ---------------------------------
+2024-07-05 13:23:32,380 - logger - INFO - (4) Starting the model training process.
+2024-07-05 13:23:33,591 - logger - INFO - Model file data saved in discarded folder.
+2024-07-05 13:23:33,592 - logger - INFO - ../../trained_models/discarded/model_best_lr-v1-20240705.joblib
+2024-07-05 13:23:33,592 - logger - INFO - Model training completed.
+2024-07-05 13:23:33,592 - logger - INFO - -----------------------------------
+2024-07-05 14:39:46,838 - logger - INFO - Custom logger module initialized.
+2024-07-05 14:39:46,838 - logger - INFO - ---------------------------------
+2024-07-05 14:39:46,838 - logger - INFO - (4) Starting the model training process.
+2024-07-05 14:40:44,973 - logger - INFO - Custom logger module initialized.
+2024-07-05 14:40:44,973 - logger - INFO - ---------------------------------
+2024-07-05 14:40:44,973 - logger - INFO - (4) Starting the model training process.
+2024-07-05 14:40:45,232 - dagshub - INFO - Accessing as mihrandovlatyan
+2024-07-05 14:40:45,517 - dagshub - INFO - Initialized MLflow to track repo "joelaftreth/nba_mlops"
+2024-07-05 14:40:45,518 - dagshub - INFO - Repository joelaftreth/nba_mlops initialized!
+2024-07-05 14:40:56,533 - logger - INFO - Model file data saved in discarded folder.
+2024-07-05 14:40:56,533 - logger - INFO - ../../trained_models/discarded/model_best_lr-v1-20240705.joblib
+2024-07-05 14:40:56,534 - logger - INFO - Model training completed.
+2024-07-05 14:40:56,534 - logger - INFO - -----------------------------------
+2024-07-07 21:20:16,412 - logger - INFO - Custom logger module initialized.
+2024-07-07 21:20:16,413 - logger - INFO - ---------------------------------
+2024-07-07 21:20:16,415 - logger - INFO - (1) Starting the data ingestion process.
+2024-07-07 21:20:16,415 - logger - INFO - Reading data from CSV file: ../../data/new_data/new_data.csv
+2024-07-07 21:20:16,417 - logger - INFO - Data read successfully from CSV file.
+2024-07-07 21:20:16,417 - logger - INFO - Validating data.
+2024-07-07 21:20:16,417 - logger - INFO - Data validation passed.
+2024-07-07 21:20:16,418 - logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-07 21:20:16,426 - logger - INFO - Data read successfully from CSV file.
+2024-07-07 21:20:16,426 - logger - INFO - Appending new data to existing data.
+2024-07-07 21:20:16,426 - logger - INFO - Data appended successfully.
+2024-07-07 21:20:16,427 - logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-07 21:20:16,460 - logger - INFO - Data saved successfully.
+2024-07-07 21:20:16,460 - logger - INFO - Data ingestion process completed.
+2024-07-07 21:20:16,460 - logger - INFO - ---------------------------------
+2024-07-07 21:20:18,598 - logger - INFO - Custom logger module initialized.
+2024-07-07 21:20:18,599 - logger - INFO - ---------------------------------
+2024-07-07 21:20:18,600 - logger - INFO - (2) Starting the data processing process.
+2024-07-07 21:20:18,600 - logger - INFO - Data loaded from ../../data/raw/NBA Shot Locations 1997 - 2020.csv.
+2024-07-07 21:20:18,627 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv
+2024-07-07 21:20:18,627 - logger - INFO - Data processing pipeline completed.
+2024-07-07 21:20:18,627 - logger - INFO - -----------------------------------
+2024-07-07 21:20:20,901 - logger - INFO - Custom logger module initialized.
+2024-07-07 21:20:20,901 - logger - INFO - ---------------------------------
+2024-07-07 21:20:20,903 - logger - INFO - (3) Starting the feature engineering process.
+2024-07-07 21:20:20,903 - logger - INFO - Loading data from ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv.
+2024-07-07 21:20:20,918 - logger - INFO - New joblib file generated successfully.
+2024-07-07 21:20:20,918 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib
+2024-07-07 21:20:20,918 - logger - INFO - Feature engineering completed.
+2024-07-07 21:20:20,918 - logger - INFO - -----------------------------------
+2024-07-07 21:20:23,245 - logger - INFO - Custom logger module initialized.
+2024-07-07 21:20:23,246 - logger - INFO - ---------------------------------
+2024-07-07 21:20:23,246 - logger - INFO - (4) Starting the model training process.
+2024-07-07 21:20:33,587 - logger - INFO - Model file data saved in discarded folder.
+2024-07-07 21:20:33,588 - logger - INFO - ../../trained_models/discarded/model_best_lr-v1-20240707.joblib
+2024-07-07 21:20:33,591 - logger - INFO - Model training completed.
+2024-07-07 21:20:33,591 - logger - INFO - -----------------------------------
+2024-07-07 21:20:34,992 - logger - INFO - Custom logger module initialized.
+2024-07-07 21:20:34,992 - logger - INFO - ---------------------------------
+2024-07-07 21:20:34,994 - logger - INFO - (5) Starting the model prediction process.
+2024-07-07 21:20:35,178 - logger - INFO - Prediction file data saved successfully.
+2024-07-07 21:20:35,178 - logger - INFO - ../../data/predictions/predictions.csv
+2024-07-07 21:20:35,178 - logger - INFO - Model inference completed.
+2024-07-07 21:20:35,178 - logger - INFO - -----------------------------------
+2024-07-07 21:20:35,179 - logger - INFO - Removed signal_new_model_version file.
+2024-07-07 21:59:41,989 - logger - INFO - Custom logger module initialized.
+2024-07-07 21:59:41,990 - logger - INFO - ---------------------------------
+2024-07-07 21:59:41,991 - logger - INFO - (1) Starting the data ingestion process.
+2024-07-07 21:59:41,991 - logger - INFO - Reading data from CSV file: ../../data/new_data/new_data.csv
+2024-07-07 21:59:41,993 - logger - INFO - Data read successfully from CSV file.
+2024-07-07 21:59:41,993 - logger - INFO - Validating data.
+2024-07-07 21:59:41,994 - logger - INFO - Data validation passed.
+2024-07-07 21:59:41,994 - logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-07 21:59:42,007 - logger - INFO - Data read successfully from CSV file.
+2024-07-07 21:59:42,007 - logger - INFO - Appending new data to existing data.
+2024-07-07 21:59:42,008 - logger - INFO - Data appended successfully.
+2024-07-07 21:59:42,008 - logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-07 21:59:42,045 - logger - INFO - Data saved successfully.
+2024-07-07 21:59:42,046 - logger - INFO - Data ingestion process completed.
+2024-07-07 21:59:42,046 - logger - INFO - ---------------------------------
+2024-07-07 21:59:44,166 - logger - INFO - Custom logger module initialized.
+2024-07-07 21:59:44,167 - logger - INFO - ---------------------------------
+2024-07-07 21:59:44,167 - logger - INFO - (2) Starting the data processing process.
+2024-07-07 21:59:44,168 - logger - INFO - Data loaded from ../../data/raw/NBA Shot Locations 1997 - 2020.csv.
+2024-07-07 21:59:44,215 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv
+2024-07-07 21:59:44,215 - logger - INFO - Data processing pipeline completed.
+2024-07-07 21:59:44,215 - logger - INFO - -----------------------------------
+2024-07-07 21:59:46,846 - logger - INFO - Custom logger module initialized.
+2024-07-07 21:59:46,846 - logger - INFO - ---------------------------------
+2024-07-07 21:59:46,846 - logger - INFO - (3) Starting the feature engineering process.
+2024-07-07 21:59:46,847 - logger - INFO - Loading data from ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv.
+2024-07-07 21:59:46,868 - logger - INFO - New joblib file generated successfully.
+2024-07-07 21:59:46,868 - logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib
+2024-07-07 21:59:46,868 - logger - INFO - Feature engineering completed.
+2024-07-07 21:59:46,868 - logger - INFO - -----------------------------------
+2024-07-07 21:59:49,791 - logger - INFO - Custom logger module initialized.
+2024-07-07 21:59:49,791 - logger - INFO - ---------------------------------
+2024-07-07 21:59:49,791 - logger - INFO - (4) Starting the model training process.
+2024-07-07 21:59:59,988 - logger - INFO - Model file data saved successfully.
+2024-07-07 21:59:59,988 - logger - INFO - ../../trained_models/model_best_lr-v2-20240707.joblib
+2024-07-07 21:59:59,988 - logger - INFO - Model training completed.
+2024-07-07 21:59:59,988 - logger - INFO - -----------------------------------
+2024-07-07 22:00:01,059 - logger - INFO - Custom logger module initialized.
+2024-07-07 22:00:01,059 - logger - INFO - ---------------------------------
+2024-07-07 22:00:01,060 - logger - INFO - (5) Starting the model prediction process.
+2024-07-07 22:00:01,475 - logger - INFO - Prediction file data saved successfully.
+2024-07-07 22:00:01,475 - logger - INFO - ../../data/predictions/predictions.csv
+2024-07-07 22:00:01,475 - logger - INFO - Model inference completed.
+2024-07-07 22:00:01,475 - logger - INFO - -----------------------------------
+2024-07-07 22:00:01,476 - logger - INFO - Removed signal_new_model_version file.
+2024-07-07 22:24:24,749 - logs.logger - INFO - Custom logger module initialized.
+2024-07-07 22:24:24,749 - logs.logger - INFO - ---------------------------------
+2024-07-07 22:24:24,750 - logs.logger - INFO - (1) Starting the data ingestion process.
+2024-07-07 22:24:24,750 - logs.logger - INFO - Reading data from CSV file: ../../data/new_data/new_data.csv
+2024-07-07 22:24:24,752 - logs.logger - INFO - Data read successfully from CSV file.
+2024-07-07 22:24:24,752 - logs.logger - INFO - Validating data.
+2024-07-07 22:24:24,752 - logs.logger - INFO - Data validation passed.
+2024-07-07 22:24:24,752 - logs.logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-07 22:24:24,765 - logs.logger - INFO - Data read successfully from CSV file.
+2024-07-07 22:24:24,765 - logs.logger - INFO - Appending new data to existing data.
+2024-07-07 22:24:24,766 - logs.logger - INFO - Data appended successfully.
+2024-07-07 22:24:24,766 - logs.logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-07 22:24:24,808 - logs.logger - INFO - Data saved successfully.
+2024-07-07 22:24:24,808 - logs.logger - INFO - Data ingestion process completed.
+2024-07-07 22:24:24,808 - logs.logger - INFO - ---------------------------------
+2024-07-07 22:24:27,015 - logs.logger - INFO - Custom logger module initialized.
+2024-07-07 22:24:27,015 - logs.logger - INFO - ---------------------------------
+2024-07-07 22:24:27,016 - logs.logger - INFO - (2) Starting the data processing process.
+2024-07-07 22:24:27,016 - logs.logger - INFO - Data loaded from ../../data/raw/NBA Shot Locations 1997 - 2020.csv.
+2024-07-07 22:24:27,061 - logs.logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv
+2024-07-07 22:24:27,061 - logs.logger - INFO - Data processing pipeline completed.
+2024-07-07 22:24:27,061 - logs.logger - INFO - -----------------------------------
+2024-07-07 22:24:29,713 - logs.logger - INFO - Custom logger module initialized.
+2024-07-07 22:24:29,713 - logs.logger - INFO - ---------------------------------
+2024-07-07 22:24:29,714 - logs.logger - INFO - (3) Starting the feature engineering process.
+2024-07-07 22:24:29,714 - logs.logger - INFO - Loading data from ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv.
+2024-07-07 22:24:29,735 - logs.logger - INFO - New joblib file generated successfully.
+2024-07-07 22:24:29,736 - logs.logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib
+2024-07-07 22:24:29,736 - logs.logger - INFO - Feature engineering completed.
+2024-07-07 22:24:29,736 - logs.logger - INFO - -----------------------------------
+2024-07-07 22:24:32,547 - logs.logger - INFO - Custom logger module initialized.
+2024-07-07 22:24:32,547 - logs.logger - INFO - ---------------------------------
+2024-07-07 22:24:32,548 - logs.logger - INFO - (4) Starting the model training process.
+2024-07-07 22:24:42,826 - logs.logger - INFO - Model file data saved in discarded folder.
+2024-07-07 22:24:42,826 - logs.logger - INFO - ../../trained_models/discarded/model_best_lr-v1-20240707.joblib
+2024-07-07 22:24:42,827 - logs.logger - INFO - Model training completed.
+2024-07-07 22:24:42,827 - logs.logger - INFO - -----------------------------------
+2024-07-07 22:24:43,830 - logs.logger - INFO - Custom logger module initialized.
+2024-07-07 22:24:43,830 - logs.logger - INFO - ---------------------------------
+2024-07-07 22:24:43,831 - logs.logger - INFO - (5) Starting the model prediction process.
+2024-07-07 22:24:43,831 - logs.logger - INFO - No new model version found. Skipping inference.
+2024-07-07 22:24:43,831 - logs.logger - INFO - -----------------------------------
+2024-07-07 22:34:32,248 - logs.logger - INFO - Custom logger module initialized.
+2024-07-07 22:34:32,248 - logs.logger - INFO - ---------------------------------
+2024-07-07 22:34:32,249 - logs.logger - INFO - (1) Starting the data ingestion process.
+2024-07-07 22:34:32,250 - logs.logger - INFO - Reading data from CSV file: ../../data/new_data/new_data.csv
+2024-07-07 22:34:32,252 - logs.logger - INFO - Data read successfully from CSV file.
+2024-07-07 22:34:32,252 - logs.logger - INFO - Validating data.
+2024-07-07 22:34:32,252 - logs.logger - INFO - Data validation passed.
+2024-07-07 22:34:32,252 - logs.logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-07 22:34:32,266 - logs.logger - INFO - Data read successfully from CSV file.
+2024-07-07 22:34:32,266 - logs.logger - INFO - Appending new data to existing data.
+2024-07-07 22:34:32,266 - logs.logger - INFO - Data appended successfully.
+2024-07-07 22:34:32,267 - logs.logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-07 22:34:32,308 - logs.logger - INFO - Data saved successfully.
+2024-07-07 22:34:32,308 - logs.logger - INFO - Data ingestion process completed.
+2024-07-07 22:34:32,308 - logs.logger - INFO - ---------------------------------
+2024-07-07 22:34:34,461 - logs.logger - INFO - Custom logger module initialized.
+2024-07-07 22:34:34,461 - logs.logger - INFO - ---------------------------------
+2024-07-07 22:34:34,462 - logs.logger - INFO - (2) Starting the data processing process.
+2024-07-07 22:34:34,462 - logs.logger - INFO - Data loaded from ../../data/raw/NBA Shot Locations 1997 - 2020.csv.
+2024-07-07 22:34:34,506 - logs.logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv
+2024-07-07 22:34:34,507 - logs.logger - INFO - Data processing pipeline completed.
+2024-07-07 22:34:34,507 - logs.logger - INFO - -----------------------------------
+2024-07-07 22:34:37,196 - logs.logger - INFO - Custom logger module initialized.
+2024-07-07 22:34:37,196 - logs.logger - INFO - ---------------------------------
+2024-07-07 22:34:37,197 - logs.logger - INFO - (3) Starting the feature engineering process.
+2024-07-07 22:34:37,197 - logs.logger - INFO - Loading data from ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv.
+2024-07-07 22:34:37,219 - logs.logger - INFO - New joblib file generated successfully.
+2024-07-07 22:34:37,219 - logs.logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib
+2024-07-07 22:34:37,220 - logs.logger - INFO - Feature engineering completed.
+2024-07-07 22:34:37,220 - logs.logger - INFO - -----------------------------------
+2024-07-07 22:34:40,143 - logs.logger - INFO - Custom logger module initialized.
+2024-07-07 22:34:40,143 - logs.logger - INFO - ---------------------------------
+2024-07-07 22:34:40,144 - logs.logger - INFO - (4) Starting the model training process.
+2024-07-07 22:34:50,487 - logs.logger - INFO - Model file data saved successfully.
+2024-07-07 22:34:50,487 - logs.logger - INFO - ../../trained_models/model_best_lr-v3-20240707.joblib
+2024-07-07 22:34:50,487 - logs.logger - INFO - Model training completed.
+2024-07-07 22:34:50,487 - logs.logger - INFO - -----------------------------------
+2024-07-07 22:34:51,374 - logs.logger - INFO - Custom logger module initialized.
+2024-07-07 22:34:51,375 - logs.logger - INFO - ---------------------------------
+2024-07-07 22:34:51,375 - logs.logger - INFO - (5) Starting the model prediction process.
+2024-07-07 22:34:51,817 - logs.logger - INFO - Prediction file data saved successfully.
+2024-07-07 22:34:51,817 - logs.logger - INFO - ../../data/predictions/predictions.csv
+2024-07-07 22:34:51,817 - logs.logger - INFO - Model inference completed.
+2024-07-07 22:34:51,817 - logs.logger - INFO - -----------------------------------
+2024-07-07 22:34:51,817 - logs.logger - INFO - Removed signal_new_model_version file.
+2024-07-08 08:15:22,636 - logs.logger - INFO - Custom logger module initialized.
+2024-07-08 08:15:22,636 - logs.logger - INFO - ---------------------------------
+2024-07-08 08:15:22,637 - logs.logger - INFO - (1) Starting the data ingestion process.
+2024-07-08 08:15:22,637 - logs.logger - INFO - Reading data from CSV file: ../../data/new_data/new_data.csv
+2024-07-08 08:15:22,640 - logs.logger - INFO - Data read successfully from CSV file.
+2024-07-08 08:15:22,640 - logs.logger - INFO - Validating data.
+2024-07-08 08:15:22,640 - logs.logger - INFO - Data validation passed.
+2024-07-08 08:15:22,640 - logs.logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-08 08:15:22,654 - logs.logger - INFO - Data read successfully from CSV file.
+2024-07-08 08:15:22,654 - logs.logger - INFO - Appending new data to existing data.
+2024-07-08 08:15:22,655 - logs.logger - INFO - Data appended successfully.
+2024-07-08 08:15:22,655 - logs.logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-08 08:15:22,700 - logs.logger - INFO - Data saved successfully.
+2024-07-08 08:15:22,700 - logs.logger - INFO - Data ingestion process completed.
+2024-07-08 08:15:22,700 - logs.logger - INFO - ---------------------------------
+2024-07-08 08:15:24,836 - logs.logger - INFO - Custom logger module initialized.
+2024-07-08 08:15:24,836 - logs.logger - INFO - ---------------------------------
+2024-07-08 08:15:24,836 - logs.logger - INFO - (2) Starting the data processing process.
+2024-07-08 08:15:24,837 - logs.logger - INFO - Data loaded from ../../data/raw/NBA Shot Locations 1997 - 2020.csv.
+2024-07-08 08:15:24,882 - logs.logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv
+2024-07-08 08:15:24,882 - logs.logger - INFO - Data processing pipeline completed.
+2024-07-08 08:15:24,882 - logs.logger - INFO - -----------------------------------
+2024-07-08 08:15:27,519 - logs.logger - INFO - Custom logger module initialized.
+2024-07-08 08:15:27,519 - logs.logger - INFO - ---------------------------------
+2024-07-08 08:15:27,520 - logs.logger - INFO - (3) Starting the feature engineering process.
+2024-07-08 08:15:27,520 - logs.logger - INFO - Loading data from ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv.
+2024-07-08 08:15:27,541 - logs.logger - INFO - New joblib file generated successfully.
+2024-07-08 08:15:27,541 - logs.logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib
+2024-07-08 08:15:27,542 - logs.logger - INFO - Feature engineering completed.
+2024-07-08 08:15:27,542 - logs.logger - INFO - -----------------------------------
+2024-07-08 08:15:30,464 - logs.logger - INFO - Custom logger module initialized.
+2024-07-08 08:15:30,464 - logs.logger - INFO - ---------------------------------
+2024-07-08 08:15:30,465 - logs.logger - INFO - (4) Starting the model training process.
+2024-07-08 08:15:40,721 - logs.logger - INFO - Model file data saved successfully.
+2024-07-08 08:15:40,721 - logs.logger - INFO - ../../trained_models/model_best_lr-v1-20240708.joblib
+2024-07-08 08:15:40,721 - logs.logger - INFO - Model training completed.
+2024-07-08 08:15:40,721 - logs.logger - INFO - -----------------------------------
+2024-07-08 08:15:41,727 - logs.logger - INFO - Custom logger module initialized.
+2024-07-08 08:15:41,728 - logs.logger - INFO - ---------------------------------
+2024-07-08 08:15:41,728 - logs.logger - INFO - (5) Starting the model prediction process.
+2024-07-08 08:15:42,146 - logs.logger - INFO - Prediction file data saved successfully.
+2024-07-08 08:15:42,146 - logs.logger - INFO - ../../data/predictions/predictions.csv
+2024-07-08 08:15:42,146 - logs.logger - INFO - Model inference completed.
+2024-07-08 08:15:42,146 - logs.logger - INFO - -----------------------------------
+2024-07-08 08:15:42,146 - logs.logger - INFO - Removed signal_new_model_version file.
+2024-07-13 07:11:09,461 - logs.logger - INFO - Custom logger module initialized.
+2024-07-13 07:11:09,461 - logs.logger - INFO - ---------------------------------
+2024-07-13 07:11:09,462 - logs.logger - INFO - (1) Starting the data ingestion process.
+2024-07-13 07:11:09,462 - logs.logger - INFO - Reading data from CSV file: ../../data/new_data/new_data.csv
+2024-07-13 07:11:09,466 - logs.logger - INFO - Data read successfully from CSV file.
+2024-07-13 07:11:09,466 - logs.logger - INFO - Validating data.
+2024-07-13 07:11:09,466 - logs.logger - INFO - Data validation passed.
+2024-07-13 07:11:09,466 - logs.logger - INFO - Reading data from CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-13 07:11:09,483 - logs.logger - INFO - Data read successfully from CSV file.
+2024-07-13 07:11:09,483 - logs.logger - INFO - Appending new data to existing data.
+2024-07-13 07:11:09,484 - logs.logger - INFO - Data appended successfully.
+2024-07-13 07:11:09,484 - logs.logger - INFO - Saving data to CSV file: ../../data/raw/NBA Shot Locations 1997 - 2020.csv
+2024-07-13 07:11:09,520 - logs.logger - INFO - Data saved successfully.
+2024-07-13 07:11:09,521 - logs.logger - INFO - Data ingestion process completed.
+2024-07-13 07:11:09,521 - logs.logger - INFO - ---------------------------------
+2024-07-13 07:11:11,720 - logs.logger - INFO - Custom logger module initialized.
+2024-07-13 07:11:11,720 - logs.logger - INFO - ---------------------------------
+2024-07-13 07:11:11,721 - logs.logger - INFO - (2) Starting the data processing process.
+2024-07-13 07:11:11,721 - logs.logger - INFO - Data loaded from ../../data/raw/NBA Shot Locations 1997 - 2020.csv.
+2024-07-13 07:11:11,767 - logs.logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv
+2024-07-13 07:11:11,767 - logs.logger - INFO - Data processing pipeline completed.
+2024-07-13 07:11:11,767 - logs.logger - INFO - -----------------------------------
+2024-07-13 07:11:14,413 - logs.logger - INFO - Custom logger module initialized.
+2024-07-13 07:11:14,413 - logs.logger - INFO - ---------------------------------
+2024-07-13 07:11:14,414 - logs.logger - INFO - (3) Starting the feature engineering process.
+2024-07-13 07:11:14,414 - logs.logger - INFO - Loading data from ../../data/processed/NBA Shot Locations 1997 - 2020-processed.csv.
+2024-07-13 07:11:14,435 - logs.logger - INFO - New joblib file generated successfully.
+2024-07-13 07:11:14,436 - logs.logger - INFO - ../../data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib
+2024-07-13 07:11:14,436 - logs.logger - INFO - Feature engineering completed.
+2024-07-13 07:11:14,436 - logs.logger - INFO - -----------------------------------
+2024-07-13 07:11:17,319 - logs.logger - INFO - Custom logger module initialized.
+2024-07-13 07:11:17,319 - logs.logger - INFO - ---------------------------------
+2024-07-13 07:11:17,319 - logs.logger - INFO - (4) Starting the model training process.
+2024-07-13 07:11:28,110 - logs.logger - INFO - Model file data saved successfully.
+2024-07-13 07:11:28,110 - logs.logger - INFO - ../../trained_models/model_best_lr-v1-20240713.joblib
+2024-07-13 07:11:28,110 - logs.logger - INFO - Model training completed.
+2024-07-13 07:11:28,110 - logs.logger - INFO - -----------------------------------
+2024-07-13 07:11:30,603 - logs.logger - INFO - Custom logger module initialized.
+2024-07-13 07:11:30,604 - logs.logger - INFO - ---------------------------------
+2024-07-13 07:11:30,604 - logs.logger - INFO - (5) Starting the model prediction process.
+2024-07-13 07:11:31,021 - logs.logger - INFO - Prediction file data saved successfully.
+2024-07-13 07:11:31,021 - logs.logger - INFO - ../../data/predictions/predictions.csv
+2024-07-13 07:11:31,021 - logs.logger - INFO - Model inference completed.
+2024-07-13 07:11:31,021 - logs.logger - INFO - -----------------------------------
+2024-07-13 07:11:31,021 - logs.logger - INFO - Removed signal_new_model_version file.

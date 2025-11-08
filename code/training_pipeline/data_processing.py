@@ -1,16 +1,17 @@
 import sys
 import os
 import pandas as pd
-import logging
 
 # Adjust sys.path to include the 'project' directory
-project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 sys.path.insert(0, project_dir)
 
-from config.config import Config  # Import Config class from config package
+code_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, code_dir)
 
-# Set up logging
-logging.basicConfig(level=logging.INFO)
+from logs.logger import logger
+from config.config import Config
+
 
 def clean_data(data):
     """
@@ -26,6 +27,7 @@ def clean_data(data):
     data = data.drop_duplicates()  # Drop duplicate rows
     return data
 
+
 def transform_data(data):
     """
     Transform the data by encoding categorical and quantitative attributes.
@@ -39,13 +41,14 @@ def transform_data(data):
     data = transform_attributes_with_high_cardinality(data)
     data = one_hot_encoding(data)
     data = transform_quantitative_attributes_with_unique_ids(data)
-    
+
     if 'Player Name' in data.columns:
         data.drop(['Player Name'], axis=1, inplace=True)  # Remove 'Player Name' column if exists
     if 'Team ID' in data.columns:
         data.drop(['Team ID'], axis=1, inplace=True)  # Remove 'Team ID' column if exists
-        
+
     return data
+
 
 def transform_quantitative_attributes_with_unique_ids(data):
     """
@@ -63,6 +66,7 @@ def transform_quantitative_attributes_with_unique_ids(data):
     data.drop(['Game ID', 'Game Event ID', 'Player ID'], axis=1, inplace=True)
     return data
 
+
 def one_hot_encoding(data):
     """
     Perform one-hot encoding for each categorical column.
@@ -78,10 +82,11 @@ def one_hot_encoding(data):
     shot_zone_area_encoded = pd.get_dummies(data['Shot Zone Area'], prefix='ShotZoneArea', dtype=int)
     shot_zone_range_encoded = pd.get_dummies(data['Shot Zone Range'], prefix='ShotZoneRange', dtype=int)
     season_type_encoded = pd.get_dummies(data['Season Type'], prefix='SeasonType', dtype=int)
-    
+
     data = pd.concat([data, shot_type_encoded, shot_zone_basic_encoded, shot_zone_area_encoded, shot_zone_range_encoded, season_type_encoded], axis=1)
     data.drop(['Shot Type', 'Shot Zone Basic', 'Shot Zone Area', 'Shot Zone Range', 'Season Type'], axis=1, inplace=True)
     return data
+
 
 def transform_attributes_with_high_cardinality(data):
     """
@@ -100,6 +105,7 @@ def transform_attributes_with_high_cardinality(data):
     data.drop(['Action Type', 'Team Name', 'Home Team', 'Away Team'], axis=1, inplace=True)
     return data
 
+
 def frequency_encode_column(data, column_name):
     """
     Perform frequency encoding on a specified column.
@@ -115,19 +121,29 @@ def frequency_encode_column(data, column_name):
     data[column_name + '_Frequency'] = data[column_name].map(frequency)
     return data
 
+
 def main():
     """
     Main function to load, clean, transform, and save the dataset.
     """
+    logger.info("(2) Starting the data processing process.")
+
     input_file_path = '../../' + Config.OUTPUT_RAW_FILE
     output_file_path = '../../' + Config.OUTPUT_PREPROCESSED_FILE
+    logger.info(f"Data loaded from {input_file_path}.")
 
     data = pd.read_csv(input_file_path)
     data = clean_data(data)
     data = transform_data(data)
     data.to_csv(output_file_path, index=False)
-    logging.info("Processed data saved successfully.")
-    logging.info(output_file_path)
+    logger.info(output_file_path)
+
+    # Each service script creates its signal file at the end
+    open('signal_data_processing_done', 'w').close()
+
+    logger.info("Data processing pipeline completed.")
+    logger.info("-----------------------------------")
+
 
 if __name__ == "__main__":
     main()

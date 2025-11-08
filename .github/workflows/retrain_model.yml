@@ -1,0 +1,128 @@
+name: Retrain and push to Docker Hub
+
+on:
+  schedule:
+    - cron: '0 5 * * *' # Every day at 5 am at UTC
+  push:
+    #branches:
+    #  - '**'
+    paths:
+      - 'data/new_data/new_data.csv'
+
+permissions:
+  contents: write  # Grant write permission to contents
+
+jobs:
+  retrain-with-docker-compose:
+    name: Build Docker Compose
+    runs-on: ubuntu-latest
+
+    outputs:
+      changed: ${{ steps.check_changes.outputs.changed }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and start Docker Compose
+        run: |
+          docker-compose -f docker/docker-compose.yml up --build
+        env:
+          COMPOSE_PROJECT_NAME: nba_app
+
+      - name: Commit and push preprocessed files and metrics
+        id: check_changes
+        run: |
+          git config --global user.name "Github Action"
+          git config --global user.email mihrandovlatyan@gmail.com
+      
+          # Add files to the index
+          git add "logs/logs.log"
+          git add "data/predictions/predictions.csv"
+          git add "data/processed/NBA Shot Locations 1997 - 2020-processed.csv"
+          git add "data/processed/NBA Shot Locations 1997 - 2020-train-test.joblib"
+          git add "data/raw/NBA Shot Locations 1997 - 2020.csv"
+          git add "trained_models/*.joblib"  # Add all versioned model files
+          git add "code/training_pipeline/best_model_metrics.json"  # Add metrics file
+      
+          # Check if there are changes in best_model_metrics.json
+          git pull
+          if git diff --cached --quiet "code/training_pipeline/best_model_metrics.json"; then
+            echo "No changes to best_model_metrics.json"
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            # Commit and push changes
+            git commit -m 'Add logs, preprocessed, trained model files and updated metrics'
+            git push
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_REPO_TOKEN }}
+          MLFLOW_TRACKING_URI: https://dagshub.com/joelaftreth/nba_mlops.mlflow
+          MLFLOW_TRACKING_USERNAME: ${{ secrets.DAGSHUB_USERNAME }}
+          MLFLOW_TRACKING_PASSWORD: ${{ secrets.DAGSHUB_PASSWORD }}
+
+  push-to-dockerhub:
+    name: Push Docker Compose to Docker Hub
+    runs-on: ubuntu-latest
+    needs: retrain-with-docker-compose
+    if: needs.retrain-with-docker-compose.outputs.changed == 'true'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Docker Hub
+        run: echo ${{ secrets.DOCKERHUB_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      - name: Get the short SHA for tagging
+        id: vars
+        run: echo "::set-output name=short_sha::$(git rev-parse --short HEAD)"
+
+      - name: Get the current date for tagging
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y%m%d')"
+
+      - name: Tag and push Docker images
+        run: |
+          IMAGE_TAG=${{ steps.date.outputs.date }}-${{ steps.vars.outputs.short_sha }}
+          DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
+
+          # Define services and images
+          declare -A services_images
+          services_images=(
+            ["data_ingestion"]=$DOCKERHUB_USERNAME/data_ingestion
+            ["data_processing"]=$DOCKERHUB_USERNAME/data_processing
+            ["feature_engineering"]=$DOCKERHUB_USERNAME/feature_engineering
+            ["model_training"]=$DOCKERHUB_USERNAME/model_training
+            ["inference"]=$DOCKERHUB_USERNAME/inference
+          )
+
+          # Navigate to the directory containing docker-compose.yml
+          cd docker
+
+          # Build, tag, and push each service image
+          for service in "${!services_images[@]}"; do
+            IMAGE_NAME=${services_images[$service]}
+            docker-compose build ${service}
+            docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${IMAGE_TAG}
+            docker push ${IMAGE_NAME}:${IMAGE_TAG}
+            docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${IMAGE_NAME}:latest
+            docker push ${IMAGE_NAME}:latest
+          done
+
+  no-change-message:
+    name: Print no changes message
+    runs-on: ubuntu-latest
+    needs: retrain-with-docker-compose
+    if: needs.retrain-with-docker-compose.outputs.changed == 'false'
+
+    steps:
+      - name: Print message
+        run: echo "No changes to best_model_metrics.json. Skipping Docker push."

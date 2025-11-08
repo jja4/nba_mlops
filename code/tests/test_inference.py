@@ -1,15 +1,8 @@
-import os
-import sys
 import unittest
 import pandas as pd
-from unittest.mock import patch
 from sklearn import linear_model
-
-# Adjust sys.path to include the 'project' directory
-project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.insert(0, project_dir)
-
 from training_pipeline.inference import make_predictions
+
 
 class TestMakePredictions(unittest.TestCase):
     def setUp(self):
@@ -38,9 +31,10 @@ class TestMakePredictions(unittest.TestCase):
     def test_make_predictions(self):
         # Test the make_predictions function with the mock model and mock data
         predictions = make_predictions(self.mock_model, self.mock_data)
-        
+
         # Assertions based on the expected behavior of your make_predictions function
         self.assertEqual(predictions, [0, 1, 0, 1, 0])
+
 
 if __name__ == '__main__':
     unittest.main()

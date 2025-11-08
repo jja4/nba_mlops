@@ -1,0 +1,79 @@
+name: Python API Tests
+
+on:
+  push:
+    branches:
+      - '**' # runs on every branch
+  pull_request:
+    branches:
+      - '**'
+      
+jobs:
+  unit-tests:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+
+    env:
+      PYTHONPATH: ./code
+      DB_HOST: localhost
+      DB_NAME: nba_db
+      DB_USER: ubuntu
+      DB_PASSWORD: mlops
+      PREDICTION_SERVICE_HOST: localhost
+      PREDICTION_SERVICE_PORT: 8001
+
+    services:
+      db:
+        image: postgres:12-alpine
+        env:
+          POSTGRES_USER: ubuntu
+          POSTGRES_PASSWORD: mlops
+          POSTGRES_DB: nba_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          until pg_isready -h localhost -p 5432 -U ubuntu; do
+            echo "Waiting for PostgreSQL to be ready..."
+            sleep 20
+          done
+
+      - name: Set up database
+        run: |
+          PGPASSWORD=mlops psql -h localhost -U ubuntu -d nba_db -f code/database/init.sql
+
+      - name: Start prediction service
+        run: |
+          source venv/bin/activate
+          nohup uvicorn code.api.prediction_service:app --host ${PREDICTION_SERVICE_HOST} --port ${PREDICTION_SERVICE_PORT} &
+
+      - name: Wait for prediction service to be ready
+        run: |
+          echo "Waiting for prediction service to start..."
+          sleep 20  # Adjust this time as needed
+          
+      - name: Run tests
+        run: |
+          source venv/bin/activate
+          pytest -v code/tests

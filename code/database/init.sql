@@ -16,3 +16,12 @@ CREATE TABLE IF NOT EXISTS users (
     hashed_password VARCHAR(255) NOT NULL,
     disabled BOOLEAN NOT NULL DEFAULT FALSE
 );
+
+CREATE TABLE IF NOT EXISTS predictions (
+    id SERIAL PRIMARY KEY,
+    prediction INTEGER,
+    user_verification INTEGER,
+    input_parameters JSONB,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+

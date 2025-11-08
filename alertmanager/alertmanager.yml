@@ -1,0 +1,34 @@
+global:
+  smtp_from: "prometheus.datascientest@gmail.com"
+  smtp_smarthost: "smtp.gmail.com:465"
+  smtp_auth_username: "prometheus.datascientest@gmail.com"
+  smtp_auth_password: "qsyhonvlraonufcg"
+  smtp_require_tls: false
+  slack_api_url: 'URL/to/slack/hooks'
+
+route:
+  group_by: ['alertname']
+  group_wait: 5s
+  group_interval: 5s
+  repeat_interval: 1h
+  receiver: 'all-notifications'
+  routes:
+    - receiver: 'all-notifications'
+
+receivers:
+- name: 'all-notifications'
+  email_configs:
+  - to: 'fake@gmail.com'
+    send_resolved: true
+  slack_configs:
+  - channel: '#may24_bmlops_int_nba'
+    send_resolved: true
+    title: '{{ .GroupLabels.alertname }}'
+    text: >-
+      {{ range .Alerts -}}
+      *Status:* {{ if .Status }}{{ .Status | toUpper }}{{ else }}FIRING{{ end }}
+      *Alert:* {{ .Annotations.summary }}
+      *Description:* {{ .Annotations.description }}
+      *Severity:* {{ .Labels.severity }}
+      {{ if .Status }}*Resolved:* {{ .EndsAt }}{{ end }}
+      {{ end }}
