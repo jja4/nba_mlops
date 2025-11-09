@@ -1,3 +1,5 @@
+import os
+import sys
 from fastapi.testclient import TestClient
 from api.nba_app import app, lifespan
 import pytest
