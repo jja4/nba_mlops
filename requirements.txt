@@ -1,5 +1,7 @@
 annotated-types==0.7.0
 anyio==4.4.0
+boto3==1.35.27
+botocore==1.35.27
 certifi==2024.6.2
 charset-normalizer==3.3.2
 click==8.1.7
@@ -52,7 +54,7 @@ typer==0.12.3
 typing_extensions==4.12.2
 tzdata==2024.1
 ujson==5.10.0
-urllib3==2.2.1
+urllib3>=1.25.4,<1.27
 uvicorn==0.30.1
 uvloop==0.19.0
 watchfiles==0.22.0
