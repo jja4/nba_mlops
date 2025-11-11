@@ -29,7 +29,7 @@ jobs:
 
       - name: Build and start Docker Compose
         run: |
-          docker-compose -f docker/docker-compose.yml up --build
+          docker compose -f docker/docker-compose.yml up --build
         env:
           COMPOSE_PROJECT_NAME: nba_app
 
@@ -110,7 +110,7 @@ jobs:
           # Build, tag, and push each service image
           for service in "${!services_images[@]}"; do
             IMAGE_NAME=${services_images[$service]}
-            docker-compose build ${service}
+            docker compose build ${service}
             docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${IMAGE_TAG}
             docker push ${IMAGE_NAME}:${IMAGE_TAG}
             docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${IMAGE_NAME}:latest
