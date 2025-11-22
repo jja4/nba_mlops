@@ -53,7 +53,7 @@ variable "api_min_instances" {
 variable "api_max_instances" {
   description = "Maximum number of API instances"
   type        = number
-  default     = 5
+  default     = 2
 }
 
 # Monitoring variables

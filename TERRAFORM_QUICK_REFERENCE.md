@@ -210,7 +210,7 @@ API_URL="https://prod-nba-api-xxxxx.run.app"
 ### Scale up for load
 ```hcl
 # Edit prod.tfvars
-api_max_instances = 50      # Was 20
+api_max_instances = 5      # Was 2
 db_instance_tier = "db-n1-standard-4"  # Was db-n1-standard-1
 
 # Apply
