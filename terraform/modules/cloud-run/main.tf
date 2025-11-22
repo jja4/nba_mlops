@@ -127,13 +127,13 @@ resource "google_cloud_run_service" "frontend" {
 
       scaling {
         min_instances = 1
-        max_instances = 5
+        max_instances = 2
       }
     }
 
     metadata {
       annotations = {
-        "autoscaling.knative.dev/maxScale" = "5"
+        "autoscaling.knative.dev/maxScale" = "2"
         "autoscaling.knative.dev/minScale" = "1"
       }
     }

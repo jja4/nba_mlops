@@ -5,7 +5,7 @@
 ```bash
 # Set variables
 export PROJECT_ID="nba-mlops-prod"
-export GCP_REGION="us-central1"
+export GCP_REGION="europe-west3"
 
 # 1. Create project
 gcloud projects create $PROJECT_ID --name="NBA MLOps Production"
@@ -63,8 +63,8 @@ environment = "prod"
 
 api_image           = "${GCP_REGION}-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/api:latest"
 prediction_image    = "${GCP_REGION}-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/prediction:latest"
-api_min_instances   = 2
-api_max_instances   = 20
+api_min_instances   = 1
+api_max_instances   = 2
 
 enable_monitoring   = true
 notification_email  = "your-email@company.com"
@@ -174,7 +174,7 @@ processed_data_bucket = "nba-mlops-prod-nba-processed-data"
 ```bash
 GOOGLE_PROJECT_ID=$PROJECT_ID
 GCP_REGION=$GCP_REGION
-CLOUDSQL_INSTANCE="prod-nba-db:us-central1:prod-nba-db"
+CLOUDSQL_INSTANCE="prod-nba-db:europe-west3:prod-nba-db"
 GCS_MODELS_BUCKET="nba-mlops-prod-nba-models"
 API_URL="https://prod-nba-api-xxxxx.run.app"
 ```

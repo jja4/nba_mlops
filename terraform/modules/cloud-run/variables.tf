@@ -6,7 +6,7 @@ variable "project_id" {
 variable "region" {
   description = "GCP Region"
   type        = string
-  default     = "us-central1"
+  default     = "europe-west3"
 }
 
 variable "environment" {
@@ -70,7 +70,7 @@ variable "min_instances" {
 variable "max_instances" {
   description = "Maximum number of Cloud Run instances"
   type        = number
-  default     = 5
+  default     = 2
 }
 
 variable "api_url" {
