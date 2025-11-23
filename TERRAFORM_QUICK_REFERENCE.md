@@ -37,12 +37,12 @@ echo -n "your-password" | gcloud secrets create db-password --data-file=-
 
 # 7. Build & push Docker images
 gcloud auth configure-docker ${GCP_REGION}-docker.pkg.dev
-gcloud artifacts repositories create nba-images-prod \
+gcloud artifacts repositories create prod-nba-images \
   --repository-format=docker --location=$GCP_REGION
 
 docker build -f docker/Dockerfile.api \
-  -t ${GCP_REGION}-docker.pkg.dev/${PROJECT_ID}/nba-images-prod/api:latest .
-docker push ${GCP_REGION}-docker.pkg.dev/${PROJECT_ID}/nba-images-prod/api:latest
+  -t ${GCP_REGION}-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/api:latest .
+docker push ${GCP_REGION}-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/api:latest
 
 # 8. Train & upload initial model
 python code/train_model.py
@@ -61,8 +61,8 @@ project_id = "$PROJECT_ID"
 region     = "$GCP_REGION"
 environment = "prod"
 
-api_image           = "${GCP_REGION}-docker.pkg.dev/${PROJECT_ID}/nba-images-prod/api:latest"
-prediction_image    = "${GCP_REGION}-docker.pkg.dev/${PROJECT_ID}/nba-images-prod/prediction:latest"
+api_image           = "${GCP_REGION}-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/api:latest"
+prediction_image    = "${GCP_REGION}-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/prediction:latest"
 api_min_instances   = 1
 api_max_instances   = 2
 

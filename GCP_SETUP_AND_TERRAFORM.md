@@ -46,6 +46,11 @@ echo "Billing Account ID: $BILLING_ACCOUNT_ID"
 
 gcloud billing projects link $PROJECT_ID --billing-account=$BILLING_ACCOUNT_ID
 ```
+### Install Terraform (if not already installed)
+```bash
+brew tap hashicorp/tap
+brew install hashicorp/tap/terraform
+``` 
 
 ### 1.2 Enable Required APIs
 
@@ -89,6 +94,10 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 
 gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member="serviceAccount:terraform-sa@${PROJECT_ID}.iam.gserviceaccount.com" \
+  --role="roles/iam.serviceAccountAdmin"
+
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member="serviceAccount:terraform-sa@${PROJECT_ID}.iam.gserviceaccount.com" \
   --role="roles/cloudsql.admin"
 
 gcloud projects add-iam-policy-binding $PROJECT_ID \
@@ -115,6 +124,10 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member="serviceAccount:terraform-sa@${PROJECT_ID}.iam.gserviceaccount.com" \
   --role="roles/logging.admin"
 
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member="serviceAccount:terraform-sa@${PROJECT_ID}.iam.gserviceaccount.com" \
+  --role="roles/resourcemanager.projectIamAdmin"
+
 
 # Create and download key
 gcloud iam service-accounts keys create terraform-key.json \
@@ -133,7 +146,7 @@ export GOOGLE_APPLICATION_CREDENTIALS="$(pwd)/terraform-key.json"
 PROJECT_ID=$(gcloud config get-value project)
 
 # Create Artifact Registry
-gcloud artifacts repositories create nba-images-prod \
+gcloud artifacts repositories create prod-nba-images \
   --repository-format=docker \
   --location=europe-west3 \
   --description="NBA MLOps Docker Images"
@@ -143,21 +156,21 @@ gcloud auth configure-docker europe-west3-docker.pkg.dev
 
 # Build and push API image
 docker build -f docker/Dockerfile.api \
-  -t europe-west3-docker.pkg.dev/${PROJECT_ID}/nba-images-prod/api:latest .
-docker push europe-west3-docker.pkg.dev/${PROJECT_ID}/nba-images-prod/api:latest
+  -t europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/api:latest .
+docker push europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/api:latest
 
 # Build and push Frontend image
 docker build -f docker/Dockerfile.react \
-  -t europe-west3-docker.pkg.dev/${PROJECT_ID}/nba-images-prod/frontend:latest .
-docker push europe-west3-docker.pkg.dev/${PROJECT_ID}/nba-images-prod/frontend:latest
+  -t europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/frontend:latest .
+docker push europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/frontend:latest
 
 # Build and push Prediction image
 docker build -f docker/Dockerfile.prediction-service \
-  -t europe-west3-docker.pkg.dev/${PROJECT_ID}/nba-images-prod/prediction:latest .
-docker push europe-west3-docker.pkg.dev/${PROJECT_ID}/nba-images-prod/prediction:latest
+  -t europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/prediction:latest .
+docker push europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/prediction:latest
 
 # Verify
-gcloud artifacts docker images list europe-west3-docker.pkg.dev/${PROJECT_ID}/nba-images-prod
+gcloud artifacts docker images list europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images
 ```
 
 ---
@@ -181,9 +194,9 @@ environment         = "prod"
 db_instance_tier    = "db-f1-micro"
 db_availability_type = "ZONAL"
 
-api_image           = "europe-west3-docker.pkg.dev/YOUR-GCP-PROJECT-ID/nba-images-prod/api:latest"
-frontend_image      = "europe-west3-docker.pkg.dev/YOUR-GCP-PROJECT-ID/nba-images-prod/frontend:latest"
-prediction_image    = "europe-west3-docker.pkg.dev/YOUR-GCP-PROJECT-ID/nba-images-prod/prediction:latest"
+api_image           = "europe-west3-docker.pkg.dev/YOUR-GCP-PROJECT-ID/prod-nba-images/api:latest"
+frontend_image      = "europe-west3-docker.pkg.dev/YOUR-GCP-PROJECT-ID/prod-nba-images/frontend:latest"
+prediction_image    = "europe-west3-docker.pkg.dev/YOUR-GCP-PROJECT-ID/prod-nba-images/prediction:latest"
 
 api_min_instances   = 1
 api_max_instances   = 2
@@ -301,11 +314,11 @@ The example file shows placeholders. When you deploy:
 ```hcl
 # BEFORE (example):
 project_id = "YOUR-GCP-PROJECT-ID"
-api_image = "europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/nba-images-prod/api:latest"
+api_image = "europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/prod-nba-images/api:latest"
 
 # AFTER (your prod.tfvars):
 project_id = "nba-mlops-prod"  # Your actual project ID
-api_image = "europe-west3-docker.pkg.dev/nba-mlops-prod/nba-images-prod/api:latest"
+api_image = "europe-west3-docker.pkg.dev/nba-mlops-prod/prod-nba-images/api:latest"
 ```
 
 ### No Code Changes Needed
@@ -428,11 +441,11 @@ gcloud projects list
 **Error: "Image not found"**
 ```bash
 # Verify images were pushed
-gcloud artifacts docker images list europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/nba-images-prod
+gcloud artifacts docker images list europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/prod-nba-images
 
 # Rebuild and push if needed
-docker build -f docker/Dockerfile.api -t europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/nba-images-prod/api:latest .
-docker push europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/nba-images-prod/api:latest
+docker build -f docker/Dockerfile.api -t europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/prod-nba-images/api:latest .
+docker push europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/prod-nba-images/api:latest
 ```
 
 ---

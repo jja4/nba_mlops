@@ -21,7 +21,7 @@ resource "google_monitoring_alert_policy" "cloud_run_errors" {
     display_name = "High error rate"
 
     condition_threshold {
-      filter          = "resource.type=\"cloud_run_revision\" AND resource.labels.service_name=~\"${var.environment}-nba.*\" AND metric.type=\"run.googleapis.com/request_count\" AND metric.labels.response_code_class=\"5xx\""
+      filter          = "resource.type=\"cloud_run_revision\" AND resource.labels.service_name=\"${var.environment}-nba-api\" AND metric.type=\"run.googleapis.com/request_count\" AND metric.labels.response_code_class=\"5xx\""
       duration        = "300s"
       comparison      = "COMPARISON_GT"
       threshold_value = 10
@@ -100,7 +100,7 @@ resource "google_monitoring_dashboard" "nba_mlops" {
                 {
                   timeSeriesQuery = {
                     timeSeriesFilter = {
-                      filter = "resource.type=\"cloud_run_revision\" AND resource.labels.service_name=~\"${var.environment}-nba.*\""
+                      filter = "resource.type=\"cloud_run_revision\" AND resource.labels.service_name=\"${var.environment}-nba-api\" AND metric.type=\"run.googleapis.com/request_count\""
                       aggregation = {
                         alignmentPeriod  = "60s"
                         perSeriesAligner = "ALIGN_RATE"
