@@ -127,7 +127,7 @@ the model, the deployment of the model, and the monitoring of the model.
 2. Navigate to the nba_mlops directory (cd path/to/nba_mlops) and execute:
 
 ```bash
-docker-compose -f docker/docker-compose.api.yml up
+docker compose -f docker/docker-compose.api.yml up
 ```
 
 3. To check if the users table exists, first let's find the name of the database container:
@@ -282,7 +282,7 @@ SELECT id, prediction, user_verification FROM predictions;
 ### Test
 1. Make sure docker-compose already up and running 
 ```bash
-docker-compose -f docker/docker-compose.api.yml up
+docker compose -f docker/docker-compose.api.yml up
 ``` 
 2. Find the name of your API container with:
 ```bash
@@ -322,7 +322,7 @@ The AWS Security Group was configured with these Inbound rules:
 ## How to Run the Model Training Pipeline
 Move to the `nba_mlops` project folder and run:
 ```bash
-docker-compose -f docker/docker-compose.yml up
+docker compose -f docker/docker-compose.yml up
 ```
 
 This will initiate the execution of the `docker-compose.yml` file, which in turn launches all Docker containers for the training pipeline.

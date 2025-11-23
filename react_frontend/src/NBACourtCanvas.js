@@ -3,8 +3,20 @@ import axios from 'axios';
 import nbaLogo from './nba_logo.png';
 
 
-//use AWS EC2 IP address or localhost when running locally
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+// Determine API URL based on environment
+// In Docker Compose: use http://localhost:8000 (port mapping)
+// In Cloud: use process.env.REACT_APP_API_URL from build-time variable
+// Local dev: use http://localhost:8000
+const getAPIUrl = () => {
+  if (process.env.REACT_APP_API_URL) {
+    return process.env.REACT_APP_API_URL;
+  }
+  // Default to localhost for local development and Docker Compose
+  return 'http://localhost:8000';
+};
+
+const API_URL = getAPIUrl();
+console.log('Using API URL:', API_URL);
 
 async function getToken(username, password) {
   const loginData = new URLSearchParams({

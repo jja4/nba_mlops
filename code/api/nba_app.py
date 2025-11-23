@@ -115,8 +115,9 @@ Instrumentator().instrument(app).expose(app)
 # Configure CORS so we can communicate with the React frontend app
 origins = [
     "http://localhost:3001",
-    "http://frontend:3001",  # origin for the React app
-    "http://13.48.249.166:3001"  # AWS IP
+    "http://localhost:3000",
+    "http://frontend:3001",  # origin for the React app (Docker Compose)
+    "http://api:8000",       # Allow same-origin requests in Docker
 ]
 
 app.add_middleware(

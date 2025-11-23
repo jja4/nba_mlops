@@ -8,7 +8,12 @@ RUN npm install
 
 COPY react_frontend .
 
+ARG REACT_APP_API_URL=http://api:8000
+
 ENV PORT=3001
+ENV REACT_APP_API_URL=${REACT_APP_API_URL}
+
+RUN npm run build
 
 EXPOSE 3001
 
