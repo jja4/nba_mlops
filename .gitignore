@@ -56,9 +56,6 @@ docs/_build/
 # PyBuilder
 target/
 
-# DotEnv configuration
-#.env
-
 # Database
 *.rdb
 
@@ -83,6 +80,28 @@ target/
 # vim
 *.swp
 *.swo
+
+# Terraform vars
+*.tfvars
+# But keep Terraform vars example files
+!*.tfvars.example
+# Terraform state files
+*.tfstate
+*.tfstate.backup
+
+# Sensitive files
+terraform-key.json
+terraform-key-*.json
+*.tfvars
+!*.tfvars.example
+.terraform/
+.terraform.lock.hcl
+crash.log
+
+# Environment variables
+.env
+.env.local
+.env.*.local
 
 # Mypy cache
 .mypy_cache/

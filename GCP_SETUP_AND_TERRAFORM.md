@@ -133,7 +133,7 @@ export GOOGLE_APPLICATION_CREDENTIALS="$(pwd)/terraform-key.json"
 PROJECT_ID=$(gcloud config get-value project)
 
 # Create Artifact Registry
-gcloud artifacts repositories create prod-nba-images \
+gcloud artifacts repositories create nba-images-prod \
   --repository-format=docker \
   --location=europe-west3 \
   --description="NBA MLOps Docker Images"
@@ -143,21 +143,21 @@ gcloud auth configure-docker europe-west3-docker.pkg.dev
 
 # Build and push API image
 docker build -f docker/Dockerfile.api \
-  -t europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/api:latest .
-docker push europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/api:latest
+  -t europe-west3-docker.pkg.dev/${PROJECT_ID}/nba-images-prod/api:latest .
+docker push europe-west3-docker.pkg.dev/${PROJECT_ID}/nba-images-prod/api:latest
 
 # Build and push Frontend image
 docker build -f docker/Dockerfile.react \
-  -t europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/frontend:latest .
-docker push europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/frontend:latest
+  -t europe-west3-docker.pkg.dev/${PROJECT_ID}/nba-images-prod/frontend:latest .
+docker push europe-west3-docker.pkg.dev/${PROJECT_ID}/nba-images-prod/frontend:latest
 
 # Build and push Prediction image
 docker build -f docker/Dockerfile.prediction-service \
-  -t europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/prediction:latest .
-docker push europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/prediction:latest
+  -t europe-west3-docker.pkg.dev/${PROJECT_ID}/nba-images-prod/prediction:latest .
+docker push europe-west3-docker.pkg.dev/${PROJECT_ID}/nba-images-prod/prediction:latest
 
 # Verify
-gcloud artifacts docker images list europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images
+gcloud artifacts docker images list europe-west3-docker.pkg.dev/${PROJECT_ID}/nba-images-prod
 ```
 
 ---
@@ -181,9 +181,9 @@ environment         = "prod"
 db_instance_tier    = "db-f1-micro"
 db_availability_type = "ZONAL"
 
-api_image           = "europe-west3-docker.pkg.dev/YOUR-GCP-PROJECT-ID/prod-nba-images/api:latest"
-frontend_image      = "europe-west3-docker.pkg.dev/YOUR-GCP-PROJECT-ID/prod-nba-images/frontend:latest"
-prediction_image    = "europe-west3-docker.pkg.dev/YOUR-GCP-PROJECT-ID/prod-nba-images/prediction:latest"
+api_image           = "europe-west3-docker.pkg.dev/YOUR-GCP-PROJECT-ID/nba-images-prod/api:latest"
+frontend_image      = "europe-west3-docker.pkg.dev/YOUR-GCP-PROJECT-ID/nba-images-prod/frontend:latest"
+prediction_image    = "europe-west3-docker.pkg.dev/YOUR-GCP-PROJECT-ID/nba-images-prod/prediction:latest"
 
 api_min_instances   = 1
 api_max_instances   = 2
@@ -301,11 +301,11 @@ The example file shows placeholders. When you deploy:
 ```hcl
 # BEFORE (example):
 project_id = "YOUR-GCP-PROJECT-ID"
-api_image = "europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/prod-nba-images/api:latest"
+api_image = "europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/nba-images-prod/api:latest"
 
 # AFTER (your prod.tfvars):
 project_id = "nba-mlops-prod"  # Your actual project ID
-api_image = "europe-west3-docker.pkg.dev/nba-mlops-prod/prod-nba-images/api:latest"
+api_image = "europe-west3-docker.pkg.dev/nba-mlops-prod/nba-images-prod/api:latest"
 ```
 
 ### No Code Changes Needed
@@ -346,7 +346,7 @@ curl "$API_URL/health"
 - ✅ Keep `terraform-key.json` only locally
 - ✅ Add to `.gitignore` (already done)
 - ✅ Use service account (not personal account)
-- ✅ Restrict service account permissions (use roles/editor, not roles/owner)
+- ✅ Restrict service account permissions 
 - ✅ Rotate keys periodically
 - ✅ Use Secret Manager for production
 
@@ -428,11 +428,11 @@ gcloud projects list
 **Error: "Image not found"**
 ```bash
 # Verify images were pushed
-gcloud artifacts docker images list europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/prod-nba-images
+gcloud artifacts docker images list europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/nba-images-prod
 
 # Rebuild and push if needed
-docker build -f docker/Dockerfile.api -t europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/prod-nba-images/api:latest .
-docker push europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/prod-nba-images/api:latest
+docker build -f docker/Dockerfile.api -t europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/nba-images-prod/api:latest .
+docker push europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/nba-images-prod/api:latest
 ```
 
 ---
