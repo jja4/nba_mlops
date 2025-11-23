@@ -63,17 +63,12 @@ resource "google_cloud_run_service" "api" {
           value = var.environment
         }
       }
-
-      scaling {
-        min_instances = var.min_instances
-        max_instances = var.max_instances
-      }
     }
 
     metadata {
       annotations = {
-        "autoscaling.knative.dev/maxScale"           = var.max_instances
-        "autoscaling.knative.dev/minScale"           = var.min_instances
+        "autoscaling.knative.dev/maxScale"           = tostring(var.max_instances)
+        "autoscaling.knative.dev/minScale"           = tostring(var.min_instances)
         "cloudsql.googleapis.com/instances"          = var.cloudsql_connection_name
         "run.googleapis.com/cloudsql-instances"      = var.cloudsql_connection_name
         "run.googleapis.com/vpc-access-egress"       = "all-traffic"
@@ -123,11 +118,6 @@ resource "google_cloud_run_service" "frontend" {
           name  = "ENV"
           value = var.environment
         }
-      }
-
-      scaling {
-        min_instances = 1
-        max_instances = 2
       }
     }
 
@@ -193,17 +183,12 @@ resource "google_cloud_run_service" "prediction" {
           value = var.environment
         }
       }
-
-      scaling {
-        min_instances = var.min_instances
-        max_instances = var.max_instances
-      }
     }
 
     metadata {
       annotations = {
-        "autoscaling.knative.dev/maxScale"      = var.max_instances
-        "autoscaling.knative.dev/minScale"      = var.min_instances
+        "autoscaling.knative.dev/maxScale"      = tostring(var.max_instances)
+        "autoscaling.knative.dev/minScale"      = tostring(var.min_instances)
         "run.googleapis.com/cloudsql-instances" = var.cloudsql_connection_name
       }
     }

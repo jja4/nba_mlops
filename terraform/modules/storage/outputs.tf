@@ -18,11 +18,6 @@ output "logs_bucket" {
   value       = google_storage_bucket.logs.name
 }
 
-output "artifacts_bucket" {
-  description = "Artifacts bucket name"
-  value       = google_storage_bucket.artifacts.name
-}
-
 output "terraform_state_bucket" {
   description = "Terraform state bucket name"
   value       = try(google_storage_bucket.terraform_state[0].name, null)

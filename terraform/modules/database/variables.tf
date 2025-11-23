@@ -50,7 +50,7 @@ variable "private_network" {
   default     = null
 }
 
-variable "depends_on" {
+variable "module_depends_on" {
   description = "Resources to depend on"
   type        = list(any)
   default     = []

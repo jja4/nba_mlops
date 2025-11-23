@@ -14,16 +14,14 @@ resource "google_sql_database_instance" "postgres" {
     backup_configuration {
       enabled                        = true
       point_in_time_recovery_enabled = true
-      backup_retention_days          = var.backup_retention_days
       location                       = var.region
     }
 
     # IP configuration
     ip_configuration {
-      ipv4_enabled                                  = true
-      private_network                               = var.private_network
-      enable_private_path_for_cloudsql_cloud_sql    = true
-      require_ssl                                   = true
+      ipv4_enabled    = true
+      private_network = var.private_network
+      require_ssl     = true
       authorized_networks {
         name  = "allow-all"
         value = "0.0.0.0/0"
@@ -49,7 +47,7 @@ resource "google_sql_database_instance" "postgres" {
     }
   }
 
-  depends_on = [var.depends_on]
+  depends_on = [var.module_depends_on]
 }
 
 resource "google_sql_database" "nba_db" {
@@ -76,7 +74,11 @@ resource "google_secret_manager_secret" "db_password_secret" {
   secret_id = "${var.environment}-nba-db-password"
 
   replication {
-    automatic = true
+    user_managed {
+      replicas {
+        location = var.region
+      }
+    }
   }
 }
 
