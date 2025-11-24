@@ -45,8 +45,13 @@ variable "backup_retention_days" {
 }
 
 variable "private_network" {
-  description = "VPC network for private IP"
+  description = "VPC network self link for private IP"
   type        = string
+}
+
+variable "private_service_connection" {
+  description = "Resource to depend on for private service networking"
+  type        = any
   default     = null
 }
 

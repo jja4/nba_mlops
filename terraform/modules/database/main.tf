@@ -19,13 +19,9 @@ resource "google_sql_database_instance" "postgres" {
 
     # IP configuration
     ip_configuration {
-      ipv4_enabled    = true
+      ipv4_enabled    = false
       private_network = var.private_network
-      require_ssl     = true
-      authorized_networks {
-        name  = "allow-all"
-        value = "0.0.0.0/0"
-      }
+      ssl_mode        = "ENCRYPTED_ONLY"
     }
 
     # Maintenance window
@@ -43,11 +39,9 @@ resource "google_sql_database_instance" "postgres" {
 
     database_flags {
       name  = "shared_buffers"
-      value = "262144"  # 2GB
+      value = "65536"  # ~512MB - safe for micro instance
     }
   }
-
-  depends_on = [var.module_depends_on]
 }
 
 resource "google_sql_database" "nba_db" {
@@ -68,6 +62,7 @@ resource "google_sql_user" "nba_user" {
   instance = google_sql_database_instance.postgres.name
   password = random_password.db_password.result
 }
+
 
 # Store password in Secret Manager
 resource "google_secret_manager_secret" "db_password_secret" {

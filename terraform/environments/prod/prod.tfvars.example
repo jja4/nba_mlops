@@ -9,7 +9,8 @@ environment = "prod"
 db_instance_tier      = "db-f1-micro"        # Cost-effective for starter projects
 db_availability_type  = "ZONAL"              # Single-zone for lower cost
 
-# Cloud Run configuration
+# Container images
+db_init_image       = "europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/prod-nba-images/db-init:latest"
 api_image           = "europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/prod-nba-images/api:latest"
 frontend_image      = "europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/prod-nba-images/frontend:latest"
 prediction_image    = "europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/prod-nba-images/prediction:latest"

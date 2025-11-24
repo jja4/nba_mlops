@@ -1,6 +1,8 @@
 # Enable required Google Cloud APIs
 resource "google_project_service" "required_apis" {
   for_each = toset([
+    "compute.googleapis.com",
+    "iam.googleapis.com",
     "run.googleapis.com",
     "sqladmin.googleapis.com",
     "storage.googleapis.com",
@@ -8,10 +10,25 @@ resource "google_project_service" "required_apis" {
     "secretmanager.googleapis.com",
     "monitoring.googleapis.com",
     "logging.googleapis.com",
+    "servicenetworking.googleapis.com",
+    "vpcaccess.googleapis.com",
   ])
 
   service            = each.value
   disable_on_destroy = false
+}
+
+# ===== NETWORKING =====
+module "networking" {
+  source = "../../modules/networking"
+
+  project_id   = var.project_id
+  region       = var.region
+  environment  = var.environment
+  subnet_cidr  = var.subnet_cidr
+  connector_cidr = var.connector_cidr
+
+  depends_on = [google_project_service.required_apis]
 }
 
 # ===== DATABASE =====
@@ -24,8 +41,35 @@ module "database" {
   instance_tier         = var.db_instance_tier
   availability_type     = var.db_availability_type
   backup_retention_days = 30
+  private_network       = module.networking.vpc_network_id
 
-  depends_on = [google_project_service.required_apis]
+  depends_on = [
+    google_project_service.required_apis,
+    module.networking,
+  ]
+}
+
+# ===== DB INITIALIZATION JOB =====
+module "db_init" {
+  source = "../../modules/db-init"
+
+  project_id                 = var.project_id
+  region                     = var.region
+  environment                = var.environment
+  db_init_image              = var.db_init_image
+  instance_name              = module.database.instance_name
+  db_host                    = module.database.private_ip_address
+  db_name                    = module.database.database_name
+  db_user                    = module.database.database_user
+  db_password                = module.database.database_password
+  db_password_secret         = module.database.password_secret_id
+  vpc_connector              = module.networking.vpc_connector_name
+
+  depends_on = [
+    module.database,
+    module.networking,
+    google_artifact_registry_repository.nba_images
+  ]
 }
 
 # ===== STORAGE =====
@@ -54,6 +98,7 @@ module "cloud_run" {
   db_user                     = module.database.database_user
   db_password_secret          = module.database.password_secret_id
   cloudsql_connection_name    = module.database.instance_connection_name
+  vpc_connector               = module.networking.vpc_connector_name
   models_bucket               = module.storage.models_bucket
   min_instances               = var.api_min_instances
   max_instances               = var.api_max_instances
@@ -63,6 +108,8 @@ module "cloud_run" {
     google_project_service.required_apis,
     module.database,
     module.storage,
+    module.networking,
+    module.db_init,
   ]
 }
 

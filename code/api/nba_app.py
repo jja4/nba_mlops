@@ -58,6 +58,8 @@ def get_db_connection():
         database=DB_NAME,
         user=DB_USER,
         password=DB_PASSWORD,
+        # Require SSL for Cloud SQL
+        sslmode='require',
         cursor_factory=RealDictCursor
     )
     return conn

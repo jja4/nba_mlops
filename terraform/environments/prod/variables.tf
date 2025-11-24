@@ -28,7 +28,25 @@ variable "db_availability_type" {
   default     = "REGIONAL"
 }
 
-# Cloud Run variables
+# Network variables
+variable "subnet_cidr" {
+  description = "CIDR range for the subnet"
+  type        = string
+  default     = "10.0.1.0/24"
+}
+
+variable "connector_cidr" {
+  description = "CIDR range for VPC Access Connector"
+  type        = string
+  default     = "10.8.0.0/28"
+}
+
+# Container images
+variable "db_init_image" {
+  description = "Docker image for database initialization job"
+  type        = string
+}
+
 variable "api_image" {
   description = "Container image for API service"
   type        = string

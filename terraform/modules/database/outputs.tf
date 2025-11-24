@@ -14,12 +14,6 @@ output "private_ip_address" {
   sensitive   = true
 }
 
-output "public_ip_address" {
-  description = "Public IP address of the instance"
-  value       = google_sql_database_instance.postgres.public_ip_address
-  sensitive   = true
-}
-
 output "database_name" {
   description = "Database name"
   value       = google_sql_database.nba_db.name

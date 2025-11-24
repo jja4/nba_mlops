@@ -56,6 +56,11 @@ variable "cloudsql_connection_name" {
   type        = string
 }
 
+variable "vpc_connector" {
+  description = "VPC Access Connector name"
+  type        = string
+}
+
 variable "models_bucket" {
   description = "Cloud Storage bucket for models"
   type        = string

@@ -3,7 +3,7 @@
 resource "google_storage_bucket" "models" {
   name          = "${var.project_id}-${var.environment}-nba-models"
   location      = var.region
-  force_destroy = var.environment != "prod"
+  force_destroy = true
 
   uniform_bucket_level_access = true
 
@@ -25,7 +25,7 @@ resource "google_storage_bucket" "models" {
 resource "google_storage_bucket" "logs" {
   name          = "${var.project_id}-${var.environment}-nba-logs"
   location      = var.region
-  force_destroy = var.environment != "prod"
+  force_destroy = true
 
   uniform_bucket_level_access = true
 
@@ -45,15 +45,11 @@ resource "google_storage_bucket" "terraform_state" {
   count         = var.create_terraform_state_bucket ? 1 : 0
   name          = "${var.project_id}-terraform-state"
   location      = var.region
-  force_destroy = false
+  force_destroy = true
 
   uniform_bucket_level_access = true
 
   versioning {
     enabled = true
-  }
-
-  lifecycle {
-    prevent_destroy = true
   }
 }

@@ -64,7 +64,8 @@ gcloud services enable \
   secretmanager.googleapis.com \
   monitoring.googleapis.com \
   logging.googleapis.com \
-  cloudresourcemanager.googleapis.com
+  cloudresourcemanager.googleapis.com \
+  vpcaccess.googleapis.com 
 
 # Verify they're enabled
 gcloud services list --enabled | grep -E "run|sql|storage|artifact|secret"
@@ -128,6 +129,14 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member="serviceAccount:terraform-sa@${PROJECT_ID}.iam.gserviceaccount.com" \
   --role="roles/resourcemanager.projectIamAdmin"
 
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member="serviceAccount:terraform-sa@${PROJECT_ID}.iam.gserviceaccount.com" \
+  --role="roles/compute.networkAdmin"
+
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member="serviceAccount:terraform-sa@${PROJECT_ID}.iam.gserviceaccount.com" \
+  --role="roles/vpcaccess.admin"
+
 
 # Create and download key
 gcloud iam service-accounts keys create terraform-key.json \
@@ -155,19 +164,20 @@ gcloud artifacts repositories create prod-nba-images \
 gcloud auth configure-docker europe-west3-docker.pkg.dev
 
 # Build and push API image
-docker build -f docker/Dockerfile.api \
+docker build --platform linux/amd64 -f docker/Dockerfile.api \
   -t europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/api:latest .
 docker push europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/api:latest
 
-# Build and push Frontend image
-docker build -f docker/Dockerfile.react \
+# Build and push Frontend image for amd64
+docker build --platform linux/amd64 -f docker/Dockerfile.react \
   -t europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/frontend:latest .
 docker push europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/frontend:latest
 
-# Build and push Prediction image
-docker build -f docker/Dockerfile.prediction-service \
+# Build and push Prediction image for amd64
+docker build --platform linux/amd64 -f docker/Dockerfile.prediction-service \
   -t europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/prediction:latest .
 docker push europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/prediction:latest
+
 
 # Verify
 gcloud artifacts docker images list europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images

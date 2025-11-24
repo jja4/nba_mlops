@@ -19,8 +19,18 @@ resource "google_cloud_run_service" "api" {
         resources {
           limits = {
             cpu    = "1"
-            memory = "512Mi"
+            memory = "1Gi"
           }
+        }
+
+        startup_probe {
+          tcp_socket {
+            port = 8000
+          }
+          initial_delay_seconds = 60
+          timeout_seconds       = 5
+          period_seconds        = 30
+          failure_threshold     = 240
         }
 
         env {
@@ -67,11 +77,10 @@ resource "google_cloud_run_service" "api" {
 
     metadata {
       annotations = {
-        "autoscaling.knative.dev/maxScale"           = tostring(var.max_instances)
-        "autoscaling.knative.dev/minScale"           = tostring(var.min_instances)
-        "cloudsql.googleapis.com/instances"          = var.cloudsql_connection_name
-        "run.googleapis.com/cloudsql-instances"      = var.cloudsql_connection_name
-        "run.googleapis.com/vpc-access-egress"       = "all-traffic"
+        "autoscaling.knative.dev/maxScale" = tostring(var.max_instances)
+        "autoscaling.knative.dev/minScale" = tostring(var.min_instances)
+        "run.googleapis.com/vpc-access-connector" = var.vpc_connector
+        "run.googleapis.com/vpc-access-egress" = "all"
       }
     }
   }
@@ -105,8 +114,18 @@ resource "google_cloud_run_service" "frontend" {
         resources {
           limits = {
             cpu    = "0.5"
-            memory = "256Mi"
+            memory = "512Mi"
           }
+        }
+
+        startup_probe {
+          tcp_socket {
+            port = 3000
+          }
+          initial_delay_seconds = 60
+          timeout_seconds       = 5
+          period_seconds        = 30
+          failure_threshold     = 240
         }
 
         env {
@@ -123,8 +142,10 @@ resource "google_cloud_run_service" "frontend" {
 
     metadata {
       annotations = {
-        "autoscaling.knative.dev/maxScale" = "2"
-        "autoscaling.knative.dev/minScale" = "1"
+        "autoscaling.knative.dev/maxScale" = tostring(var.max_instances)
+        "autoscaling.knative.dev/minScale" = tostring(var.min_instances)
+        "run.googleapis.com/vpc-access-connector" = var.vpc_connector
+        "run.googleapis.com/vpc-access-egress" = "all"
       }
     }
   }
@@ -133,6 +154,10 @@ resource "google_cloud_run_service" "frontend" {
     percent         = 100
     latest_revision = true
   }
+
+  depends_on = [
+    google_service_account.cloud_run,
+  ]
 }
 
 resource "google_cloud_run_service" "prediction" {
@@ -156,6 +181,16 @@ resource "google_cloud_run_service" "prediction" {
             cpu    = "1"
             memory = "512Mi"
           }
+        }
+
+        startup_probe {
+          tcp_socket {
+            port = 8001
+          }
+          initial_delay_seconds = 60
+          timeout_seconds       = 5
+          period_seconds        = 30
+          failure_threshold     = 240
         }
 
         env {
@@ -187,9 +222,10 @@ resource "google_cloud_run_service" "prediction" {
 
     metadata {
       annotations = {
-        "autoscaling.knative.dev/maxScale"      = tostring(var.max_instances)
-        "autoscaling.knative.dev/minScale"      = tostring(var.min_instances)
-        "run.googleapis.com/cloudsql-instances" = var.cloudsql_connection_name
+        "autoscaling.knative.dev/maxScale" = tostring(var.max_instances)
+        "autoscaling.knative.dev/minScale" = tostring(var.min_instances)
+        "run.googleapis.com/vpc-access-connector" = var.vpc_connector
+        "run.googleapis.com/vpc-access-egress" = "all"
       }
     }
   }
@@ -198,6 +234,10 @@ resource "google_cloud_run_service" "prediction" {
     percent         = 100
     latest_revision = true
   }
+
+  depends_on = [
+    google_service_account.cloud_run,
+  ]
 }
 
 # Service account for Cloud Run
