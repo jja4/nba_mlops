@@ -72,6 +72,16 @@ resource "google_cloud_run_service" "api" {
           name  = "ENV"
           value = var.environment
         }
+
+        env {
+          name  = "PREDICTION_SERVICE_HOST"
+          value = replace(google_cloud_run_service.prediction.status[0].url, "https://", "")
+        }
+
+        env {
+          name  = "PREDICTION_SERVICE_PORT"
+          value = "443"
+        }
       }
     }
 

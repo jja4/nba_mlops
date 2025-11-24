@@ -13,4 +13,5 @@ EXPOSE 8001
 WORKDIR /app/code/api
 
 # Run the FastAPI app using Uvicorn
-CMD ["uvicorn", "prediction_service:app", "--host", "0.0.0.0", "--port", "8001","--reload"]
+# Cloud Run injects the PORT environment variable, so we must listen on that port
+CMD exec uvicorn prediction_service:app --host 0.0.0.0 --port ${PORT:-8001}

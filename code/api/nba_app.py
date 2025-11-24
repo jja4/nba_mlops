@@ -318,9 +318,10 @@ async def predict(
     item: ScoringItem
 ):
     with inference_time_summary.time():
-        url = f"http://{PREDICTION_SERVICE_HOST}:{PREDICTION_SERVICE_PORT}/predict"
+        protocol = "https" if PREDICTION_SERVICE_PORT == "443" else "http"
+        url = f"{protocol}://{PREDICTION_SERVICE_HOST}:{PREDICTION_SERVICE_PORT}/predict"
         async with httpx.AsyncClient() as client:
-            response = await client.post(url, json=item.dict())
+            response = await client.post(url, json=item.dict(), timeout=30.0)
             result = response.json()
 
         # Save prediction and input parameters to database
