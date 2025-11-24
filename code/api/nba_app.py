@@ -122,9 +122,15 @@ origins = [
     "http://api:8000",       # Allow same-origin requests in Docker
 ]
 
+# Add dynamic frontend URL from environment
+FRONTEND_URL = os.getenv("FRONTEND_URL")
+if FRONTEND_URL:
+    origins.append(FRONTEND_URL)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
+    allow_origin_regex="https://.*\.run\.app",  # Allow all Cloud Run services
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

@@ -82,6 +82,11 @@ resource "google_cloud_run_service" "api" {
           name  = "PREDICTION_SERVICE_PORT"
           value = "443"
         }
+
+        env {
+          name  = "FRONTEND_URL"
+          value = google_cloud_run_service.frontend.status[0].url
+        }
       }
     }
 

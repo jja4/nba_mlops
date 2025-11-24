@@ -153,34 +153,39 @@ export GOOGLE_APPLICATION_CREDENTIALS="$(pwd)/terraform-key.json"
 
 ```bash
 PROJECT_ID=$(gcloud config get-value project)
+export REGION="europe-west3"
 
 # Create Artifact Registry
 gcloud artifacts repositories create prod-nba-images \
   --repository-format=docker \
-  --location=europe-west3 \
+  --location=${REGION} \
   --description="NBA MLOps Docker Images"
 
 # Configure Docker authentication
-gcloud auth configure-docker europe-west3-docker.pkg.dev
+gcloud auth configure-docker ${REGION}-docker.pkg.dev
 
 # Build and push API image
 docker build --platform linux/amd64 -f docker/Dockerfile.api \
-  -t europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/api:latest .
-docker push europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/api:latest
+  -t ${REGION}-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/api:latest .
+docker push ${REGION}-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/api:latest
 
 # Build and push Frontend image for amd64
 docker build --platform linux/amd64 -f docker/Dockerfile.react \
-  -t europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/frontend:latest .
-docker push europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/frontend:latest
+  -t ${REGION}-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/frontend:latest .
+docker push ${REGION}-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/frontend:latest
 
 # Build and push Prediction image for amd64
 docker build --platform linux/amd64 -f docker/Dockerfile.prediction-service \
-  -t europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/prediction:latest .
-docker push europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/prediction:latest
+  -t ${REGION}-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/prediction:latest .
+docker push ${REGION}-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/prediction:latest
 
+docker build --platform linux/amd64 \
+  -f docker/Dockerfile.db-init \
+  -t "${REGION}-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/db-init:latest" .
+docker push "${REGION}-docker.pkg.dev/${PROJECT_ID}/prod-nba-images/db-init:latest"
 
 # Verify
-gcloud artifacts docker images list europe-west3-docker.pkg.dev/${PROJECT_ID}/prod-nba-images
+gcloud artifacts docker images list ${REGION}-docker.pkg.dev/${PROJECT_ID}/prod-nba-images
 ```
 
 ---
@@ -284,6 +289,8 @@ export GOOGLE_APPLICATION_CREDENTIALS="/path/to/terraform-key.json"
 export TF_VAR_notification_email="your-email@company.com"
 
 # Use in Terraform
+terraform plan -var-file="prod.tfvars"
+
 terraform apply -var-file="prod.tfvars"
 ```
 
@@ -451,11 +458,11 @@ gcloud projects list
 **Error: "Image not found"**
 ```bash
 # Verify images were pushed
-gcloud artifacts docker images list europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/prod-nba-images
+gcloud artifacts docker images list ${REGION}-docker.pkg.dev/YOUR-PROJECT-ID/prod-nba-images
 
 # Rebuild and push if needed
-docker build -f docker/Dockerfile.api -t europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/prod-nba-images/api:latest .
-docker push europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/prod-nba-images/api:latest
+docker build -f docker/Dockerfile.api -t ${REGION}-docker.pkg.dev/YOUR-PROJECT-ID/prod-nba-images/api:latest .
+docker push ${REGION}-docker.pkg.dev/YOUR-PROJECT-ID/prod-nba-images/api:latest
 ```
 
 ---

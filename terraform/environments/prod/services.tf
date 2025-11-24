@@ -102,7 +102,7 @@ module "cloud_run" {
   models_bucket               = module.storage.models_bucket
   min_instances               = var.api_min_instances
   max_instances               = var.api_max_instances
-  api_url                     = "https://${var.environment}-nba-api-xxxxx.a.run.app"  # Will be updated after first deploy
+  api_url                     = "https://prod-nba-api-541451695640.europe-west3.run.app"
 
   depends_on = [
     google_project_service.required_apis,
