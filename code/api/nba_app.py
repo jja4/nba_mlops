@@ -53,13 +53,14 @@ disabled = False
 
 
 def get_db_connection():
+    # Only require SSL for non-localhost connections (e.g., Cloud SQL)
+    ssl_mode = 'disable' if DB_HOST in ['localhost', '127.0.0.1', '::1'] else 'require'
     conn = psycopg2.connect(
         host=DB_HOST,
         database=DB_NAME,
         user=DB_USER,
         password=DB_PASSWORD,
-        # Require SSL for Cloud SQL
-        sslmode='require',
+        sslmode=ssl_mode,
         cursor_factory=RealDictCursor
     )
     return conn
@@ -130,7 +131,7 @@ if FRONTEND_URL:
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-    allow_origin_regex="https://.*\.run\.app",  # Allow all Cloud Run services
+    allow_origin_regex=r"https://.*\.run\.app",  # Allow all Cloud Run services
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
