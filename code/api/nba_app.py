@@ -348,7 +348,7 @@ async def predict(
             cur.close()
             conn.close()
 
-            return response.json()
+    return result
 
 
 class VerificationInput(BaseModel):
