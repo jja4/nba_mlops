@@ -1,10 +1,11 @@
--- Check if the database exists and create it if it doesn't
-DO $$
-BEGIN
-    IF NOT EXISTS (SELECT 1 FROM pg_database WHERE datname = 'nba_db') THEN
-        CREATE DATABASE nba_db;
-    END IF;
-END $$;
+-- -- Uncomment for deploying locally
+-- -- Check if the database exists and create it if it doesn't
+-- DO $$
+-- BEGIN
+--     IF NOT EXISTS (SELECT 1 FROM pg_database WHERE datname = 'nba_db') THEN
+--         CREATE DATABASE nba_db;
+--     END IF;
+-- END $$;
 
 -- Connect to the nba_db database
 \c nba_db

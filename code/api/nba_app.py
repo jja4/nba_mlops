@@ -53,11 +53,14 @@ disabled = False
 
 
 def get_db_connection():
+    # Only require SSL for non-localhost connections (e.g., Cloud SQL)
+    ssl_mode = 'disable' if DB_HOST in ['localhost', '127.0.0.1', '::1'] else 'require'
     conn = psycopg2.connect(
         host=DB_HOST,
         database=DB_NAME,
         user=DB_USER,
         password=DB_PASSWORD,
+        sslmode=ssl_mode,
         cursor_factory=RealDictCursor
     )
     return conn
@@ -115,13 +118,20 @@ Instrumentator().instrument(app).expose(app)
 # Configure CORS so we can communicate with the React frontend app
 origins = [
     "http://localhost:3001",
-    "http://frontend:3001",  # origin for the React app
-    "http://13.48.249.166:3001"  # AWS IP
+    "http://localhost:3000",
+    "http://frontend:3001",  # origin for the React app (Docker Compose)
+    "http://api:8000",       # Allow same-origin requests in Docker
 ]
+
+# Add dynamic frontend URL from environment
+FRONTEND_URL = os.getenv("FRONTEND_URL")
+if FRONTEND_URL:
+    origins.append(FRONTEND_URL)
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
+    allow_origin_regex=r"https://.*\.run\.app",  # Allow all Cloud Run services
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -315,9 +325,10 @@ async def predict(
     item: ScoringItem
 ):
     with inference_time_summary.time():
-        url = f"http://{PREDICTION_SERVICE_HOST}:{PREDICTION_SERVICE_PORT}/predict"
+        protocol = "https" if PREDICTION_SERVICE_PORT == "443" else "http"
+        url = f"{protocol}://{PREDICTION_SERVICE_HOST}:{PREDICTION_SERVICE_PORT}/predict"
         async with httpx.AsyncClient() as client:
-            response = await client.post(url, json=item.dict())
+            response = await client.post(url, json=item.dict(), timeout=30.0)
             result = response.json()
 
         # Save prediction and input parameters to database

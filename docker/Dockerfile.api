@@ -14,4 +14,5 @@ EXPOSE 8000
 WORKDIR /app/code/api
 
 # Run the FastAPI app using Uvicorn
-CMD ["uvicorn", "nba_app:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+# Cloud Run injects the PORT environment variable, so we must listen on that port
+CMD exec uvicorn nba_app:app --host 0.0.0.0 --port ${PORT:-8000}

@@ -1,0 +1,22 @@
+# Example production configuration for NBA MLOps (minimal setup)
+# Copy to terraform/environments/prod/prod.tfvars and update with your values
+
+project_id = "YOUR-GCP-PROJECT-ID"
+region     = "europe-west3"
+environment = "prod"
+
+# Database configuration
+db_instance_tier      = "db-f1-micro"        # Cost-effective for starter projects
+db_availability_type  = "ZONAL"              # Single-zone for lower cost
+
+# Container images
+db_init_image       = "europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/prod-nba-images/db-init:latest"
+api_image           = "europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/prod-nba-images/api:latest"
+frontend_image      = "europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/prod-nba-images/frontend:latest"
+prediction_image    = "europe-west3-docker.pkg.dev/YOUR-PROJECT-ID/prod-nba-images/prediction:latest"
+api_min_instances   = 1
+api_max_instances   = 2
+
+# Monitoring configuration
+enable_monitoring   = true
+notification_email  = "your-email@company.com"
